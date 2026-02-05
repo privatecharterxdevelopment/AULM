@@ -2,189 +2,148 @@ import { Link } from 'react-router-dom'
 
 function Sustainability() {
   return (
-    <div className="page-transition">
-      {/* Hero Section */}
-      <section style={{
-        paddingTop: '140px',
-        paddingBottom: 'var(--spacing-4xl)',
-        background: 'linear-gradient(180deg, var(--color-secondary) 0%, var(--color-primary) 100%)'
-      }}>
+    <>
+      {/* Page Header */}
+      <section className="page-header">
         <div className="container">
-          <div className="section-header">
-            <span className="section-label">Sustainability</span>
-            <h1 className="section-title">Our Commitment</h1>
-            <p className="section-description">
-              Responsible gold trading and ethical business practices at the core of everything we do
-            </p>
-          </div>
+          <h1>Sustainability</h1>
+          <p>Responsible gold trading and ethical practices at the core of everything we do</p>
         </div>
       </section>
 
       {/* Overview */}
-      <section style={{ padding: 'var(--spacing-4xl) 0' }}>
+      <section>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-3xl)', alignItems: 'center' }}>
-            <div>
-              <h2>Our Approach</h2>
-              <p style={{ marginTop: 'var(--spacing-lg)' }}>
-                At AULM Trading, sustainability is at the core of everything we do. We are committed to responsible gold sourcing, ethical business practices, and minimizing our environmental impact.
+          <div className="two-col">
+            <div className="two-col-content">
+              <h2>Ethical Gold Trading</h2>
+              <p>
+                At AULM Trading, sustainability is integrated into every aspect of our operations. We are committed to responsible gold sourcing and supporting the communities from which we source.
               </p>
               <p>
-                We believe that the gold industry has a responsibility to operate transparently and ethically. Our sustainability framework ensures that every transaction meets the highest standards of integrity.
+                We believe the precious metals industry has a responsibility to operate transparently and ethically.
               </p>
             </div>
-            <div style={{
-              background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(34, 197, 94, 0.1) 100%)',
-              border: '1px solid rgba(34, 197, 94, 0.3)',
-              borderRadius: 'var(--radius-xl)',
-              height: '350px'
-            }} />
+            <div
+              className="two-col-image"
+              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1473773508845-188df298d2d1?w=800)' }}
+            />
           </div>
         </div>
       </section>
 
       {/* Responsible Sourcing */}
-      <section style={{ padding: 'var(--spacing-4xl) 0', backgroundColor: 'var(--color-secondary)' }}>
+      <section className="section-gray">
         <div className="container">
-          <div className="section-header">
-            <span className="section-label">Sourcing</span>
-            <h2 className="section-title">Responsible Sourcing</h2>
+          <div className="section-intro">
+            <h2>Responsible Sourcing</h2>
+            <p>Our commitment to ethical supply chain management</p>
           </div>
-          <div className="services-grid">
-            <div className="service-card">
-              <div className="service-icon">🔍</div>
+          <div className="features-grid" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
+            <div className="feature-card">
               <h3>Supply Chain Transparency</h3>
-              <p>We maintain full visibility into our supply chain, ensuring gold is sourced from legitimate and verified suppliers.</p>
+              <p>Full visibility into our supply chain, ensuring gold is sourced from legitimate suppliers.</p>
             </div>
-            <div className="service-card">
-              <div className="service-icon">📋</div>
+            <div className="feature-card">
               <h3>Due Diligence</h3>
-              <p>Rigorous due diligence processes verify the origin and legitimacy of all gold entering our supply chain.</p>
+              <p>Rigorous processes verify the origin and legitimacy of all gold entering our supply chain.</p>
             </div>
-            <div className="service-card">
-              <div className="service-icon">🕊️</div>
+            <div className="feature-card">
               <h3>Conflict-Free Gold</h3>
-              <p>We are committed to sourcing only conflict-free gold, adhering to international guidelines and standards.</p>
+              <p>Committed to sourcing only conflict-free gold, adhering to international standards.</p>
             </div>
-            <div className="service-card">
-              <div className="service-icon">✅</div>
+            <div className="feature-card">
               <h3>Verified Partners</h3>
-              <p>All our refinery and logistics partners undergo thorough vetting to ensure compliance with our standards.</p>
+              <p>All partners undergo thorough vetting to ensure compliance with our standards.</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Fair Mining */}
+      <section>
+        <div className="container">
+          <div className="two-col">
+            <div
+              className="two-col-image"
+              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1624365168968-f283d506c6b6?w=800)' }}
+            />
+            <div className="two-col-content">
+              <h2>Fair Mine Partnerships</h2>
+              <p>
+                We partner exclusively with certified fair trade mines across Africa and South America. Our direct relationships ensure miners receive fair compensation.
+              </p>
+              <p>
+                Every purchase supports mining communities through fair wages and safe working conditions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Compliance */}
+      <section className="section-gray">
+        <div className="container">
+          <div className="two-col">
+            <div className="two-col-content">
+              <h2>Compliance & Standards</h2>
+              <p>
+                AULM Trading operates in full compliance with UAE regulations and international standards for precious metals trading.
+              </p>
+              <p>
+                We adhere to LBMA Responsible Gold Guidance, OECD Due Diligence Guidance, and UAE AML/CFT requirements.
+              </p>
+            </div>
+            <div
+              className="two-col-image"
+              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800)' }}
+            />
           </div>
         </div>
       </section>
 
       {/* Environmental */}
-      <section style={{ padding: 'var(--spacing-4xl) 0' }}>
+      <section className="section-navy">
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-3xl)', alignItems: 'center' }}>
-            <div style={{
-              background: 'linear-gradient(135deg, var(--color-accent) 0%, var(--color-gold) 100%)',
-              borderRadius: 'var(--radius-xl)',
-              height: '350px'
-            }} />
-            <div>
-              <span className="section-label">Environment</span>
-              <h2 style={{ marginTop: 'var(--spacing-md)' }}>Environmental Responsibility</h2>
-              <p style={{ marginTop: 'var(--spacing-lg)' }}>
-                We recognize the environmental challenges facing the gold industry and are committed to minimizing our ecological footprint.
-              </p>
-              <p>
-                Through partnerships with environmentally responsible refineries and logistics providers, we work to reduce the environmental impact of gold trading operations.
-              </p>
-              <ul style={{ marginTop: 'var(--spacing-lg)', listStyle: 'none' }}>
-                {[
-                  'Partner with certified refineries using sustainable practices',
-                  'Optimize logistics to reduce carbon emissions',
-                  'Support initiatives for responsible mining practices',
-                  'Promote recycled gold in the supply chain'
-                ].map((item, i) => (
-                  <li key={i} style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-sm)', marginBottom: 'var(--spacing-sm)', color: 'var(--color-text-secondary)' }}>
-                    <span style={{ color: 'var(--color-success)' }}>✓</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Ethics Section */}
-      <section style={{ padding: 'var(--spacing-4xl) 0', backgroundColor: 'var(--color-secondary)' }}>
-        <div className="container">
-          <div className="section-header">
-            <span className="section-label">Values</span>
-            <h2 className="section-title">Ethics & Integrity</h2>
-          </div>
-          <div className="stats-grid">
-            <div className="stat-item">
-              <span className="stat-number" style={{ fontSize: '1.75rem' }}>Transparency</span>
-              <span className="stat-label">Open and honest communication with all stakeholders</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number" style={{ fontSize: '1.75rem' }}>Accountability</span>
-              <span className="stat-label">Taking responsibility for our actions and their impact</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number" style={{ fontSize: '1.75rem' }}>Fairness</span>
-              <span className="stat-label">Treating all partners and stakeholders equitably</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number" style={{ fontSize: '1.75rem' }}>Respect</span>
-              <span className="stat-label">Upholding human rights throughout our operations</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Certifications */}
-      <section style={{ padding: 'var(--spacing-4xl) 0' }}>
-        <div className="container">
-          <div className="section-header">
-            <span className="section-label">Standards</span>
-            <h2 className="section-title">Certifications & Compliance</h2>
+          <div className="section-intro">
+            <h2>Environmental Responsibility</h2>
+            <p>
+              We are committed to minimizing our environmental footprint through responsible practices.
+            </p>
           </div>
           <div className="features-grid">
-            <div className="feature-card" style={{ background: 'var(--color-secondary)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-lg)', padding: 'var(--spacing-xl)' }}>
-              <div className="feature-icon">🏛️</div>
-              <h3>IFZA Licensed</h3>
-              <p>Fully licensed by Dubai's International Free Zone Authority</p>
+            <div className="feature-card">
+              <h3>Sustainable Refining</h3>
+              <p>Our refinery partners employ environmentally responsible practices, minimizing waste and emissions.</p>
             </div>
-            <div className="feature-card" style={{ background: 'var(--color-secondary)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-lg)', padding: 'var(--spacing-xl)' }}>
-              <div className="feature-icon">📊</div>
-              <h3>LBMA Aligned</h3>
-              <p>Practices aligned with London Bullion Market Association standards</p>
+            <div className="feature-card">
+              <h3>Efficient Logistics</h3>
+              <p>Optimized shipping routes and consolidated shipments reduce our carbon footprint.</p>
             </div>
-            <div className="feature-card" style={{ background: 'var(--color-secondary)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-lg)', padding: 'var(--spacing-xl)' }}>
-              <div className="feature-icon">🛡️</div>
-              <h3>AML Compliant</h3>
-              <p>Full anti-money laundering compliance and reporting</p>
+            <div className="feature-card">
+              <h3>Partner Standards</h3>
+              <p>We work only with suppliers who meet strict environmental and social standards.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section style={{
-        padding: 'var(--spacing-4xl) 0',
-        background: 'linear-gradient(135deg, rgba(201, 162, 39, 0.1) 0%, rgba(201, 162, 39, 0.05) 100%)',
-        borderTop: '1px solid var(--color-border)'
-      }}>
+      <section>
         <div className="container">
-          <div style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto' }}>
-            <h2>Learn More About Our Practices</h2>
-            <p style={{ marginTop: 'var(--spacing-lg)', fontSize: '1.125rem' }}>
-              Contact us to learn more about our sustainability initiatives and responsible sourcing practices.
+          <div className="text-section">
+            <h2>Ethical gold, premium quality</h2>
+            <p>
+              Choose AULM Trading for responsibly sourced gold that meets the highest standards.
             </p>
-            <Link to="/contact" className="btn btn-primary" style={{ marginTop: 'var(--spacing-xl)' }}>
-              Contact Us
-            </Link>
+            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '2rem' }}>
+              <Link to="/shop" className="btn btn-primary">Buy Gold</Link>
+              <Link to="/contact" className="btn btn-light">Contact Us</Link>
+            </div>
           </div>
         </div>
       </section>
-    </div>
+    </>
   )
 }
 

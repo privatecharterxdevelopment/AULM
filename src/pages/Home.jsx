@@ -1,205 +1,132 @@
-import { Link } from 'react-router-dom'
+import { useState, useEffect, useRef } from 'react'
 import { useGoldPrice } from '../context/GoldPriceContext'
 
+const sections = [
+  {
+    id: 'trading',
+    label: 'Gold Trading',
+    title: 'Source Matters.',
+    description: 'We source exclusively from certified fair trade mines across Africa and South America. Every gram of gold is ethically mined, ensuring fair wages for workers and sustainable practices. Our direct partnerships with mining communities guarantee complete transparency from extraction to delivery.',
+    video: 'https://cdn.coverr.co/videos/coverr-gold-bars-1584/1080p.mp4',
+    poster: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?w=1920&q=80'
+  },
+  {
+    id: 'trade',
+    label: 'Global Trade',
+    title: 'Dubai to the World.',
+    description: 'Strategic positioning in Dubai connects us to markets worldwide. We facilitate seamless cross-border gold transactions with full regulatory compliance, handling documentation, customs clearance, and logistics. Our network spans Europe, Asia, Africa, and the Americas.',
+    video: 'https://cdn.coverr.co/videos/coverr-cargo-ship-at-sea-3129/1080p.mp4',
+    poster: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1920&q=80'
+  },
+  {
+    id: 'sustainability',
+    label: 'Sustainability',
+    title: 'Beyond Profit.',
+    description: 'Environmental responsibility is at our core. We work only with mines that meet strict environmental standards, minimizing ecological impact. Our supply chain is fully traceable, adhering to LBMA Responsible Gold Guidance and OECD Due Diligence requirements.',
+    video: 'https://cdn.coverr.co/videos/coverr-sun-shining-through-the-leaves-2447/1080p.mp4',
+    poster: 'https://images.unsplash.com/photo-1473773508845-188df298d2d1?w=1920&q=80'
+  },
+  {
+    id: 'refinery',
+    label: 'Refinery & Melting',
+    title: '99.99% Pure.',
+    description: 'All gold is processed at LBMA-certified facilities in Dubai, refined to 99.99% purity. Our refinery partners employ state-of-the-art technology with rigorous quality control. Each bar receives complete assay certification and hallmarking to international standards.',
+    video: 'https://cdn.coverr.co/videos/coverr-molten-metal-pouring-4637/1080p.mp4',
+    poster: 'https://images.unsplash.com/photo-1589787168422-e02de4f614e2?w=1920&q=80'
+  }
+]
+
 function Home() {
-  const { spotPrice, discountedPricePerGram, discountPercentage, priceChange } = useGoldPrice()
+  const { discountPercentage } = useGoldPrice()
+  const [activeIndex, setActiveIndex] = useState(0)
+  const containerRef = useRef(null)
+  const videoRefs = useRef([])
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const handleScroll = () => {
+      const scrollPos = container.scrollTop
+      const windowHeight = window.innerHeight
+      const newIndex = Math.round(scrollPos / windowHeight)
+      setActiveIndex(Math.min(newIndex, sections.length - 1))
+    }
+
+    container.addEventListener('scroll', handleScroll, { passive: true })
+    return () => container.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Play/pause videos based on active section
+  useEffect(() => {
+    videoRefs.current.forEach((video, index) => {
+      if (video) {
+        if (index === activeIndex) {
+          video.play().catch(() => {})
+        } else {
+          video.pause()
+        }
+      }
+    })
+  }, [activeIndex])
+
+  const scrollToSection = (index) => {
+    const container = containerRef.current
+    if (!container) return
+    container.scrollTo({
+      top: index * window.innerHeight,
+      behavior: 'smooth'
+    })
+  }
 
   return (
-    <div className="page-transition">
-      {/* Hero Section */}
-      <section className="hero">
-        <div className="container">
-          <div className="hero-content">
-            <div className="hero-badge">
-              <span>IFZA Licensed</span>
-              <span>•</span>
-              <span>Dubai Freezone</span>
-            </div>
-            <h1>
-              Responsibly sourcing <span>gold</span> that advances everyday life
-            </h1>
-            <p className="hero-subtitle">
-              Premium gold trading at {discountPercentage}% below spot price. B2B specialists in import, export, refinery, and secure transportation of refined gold.
-            </p>
-            <div className="hero-buttons">
-              <Link to="/shop" className="btn btn-primary btn-large">
-                Buy Gold at {discountPercentage}% Below Spot
-              </Link>
-              <Link to="/about" className="btn btn-secondary btn-large">
-                Learn More
-              </Link>
-            </div>
-          </div>
+    <div className="home-scroll" ref={containerRef}>
+      {/* Section Dots Navigation */}
+      <nav className="section-dots">
+        {sections.map((section, index) => (
+          <button
+            key={section.id}
+            className={`section-dot ${activeIndex === index ? 'active' : ''}`}
+            onClick={() => scrollToSection(index)}
+            aria-label={`Go to ${section.title}`}
+          />
+        ))}
+      </nav>
+
+      {/* Scroll Indicator - only on first section */}
+      {activeIndex === 0 && (
+        <div className="scroll-indicator">
+          Scroll
         </div>
-      </section>
+      )}
 
-      {/* Stats Section */}
-      <section className="stats">
-        <div className="container">
-          <div className="stats-grid">
-            <div className="stat-item">
-              <span className="stat-number">IFZA</span>
-              <span className="stat-label">Licensed & Regulated</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">99.99%</span>
-              <span className="stat-label">Gold Purity</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">500g+</span>
-              <span className="stat-label">Minimum Order</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">-{discountPercentage}%</span>
-              <span className="stat-label">Below Spot Price</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Full-screen Sections */}
+      {sections.map((section, index) => (
+        <section
+          key={section.id}
+          className="fullscreen-section"
+        >
+          {/* Background Video */}
+          <video
+            ref={el => videoRefs.current[index] = el}
+            className="fullscreen-video"
+            muted
+            loop
+            playsInline
+            poster={section.poster}
+          >
+            <source src={section.video} type="video/mp4" />
+          </video>
 
-      {/* Live Price Section */}
-      <section style={{ padding: 'var(--spacing-4xl) 0' }}>
-        <div className="container">
-          <div className="section-header">
-            <span className="section-label">Live Pricing</span>
-            <h2 className="section-title">Today's Gold Price</h2>
-            <p className="section-description">
-              Real-time gold prices with our exclusive {discountPercentage}% discount for B2B clients
-            </p>
-          </div>
+          <div className="fullscreen-overlay" />
 
-          <div className="price-display">
-            <div className="price-header">
-              <h3>Gold Spot Price</h3>
-              <div className="live-indicator">
-                <span className="live-dot"></span>
-                <span>Live</span>
-              </div>
-            </div>
-            <div className="price-cards">
-              <div className="price-card">
-                <div className="price-card-label">Spot Price (USD/oz)</div>
-                <div className="price-card-value">${spotPrice.toFixed(2)}</div>
-                <div className={`price-card-change ${priceChange >= 0 ? 'positive' : 'negative'}`}>
-                  {priceChange >= 0 ? '+' : ''}{priceChange.toFixed(2)}%
-                </div>
-              </div>
-              <div className="price-card featured">
-                <div className="price-card-label">Your Price (USD/g)</div>
-                <div className="price-card-value">${discountedPricePerGram.toFixed(2)}</div>
-                <div className="discount-badge">{discountPercentage}% OFF</div>
-              </div>
-              <div className="price-card">
-                <div className="price-card-label">Min. Order Value</div>
-                <div className="price-card-value">${(discountedPricePerGram * 500).toFixed(0)}</div>
-                <div className="price-card-change">500g minimum</div>
-              </div>
-            </div>
+          <div className="fullscreen-content" key={activeIndex === index ? 'active' : 'inactive'}>
+            <span className="label">{section.label}</span>
+            <h2>{section.title}</h2>
+            <p>{section.description}</p>
           </div>
-
-          <div style={{ textAlign: 'center', marginTop: 'var(--spacing-xl)' }}>
-            <Link to="/shop" className="btn btn-primary btn-large">
-              Reserve Your Gold Now
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section style={{ padding: 'var(--spacing-4xl) 0', backgroundColor: 'var(--color-secondary)' }}>
-        <div className="container">
-          <div className="section-header">
-            <span className="section-label">Our Services</span>
-            <h2 className="section-title">What We Do</h2>
-            <p className="section-description">
-              Comprehensive gold trading services from import to delivery
-            </p>
-          </div>
-
-          <div className="services-grid">
-            <div className="service-card">
-              <div className="service-icon">🌍</div>
-              <h3>Gold Import & Export</h3>
-              <p>International gold trading with established networks across major markets worldwide.</p>
-              <Link to="/services" className="link-arrow">Learn more →</Link>
-            </div>
-            <div className="service-card">
-              <div className="service-icon">⚗️</div>
-              <h3>Refinery Services</h3>
-              <p>State-of-the-art refining capabilities in Dubai producing 99.99% pure gold.</p>
-              <Link to="/services" className="link-arrow">Learn more →</Link>
-            </div>
-            <div className="service-card">
-              <div className="service-icon">🔒</div>
-              <h3>Secure Transport</h3>
-              <p>Fully insured, secure logistics solutions for precious metals globally.</p>
-              <Link to="/services" className="link-arrow">Learn more →</Link>
-            </div>
-            <div className="service-card">
-              <div className="service-icon">🤝</div>
-              <h3>B2B Exchanges</h3>
-              <p>Professional business-to-business gold trading and exchange services.</p>
-              <Link to="/services" className="link-arrow">Learn more →</Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us Section */}
-      <section style={{ padding: 'var(--spacing-4xl) 0' }}>
-        <div className="container">
-          <div className="section-header">
-            <span className="section-label">Why AULM Trading</span>
-            <h2 className="section-title">Your Trusted Gold Partner</h2>
-            <p className="section-description">
-              We combine competitive pricing with uncompromising quality and service
-            </p>
-          </div>
-
-          <div className="features-grid">
-            <div className="feature-card">
-              <div className="feature-icon">📉</div>
-              <h3>{discountPercentage}% Below Spot</h3>
-              <p>Exclusive B2B pricing significantly below market spot prices, maximizing your investment value.</p>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">✅</div>
-              <h3>IFZA Licensed</h3>
-              <p>Fully licensed and regulated by Dubai's International Free Zone Authority for your peace of mind.</p>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">🏆</div>
-              <h3>99.99% Purity</h3>
-              <p>All gold refined in Dubai to the highest LBMA standards with full certification and assay.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section style={{
-        padding: 'var(--spacing-4xl) 0',
-        background: 'linear-gradient(135deg, rgba(201, 162, 39, 0.1) 0%, rgba(201, 162, 39, 0.05) 100%)',
-        borderTop: '1px solid var(--color-border)',
-        borderBottom: '1px solid var(--color-border)'
-      }}>
-        <div className="container">
-          <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto' }}>
-            <h2>Ready to Trade?</h2>
-            <p style={{ fontSize: '1.125rem', marginTop: 'var(--spacing-lg)', marginBottom: 'var(--spacing-xl)' }}>
-              Start your gold trading journey today. Minimum order 500g at {discountPercentage}% below spot price.
-            </p>
-            <div style={{ display: 'flex', gap: 'var(--spacing-md)', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <Link to="/shop" className="btn btn-primary btn-large">
-                Buy Gold Now
-              </Link>
-              <Link to="/contact" className="btn btn-secondary btn-large">
-                Contact Us
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
+      ))}
     </div>
   )
 }
