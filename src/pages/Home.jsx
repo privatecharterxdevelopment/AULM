@@ -5,7 +5,7 @@ const sections = [
   {
     id: 'sourcing',
     label: 'Sourcing',
-    title: 'Direct From Source.',
+    title: 'Global Trade Corporation.',
     description: 'We purchase gold directly from certified fair trade mines across Africa. Established partnerships ensure consistent supply and fair pricing. Full traceability with assay certificates from origin.',
     video: 'https://cdn.coverr.co/videos/coverr-gold-bars-1584/1080p.mp4',
     poster: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?w=1920&q=80'
