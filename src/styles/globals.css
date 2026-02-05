@@ -914,24 +914,43 @@ section {
 }
 
 /* ===================================
-   Inner Page Background
+   Inner Page Background - All Dark
    =================================== */
-.page-header,
-.page-header ~ section {
-  background: var(--color-white);
-}
-
-.page-header ~ section:nth-child(odd) {
-  background: var(--color-white);
-}
-
-.page-header ~ .section-gray {
-  background: var(--color-gray);
-}
-
-.page-header ~ .section-dark,
-.page-header ~ .section-navy {
+.page-header {
   background: var(--color-black);
+}
+
+.page-header ~ section {
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
+.page-header ~ section h2,
+.page-header ~ section h3 {
+  color: var(--color-white);
+}
+
+.page-header ~ section p {
+  color: rgba(255,255,255,0.7);
+}
+
+.page-header ~ section .btn-light {
+  color: var(--color-white);
+  border-color: rgba(255,255,255,0.5);
+}
+
+.page-header ~ section .btn-light:hover {
+  background: var(--color-white);
+  color: var(--color-black);
+}
+
+.page-header ~ section .two-col-image {
+  background-color: #1a1a1a;
+}
+
+.page-header ~ section .feature-card {
+  background: rgba(255,255,255,0.05);
+  padding: 30px;
 }
 
 /* ===================================

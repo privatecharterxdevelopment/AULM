@@ -5,8 +5,8 @@ const sections = [
   {
     id: 'sourcing',
     label: 'Sourcing',
-    title: 'Where It Begins.',
-    description: 'We purchase gold directly from certified fair trade mines across Africa. Our established partnerships ensure consistent supply, fair pricing, and complete transparency. Every gram is traceable from mine to market.',
+    title: 'Direct From Source.',
+    description: 'We purchase gold directly from certified fair trade mines across Africa. Established partnerships ensure consistent supply and fair pricing. Full traceability with assay certificates from origin.',
     video: 'https://cdn.coverr.co/videos/coverr-gold-bars-1584/1080p.mp4',
     poster: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?w=1920&q=80'
   },
@@ -14,7 +14,7 @@ const sections = [
     id: 'import',
     label: 'Import & Customs',
     title: 'Gateway Dubai.',
-    description: 'Full customs clearance and import handling through Dubai. We manage all documentation, regulatory compliance, and logistics. Our IFZA license enables seamless cross-border transactions with complete legal transparency.',
+    description: 'Complete customs clearance and import handling through Dubai. All documentation, regulatory compliance, and logistics managed by us. IFZA licensed for seamless cross-border transactions.',
     video: 'https://cdn.coverr.co/videos/coverr-cargo-ship-at-sea-3129/1080p.mp4',
     poster: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1920&q=80'
   },
@@ -22,22 +22,21 @@ const sections = [
     id: 'refinery',
     label: 'Refinery & Melting',
     title: 'Melted. Refined. Certified.',
-    description: 'All gold is melted and refined at LBMA-certified facilities in Dubai to 99.99% purity. Complete assay certification and hallmarking to international standards. From raw material to investment-grade bars.',
+    description: 'LBMA-certified refining in Dubai to 99.99% purity. Complete assay certification and hallmarking to international standards. From raw material to investment-grade bars.',
     video: 'https://cdn.coverr.co/videos/coverr-molten-metal-pouring-4637/1080p.mp4',
     poster: 'https://images.unsplash.com/photo-1589787168422-e02de4f614e2?w=1920&q=80'
   },
   {
     id: 'trading',
     label: 'B2B Sales',
-    title: 'Ready For You.',
-    description: 'Refined gold available for B2B clients worldwide. Competitive pricing, minimum order 500 grams. Secure delivery to your vault or designated location. Transparent transactions with no hidden fees.',
+    title: 'Ready To Trade.',
+    description: 'Refined gold for B2B clients worldwide. Competitive pricing, minimum 500g. Secure delivery with full assay documentation. No hidden fees.',
     video: 'https://cdn.coverr.co/videos/coverr-sun-shining-through-the-leaves-2447/1080p.mp4',
     poster: 'https://images.unsplash.com/photo-1624365168968-f283d506c6b6?w=1920&q=80'
   }
 ]
 
 function Home() {
-  const { discountPercentage } = useGoldPrice()
   const [activeIndex, setActiveIndex] = useState(0)
   const containerRef = useRef(null)
   const videoRefs = useRef([])
@@ -57,7 +56,6 @@ function Home() {
     return () => container.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Play/pause videos based on active section
   useEffect(() => {
     videoRefs.current.forEach((video, index) => {
       if (video) {
@@ -81,7 +79,6 @@ function Home() {
 
   return (
     <div className="home-scroll" ref={containerRef}>
-      {/* Section Dots Navigation */}
       <nav className="section-dots">
         {sections.map((section, index) => (
           <button
@@ -93,20 +90,17 @@ function Home() {
         ))}
       </nav>
 
-      {/* Scroll Indicator - only on first section */}
       {activeIndex === 0 && (
         <div className="scroll-indicator">
           Scroll
         </div>
       )}
 
-      {/* Full-screen Sections */}
       {sections.map((section, index) => (
         <section
           key={section.id}
           className="fullscreen-section"
         >
-          {/* Background Video */}
           <video
             ref={el => videoRefs.current[index] = el}
             className="fullscreen-video"

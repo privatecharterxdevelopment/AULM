@@ -18,7 +18,7 @@ function About() {
             <div className="two-col-content">
               <h2>Overview</h2>
               <p>
-                AULM Global Trades is a premier gold trading company operating from Dubai's International Free Zone Authority (IFZA). We specialize in the import, export, refining, and distribution of high-quality gold products to businesses worldwide.
+                AULM Global Precious Metal Trades is a premier gold trading company operating from Dubai's International Free Zone Authority (IFZA). We specialize in the import, export, refining, and distribution of high-quality gold products to businesses worldwide.
               </p>
               <p>
                 Our strategic location in Dubai positions us at the heart of global gold trade, connecting markets across Africa, Asia, Europe, and beyond.
@@ -71,7 +71,7 @@ function About() {
             <div className="two-col-content">
               <h2>IFZA License</h2>
               <p>
-                AULM Global Trades operates under a valid license from the International Free Zone Authority (IFZA), Dubai's leading free zone for international businesses.
+                AULM Global Precious Metal Trades operates under a valid license from the International Free Zone Authority (IFZA), Dubai's leading free zone for international businesses.
               </p>
               <p>
                 This license enables us to conduct gold trading activities with full regulatory compliance, benefiting from Dubai's business-friendly environment and world-class infrastructure.
@@ -114,7 +114,7 @@ function About() {
           <div className="text-section">
             <h2>Ready to partner with us?</h2>
             <p>
-              Contact our team to discuss how AULM Global Trades can serve your gold trading needs.
+              Contact our team to discuss how AULM Global Precious Metal Trades can serve your gold trading needs.
             </p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '2rem' }}>
               <Link to="/contact" className="btn btn-primary">Contact Us</Link>

@@ -13,28 +13,18 @@ function Header() {
       <div className="container">
         <div className="header-content">
           <Link to="/" className="logo" onClick={closeMobileMenu}>
-            AULM GLOBAL TRADES
+            AULM
           </Link>
 
           <ul className={`nav-list ${mobileMenuOpen ? 'open' : ''}`}>
             <li>
-              <NavLink to="/" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
-                Home
-              </NavLink>
-            </li>
-            <li>
               <NavLink to="/about" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
-                Who we are
+                About
               </NavLink>
             </li>
             <li>
               <NavLink to="/services" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
-                What we do
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/sustainability" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
-                Sustainability
+                Services
               </NavLink>
             </li>
             <li>

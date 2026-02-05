@@ -42,7 +42,7 @@ function Footer() {
 
         <div className="footer-bottom">
           <div className="footer-legal">
-            <span>© 2026 AULM Global Trades. All rights reserved.</span>
+            <span>© 2026 AULM Global Precious Metal Trades. All rights reserved.</span>
           </div>
           <span>IFZA Licensed · Dubai, UAE</span>
         </div>

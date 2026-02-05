@@ -45,7 +45,7 @@ function Services() {
             <div className="two-col-content">
               <h2>Gold Import & Export</h2>
               <p>
-                AULM Global Trades facilitates international gold trade across multiple continents. Our established networks and expertise in global markets enable seamless transactions for our B2B clients.
+                AULM Global Precious Metal Trades facilitates international gold trade across multiple continents. Our established networks and expertise in global markets enable seamless transactions for our B2B clients.
               </p>
               <p>
                 We handle all aspects of cross-border gold trading, including documentation, customs clearance, and regulatory compliance.
