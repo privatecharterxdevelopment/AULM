@@ -13,7 +13,7 @@ function Header() {
       <div className="container">
         <div className="header-content">
           <Link to="/" className="logo" onClick={closeMobileMenu}>
-            AULM TRADING
+            AULM GLOBAL TRADES
           </Link>
 
           <ul className={`nav-list ${mobileMenuOpen ? 'open' : ''}`}>

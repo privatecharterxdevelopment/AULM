@@ -37,7 +37,7 @@ function Contact() {
             <div style={{ maxWidth: '500px' }}>
               <h2 style={{ color: '#fff' }}>Message sent</h2>
               <p style={{ marginTop: '1rem' }}>
-                Thank you for contacting AULM Trading. Our team will respond within 24 hours.
+                Thank you for contacting AULM Global Trades. Our team will respond within 24 hours.
               </p>
               <button
                 className="btn btn-primary"
@@ -79,7 +79,7 @@ function Contact() {
 
               <div style={{ marginTop: '3rem' }}>
                 <h3 style={{ marginBottom: '1rem' }}>Dubai Headquarters</h3>
-                <p style={{ marginBottom: '0.25rem' }}>AULM Trading FZCO</p>
+                <p style={{ marginBottom: '0.25rem' }}>AULM Global Trades FZCO</p>
                 <p style={{ marginBottom: '0.25rem' }}>IFZA Business Park</p>
                 <p>Dubai, United Arab Emirates</p>
               </div>
