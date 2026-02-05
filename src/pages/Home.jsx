@@ -3,36 +3,36 @@ import { useGoldPrice } from '../context/GoldPriceContext'
 
 const sections = [
   {
-    id: 'trading',
-    label: 'Gold Trading',
-    title: 'Source Matters.',
-    description: 'We source exclusively from certified fair trade mines across Africa and South America. Every gram of gold is ethically mined, ensuring fair wages for workers and sustainable practices. Our direct partnerships with mining communities guarantee complete transparency from extraction to delivery.',
+    id: 'sourcing',
+    label: 'Sourcing',
+    title: 'Straight From Africa.',
+    description: 'We purchase gold directly from certified fair trade mines across Africa. Our established partnerships ensure consistent supply, fair pricing, and complete transparency. Every gram is traceable from mine to market.',
     video: 'https://cdn.coverr.co/videos/coverr-gold-bars-1584/1080p.mp4',
     poster: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?w=1920&q=80'
   },
   {
-    id: 'trade',
-    label: 'Global Trade',
-    title: 'Dubai to the World.',
-    description: 'Strategic positioning in Dubai connects us to markets worldwide. We facilitate seamless cross-border gold transactions with full regulatory compliance, handling documentation, customs clearance, and logistics. Our network spans Europe, Asia, Africa, and the Americas.',
+    id: 'import',
+    label: 'Import & Customs',
+    title: 'Gateway Dubai.',
+    description: 'Full customs clearance and import handling through Dubai. We manage all documentation, regulatory compliance, and logistics. Our IFZA license enables seamless cross-border transactions with complete legal transparency.',
     video: 'https://cdn.coverr.co/videos/coverr-cargo-ship-at-sea-3129/1080p.mp4',
     poster: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1920&q=80'
   },
   {
-    id: 'sustainability',
-    label: 'Sustainability',
-    title: 'Beyond Profit.',
-    description: 'Environmental responsibility is at our core. We work only with mines that meet strict environmental standards, minimizing ecological impact. Our supply chain is fully traceable, adhering to LBMA Responsible Gold Guidance and OECD Due Diligence requirements.',
-    video: 'https://cdn.coverr.co/videos/coverr-sun-shining-through-the-leaves-2447/1080p.mp4',
-    poster: 'https://images.unsplash.com/photo-1473773508845-188df298d2d1?w=1920&q=80'
-  },
-  {
     id: 'refinery',
     label: 'Refinery & Melting',
-    title: '99.99% Pure.',
-    description: 'All gold is processed at LBMA-certified facilities in Dubai, refined to 99.99% purity. Our refinery partners employ state-of-the-art technology with rigorous quality control. Each bar receives complete assay certification and hallmarking to international standards.',
+    title: 'Melted. Refined. Certified.',
+    description: 'All gold is melted and refined at LBMA-certified facilities in Dubai to 99.99% purity. Complete assay certification and hallmarking to international standards. From raw material to investment-grade bars.',
     video: 'https://cdn.coverr.co/videos/coverr-molten-metal-pouring-4637/1080p.mp4',
     poster: 'https://images.unsplash.com/photo-1589787168422-e02de4f614e2?w=1920&q=80'
+  },
+  {
+    id: 'trading',
+    label: 'B2B Sales',
+    title: 'Ready For You.',
+    description: 'Refined gold available for B2B clients worldwide. Competitive pricing, minimum order 500 grams. Secure delivery to your vault or designated location. Transparent transactions with no hidden fees.',
+    video: 'https://cdn.coverr.co/videos/coverr-sun-shining-through-the-leaves-2447/1080p.mp4',
+    poster: 'https://images.unsplash.com/photo-1624365168968-f283d506c6b6?w=1920&q=80'
   }
 ]
 
