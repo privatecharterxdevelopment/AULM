@@ -126,6 +126,15 @@ const articles = [
     excerpt: 'Gold doré bars—semi-pure gold containing silver and other impurities directly from mining operations—require specific handling and documentation when entering major trading hubs. Dubai and Hong Kong maintain distinct regulatory frameworks for doré imports, each with unique compliance requirements. This article examines DMCC regulations for doré bar imports including purity thresholds, acceptable origin documentation, and mandatory refining partnerships. We compare Hong Kong\'s Chinese Gold and Silver Exchange Society requirements and the documentation needed for smooth customs clearance. Understanding the differences between these two critical Asian trading centers helps mining companies and traders structure compliant export programs. Practical guidance on assay certificates, chain of custody documentation, and refinery agreements ensures your doré shipments meet all regulatory standards.',
     image: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?w=800&q=80',
     readTime: '14 min read'
+  },
+  {
+    id: 'tokenizing-gold-trade',
+    date: 'December 1, 2025',
+    category: 'Innovation',
+    title: 'Tokenizing Gold Trade: The Future of Precious Metals Settlement',
+    excerpt: 'The intersection of blockchain technology and physical gold trading is creating unprecedented opportunities for institutional market participants. Tokenization enables fractional ownership of allocated gold bars, instant settlement across time zones, and complete transparency through immutable on-chain records. This comprehensive analysis explores how gold-backed tokens are transforming traditional trading workflows, from reducing counterparty risk to eliminating the delays inherent in physical delivery. We examine the regulatory landscape across key jurisdictions including Switzerland, UAE, and Singapore, where frameworks for tokenized commodities are rapidly maturing. Technical considerations including custody integration, proof-of-reserve mechanisms, and smart contract standards are discussed alongside practical implementation strategies. For forward-thinking traders and institutions, understanding tokenization is no longer optional—it represents the evolution of how gold will be traded, settled, and held in the coming decade.',
+    image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&q=80',
+    readTime: '12 min read'
   }
 ]
 
