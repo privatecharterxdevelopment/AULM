@@ -29,6 +29,11 @@ function Header() {
                 </NavLink>
               </li>
               <li>
+                <NavLink to="/tokenization" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
+                  Tokenization
+                </NavLink>
+              </li>
+              <li>
                 <NavLink to="/contact" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
                   Contact
                 </NavLink>

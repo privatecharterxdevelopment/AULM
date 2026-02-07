@@ -26,7 +26,7 @@ function Footer() {
               <li><Link to="/services">Gold Sourcing</Link></li>
               <li><Link to="/services">Import & Export</Link></li>
               <li><Link to="/services">Refinery</Link></li>
-              <li><Link to="/services">Logistics</Link></li>
+              <li><Link to="/tokenization">Tokenization</Link></li>
             </ul>
           </div>
 

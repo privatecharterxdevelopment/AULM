@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import Home from './pages/Home'
 import About from './pages/About'
 import Services from './pages/Services'
+import Tokenization from './pages/Tokenization'
 import Sustainability from './pages/Sustainability'
 import Contact from './pages/Contact'
 import './styles/globals.css'
@@ -21,6 +22,7 @@ function AppContent() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/tokenization" element={<Tokenization />} />
           <Route path="/sustainability" element={<Sustainability />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
