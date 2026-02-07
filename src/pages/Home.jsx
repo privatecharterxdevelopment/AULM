@@ -7,7 +7,7 @@ const VIDEO_BASE = 'https://raw.githubusercontent.com/privatecharterxdevelopment
 
 function LanguageSelector() {
   const { language, setLanguage } = useLanguage()
-  const languages = ['EN', 'DE', 'FR', 'AR']
+  const languages = ['EN', 'DE', 'FR', 'AR', 'ZH', 'JA']
 
   return (
     <div className="language-selector">
