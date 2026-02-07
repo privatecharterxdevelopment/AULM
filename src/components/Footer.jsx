@@ -59,7 +59,7 @@ function Footer() {
           <div className="footer-legal">
             <span>© 2026 AULM Global Trade Corporation. All rights reserved.</span>
           </div>
-          <span>DMCC License No. XXXX · IFZA License No. XXXX · Dubai, UAE</span>
+          <span>IFZA License No. 33847 · Dubai, UAE</span>
         </div>
       </div>
     </footer>
