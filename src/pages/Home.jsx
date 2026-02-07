@@ -7,15 +7,23 @@ const sections = [
     label: 'Sourcing',
     title: 'Global Trade Corporation.',
     description: 'We purchase gold directly from certified fair trade mines across Africa. Established partnerships ensure consistent supply and fair pricing. Full traceability with assay certificates from origin.',
-    video: 'https://cdn.coverr.co/videos/coverr-gold-bars-1584/1080p.mp4',
+    video: '/7318602-uhd_4096_1974_30fps.mp4',
     poster: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?w=1920&q=80'
+  },
+  {
+    id: 'connectivity',
+    label: 'Global Connectivity',
+    title: 'Worldwide. Verified. Transparent.',
+    description: 'Seamless import and export across continents. Full assay reports, certificates of origin, and regulatory compliance at every step. Your trusted partner in international precious metals logistics.',
+    video: '/14773199_1920_1080_60fps.mp4',
+    poster: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1920&q=80'
   },
   {
     id: 'import',
     label: 'Import & Customs',
     title: 'Gateway Dubai.',
     description: 'Complete customs clearance and import handling through Dubai. All documentation, regulatory compliance, and logistics managed by us. IFZA licensed for seamless cross-border transactions.',
-    video: 'https://cdn.coverr.co/videos/coverr-cargo-ship-at-sea-3129/1080p.mp4',
+    video: '/11292201-hd_1920_1080_30fps.mp4',
     poster: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1920&q=80'
   },
   {
@@ -23,15 +31,15 @@ const sections = [
     label: 'Refinery & Melting',
     title: 'Melted. Refined. Certified.',
     description: 'LBMA-certified refining in Dubai to 99.99% purity. Complete assay certification and hallmarking to international standards. From raw material to investment-grade bars.',
-    video: 'https://cdn.coverr.co/videos/coverr-molten-metal-pouring-4637/1080p.mp4',
+    video: '/5121750-uhd_3840_2160_25fps.mp4',
     poster: 'https://images.unsplash.com/photo-1589787168422-e02de4f614e2?w=1920&q=80'
   },
   {
     id: 'trading',
     label: 'B2B Sales',
     title: 'Ready To Trade.',
-    description: 'Refined gold for B2B clients worldwide. Competitive pricing, minimum 500g. Secure delivery with full assay documentation. No hidden fees.',
-    video: 'https://cdn.coverr.co/videos/coverr-sun-shining-through-the-leaves-2447/1080p.mp4',
+    description: 'DMCC licensed global gold partner. Refined gold for B2B clients worldwide. Competitive pricing, minimum 500g. Secure delivery with full assay documentation.',
+    video: '/5727833-uhd_3840_2160_30fps.mp4',
     poster: 'https://images.unsplash.com/photo-1624365168968-f283d506c6b6?w=1920&q=80'
   }
 ]
