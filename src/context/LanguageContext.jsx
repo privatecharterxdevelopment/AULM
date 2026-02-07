@@ -24,7 +24,7 @@ const translations = {
       endToEndDesc: 'From procurement to refined bars delivered to your vault. Complete supply chain management under one roof including sourcing, assay, certification of origin, refining, and secure logistics. No intermediaries, no complications, full transparency.',
       dubaiLabel: 'Strategic Location',
       dubaiTitle: 'Dubai Gold Import. To The World.',
-      dubaiDesc: 'From fair mines to refinery to markets.',
+      dubaiDesc: 'From import to refinery to global markets.',
       clientsLabel: 'Institutional Partners',
       clientsTitle: 'For Serious Investors.',
       clientsDesc: 'We serve Family Offices, commodity traders, investment funds, central banks, and institutional investors seeking direct access to physical gold flows. Minimum 500g, maximum 250kg per month per client. Discretion and confidentiality guaranteed.'
@@ -98,7 +98,7 @@ const translations = {
       endToEndDesc: 'Von der Beschaffung bis zu raffinierten Barren, die in Ihr Depot geliefert werden. Komplettes Lieferkettenmanagement aus einer Hand, einschließlich Beschaffung, Assay, Herkunftszertifizierung, Raffination und sichere Logistik.',
       dubaiLabel: 'Strategischer Standort',
       dubaiTitle: 'Dubai Goldimport. In die Welt.',
-      dubaiDesc: 'Von fairen Minen zur Raffinerie zu den Märkten.',
+      dubaiDesc: 'Von Import zur Raffinerie zu globalen Märkten.',
       clientsLabel: 'Institutionelle Partner',
       clientsTitle: 'Für Ernsthafte Investoren.',
       clientsDesc: 'Wir bedienen Family Offices, Rohstoffhändler, Investmentfonds, Zentralbanken und institutionelle Anleger. Minimum 500g, Maximum 250kg pro Monat pro Kunde. Diskretion und Vertraulichkeit garantiert.'
@@ -170,7 +170,7 @@ const translations = {
       endToEndDesc: 'De l\'approvisionnement aux lingots raffinés livrés dans votre coffre. Gestion complète de la chaîne d\'approvisionnement sous un même toit.',
       dubaiLabel: 'Emplacement stratégique',
       dubaiTitle: 'Import d\'or de Dubaï. Vers le monde.',
-      dubaiDesc: 'Des mines équitables à la raffinerie aux marchés.',
+      dubaiDesc: 'De l\'import à la raffinerie aux marchés mondiaux.',
       clientsLabel: 'Partenaires institutionnels',
       clientsTitle: 'Pour les investisseurs sérieux.',
       clientsDesc: 'Nous servons les Family Offices, négociants en matières premières, fonds d\'investissement et investisseurs institutionnels. Minimum 500g, maximum 250kg par mois par client.'
@@ -242,7 +242,7 @@ const translations = {
       endToEndDesc: 'من الشراء إلى السبائك المكررة المسلمة إلى خزينتك. إدارة سلسلة التوريد الكاملة تحت سقف واحد.',
       dubaiLabel: 'موقع استراتيجي',
       dubaiTitle: 'استيراد الذهب من دبي. إلى العالم.',
-      dubaiDesc: 'من المناجم العادلة إلى المصفاة إلى الأسواق.',
+      dubaiDesc: 'من الاستيراد إلى المصفاة إلى الأسواق العالمية.',
       clientsLabel: 'شركاء مؤسسيون',
       clientsTitle: 'للمستثمرين الجادين.',
       clientsDesc: 'نخدم المكاتب العائلية وتجار السلع وصناديق الاستثمار والمستثمرين المؤسسيين. الحد الأدنى 500 جرام، الحد الأقصى 250 كجم شهرياً.'
@@ -314,7 +314,7 @@ const translations = {
       endToEndDesc: '从采购到精炼金条交付到您的金库。包括采购、检验、原产地认证、精炼和安全物流的完整供应链管理。',
       dubaiLabel: '战略位置',
       dubaiTitle: '迪拜黄金进口。面向世界。',
-      dubaiDesc: '从公平矿山到精炼厂再到市场。',
+      dubaiDesc: '从进口到精炼厂再到全球市场。',
       clientsLabel: '机构合作伙伴',
       clientsTitle: '服务于严肃的投资者。',
       clientsDesc: '我们服务于家族办公室、大宗商品交易商、投资基金、中央银行和机构投资者。每月每客户最低500克，最高250公斤。保证谨慎和保密。'
@@ -386,7 +386,7 @@ const translations = {
       endToEndDesc: '調達から精製金地金のお届けまで。調達、分析、原産地証明、精製、安全な物流を含む完全なサプライチェーン管理。',
       dubaiLabel: '戦略的立地',
       dubaiTitle: 'ドバイ金輸入。世界へ。',
-      dubaiDesc: 'フェアな鉱山から精製所へ、そして市場へ。',
+      dubaiDesc: '輸入から精製所へ、そしてグローバル市場へ。',
       clientsLabel: '機関投資家パートナー',
       clientsTitle: '真剣な投資家のために。',
       clientsDesc: 'ファミリーオフィス、商品トレーダー、投資ファンド、中央銀行、機関投資家にサービスを提供。月間最低500g、最大250kg。機密保持を保証。'
