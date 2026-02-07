@@ -1137,3 +1137,183 @@ section {
     grid-template-columns: 1fr;
   }
 }
+
+/* ===================================
+   Gold Ticker
+   =================================== */
+.gold-ticker {
+  position: fixed;
+  top: 20px;
+  right: 100px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.gold-ticker span:first-child {
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.5);
+}
+
+.gold-ticker .price {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-white);
+  letter-spacing: 0;
+}
+
+@media (max-width: 768px) {
+  .gold-ticker {
+    top: auto;
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    justify-content: center;
+  }
+}
+
+/* ===================================
+   Contact Section (Homepage)
+   =================================== */
+.contact-section {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-content {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.contact-content h2 {
+  margin-bottom: 16px;
+}
+
+.contact-form-inline {
+  text-align: left;
+  margin-top: 2rem;
+}
+
+.contact-form-inline .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.contact-form-inline .form-group {
+  margin-bottom: 0;
+}
+
+.contact-form-inline input,
+.contact-form-inline select,
+.contact-form-inline textarea {
+  width: 100%;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--color-white);
+  font-family: inherit;
+  font-size: 0.9375rem;
+  transition: border-color 0.2s;
+}
+
+.contact-form-inline input::placeholder,
+.contact-form-inline textarea::placeholder {
+  color: rgba(255,255,255,0.4);
+}
+
+.contact-form-inline select {
+  color: rgba(255,255,255,0.4);
+  cursor: pointer;
+}
+
+.contact-form-inline select option {
+  background: #1a1a1a;
+  color: var(--color-white);
+}
+
+.contact-form-inline input:focus,
+.contact-form-inline select:focus,
+.contact-form-inline textarea:focus {
+  outline: none;
+  border-color: rgba(255,255,255,0.4);
+}
+
+.contact-form-inline textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.contact-form-inline .form-group:last-of-type {
+  margin-bottom: 24px;
+}
+
+.contact-form-inline .btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--color-white);
+  color: var(--color-black);
+  font-weight: 500;
+}
+
+.contact-form-inline .btn:hover {
+  background: rgba(255,255,255,0.9);
+}
+
+.contact-form-inline .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.contact-email {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.5);
+}
+
+.contact-email a {
+  color: var(--color-white);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.contact-email a:hover {
+  color: rgba(255,255,255,0.8);
+}
+
+.contact-success {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.contact-success h3 {
+  color: var(--color-white);
+  margin-bottom: 12px;
+}
+
+.contact-success p {
+  margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+  .contact-form-inline .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .contact-form-inline .form-group {
+    margin-bottom: 16px;
+  }
+}
