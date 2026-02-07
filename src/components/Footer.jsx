@@ -21,6 +21,15 @@ function Footer() {
           </div>
 
           <div className="footer-column">
+            <h4>News</h4>
+            <ul>
+              <li><Link to="/news">Industry Insights</Link></li>
+              <li><Link to="/news">Market Analysis</Link></li>
+              <li><Link to="/news">Compliance Updates</Link></li>
+            </ul>
+          </div>
+
+          <div className="footer-column">
             <h4>Services</h4>
             <ul>
               <li><Link to="/services">Gold Sourcing</Link></li>

@@ -8,6 +8,7 @@ import Services from './pages/Services'
 import Tokenization from './pages/Tokenization'
 import Sustainability from './pages/Sustainability'
 import Contact from './pages/Contact'
+import News from './pages/News'
 import './styles/globals.css'
 
 function AppContent() {
@@ -25,6 +26,8 @@ function AppContent() {
           <Route path="/tokenization" element={<Tokenization />} />
           <Route path="/sustainability" element={<Sustainability />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/news/:id" element={<News />} />
         </Routes>
       </main>
       {!isHomePage && <Footer />}
