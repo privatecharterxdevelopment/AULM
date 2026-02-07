@@ -4,10 +4,10 @@ import { useGoldPrice } from '../context/GoldPriceContext'
 const sections = [
   {
     id: 'sourcing',
-    label: 'Sourcing',
-    title: 'Global Trade Corporation.',
-    description: 'We purchase gold directly from certified fair trade mines across Africa. Established partnerships ensure consistent supply and fair pricing. Full traceability with assay certificates from origin.',
-    video: '/7318602-uhd_4096_1974_30fps.mp4',
+    label: 'Swiss-Arab Association',
+    title: 'Zurich. Geneva. Zug. Emirates.',
+    description: 'Licensed for import and export of refined gold bars. Connecting Switzerland and the Emirates through partnerships with internationally renowned transport companies. Your Swiss-Arab bridge for precious metals.',
+    video: '/13778967-uhd_3840_2160_60fps.mp4',
     poster: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?w=1920&q=80'
   },
   {
