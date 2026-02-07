@@ -40,11 +40,17 @@ function Footer() {
           </div>
         </div>
 
+        <div className="footer-disclaimer">
+          <p>
+            <strong>B2B Only.</strong> AULM Global Trade Corporation services are exclusively available to qualified institutional clients, licensed traders, and accredited investors. All transactions are subject to full KYC/AML verification and comply with OECD due diligence guidelines for responsible supply chains.
+          </p>
+        </div>
+
         <div className="footer-bottom">
           <div className="footer-legal">
             <span>© 2026 AULM Global Trade Corporation. All rights reserved.</span>
           </div>
-          <span>DMCC & IFZA Licensed · Dubai, UAE</span>
+          <span>DMCC License No. XXXX · IFZA License No. XXXX · Dubai, UAE</span>
         </div>
       </div>
     </footer>
