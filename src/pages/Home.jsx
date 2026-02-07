@@ -39,7 +39,7 @@ const sections = [
     label: 'B2B Sales',
     title: 'Ready To Trade.',
     description: 'DMCC licensed global gold partner. Refined gold for B2B clients worldwide. Competitive pricing, minimum 500g. Secure delivery with full assay documentation.',
-    video: '/5727833-uhd_3840_2160_30fps.mp4',
+    video: '/5021964-hd_1920_1080_30fps.mp4',
     poster: 'https://images.unsplash.com/photo-1624365168968-f283d506c6b6?w=1920&q=80'
   }
 ]
