@@ -75,6 +75,7 @@ function Home() {
     name: '',
     company: '',
     email: '',
+    country: '',
     inquiry: '',
     message: ''
   })
@@ -227,7 +228,7 @@ function Home() {
                   className="btn btn-outline"
                   onClick={() => {
                     setIsSubmitted(false)
-                    setFormData({ name: '', company: '', email: '', inquiry: '', message: '' })
+                    setFormData({ name: '', company: '', email: '', country: '', inquiry: '', message: '' })
                   }}
                 >
                   {t('contact.sendAnother')}
@@ -253,6 +254,7 @@ function Home() {
                       placeholder={t('contact.company')}
                       value={formData.company}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>
@@ -269,23 +271,35 @@ function Home() {
                     />
                   </div>
                   <div className="form-group">
-                    <select
-                      name="inquiry"
-                      value={formData.inquiry}
+                    <input
+                      type="text"
+                      name="country"
+                      placeholder={t('contact.country')}
+                      value={formData.country}
                       onChange={handleChange}
-                    >
-                      <option value="">{t('contact.inquiryType')}</option>
-                      <option value="buying">{t('contact.goldAcquisition')}</option>
-                      <option value="partnership">{t('contact.partnership')}</option>
-                      <option value="institutional">{t('contact.institutional')}</option>
-                    </select>
+                      required
+                    />
                   </div>
+                </div>
+
+                <div className="form-group">
+                  <select
+                    name="inquiry"
+                    value={formData.inquiry}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">{t('contact.inquiryType')}</option>
+                    <option value="physical">{t('contact.physicalGold')}</option>
+                    <option value="structured">{t('contact.structuredProcurement')}</option>
+                    <option value="general">{t('contact.generalInquiry')}</option>
+                  </select>
                 </div>
 
                 <div className="form-group">
                   <textarea
                     name="message"
-                    placeholder={t('contact.message')}
+                    placeholder={t('contact.messagePlaceholder')}
                     value={formData.message}
                     onChange={handleChange}
                     rows="4"
