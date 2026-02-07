@@ -1,13 +1,15 @@
 import { useState, useEffect, useRef } from 'react'
 import { useGoldPrice } from '../context/GoldPriceContext'
 
+const VIDEO_BASE = 'https://raw.githubusercontent.com/privatecharterxdevelopment/AULM/main/public'
+
 const sections = [
   {
     id: 'sourcing',
     label: 'Swiss-Arab Association',
     title: 'Zurich. Geneva. Zug. Emirates.',
     description: 'Licensed for import and export of refined gold bars. Connecting Switzerland and the Emirates through partnerships with internationally renowned transport companies. Your Swiss-Arab bridge for precious metals.',
-    video: '/13778967-uhd_3840_2160_60fps.mp4',
+    video: `${VIDEO_BASE}/13778967-uhd_3840_2160_60fps.mp4`,
     poster: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?w=1920&q=80'
   },
   {
@@ -15,7 +17,7 @@ const sections = [
     label: 'Global Connectivity',
     title: 'Worldwide. Verified. Transparent.',
     description: 'Seamless import and export across continents. Full assay reports, certificates of origin, and regulatory compliance at every step. Your trusted partner in international precious metals logistics.',
-    video: '/14773199_1920_1080_60fps.mp4',
+    video: `${VIDEO_BASE}/14773199_1920_1080_60fps.mp4`,
     poster: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1920&q=80'
   },
   {
@@ -23,7 +25,7 @@ const sections = [
     label: 'Import & Customs',
     title: 'Gateway Dubai.',
     description: 'Complete customs clearance and import handling through Dubai. All documentation, regulatory compliance, and logistics managed by us. IFZA licensed for seamless cross-border transactions.',
-    video: '/11292201-hd_1920_1080_30fps.mp4',
+    video: `${VIDEO_BASE}/11292201-hd_1920_1080_30fps.mp4`,
     poster: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1920&q=80'
   },
   {
@@ -31,7 +33,7 @@ const sections = [
     label: 'Refinery & Melting',
     title: 'Melted. Refined. Certified.',
     description: 'LBMA-certified refining in Dubai to 99.99% purity. Complete assay certification and hallmarking to international standards. From raw material to investment-grade bars.',
-    video: '/5121750-uhd_3840_2160_25fps.mp4',
+    video: `${VIDEO_BASE}/5121750-uhd_3840_2160_25fps.mp4`,
     poster: 'https://images.unsplash.com/photo-1589787168422-e02de4f614e2?w=1920&q=80'
   },
   {
@@ -39,7 +41,7 @@ const sections = [
     label: 'B2B Sales',
     title: 'Ready To Trade.',
     description: 'DMCC licensed global gold partner. Refined gold for B2B clients worldwide. Competitive pricing, minimum 500g. Secure delivery with full assay documentation.',
-    video: '/5021964-hd_1920_1080_30fps.mp4',
+    video: `${VIDEO_BASE}/5021964-hd_1920_1080_30fps.mp4`,
     poster: 'https://images.unsplash.com/photo-1624365168968-f283d506c6b6?w=1920&q=80'
   }
 ]
