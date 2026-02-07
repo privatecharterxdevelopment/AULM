@@ -1,25 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 
-function LanguageSelector() {
-  const { language, setLanguage } = useLanguage()
-  const languages = ['EN', 'DE', 'FR', 'AR', 'ZH', 'JA']
-
-  return (
-    <div className="language-selector">
-      {languages.map((lang) => (
-        <button
-          key={lang}
-          className={language === lang.toLowerCase() ? 'active' : ''}
-          onClick={() => setLanguage(lang.toLowerCase())}
-        >
-          {lang}
-        </button>
-      ))}
-    </div>
-  )
-}
-
 function Footer() {
   const { t } = useLanguage()
 
@@ -70,14 +51,9 @@ function Footer() {
           </div>
         </div>
 
-        <div className="footer-languages">
-          <span>{t('footer.languages')}</span>
-          <LanguageSelector />
-        </div>
-
         <div className="footer-banking">
           <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/UBS_Logo_SVG.svg/320px-UBS_Logo_SVG.svg.png"
+            src="/UBS_BIG.D-5c4e1cb0.png"
             alt="UBS"
             className="ubs-logo-img"
           />

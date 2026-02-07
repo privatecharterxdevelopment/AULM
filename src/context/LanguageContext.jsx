@@ -6,6 +6,7 @@ const translations = {
     nav: {
       about: 'About',
       services: 'Services',
+      tokenization: 'Tokenization',
       sustainability: 'Sustainability',
       news: 'News',
       contact: 'Contact'
@@ -79,6 +80,7 @@ const translations = {
     nav: {
       about: 'Über uns',
       services: 'Leistungen',
+      tokenization: 'Tokenisierung',
       sustainability: 'Nachhaltigkeit',
       news: 'Aktuelles',
       contact: 'Kontakt'
@@ -149,6 +151,7 @@ const translations = {
     nav: {
       about: 'À propos',
       services: 'Services',
+      tokenization: 'Tokenisation',
       sustainability: 'Durabilité',
       news: 'Actualités',
       contact: 'Contact'
@@ -219,6 +222,7 @@ const translations = {
     nav: {
       about: 'من نحن',
       services: 'الخدمات',
+      tokenization: 'الترميز',
       sustainability: 'الاستدامة',
       news: 'الأخبار',
       contact: 'اتصل بنا'
@@ -289,6 +293,7 @@ const translations = {
     nav: {
       about: '关于我们',
       services: '服务',
+      tokenization: '代币化',
       sustainability: '可持续发展',
       news: '新闻',
       contact: '联系我们'
@@ -359,6 +364,7 @@ const translations = {
     nav: {
       about: '会社概要',
       services: 'サービス',
+      tokenization: 'トークン化',
       sustainability: 'サステナビリティ',
       news: 'ニュース',
       contact: 'お問い合わせ'
