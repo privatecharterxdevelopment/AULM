@@ -8,7 +8,7 @@ const sections = [
     id: 'hero',
     label: 'Swiss-Arab Association',
     title: 'Global Trade Corporation.',
-    description: 'Licensed for import and export of refined gold bars. Connecting Switzerland and the Emirates through partnerships with internationally renowned transport companies.',
+    description: 'Licensed for import and export of refined gold bars with 99.99% purity certification. Connecting Switzerland and the Emirates through strategic partnerships with internationally renowned transport and logistics companies. End-to-end supply chain security.',
     video: `${VIDEO_BASE}/13778967-uhd_3840_2160_60fps.mp4`,
     poster: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?w=1920&q=80',
     showLocations: true
@@ -17,7 +17,7 @@ const sections = [
     id: 'compliance',
     label: 'Compliance First',
     title: 'Full Transparency. International Standards.',
-    description: 'Complete adherence to OECD due diligence guidelines and LBMA responsible sourcing standards. Every transaction fully documented and auditable.',
+    description: 'Complete adherence to OECD due diligence guidelines and LBMA responsible sourcing standards. Every transaction fully documented, auditable, and traceable from mine to vault. Conflict-free gold with verified chain of custody.',
     video: `${VIDEO_BASE}/14773199_1920_1080_60fps.mp4`,
     poster: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1920&q=80'
   },
@@ -25,7 +25,7 @@ const sections = [
     id: 'endtoend',
     label: 'End-to-End Solution',
     title: 'Sourcing to Delivery. One Partner.',
-    description: 'From procurement to refined bars delivered to your vault. Complete supply chain management under one roof. No intermediaries, no complications.',
+    description: 'From procurement to refined bars delivered to your vault. Complete supply chain management under one roof including sourcing, assay, certification of origin, refining, and secure logistics. No intermediaries, no complications, full transparency.',
     video: `${VIDEO_BASE}/11292201-hd_1920_1080_30fps.mp4`,
     poster: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1920&q=80'
   },
@@ -33,7 +33,7 @@ const sections = [
     id: 'dubai',
     label: 'Strategic Location',
     title: 'Dubai Gold Import. To The World.',
-    description: 'Security and efficiency through our presence in the world\'s premier precious metals trading center. DMCC and IFZA licensed operations.',
+    description: 'Import. Melting. Refinery. Full vertical integration in the world\'s premier precious metals trading hub. DMCC and IFZA licensed operations with direct access to LBMA-accredited refineries.',
     video: `${VIDEO_BASE}/5121750-uhd_3840_2160_25fps.mp4`,
     poster: 'https://images.unsplash.com/photo-1589787168422-e02de4f614e2?w=1920&q=80'
   },
@@ -41,7 +41,7 @@ const sections = [
     id: 'clients',
     label: 'Institutional Partners',
     title: 'For Serious Investors.',
-    description: 'We serve Family Offices, commodity traders, investment funds, and institutional investors seeking direct access to physical gold flows.',
+    description: 'We serve Family Offices, commodity traders, investment funds, central banks, and institutional investors seeking direct access to physical gold flows. Minimum order 100kg. Discretion and confidentiality guaranteed.',
     video: `${VIDEO_BASE}/5021964-hd_1920_1080_30fps.mp4`,
     poster: 'https://images.unsplash.com/photo-1624365168968-f283d506c6b6?w=1920&q=80'
   }
