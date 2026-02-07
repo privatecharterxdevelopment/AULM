@@ -1452,6 +1452,39 @@ section {
   }
 }
 
+/* Contact Page Grid */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.contact-info {
+  padding-right: 40px;
+}
+
+.contact-form-wrapper {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 40px;
+}
+
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .contact-info {
+    padding-right: 0;
+  }
+
+  .contact-form-wrapper {
+    padding: 32px 24px;
+  }
+}
+
 /* ===================================
    Location Badges
    =================================== */
