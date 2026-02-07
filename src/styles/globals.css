@@ -1317,3 +1317,43 @@ section {
     margin-bottom: 16px;
   }
 }
+
+/* ===================================
+   Location Badges
+   =================================== */
+.location-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.location-badges span {
+  padding: 8px 16px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.12);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  transition: all 0.3s ease;
+}
+
+.location-badges span:hover {
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.9);
+}
+
+@media (max-width: 768px) {
+  .location-badges {
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .location-badges span {
+    padding: 6px 12px;
+    font-size: 0.625rem;
+  }
+}

@@ -7,10 +7,11 @@ const sections = [
   {
     id: 'hero',
     label: 'Swiss-Arab Association',
-    title: 'Zurich. Geneva. Zug. Emirates.',
+    title: 'Global Trade Corporation.',
     description: 'Licensed for import and export of refined gold bars. Connecting Switzerland and the Emirates through partnerships with internationally renowned transport companies.',
     video: `${VIDEO_BASE}/13778967-uhd_3840_2160_60fps.mp4`,
-    poster: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?w=1920&q=80'
+    poster: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?w=1920&q=80',
+    showLocations: true
   },
   {
     id: 'compliance',
@@ -165,6 +166,16 @@ function Home() {
             <span className="label">{section.label}</span>
             <h2>{section.title}</h2>
             <p>{section.description}</p>
+            {section.showLocations && (
+              <div className="location-badges">
+                <span>Zurich</span>
+                <span>Geneva</span>
+                <span>Zug</span>
+                <span>Dubai</span>
+                <span>London</span>
+                <span>Hong Kong</span>
+              </div>
+            )}
           </div>
         </section>
       ))}
