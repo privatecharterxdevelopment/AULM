@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { GoldPriceProvider } from './context/GoldPriceContext'
+import { LanguageProvider } from './context/LanguageContext'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -41,11 +42,13 @@ function AppContent() {
 
 function App() {
   return (
-    <GoldPriceProvider>
-      <Router>
-        <AppContent />
-      </Router>
-    </GoldPriceProvider>
+    <LanguageProvider>
+      <GoldPriceProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </GoldPriceProvider>
+    </LanguageProvider>
   )
 }
 

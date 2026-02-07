@@ -1876,6 +1876,148 @@ section {
 }
 
 /* ===================================
+   Article Detail Page
+   =================================== */
+.article-detail {
+  padding: 160px 0 80px;
+}
+
+.article-detail-header {
+  max-width: 800px;
+  margin-bottom: 40px;
+}
+
+.back-link {
+  display: inline-block;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.875rem;
+  margin-bottom: 24px;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: var(--color-white);
+}
+
+.article-detail-header .article-meta {
+  margin-bottom: 20px;
+}
+
+.article-detail-header h1 {
+  color: var(--color-white);
+  font-size: 2.5rem;
+  line-height: 1.2;
+  max-width: 700px;
+}
+
+.article-detail-image {
+  max-width: 900px;
+  margin-bottom: 48px;
+}
+
+.article-detail-image img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+
+.article-detail-content {
+  max-width: 700px;
+}
+
+.article-detail-content p {
+  color: rgba(255,255,255,0.75);
+  font-size: 1.0625rem;
+  line-height: 1.9;
+  margin-bottom: 24px;
+}
+
+.article-detail-footer {
+  max-width: 700px;
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.article-detail-footer p {
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+  .article-detail {
+    padding: 140px 0 60px;
+  }
+
+  .article-detail-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .article-detail-content p {
+    font-size: 1rem;
+  }
+}
+
+/* ===================================
+   Language Selector
+   =================================== */
+.language-selector {
+  display: flex;
+  gap: 8px;
+}
+
+.language-selector button {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.5);
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.language-selector button:hover {
+  border-color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.8);
+}
+
+.language-selector button.active {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.3);
+  color: var(--color-white);
+}
+
+.footer-languages {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-languages span {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.contact-languages {
+  margin-top: 24px;
+}
+
+.contact-languages span {
+  display: block;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 8px;
+}
+
+/* ===================================
    Legal Pages (Terms, Privacy)
    =================================== */
 .legal-page {

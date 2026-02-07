@@ -1,54 +1,75 @@
 import { useState, useEffect, useRef } from 'react'
 import { useGoldPrice } from '../context/GoldPriceContext'
+import { useLanguage } from '../context/LanguageContext'
 import Footer from '../components/Footer'
 
 const VIDEO_BASE = 'https://raw.githubusercontent.com/privatecharterxdevelopment/AULM/main/public'
 
-const sections = [
-  {
-    id: 'hero',
-    label: 'Swiss-Arab Association',
-    title: 'Global Trade Corporation.',
-    description: 'Licensed for import and export of refined gold bars with 99.99% purity certification. Connecting Switzerland and the Emirates through strategic partnerships with internationally renowned transport and logistics companies. End-to-end supply chain security.',
-    video: `${VIDEO_BASE}/13778967-uhd_3840_2160_60fps.mp4`,
-    showLocations: true
-  },
-  {
-    id: 'compliance',
-    label: 'Compliance First',
-    title: 'Full Transparency. International Standards.',
-    description: 'Complete adherence to OECD due diligence guidelines and LBMA responsible sourcing standards. Every transaction fully documented, auditable, and traceable from mine to vault. Conflict-free gold with verified chain of custody.',
-    video: `${VIDEO_BASE}/14773199_1920_1080_60fps.mp4`,
-    darkOverlay: true
-  },
-  {
-    id: 'endtoend',
-    label: 'End-to-End Solution',
-    title: 'Sourcing to Delivery. One Partner.',
-    description: 'From procurement to refined bars delivered to your vault. Complete supply chain management under one roof including sourcing, assay, certification of origin, refining, and secure logistics. No intermediaries, no complications, full transparency.',
-    video: `${VIDEO_BASE}/11292201-hd_1920_1080_30fps.mp4`
-  },
-  {
-    id: 'dubai',
-    label: 'Strategic Location',
-    title: 'Dubai Gold Import. To The World.',
-    description: 'Import. Melting. Refinery. Full vertical integration in the world\'s premier precious metals trading hub. DMCC and IFZA licensed operations with direct access to LBMA-accredited refineries.',
-    video: `${VIDEO_BASE}/5121750-uhd_3840_2160_25fps.mp4`
-  },
-  {
-    id: 'clients',
-    label: 'Institutional Partners',
-    title: 'For Serious Investors.',
-    description: 'We serve Family Offices, commodity traders, investment funds, central banks, and institutional investors seeking direct access to physical gold flows. Minimum 500g, maximum 250kg per month per client. Discretion and confidentiality guaranteed.',
-    video: `${VIDEO_BASE}/5021964-hd_1920_1080_30fps.mp4`
-  }
-]
+function LanguageSelector() {
+  const { language, setLanguage } = useLanguage()
+  const languages = ['EN', 'DE', 'FR', 'AR']
+
+  return (
+    <div className="language-selector">
+      {languages.map((lang) => (
+        <button
+          key={lang}
+          className={language === lang.toLowerCase() ? 'active' : ''}
+          onClick={() => setLanguage(lang.toLowerCase())}
+        >
+          {lang}
+        </button>
+      ))}
+    </div>
+  )
+}
 
 function Home() {
   const [activeIndex, setActiveIndex] = useState(0)
   const containerRef = useRef(null)
   const videoRefs = useRef([])
   const { goldPrice } = useGoldPrice()
+  const { t } = useLanguage()
+
+  const sections = [
+    {
+      id: 'hero',
+      label: t('home.heroLabel'),
+      title: t('home.heroTitle'),
+      description: t('home.heroDesc'),
+      video: `${VIDEO_BASE}/13778967-uhd_3840_2160_60fps.mp4`,
+      showLocations: true
+    },
+    {
+      id: 'compliance',
+      label: t('home.complianceLabel'),
+      title: t('home.complianceTitle'),
+      description: t('home.complianceDesc'),
+      video: `${VIDEO_BASE}/14773199_1920_1080_60fps.mp4`,
+      darkOverlay: true
+    },
+    {
+      id: 'endtoend',
+      label: t('home.endToEndLabel'),
+      title: t('home.endToEndTitle'),
+      description: t('home.endToEndDesc'),
+      video: `${VIDEO_BASE}/11292201-hd_1920_1080_30fps.mp4`
+    },
+    {
+      id: 'dubai',
+      label: t('home.dubaiLabel'),
+      title: t('home.dubaiTitle'),
+      description: t('home.dubaiDesc'),
+      video: `${VIDEO_BASE}/5121750-uhd_3840_2160_25fps.mp4`
+    },
+    {
+      id: 'clients',
+      label: t('home.clientsLabel'),
+      title: t('home.clientsTitle'),
+      description: t('home.clientsDesc'),
+      video: `${VIDEO_BASE}/5021964-hd_1920_1080_30fps.mp4`
+    }
+  ]
 
   const [formData, setFormData] = useState({
     name: '',
@@ -183,23 +204,25 @@ function Home() {
 
         <div className="home-contact-grid">
           <div className="home-contact-info">
-            <span className="label">Get in Touch</span>
-            <h2>Confidential Inquiry</h2>
-            <p>
-              For a confidential discussion about your requirements and our current capacities, please contact us.
-            </p>
+            <span className="label">{t('contact.label')}</span>
+            <h2>{t('contact.title')}</h2>
+            <p>{t('contact.desc')}</p>
             <div className="home-contact-details">
               <a href="mailto:trading@aulmtrading.com">trading@aulmtrading.com</a>
               <a href="tel:+41442345678">+41 44 234 56 78</a>
-              <span>Mo – Fr. 8am – 5pm</span>
+              <span>{t('contact.hours')}</span>
+            </div>
+            <div className="contact-languages">
+              <span>{t('contact.languages')}</span>
+              <LanguageSelector />
             </div>
           </div>
 
           <div className="home-contact-form">
             {isSubmitted ? (
               <div className="contact-success">
-                <h3>Message Sent</h3>
-                <p>Thank you for your inquiry. Our team will respond within 24 hours.</p>
+                <h3>{t('contact.sent')}</h3>
+                <p>{t('contact.thankYou')}</p>
                 <button
                   className="btn btn-outline"
                   onClick={() => {
@@ -207,7 +230,7 @@ function Home() {
                     setFormData({ name: '', company: '', email: '', inquiry: '', message: '' })
                   }}
                 >
-                  Send Another Message
+                  {t('contact.sendAnother')}
                 </button>
               </div>
             ) : (
@@ -217,7 +240,7 @@ function Home() {
                     <input
                       type="text"
                       name="name"
-                      placeholder="Full Name *"
+                      placeholder={t('contact.fullName')}
                       value={formData.name}
                       onChange={handleChange}
                       required
@@ -227,7 +250,7 @@ function Home() {
                     <input
                       type="text"
                       name="company"
-                      placeholder="Company / Institution"
+                      placeholder={t('contact.company')}
                       value={formData.company}
                       onChange={handleChange}
                     />
@@ -239,7 +262,7 @@ function Home() {
                     <input
                       type="email"
                       name="email"
-                      placeholder="Email Address *"
+                      placeholder={t('contact.email')}
                       value={formData.email}
                       onChange={handleChange}
                       required
@@ -251,10 +274,10 @@ function Home() {
                       value={formData.inquiry}
                       onChange={handleChange}
                     >
-                      <option value="">Inquiry Type</option>
-                      <option value="buying">Gold Acquisition</option>
-                      <option value="partnership">Strategic Partnership</option>
-                      <option value="institutional">Institutional Inquiry</option>
+                      <option value="">{t('contact.inquiryType')}</option>
+                      <option value="buying">{t('contact.goldAcquisition')}</option>
+                      <option value="partnership">{t('contact.partnership')}</option>
+                      <option value="institutional">{t('contact.institutional')}</option>
                     </select>
                   </div>
                 </div>
@@ -262,7 +285,7 @@ function Home() {
                 <div className="form-group">
                   <textarea
                     name="message"
-                    placeholder="Your Message *"
+                    placeholder={t('contact.message')}
                     value={formData.message}
                     onChange={handleChange}
                     rows="4"
@@ -275,7 +298,7 @@ function Home() {
                   className="btn btn-primary"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? 'Sending...' : 'Send Inquiry'}
+                  {isSubmitting ? t('contact.sending') : t('contact.send')}
                 </button>
               </form>
             )}
