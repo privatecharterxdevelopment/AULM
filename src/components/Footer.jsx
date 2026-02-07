@@ -58,7 +58,7 @@ function Footer() {
             className="ubs-logo-img"
           />
           <p>
-            We guarantee that all payments received from our clients, less fees, are held in a Client Deposit Account with UBS Switzerland AG.
+            We guarantee that all payments received from our clients, less fees, are held in a Client Deposit Account with UBS Switzerland AG or Emirates NBD Dubai.
           </p>
         </div>
 
