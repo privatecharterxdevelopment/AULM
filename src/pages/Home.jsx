@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useGoldPrice } from '../context/GoldPriceContext'
+import Footer from '../components/Footer'
 
 const VIDEO_BASE = 'https://raw.githubusercontent.com/privatecharterxdevelopment/AULM/main/public'
 
@@ -59,7 +60,7 @@ function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const totalSections = sections.length + 1 // +1 for contact section
+  const totalSections = sections.length + 2 // +1 for contact section, +1 for footer
 
   useEffect(() => {
     const container = containerRef.current
@@ -275,6 +276,11 @@ function Home() {
             </form>
           )}
         </div>
+      </section>
+
+      {/* Footer Section */}
+      <section className="footer-section">
+        <Footer />
       </section>
     </div>
   )

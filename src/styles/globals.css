@@ -1322,6 +1322,18 @@ section {
   justify-content: center;
 }
 
+.footer-section {
+  min-height: auto;
+  height: auto;
+  scroll-snap-align: end;
+  display: block;
+}
+
+.footer-section .footer {
+  padding-top: 60px;
+  padding-bottom: 30px;
+}
+
 .contact-content {
   text-align: center;
   max-width: 480px;
