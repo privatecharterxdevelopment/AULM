@@ -484,12 +484,22 @@ a {
 }
 
 .fullscreen-content .label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.6);
-  margin-bottom: 16px;
+  margin-bottom: 24px;
+}
+
+.fullscreen-content .label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: rgba(255,255,255,0.4);
 }
 
 .fullscreen-content h2 {
@@ -1517,13 +1527,22 @@ section {
 }
 
 .home-contact-info .label {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.6);
-  margin-bottom: 16px;
+  margin-bottom: 24px;
+}
+
+.home-contact-info .label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: rgba(255,255,255,0.4);
 }
 
 .home-contact-info h2 {
