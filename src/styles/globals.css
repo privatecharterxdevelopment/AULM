@@ -148,6 +148,12 @@ a {
   justify-content: space-between;
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
 .logo {
   font-size: 1rem;
   font-weight: 500;
@@ -207,6 +213,9 @@ a {
 }
 
 .header-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   padding: 8px 16px;
   background: rgba(255,255,255,0.1);
   backdrop-filter: blur(10px);
@@ -216,6 +225,14 @@ a {
   letter-spacing: 0.02em;
   color: rgba(255,255,255,0.85);
   transition: all 0.2s;
+  text-align: right;
+  line-height: 1.3;
+}
+
+.header-badge .hours {
+  font-size: 0.625rem;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.05em;
 }
 
 .header-badge:hover {
@@ -242,6 +259,7 @@ a {
   overflow: hidden;
   display: flex;
   align-items: flex-end;
+  background: #000;
 }
 
 .fullscreen-bg {

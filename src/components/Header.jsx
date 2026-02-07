@@ -16,27 +16,30 @@ function Header() {
             AULM
           </Link>
 
-          <ul className={`nav-list ${mobileMenuOpen ? 'open' : ''}`}>
-            <li>
-              <NavLink to="/about" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
-                About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/services" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
-                Services
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/contact" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
-                Contact
-              </NavLink>
-            </li>
-          </ul>
+          <div className="header-right">
+            <ul className={`nav-list ${mobileMenuOpen ? 'open' : ''}`}>
+              <li>
+                <NavLink to="/about" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
+                  About
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/services" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
+                  Services
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/contact" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
+                  Contact
+                </NavLink>
+              </li>
+            </ul>
 
-          <a href="tel:+97142345678" className="header-badge">
-            +971 4 234 5678
-          </a>
+            <a href="tel:+41442345678" className="header-badge">
+              <span>+41 44 234 56 78</span>
+              <span className="hours">Mo – Fr. 8am – 5pm</span>
+            </a>
+          </div>
 
           <button
             className="mobile-toggle"
