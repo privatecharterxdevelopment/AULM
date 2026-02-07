@@ -17,24 +17,24 @@ function Header() {
           </Link>
 
           <div className="header-right">
-            <ul className={`nav-list ${mobileMenuOpen ? 'open' : ''}`}>
+            <ul className="nav-list nav-desktop">
               <li>
-                <NavLink to="/about" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
+                <NavLink to="/about" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
                   About
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/services" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
+                <NavLink to="/services" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
                   Services
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/tokenization" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
+                <NavLink to="/tokenization" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
                   Tokenization
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/contact" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
+                <NavLink to="/contact" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
                   Contact
                 </NavLink>
               </li>
@@ -47,7 +47,7 @@ function Header() {
           </div>
 
           <button
-            className="mobile-toggle"
+            className={`mobile-toggle ${mobileMenuOpen ? 'open' : ''}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -55,6 +55,30 @@ function Header() {
             <span></span>
             <span></span>
           </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
+        <nav className="mobile-nav">
+          <NavLink to="/about" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
+            About
+          </NavLink>
+          <NavLink to="/services" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
+            Services
+          </NavLink>
+          <NavLink to="/tokenization" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
+            Tokenization
+          </NavLink>
+          <NavLink to="/contact" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
+            Contact
+          </NavLink>
+        </nav>
+
+        <div className="mobile-menu-footer">
+          <a href="tel:+41442345678" className="mobile-phone">+41 44 234 56 78</a>
+          <span className="mobile-hours">Mo – Fr. 8am – 5pm</span>
+          <a href="mailto:trading@aulmtrading.com" className="mobile-email">trading@aulmtrading.com</a>
         </div>
       </div>
     </header>
