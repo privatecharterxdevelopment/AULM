@@ -39,7 +39,7 @@ const sections = [
     id: 'clients',
     label: 'Institutional Partners',
     title: 'For Serious Investors.',
-    description: 'We serve Family Offices, commodity traders, investment funds, central banks, and institutional investors seeking direct access to physical gold flows. Minimum order 100kg. Discretion and confidentiality guaranteed.',
+    description: 'We serve Family Offices, commodity traders, investment funds, central banks, and institutional investors seeking direct access to physical gold flows. Minimum 500g, maximum 250kg per month per client. Discretion and confidentiality guaranteed.',
     video: `${VIDEO_BASE}/5021964-hd_1920_1080_30fps.mp4`
   }
 ]
