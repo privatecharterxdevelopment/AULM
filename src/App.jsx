@@ -9,6 +9,8 @@ import Tokenization from './pages/Tokenization'
 import Sustainability from './pages/Sustainability'
 import Contact from './pages/Contact'
 import News from './pages/News'
+import Terms from './pages/Terms'
+import Privacy from './pages/Privacy'
 import './styles/globals.css'
 
 function AppContent() {
@@ -28,6 +30,8 @@ function AppContent() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/news" element={<News />} />
           <Route path="/news/:id" element={<News />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
         </Routes>
       </main>
       {!isHomePage && <Footer />}

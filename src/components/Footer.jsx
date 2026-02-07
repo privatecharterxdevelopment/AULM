@@ -42,9 +42,8 @@ function Footer() {
           <div className="footer-column">
             <h4>Legal</h4>
             <ul>
-              <li><a href="#">Terms of use</a></li>
-              <li><a href="#">Privacy policy</a></li>
-              <li><a href="#">Cookies</a></li>
+              <li><Link to="/terms">Terms of Use</Link></li>
+              <li><Link to="/privacy">Privacy Policy</Link></li>
             </ul>
           </div>
         </div>
