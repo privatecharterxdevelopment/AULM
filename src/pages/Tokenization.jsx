@@ -12,7 +12,7 @@ function Tokenization() {
             For institutional investors and qualified buyers seeking regulated exposure to tokenized precious metals within Swiss and UAE regulatory frameworks.
           </p>
 
-          <a href="mailto:trading@aulmtrading.com" className="btn btn-outline" style={{ borderColor: 'rgba(255,255,255,0.3)', color: '#fff' }}>
+          <a href="mailto:trading@aulmtrading.com" className="btn btn-outline">
             Institutional Inquiry
           </a>
         </div>
