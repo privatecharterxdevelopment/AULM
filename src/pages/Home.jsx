@@ -32,7 +32,7 @@ const sections = [
   {
     id: 'dubai',
     label: 'Strategic Location',
-    title: 'Dubai. Global Trading Hub.',
+    title: 'Dubai Gold Import. To The World.',
     description: 'Security and efficiency through our presence in the world\'s premier precious metals trading center. DMCC and IFZA licensed operations.',
     video: `${VIDEO_BASE}/5121750-uhd_3840_2160_25fps.mp4`,
     poster: 'https://images.unsplash.com/photo-1589787168422-e02de4f614e2?w=1920&q=80'
