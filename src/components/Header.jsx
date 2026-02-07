@@ -34,6 +34,10 @@ function Header() {
             </li>
           </ul>
 
+          <a href="tel:+97142345678" className="header-badge">
+            +971 4 234 5678
+          </a>
+
           <button
             className="mobile-toggle"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

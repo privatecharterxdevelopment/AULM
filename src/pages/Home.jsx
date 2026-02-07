@@ -167,14 +167,14 @@ function Home() {
             <h2>{section.title}</h2>
             <p>{section.description}</p>
             {section.showLocations && (
-              <div className="location-badges">
+              <a href="mailto:trading@aulmtrading.com" className="location-badges">
                 <span>Zurich</span>
                 <span>Geneva</span>
                 <span>Zug</span>
                 <span>Dubai</span>
                 <span>London</span>
                 <span>Hong Kong</span>
-              </div>
+              </a>
             )}
           </div>
         </section>
