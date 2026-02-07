@@ -318,6 +318,15 @@ a {
   );
 }
 
+.fullscreen-overlay--dark {
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.85) 0%,
+    rgba(0,0,0,0.5) 40%,
+    rgba(0,0,0,0.35) 100%
+  );
+}
+
 .fullscreen-content {
   position: relative;
   z-index: 2;

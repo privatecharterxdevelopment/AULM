@@ -17,7 +17,8 @@ const sections = [
     label: 'Compliance First',
     title: 'Full Transparency. International Standards.',
     description: 'Complete adherence to OECD due diligence guidelines and LBMA responsible sourcing standards. Every transaction fully documented, auditable, and traceable from mine to vault. Conflict-free gold with verified chain of custody.',
-    video: `${VIDEO_BASE}/14773199_1920_1080_60fps.mp4`
+    video: `${VIDEO_BASE}/14773199_1920_1080_60fps.mp4`,
+    darkOverlay: true
   },
   {
     id: 'endtoend',
@@ -155,7 +156,7 @@ function Home() {
             <source src={section.video} type="video/mp4" />
           </video>
 
-          <div className="fullscreen-overlay" />
+          <div className={`fullscreen-overlay ${section.darkOverlay ? 'fullscreen-overlay--dark' : ''}`} />
 
           <div className="fullscreen-content" key={activeIndex === index ? 'active' : 'inactive'}>
             <span className="label">{section.label}</span>
