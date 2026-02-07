@@ -6,8 +6,8 @@ function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
-            <Link to="/" className="logo">AULM TRADING</Link>
-            <p>Responsibly sourced gold directly from fair mines. IFZA licensed, Dubai.</p>
+            <Link to="/" className="logo">AULM</Link>
+            <p>Swiss-Arab gold trading. DMCC & IFZA licensed, Dubai.</p>
           </div>
 
           <div className="footer-column">
@@ -23,8 +23,8 @@ function Footer() {
           <div className="footer-column">
             <h4>Services</h4>
             <ul>
-              <li><Link to="/shop">Buy Gold</Link></li>
-              <li><Link to="/services">Fair Mine Sourcing</Link></li>
+              <li><Link to="/services">Gold Sourcing</Link></li>
+              <li><Link to="/services">Import & Export</Link></li>
               <li><Link to="/services">Refinery</Link></li>
               <li><Link to="/services">Logistics</Link></li>
             </ul>
@@ -42,9 +42,9 @@ function Footer() {
 
         <div className="footer-bottom">
           <div className="footer-legal">
-            <span>© 2026 AULM Global Precious Metal Trades. All rights reserved.</span>
+            <span>© 2026 AULM Global Trade Corporation. All rights reserved.</span>
           </div>
-          <span>IFZA Licensed · Dubai, UAE</span>
+          <span>DMCC & IFZA Licensed · Dubai, UAE</span>
         </div>
       </div>
     </footer>

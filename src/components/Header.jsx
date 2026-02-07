@@ -28,20 +28,11 @@ function Header() {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/shop" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
-                Buy Gold
-              </NavLink>
-            </li>
-            <li>
               <NavLink to="/contact" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
                 Contact
               </NavLink>
             </li>
           </ul>
-
-          <a href="tel:+97142345678" className="header-phone">
-            +971 4 234 5678
-          </a>
 
           <button
             className="mobile-toggle"
