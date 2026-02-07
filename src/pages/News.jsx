@@ -108,6 +108,24 @@ const articles = [
     excerpt: 'Digital gold tokens backed 1:1 by physical reserves are transforming how investors access precious metals exposure. Blockchain technology enables fractional ownership, instant peer-to-peer transfers, and complete transparency through on-chain proof of reserves. This analysis examines leading tokenization platforms, regulatory frameworks in Switzerland and the UAE, and the technical standards ensuring token holders have genuine claims on underlying physical gold. We discuss custody arrangements, redemption mechanisms, and how tokenized gold fits within existing precious metals trading infrastructure. For institutional investors, tokenization offers new possibilities for portfolio construction and liquidity management.',
     image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&q=80',
     readTime: '13 min read'
+  },
+  {
+    id: 'import-gold-africa-dubai',
+    date: 'December 10, 2025',
+    category: 'Import Guide',
+    title: 'How to Import Gold from Africa to Dubai: A Complete Compliance Guide',
+    excerpt: 'Importing gold from African mining regions to Dubai requires navigating a complex web of export regulations, customs procedures, and compliance frameworks. This comprehensive guide walks through the entire process from source country documentation requirements to DMCC import procedures. We cover essential permits including mining licenses, export certificates, and certificates of origin. The role of pre-shipment inspection agencies, assay verification at origin, and the specific documentation required by UAE customs authorities are explained in detail. Understanding transit country regulations, insurance requirements for high-value shipments, and the timeline from mine gate to Dubai vault helps traders plan efficient supply chains while maintaining full regulatory compliance.',
+    image: 'https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=800&q=80',
+    readTime: '16 min read'
+  },
+  {
+    id: 'gold-dore-bars-compliance',
+    date: 'December 5, 2025',
+    category: 'Compliance',
+    title: 'Gold Doré Bars Compliance: Regulatory Requirements in Dubai and Hong Kong',
+    excerpt: 'Gold doré bars—semi-pure gold containing silver and other impurities directly from mining operations—require specific handling and documentation when entering major trading hubs. Dubai and Hong Kong maintain distinct regulatory frameworks for doré imports, each with unique compliance requirements. This article examines DMCC regulations for doré bar imports including purity thresholds, acceptable origin documentation, and mandatory refining partnerships. We compare Hong Kong\'s Chinese Gold and Silver Exchange Society requirements and the documentation needed for smooth customs clearance. Understanding the differences between these two critical Asian trading centers helps mining companies and traders structure compliant export programs. Practical guidance on assay certificates, chain of custody documentation, and refinery agreements ensures your doré shipments meet all regulatory standards.',
+    image: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?w=800&q=80',
+    readTime: '14 min read'
   }
 ]
 

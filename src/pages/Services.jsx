@@ -133,7 +133,6 @@ function Services() {
             </p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '2rem' }}>
               <Link to="/contact" className="btn btn-primary">Contact Us</Link>
-              <Link to="/shop" className="btn btn-outline">View Pricing</Link>
             </div>
           </div>
         </div>
