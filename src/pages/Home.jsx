@@ -209,8 +209,7 @@ function Home() {
             <h2>{t('contact.title')}</h2>
             <p>{t('contact.desc')}</p>
             <div className="home-contact-details">
-              <a href="mailto:trading@aulmtrading.com">trading@aulmtrading.com</a>
-              <a href="tel:+41442345678">+41 44 234 56 78</a>
+              <a href="mailto:contact@aulmtrading.com">contact@aulmtrading.com</a>
               <span>{t('contact.hours')}</span>
             </div>
             <div className="contact-languages">

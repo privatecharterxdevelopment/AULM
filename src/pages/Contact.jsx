@@ -45,8 +45,8 @@ function Contact() {
             </div>
 
             <div style={{ marginBottom: '32px' }}>
-              <h4 style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px' }}>Phone</h4>
-              <a href="tel:+41442345678" style={{ color: '#fff', fontSize: '1.125rem' }}>+41 44 234 56 78</a>
+              <h4 style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px' }}>Mail Inquiry</h4>
+              <a href="mailto:contact@aulmtrading.com" style={{ color: '#fff', fontSize: '1.125rem' }}>contact@aulmtrading.com</a>
               <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem', marginTop: '4px' }}>Mo – Fr. 8am – 5pm</p>
             </div>
 

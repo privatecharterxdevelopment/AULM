@@ -52,8 +52,8 @@ function HeaderBadge() {
 
       <span className="badge-divider" />
 
-      <a href="tel:+41442345678" className="badge-phone">
-        +41 44 234 56 78
+      <a href="mailto:contact@aulmtrading.com" className="badge-phone">
+        Mail Inquiry
       </a>
 
       {isOpen && (
@@ -184,7 +184,7 @@ function Header() {
         </div>
 
         <div className="mobile-menu-footer">
-          <a href="tel:+41442345678" className="mobile-phone">+41 44 234 56 78</a>
+          <a href="mailto:contact@aulmtrading.com" className="mobile-phone">Mail Inquiry</a>
           <a href="mailto:trading@aulmtrading.com" className="mobile-email">trading@aulmtrading.com</a>
         </div>
       </div>
