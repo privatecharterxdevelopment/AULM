@@ -41,8 +41,7 @@ function Services() {
       {/* Import Export */}
       <section className="section-gray">
         <div className="container">
-          <div className="two-col">
-            <div className="two-col-content">
+          <div className="text-section">
               <h2>Gold Import & Export</h2>
               <p>
                 AULM Global Precious Metal Trades facilitates international gold trade across multiple continents. Our established networks and expertise in global markets enable seamless transactions for our B2B clients.
@@ -50,11 +49,6 @@ function Services() {
               <p>
                 We handle all aspects of cross-border gold trading, including documentation, customs clearance, and regulatory compliance.
               </p>
-            </div>
-            <div
-              className="two-col-image"
-              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1624365168968-f283d506c6b6?w=800)' }}
-            />
           </div>
         </div>
       </section>
@@ -62,12 +56,7 @@ function Services() {
       {/* Refinery */}
       <section>
         <div className="container">
-          <div className="two-col">
-            <div
-              className="two-col-image"
-              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1589787168422-e02de4f614e2?w=800)' }}
-            />
-            <div className="two-col-content">
+          <div className="text-section">
               <h2>Refinery Services</h2>
               <p>
                 Our gold refining operations are conducted at LBMA-certified facilities in Dubai. We process raw gold to achieve 99.99% purity levels.
@@ -75,7 +64,6 @@ function Services() {
               <p>
                 Every bar and product undergoes rigorous quality control, with full assay certification and documentation.
               </p>
-            </div>
           </div>
         </div>
       </section>
@@ -83,8 +71,7 @@ function Services() {
       {/* Transportation */}
       <section className="section-gray">
         <div className="container">
-          <div className="two-col">
-            <div className="two-col-content">
+          <div className="text-section">
               <h2>Secure Transportation</h2>
               <p>
                 We provide comprehensive logistics solutions for precious metals, ensuring safe and secure transportation from source to destination.
@@ -92,11 +79,6 @@ function Services() {
               <p>
                 All shipments are fully insured and handled through established, vetted logistics partners.
               </p>
-            </div>
-            <div
-              className="two-col-image"
-              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=800)' }}
-            />
           </div>
         </div>
       </section>
@@ -104,12 +86,7 @@ function Services() {
       {/* B2B Trading */}
       <section>
         <div className="container">
-          <div className="two-col">
-            <div
-              className="two-col-image"
-              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800)' }}
-            />
-            <div className="two-col-content">
+          <div className="text-section">
               <h2>B2B Gold Trading</h2>
               <p>
                 Our B2B trading services cater to jewelry manufacturers, investment funds, central banks, and other institutional clients.
@@ -118,7 +95,6 @@ function Services() {
                 With a minimum order of 500 grams, we offer refined gold at {discountPercentage}% below spot price.
               </p>
               <Link to="/shop" className="btn btn-primary">Buy Gold</Link>
-            </div>
           </div>
         </div>
       </section>
