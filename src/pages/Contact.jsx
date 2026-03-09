@@ -41,7 +41,7 @@ function Contact() {
 
             <div style={{ marginBottom: '32px' }}>
               <h4 style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px' }}>Email</h4>
-              <a href="mailto:trading@aulmtrading.com" style={{ color: '#fff', fontSize: '1.125rem' }}>trading@aulmtrading.com</a>
+              <a href="mailto:contact@aulmtrading.com" style={{ color: '#fff', fontSize: '1.125rem' }}>contact@aulmtrading.com</a>
             </div>
 
             <div style={{ marginBottom: '32px' }}>
@@ -60,7 +60,7 @@ function Contact() {
               <p style={{ color: 'rgba(255,255,255,0.7)', lineHeight: '1.6' }}>
                 AULM Global Trade Corporation<br />
                 DMCC & IFZA Licensed<br />
-                Dubai, UAE
+                Address: on request
               </p>
             </div>
           </div>

@@ -119,8 +119,7 @@ function Terms() {
             <div className="legal-contact">
               <p>
                 <strong>Contact for Terms & Agreements:</strong><br />
-                <a href="mailto:legal@aulmtrading.com">legal@aulmtrading.com</a><br />
-                <a href="mailto:trading@aulmtrading.com">trading@aulmtrading.com</a>
+                <a href="mailto:contact@aulmtrading.com">contact@aulmtrading.com</a>
               </p>
               <p className="legal-note">
                 Last updated: February 2026

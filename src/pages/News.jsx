@@ -328,7 +328,7 @@ function News() {
 
             <div className="article-detail-footer">
               <p>For more insights on precious metals trading and institutional gold investment, contact our advisory team.</p>
-              <a href="mailto:trading@aulmtrading.com" className="btn btn-outline">
+              <a href="mailto:contact@aulmtrading.com" className="btn btn-outline">
                 Contact Us
               </a>
             </div>

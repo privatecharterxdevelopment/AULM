@@ -14,8 +14,7 @@ function About() {
       {/* Overview */}
       <section>
         <div className="container">
-          <div className="two-col">
-            <div className="two-col-content">
+          <div className="text-section">
               <h2>Overview</h2>
               <p>
                 AULM Global Precious Metal Trades is a premier gold trading company operating from Dubai's International Free Zone Authority (IFZA). We specialize in the import, export, refining, and distribution of high-quality gold products to businesses worldwide.
@@ -23,11 +22,6 @@ function About() {
               <p>
                 Our strategic location in Dubai positions us at the heart of global gold trade, connecting markets across Africa, Asia, Europe, and beyond.
               </p>
-            </div>
-            <div
-              className="two-col-image"
-              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1610375461246-83df859d849d?w=800)' }}
-            />
           </div>
         </div>
       </section>
@@ -63,12 +57,7 @@ function About() {
       {/* IFZA License */}
       <section>
         <div className="container">
-          <div className="two-col">
-            <div
-              className="two-col-image"
-              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800)' }}
-            />
-            <div className="two-col-content">
+          <div className="text-section">
               <h2>IFZA License</h2>
               <p>
                 AULM Global Precious Metal Trades operates under a valid license from the International Free Zone Authority (IFZA), Dubai's leading free zone for international businesses.
@@ -77,7 +66,6 @@ function About() {
                 This license enables us to conduct gold trading activities with full regulatory compliance, benefiting from Dubai's business-friendly environment and world-class infrastructure.
               </p>
               <Link to="/contact" className="btn btn-light">Contact Us</Link>
-            </div>
           </div>
         </div>
       </section>

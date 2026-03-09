@@ -185,7 +185,7 @@ function Header() {
 
         <div className="mobile-menu-footer">
           <a href="mailto:contact@aulmtrading.com" className="mobile-phone">Mail Inquiry</a>
-          <a href="mailto:trading@aulmtrading.com" className="mobile-email">trading@aulmtrading.com</a>
+          <a href="mailto:contact@aulmtrading.com" className="mobile-email">contact@aulmtrading.com</a>
         </div>
       </div>
     </header>

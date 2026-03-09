@@ -144,8 +144,7 @@ function Privacy() {
             <div className="legal-contact">
               <p>
                 <strong>Privacy & Data Protection Inquiries:</strong><br />
-                <a href="mailto:privacy@aulmtrading.com">privacy@aulmtrading.com</a><br />
-                <a href="mailto:legal@aulmtrading.com">legal@aulmtrading.com</a>
+                <a href="mailto:contact@aulmtrading.com">contact@aulmtrading.com</a>
               </p>
               <p className="legal-note">
                 This policy reflects our commitment to Swiss-standard confidentiality. For specific questions about
