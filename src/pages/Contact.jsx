@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { LICENSE_NUMBER } from '../config/site'
+import { submitInquiry } from '../utils/submitInquiry'
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -10,6 +12,7 @@ function Contact() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [deliveryMethod, setDeliveryMethod] = useState(null)
 
   const handleChange = (e) => {
     setFormData({
@@ -18,13 +21,33 @@ function Contact() {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
-    setTimeout(() => {
-      setIsSubmitting(false)
-      setIsSubmitted(true)
-    }, 1500)
+    const subject = `AULM Contact — ${formData.inquiry || 'General'}`
+    const bodyLines = [
+      `Name: ${formData.name}`,
+      `Company: ${formData.company || '—'}`,
+      `Email: ${formData.email}`,
+      `Inquiry: ${formData.inquiry}`,
+      '',
+      formData.message,
+    ]
+    const result = await submitInquiry({
+      formType: 'contact',
+      subject,
+      data: {
+        Name: formData.name,
+        Company: formData.company || '—',
+        Email: formData.email,
+        Inquiry: formData.inquiry,
+        Message: formData.message,
+      },
+      bodyLines,
+    })
+    setDeliveryMethod(result.delivered)
+    setIsSubmitting(false)
+    setIsSubmitted(true)
   }
 
   return (
@@ -60,6 +83,7 @@ function Contact() {
               <p style={{ color: 'rgba(255,255,255,0.7)', lineHeight: '1.6' }}>
                 AULM Global Trade Corporation<br />
                 DMCC & IFZA Licensed<br />
+                IFZA License No. {LICENSE_NUMBER}<br />
                 Address: on request
               </p>
             </div>
@@ -70,12 +94,17 @@ function Contact() {
             {isSubmitted ? (
               <div className="contact-success" style={{ textAlign: 'left' }}>
                 <h3 style={{ color: '#fff', marginBottom: '12px' }}>Message Sent</h3>
-                <p style={{ color: 'rgba(255,255,255,0.6)', marginBottom: '24px' }}>Thank you for your inquiry. Our team will respond within 24 hours.</p>
+                <p style={{ color: 'rgba(255,255,255,0.6)', marginBottom: '24px' }}>
+                  {deliveryMethod === 'server'
+                    ? 'Thank you — your message was sent to contact@aulmtrading.com. We respond within 24 hours.'
+                    : 'Please press Send in your mail app so we receive your message at contact@aulmtrading.com.'}
+                </p>
                 <button
                   className="btn btn-outline"
                   style={{ borderColor: 'rgba(255,255,255,0.3)', color: '#fff' }}
                   onClick={() => {
                     setIsSubmitted(false)
+                    setDeliveryMethod(null)
                     setFormData({ name: '', company: '', email: '', inquiry: '', message: '' })
                   }}
                 >
@@ -127,6 +156,9 @@ function Contact() {
                       <option value="buying">Gold Acquisition</option>
                       <option value="partnership">Strategic Partnership</option>
                       <option value="institutional">Institutional Inquiry</option>
+                      <option value="banking">Transactional Banking Consulting</option>
+                      <option value="sell-gold">Sell raw gold (doré / scrap)</option>
+                      <option value="buy-bullion">Buy LBMA bullion</option>
                     </select>
                   </div>
                 </div>

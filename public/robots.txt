@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /kyconboarding
+Disallow: /api/
+
+Sitemap: https://www.aulmtrading.com/sitemap.xml

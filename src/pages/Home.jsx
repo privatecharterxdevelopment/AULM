@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { useGoldPrice } from '../context/GoldPriceContext'
 import { useLanguage } from '../context/LanguageContext'
 import Footer from '../components/Footer'
+import { submitInquiry } from '../utils/submitInquiry'
 
 const VIDEO_BASE = 'https://raw.githubusercontent.com/privatecharterxdevelopment/AULM/main/public'
 
@@ -63,6 +65,15 @@ function Home() {
       video: `${VIDEO_BASE}/5121750-uhd_3840_2160_25fps.mp4`
     },
     {
+      id: 'banking',
+      label: t('home.bankingLabel'),
+      title: t('home.bankingTitle'),
+      description: t('home.bankingDesc'),
+      video: `${VIDEO_BASE}/5727833-uhd_3840_2160_30fps.mp4`,
+      darkOverlay: true,
+      cta: { to: '/transactional-banking', label: t('footer.bankingConsulting') },
+    },
+    {
       id: 'clients',
       label: t('home.clientsLabel'),
       title: t('home.clientsTitle'),
@@ -81,6 +92,7 @@ function Home() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [deliveryMethod, setDeliveryMethod] = useState(null)
 
   const totalSections = sections.length + 2 // +1 for contact section, +1 for footer
 
@@ -127,13 +139,35 @@ function Home() {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
-    setTimeout(() => {
-      setIsSubmitting(false)
-      setIsSubmitted(true)
-    }, 1500)
+    const subject = `AULM Contact — ${formData.inquiry || 'General'}`
+    const bodyLines = [
+      `Name: ${formData.name}`,
+      `Company: ${formData.company}`,
+      `Email: ${formData.email}`,
+      `Country: ${formData.country}`,
+      `Inquiry: ${formData.inquiry}`,
+      '',
+      formData.message,
+    ]
+    const result = await submitInquiry({
+      formType: 'home-contact',
+      subject,
+      data: {
+        Name: formData.name,
+        Company: formData.company,
+        Email: formData.email,
+        Country: formData.country,
+        Inquiry: formData.inquiry,
+        Message: formData.message,
+      },
+      bodyLines,
+    })
+    setDeliveryMethod(result.delivered)
+    setIsSubmitting(false)
+    setIsSubmitted(true)
   }
 
   return (
@@ -185,10 +219,13 @@ function Home() {
             <span className="label">{section.label}</span>
             <h2>{section.title}</h2>
             <p>{section.description}</p>
+            {section.cta && (
+              <Link to={section.cta.to} className="btn btn-primary" style={{ marginTop: '1.5rem' }}>
+                {section.cta.label}
+              </Link>
+            )}
             {section.showLocations && (
               <a href="mailto:contact@aulmtrading.com" className="location-badges">
-                <span>Zurich</span>
-                <span>Geneva</span>
                 <span>Zug</span>
                 <span>Dubai</span>
                 <span>London</span>
@@ -222,11 +259,16 @@ function Home() {
             {isSubmitted ? (
               <div className="contact-success">
                 <h3>{t('contact.sent')}</h3>
-                <p>{t('contact.thankYou')}</p>
+                <p>
+                  {deliveryMethod === 'server'
+                    ? t('contact.thankYou')
+                    : 'Please press Send in your mail app so we receive your message at contact@aulmtrading.com.'}
+                </p>
                 <button
                   className="btn btn-outline"
                   onClick={() => {
                     setIsSubmitted(false)
+                    setDeliveryMethod(null)
                     setFormData({ name: '', company: '', email: '', country: '', inquiry: '', message: '' })
                   }}
                 >

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { LICENSE_NUMBER } from '../config/site'
 
 function About() {
   return (
@@ -60,7 +61,7 @@ function About() {
           <div className="text-section">
               <h2>IFZA License</h2>
               <p>
-                AULM Global Precious Metal Trades operates under a valid license from the International Free Zone Authority (IFZA), Dubai's leading free zone for international businesses.
+                AULM Global Precious Metal Trades operates under IFZA License No. {LICENSE_NUMBER} from the International Free Zone Authority (IFZA), Dubai&apos;s leading free zone for international businesses.
               </p>
               <p>
                 This license enables us to conduct gold trading activities with full regulatory compliance, benefiting from Dubai's business-friendly environment and world-class infrastructure.
@@ -102,11 +103,13 @@ function About() {
           <div className="text-section">
             <h2>Ready to partner with us?</h2>
             <p>
-              Contact our team to discuss how AULM Global Precious Metal Trades can serve your gold trading needs.
+              We buy raw gold — scrap and doré — from Africa and global sources. We sell{' '}
+              <strong>LBMA-standard bullion only</strong>, not raw gold. Assay, compliance, and settlement through
+              our Dubai desk.
             </p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '2rem' }}>
               <Link to="/contact" className="btn btn-primary">Contact Us</Link>
-              <Link to="/shop" className="btn btn-light">Buy Gold</Link>
+              <Link to="/sell-gold-institutional-dubai" className="btn btn-light">Sell Gold</Link>
             </div>
           </div>
         </div>

@@ -134,10 +134,11 @@ function Sustainability() {
           <div className="text-section">
             <h2>Ethical gold, premium quality</h2>
             <p>
-              Choose AULM Global Precious Metal Trades for responsibly sourced gold that meets the highest standards.
+              We purchase responsibly sourced raw gold — scrap and doré — from Africa with full OECD due diligence.
+              We deliver LBMA-standard bullion to qualified buyers. Sell raw gold to AULM via Dubai.
             </p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '2rem' }}>
-              <Link to="/shop" className="btn btn-primary">Buy Gold</Link>
+              <Link to="/sell-gold-institutional-dubai" className="btn btn-primary">Sell Gold</Link>
               <Link to="/contact" className="btn btn-light">Contact Us</Link>
             </div>
           </div>

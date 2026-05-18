@@ -1,15 +1,4 @@
-import { useEffect } from 'react'
-
 function Privacy() {
-  useEffect(() => {
-    // Prevent indexing
-    const meta = document.createElement('meta')
-    meta.name = 'robots'
-    meta.content = 'noindex, nofollow'
-    document.head.appendChild(meta)
-    return () => document.head.removeChild(meta)
-  }, [])
-
   return (
     <div style={{ background: '#000', minHeight: '100vh' }}>
       <section className="legal-page">

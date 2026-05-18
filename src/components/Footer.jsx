@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { LICENSE_NUMBER } from '../config/site'
 import { useLanguage } from '../context/LanguageContext'
 
 function Footer() {
@@ -20,6 +21,7 @@ function Footer() {
               <li><Link to="/services">{t('footer.whatWeDo')}</Link></li>
               <li><Link to="/sustainability">{t('footer.sustainability')}</Link></li>
               <li><Link to="/contact">{t('footer.contact')}</Link></li>
+              <li><Link to="/open-account">{t('footer.openAccount')}</Link></li>
             </ul>
           </div>
 
@@ -36,9 +38,10 @@ function Footer() {
             <h4>{t('footer.services')}</h4>
             <ul>
               <li><Link to="/services">{t('footer.sourcing')}</Link></li>
-              <li><Link to="/services">{t('footer.importExport')}</Link></li>
-              <li><Link to="/services">{t('footer.refinery')}</Link></li>
+              <li><Link to="/gold-import-dubai">{t('footer.importExport')}</Link></li>
+              <li><Link to="/refinery-dubai">{t('footer.refinery')}</Link></li>
               <li><Link to="/tokenization">{t('footer.tokenization')}</Link></li>
+              <li><Link to="/transactional-banking">{t('footer.bankingConsulting')}</Link></li>
             </ul>
           </div>
 
@@ -54,12 +57,10 @@ function Footer() {
         <div className="footer-banking">
           <img
             src="/UBS_BIG.D-5c4e1cb0.png"
-            alt="UBS"
+            alt=""
             className="ubs-logo-img"
           />
-          <p>
-            We guarantee that all payments received from our clients, less fees, are held in a Client Deposit Account with UBS Switzerland AG or Emirates NBD Dubai.
-          </p>
+          <p>{t('footer.settlementNote')}</p>
         </div>
 
         <div className="footer-disclaimer">
@@ -72,7 +73,7 @@ function Footer() {
           <div className="footer-legal">
             <span>{t('footer.rights')}</span>
           </div>
-          <span>IFZA License No. 33847 · Dubai, UAE</span>
+          <span>{t('footer.license')} {LICENSE_NUMBER} · Dubai, UAE</span>
         </div>
       </div>
     </footer>

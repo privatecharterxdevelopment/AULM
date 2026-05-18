@@ -21,10 +21,12 @@ function Services() {
             <div className="feature-card">
               <h3>Gold Import & Export</h3>
               <p>International gold trading with established networks across major markets worldwide.</p>
+              <Link to="/gold-import-dubai" className="refinery-inline-link">Gold import Dubai →</Link>
             </div>
             <div className="feature-card">
               <h3>Refinery Services</h3>
               <p>State-of-the-art refining in Dubai producing 99.99% pure gold.</p>
+              <Link to="/refinery-dubai" className="refinery-inline-link">Refinery services Dubai →</Link>
             </div>
             <div className="feature-card">
               <h3>Secure Transport</h3>
@@ -57,13 +59,16 @@ function Services() {
       <section>
         <div className="container">
           <div className="text-section">
-              <h2>Refinery Services</h2>
+              <h2>Refinery Services Dubai</h2>
               <p>
                 Our gold refining operations are conducted at LBMA-certified facilities in Dubai. We process raw gold to achieve 99.99% purity levels.
               </p>
               <p>
                 Every bar and product undergoes rigorous quality control, with full assay certification and documentation.
               </p>
+              <Link to="/open-account" className="btn btn-primary">
+                Open account
+              </Link>
           </div>
         </div>
       </section>
@@ -94,7 +99,9 @@ function Services() {
               <p>
                 With a minimum order of 500 grams, we offer refined gold at {discountPercentage}% below spot price.
               </p>
-              <Link to="/shop" className="btn btn-primary">Buy Gold</Link>
+              <Link to="/sell-gold-institutional-dubai" className="btn btn-primary">
+                Sell gold — institutional
+              </Link>
           </div>
         </div>
       </section>

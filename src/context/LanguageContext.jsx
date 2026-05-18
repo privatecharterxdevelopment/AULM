@@ -6,16 +6,20 @@ const translations = {
     nav: {
       about: 'About',
       services: 'Services',
+      refinery: 'Refinery Dubai',
       tokenization: 'Tokenization',
       sustainability: 'Sustainability',
       news: 'News',
       contact: 'Contact'
     },
+    header: {
+      openAccount: 'Open account',
+    },
     // Home sections
     home: {
       heroLabel: 'Swiss-Arab Association',
       heroTitle: 'Global Trade Corporation.',
-      heroDesc: 'Licensed for import and export of refined gold bars with 99.99% purity certification. Connecting Switzerland and the Emirates through strategic partnerships with internationally renowned transport and logistics companies. End-to-end supply chain security.',
+      heroDesc: 'We import, export, and refine fully compliant — we buy raw gold (doré and scrap) and sell LBMA-standard bullion only. OECD, LBMA, and UAE due diligence from Dubai to global markets.',
       complianceLabel: 'Compliance First',
       complianceTitle: 'Full Transparency. International Standards.',
       complianceDesc: 'Complete adherence to OECD due diligence guidelines and LBMA responsible sourcing standards. Every transaction fully documented, auditable, and traceable from mine to vault. Conflict-free gold with verified chain of custody.',
@@ -25,6 +29,9 @@ const translations = {
       dubaiLabel: 'Strategic Location',
       dubaiTitle: 'From Import to Refinery to Global Markets.',
       dubaiDesc: 'Dubai serves as a strategic hub connecting worldwide gold supply chains. Certified imports through state-of-the-art refining facilities to global distribution.',
+      bankingLabel: 'Transactional Banking',
+      bankingTitle: 'Banking & Paymaster Consulting.',
+      bankingDesc: 'We help firms build the right structure — entity locations, payment architecture, and paymaster solutions across jurisdictions. Fully compliant; financial institution details provided confidentially.',
       clientsLabel: 'Institutional Partners',
       clientsTitle: 'For Serious Investors.',
       clientsDesc: 'We serve Family Offices, commodity traders, investment funds, central banks, and institutional investors seeking direct access to physical gold flows. Minimum 500g, maximum 250kg per month per client. Discretion and confidentiality guaranteed.'
@@ -74,22 +81,31 @@ const translations = {
       disclaimer: 'AULM Global Trade Corporation services are exclusively available to qualified institutional clients, licensed traders, and accredited investors. All transactions are subject to full KYC/AML verification and comply with OECD due diligence guidelines for responsible supply chains.',
       b2bOnly: 'B2B Only.',
       rights: '© 2026 AULM Global Trade Corporation. All rights reserved.',
-      languages: 'Languages'
+      languages: 'Languages',
+      license: 'IFZA License No.',
+      openAccount: 'Open account',
+      bankingConsulting: 'Transactional banking',
+      settlementNote:
+        'Institutional B2B only. Payment and settlement by bank transfer (SWIFT MT103) between approved accounts — no cash, cryptocurrency, or third-party payment agents.',
     }
   },
   de: {
     nav: {
       about: 'Über uns',
       services: 'Leistungen',
+      refinery: 'Raffinerie Dubai',
       tokenization: 'Tokenisierung',
       sustainability: 'Nachhaltigkeit',
       news: 'Aktuelles',
       contact: 'Kontakt'
     },
+    header: {
+      openAccount: 'Konto eröffnen',
+    },
     home: {
       heroLabel: 'Schweizer-Arabische Vereinigung',
       heroTitle: 'Globale Handelsgesellschaft.',
-      heroDesc: 'Lizenziert für Import und Export von raffinierten Goldbarren mit 99,99% Reinheitszertifizierung. Verbindung der Schweiz und der Emirate durch strategische Partnerschaften mit international renommierten Transport- und Logistikunternehmen. End-to-End Lieferkettensicherheit.',
+      heroDesc: 'Wir importieren, exportieren und raffinieren compliant — wir kaufen Rohgold (Doré und Scrap) und verkaufen ausschließlich LBMA-Bullion. OECD-, LBMA- und VAE-Standards, Verarbeitung über Dubai.',
       complianceLabel: 'Compliance First',
       complianceTitle: 'Vollständige Transparenz. Internationale Standards.',
       complianceDesc: 'Vollständige Einhaltung der OECD-Sorgfaltspflichtrichtlinien und LBMA-Standards für verantwortungsvolle Beschaffung. Jede Transaktion vollständig dokumentiert, prüfbar und von der Mine bis zum Tresor rückverfolgbar. Konfliktfreies Gold mit verifizierter Lieferkette.',
@@ -99,6 +115,9 @@ const translations = {
       dubaiLabel: 'Strategischer Standort',
       dubaiTitle: 'Von Import zur Raffinerie zu globalen Märkten.',
       dubaiDesc: 'Dubai dient als strategisches Drehkreuz für weltweite Gold-Lieferketten. Zertifizierte Importe durch modernste Raffinerieanlagen bis zur globalen Distribution.',
+      bankingLabel: 'Transactional Banking',
+      bankingTitle: 'Banking- & Paymaster-Beratung.',
+      bankingDesc: 'Wir helfen Firmen, die optimale Struktur aufzubauen — Standorte, Bankbeziehungen und Paymaster-Lösungen in mehreren Jurisdiktionen. Vollständig compliant.',
       clientsLabel: 'Institutionelle Partner',
       clientsTitle: 'Für Ernsthafte Investoren.',
       clientsDesc: 'Wir bedienen Family Offices, Rohstoffhändler, Investmentfonds, Zentralbanken und institutionelle Anleger. Minimum 500g, Maximum 250kg pro Monat pro Kunde. Diskretion und Vertraulichkeit garantiert.'
@@ -146,22 +165,31 @@ const translations = {
       disclaimer: 'Die Dienstleistungen der AULM Global Trade Corporation stehen ausschließlich qualifizierten institutionellen Kunden, lizenzierten Händlern und akkreditierten Investoren zur Verfügung. Alle Transaktionen unterliegen vollständiger KYC/AML-Verifizierung.',
       b2bOnly: 'Nur B2B.',
       rights: '© 2026 AULM Global Trade Corporation. Alle Rechte vorbehalten.',
-      languages: 'Sprachen'
+      languages: 'Sprachen',
+      license: 'IFZA-Lizenz Nr.',
+      openAccount: 'Konto eröffnen',
+      bankingConsulting: 'Banking-Beratung',
+      settlementNote:
+        'Nur institutionelle B2B-Kunden. Zahlung und Abwicklung per Banküberweisung (SWIFT MT103) zwischen freigegebenen Konten — kein Bargeld, keine Kryptowährungen, keine Drittzahler.',
     }
   },
   fr: {
     nav: {
       about: 'À propos',
       services: 'Services',
+      refinery: 'Raffinerie Dubaï',
       tokenization: 'Tokenisation',
       sustainability: 'Durabilité',
       news: 'Actualités',
       contact: 'Contact'
     },
+    header: {
+      openAccount: 'Ouvrir un compte',
+    },
     home: {
       heroLabel: 'Association Suisse-Arabe',
       heroTitle: 'Société de Commerce Mondial.',
-      heroDesc: 'Licencié pour l\'import et l\'export de lingots d\'or raffinés avec certification de pureté à 99,99%. Connecter la Suisse et les Émirats grâce à des partenariats stratégiques avec des sociétés de transport et de logistique de renommée internationale.',
+      heroDesc: 'Import, export et affinage conformes — nous achetons l\'or brut (doré et ferraille) et vendons uniquement des lingots standard LBMA. OECD, LBMA et UAE via Dubaï.',
       complianceLabel: 'Conformité d\'abord',
       complianceTitle: 'Transparence totale. Normes internationales.',
       complianceDesc: 'Respect total des directives de diligence raisonnable de l\'OCDE et des normes d\'approvisionnement responsable LBMA. Chaque transaction entièrement documentée, vérifiable et traçable de la mine au coffre.',
@@ -171,6 +199,9 @@ const translations = {
       dubaiLabel: 'Emplacement stratégique',
       dubaiTitle: 'De l\'import à la raffinerie aux marchés mondiaux.',
       dubaiDesc: 'Dubaï sert de plaque tournante stratégique reliant les chaînes d\'approvisionnement mondiales en or. Importations certifiées via des installations de raffinage ultramodernes vers une distribution mondiale.',
+      bankingLabel: 'Banque transactionnelle',
+      bankingTitle: 'Conseil bancaire & paymaster.',
+      bankingDesc: 'Nous aidons les entreprises à structurer leurs entités, leur architecture de paiement et les solutions paymaster — conformes, multi-juridictions. Détails financiers fournis de manière confidentielle.',
       clientsLabel: 'Partenaires institutionnels',
       clientsTitle: 'Pour les investisseurs sérieux.',
       clientsDesc: 'Nous servons les Family Offices, négociants en matières premières, fonds d\'investissement et investisseurs institutionnels. Minimum 500g, maximum 250kg par mois par client.'
@@ -218,22 +249,31 @@ const translations = {
       disclaimer: 'Les services d\'AULM Global Trade Corporation sont exclusivement disponibles pour les clients institutionnels qualifiés, les négociants agréés et les investisseurs accrédités.',
       b2bOnly: 'B2B uniquement.',
       rights: '© 2026 AULM Global Trade Corporation. Tous droits réservés.',
-      languages: 'Langues'
+      languages: 'Langues',
+      license: 'Licence IFZA n°',
+      openAccount: 'Ouvrir un compte',
+      bankingConsulting: 'Conseil bancaire transactionnel',
+      settlementNote:
+        'B2B institutionnel uniquement. Paiement et règlement par virement bancaire (SWIFT MT103) entre comptes approuvés — pas d’espèces, de crypto-monnaies ni d’intermédiaires de paiement.',
     }
   },
   ar: {
     nav: {
       about: 'من نحن',
       services: 'الخدمات',
+      refinery: 'مصفاة دبي',
       tokenization: 'الترميز',
       sustainability: 'الاستدامة',
       news: 'الأخبار',
       contact: 'اتصل بنا'
     },
+    header: {
+      openAccount: 'فتح حساب',
+    },
     home: {
       heroLabel: 'الجمعية السويسرية العربية',
       heroTitle: 'شركة التجارة العالمية.',
-      heroDesc: 'مرخصة لاستيراد وتصدير سبائك الذهب المكررة بشهادة نقاء 99.99٪. ربط سويسرا والإمارات من خلال شراكات استراتيجية مع شركات النقل واللوجستيات ذات الشهرة العالمية.',
+      heroDesc: 'نستورد ونصدر ونكرر بامتثال كامل — نشتري الذهب الخام (سبائك دوريه وخردة) ونبيع سبائك LBMA فقط. معايير OECD وLBMA والإمارات عبر دبي.',
       complianceLabel: 'الامتثال أولاً',
       complianceTitle: 'شفافية كاملة. معايير دولية.',
       complianceDesc: 'الالتزام الكامل بإرشادات العناية الواجبة لمنظمة التعاون الاقتصادي والتنمية ومعايير LBMA للمصادر المسؤولة. كل معاملة موثقة بالكامل وقابلة للتدقيق.',
@@ -243,6 +283,9 @@ const translations = {
       dubaiLabel: 'موقع استراتيجي',
       dubaiTitle: 'من الاستيراد إلى المصفاة إلى الأسواق العالمية.',
       dubaiDesc: 'تعمل دبي كمركز استراتيجي يربط سلاسل توريد الذهب العالمية. واردات معتمدة عبر منشآت تكرير حديثة إلى التوزيع العالمي.',
+      bankingLabel: 'الخدمات المصرفية',
+      bankingTitle: 'استشارات مصرفية و paymaster.',
+      bankingDesc: 'نساعد الشركات على بناء الهيكل المناسب — مواقع الشركات وهندسة الدفع وحلول paymaster — متوافقة بالكامل. التفاصيل المالية تُقدَّم بسرية.',
       clientsLabel: 'شركاء مؤسسيون',
       clientsTitle: 'للمستثمرين الجادين.',
       clientsDesc: 'نخدم المكاتب العائلية وتجار السلع وصناديق الاستثمار والمستثمرين المؤسسيين. الحد الأدنى 500 جرام، الحد الأقصى 250 كجم شهرياً.'
@@ -290,22 +333,31 @@ const translations = {
       disclaimer: 'خدمات شركة AULM Global Trade Corporation متاحة حصرياً للعملاء المؤسسيين المؤهلين والتجار المرخصين والمستثمرين المعتمدين.',
       b2bOnly: 'B2B فقط.',
       rights: '© 2026 AULM Global Trade Corporation. جميع الحقوق محفوظة.',
-      languages: 'اللغات'
+      languages: 'اللغات',
+      license: 'رخصة IFZA رقم',
+      openAccount: 'فتح حساب',
+      bankingConsulting: 'الاستشارات المصرفية',
+      settlementNote:
+        'B2B مؤسسي فقط. الدفع والتسوية عبر تحويل بنكي (SWIFT MT103) بين حسابات معتمدة — لا نقد ولا عملات رقمية ولا وسطاء دفع.',
     }
   },
   zh: {
     nav: {
       about: '关于我们',
       services: '服务',
+      refinery: '迪拜精炼',
       tokenization: '代币化',
       sustainability: '可持续发展',
       news: '新闻',
       contact: '联系我们'
     },
+    header: {
+      openAccount: '开户',
+    },
     home: {
       heroLabel: '瑞士-阿拉伯协会',
       heroTitle: '全球贸易公司。',
-      heroDesc: '获得进出口精炼金条许可，纯度认证99.99%。通过与国际知名运输和物流公司的战略合作，连接瑞士和阿联酋。端到端供应链安全。',
+      heroDesc: '合规进出口与精炼——我们收购原金（金泥与废料），仅销售LBMA标准金条。经迪拜符合OECD、LBMA与阿联酋标准。',
       complianceLabel: '合规优先',
       complianceTitle: '完全透明。国际标准。',
       complianceDesc: '完全遵守经合组织尽职调查指南和LBMA负责任采购标准。每笔交易都有完整记录，可审计，从矿山到金库全程可追溯。',
@@ -315,6 +367,9 @@ const translations = {
       dubaiLabel: '战略位置',
       dubaiTitle: '从进口到精炼厂再到全球市场。',
       dubaiDesc: '迪拜是连接全球黄金供应链的战略枢纽。通过先进的精炼设施实现认证进口到全球分销。',
+      bankingLabel: '交易银行',
+      bankingTitle: '银行与 Paymaster 咨询。',
+      bankingDesc: '帮助企业构建合规结构 — 公司设立地点、支付架构及多司法管辖区 paymaster 解决方案。金融机构信息保密提供。',
       clientsLabel: '机构合作伙伴',
       clientsTitle: '服务于严肃的投资者。',
       clientsDesc: '我们服务于家族办公室、大宗商品交易商、投资基金、中央银行和机构投资者。每月每客户最低500克，最高250公斤。保证谨慎和保密。'
@@ -362,22 +417,31 @@ const translations = {
       disclaimer: 'AULM Global Trade Corporation的服务仅面向合格的机构客户、持牌交易商和认可投资者。所有交易均需完整的KYC/AML验证。',
       b2bOnly: '仅限B2B。',
       rights: '© 2026 AULM Global Trade Corporation. 版权所有。',
-      languages: '语言'
+      languages: '语言',
+      license: 'IFZA许可证号',
+      openAccount: '开户',
+      bankingConsulting: '交易银行咨询',
+      settlementNote:
+        '仅限机构 B2B。经批准账户之间银行电汇（SWIFT MT103）付款与结算——不接受现金、加密货币或第三方支付。',
     }
   },
   ja: {
     nav: {
       about: '会社概要',
       services: 'サービス',
+      refinery: 'ドバイ製錬',
       tokenization: 'トークン化',
       sustainability: 'サステナビリティ',
       news: 'ニュース',
       contact: 'お問い合わせ'
     },
+    header: {
+      openAccount: '口座開設',
+    },
     home: {
       heroLabel: 'スイス・アラブ協会',
       heroTitle: 'グローバル・トレード・コーポレーション。',
-      heroDesc: '純度99.99%認証の精製金地金の輸出入ライセンスを取得。国際的に著名な輸送・物流企業との戦略的パートナーシップを通じて、スイスとアラブ首長国連邦を結びます。',
+      heroDesc: 'コンプライアントな輸出入・精製 — 原金（ドレ・スクラップ）を買い付け、LBMA規格地金のみを販売。ドバイ経由でOECD・LBMA・UAE基準。',
       complianceLabel: 'コンプライアンス第一',
       complianceTitle: '完全な透明性。国際基準。',
       complianceDesc: 'OECDデューデリジェンスガイドラインとLBMA責任ある調達基準を完全に遵守。すべての取引は完全に文書化され、監査可能で、鉱山から金庫まで追跡可能です。',
@@ -387,6 +451,9 @@ const translations = {
       dubaiLabel: '戦略的立地',
       dubaiTitle: '輸入から精製所へ、そしてグローバル市場へ。',
       dubaiDesc: 'ドバイは世界の金サプライチェーンを結ぶ戦略的ハブです。最先端の精製施設を通じた認定輸入からグローバル流通まで。',
+      bankingLabel: 'トランザクショナルバンキング',
+      bankingTitle: 'バンキング・ペイマスターアドバイザリー。',
+      bankingDesc: '企業の最適な構造構築を支援 — 法人設立地、決済アーキテクチャ、複数法域のペイマスターソリューション。完全コンプライアント。金融機関情報は機密に提供。',
       clientsLabel: '機関投資家パートナー',
       clientsTitle: '真剣な投資家のために。',
       clientsDesc: 'ファミリーオフィス、商品トレーダー、投資ファンド、中央銀行、機関投資家にサービスを提供。月間最低500g、最大250kg。機密保持を保証。'
@@ -434,7 +501,12 @@ const translations = {
       disclaimer: 'AULM Global Trade Corporationのサービスは、適格な機関投資家、認可された取引業者、認定投資家のみを対象としています。',
       b2bOnly: 'B2B専用。',
       rights: '© 2026 AULM Global Trade Corporation. All rights reserved.',
-      languages: '言語'
+      languages: '言語',
+      license: 'IFZAライセンス番号',
+      openAccount: '口座開設',
+      bankingConsulting: 'トランザクショナルバンキング',
+      settlementNote:
+        '機関向けB2Bのみ。承認済み口座間の銀行送金（SWIFT MT103）による決済。現金・暗号資産・第三者決済は不可。',
     }
   }
 }

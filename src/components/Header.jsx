@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 
 function HeaderBadge() {
-  const { language, setLanguage } = useLanguage()
+  const { language, setLanguage, t } = useLanguage()
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef(null)
 
@@ -52,9 +52,9 @@ function HeaderBadge() {
 
       <span className="badge-divider" />
 
-      <a href="mailto:contact@aulmtrading.com" className="badge-phone">
-        Mail Inquiry
-      </a>
+      <Link to="/open-account" className="badge-phone">
+        {t('header.openAccount')}
+      </Link>
 
       {isOpen && (
         <div className="language-dropdown-menu">
@@ -128,6 +128,11 @@ function Header() {
                 </NavLink>
               </li>
               <li>
+                <NavLink to="/refinery-dubai" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+                  {t('nav.refinery')}
+                </NavLink>
+              </li>
+              <li>
                 <NavLink to="/tokenization" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
                   {t('nav.tokenization')}
                 </NavLink>
@@ -163,6 +168,9 @@ function Header() {
           <NavLink to="/services" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
             {t('nav.services')}
           </NavLink>
+          <NavLink to="/refinery-dubai" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
+            {t('nav.refinery')}
+          </NavLink>
           <NavLink to="/tokenization" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
             {t('nav.tokenization')}
           </NavLink>
@@ -184,7 +192,9 @@ function Header() {
         </div>
 
         <div className="mobile-menu-footer">
-          <a href="mailto:contact@aulmtrading.com" className="mobile-phone">Mail Inquiry</a>
+          <Link to="/open-account" className="mobile-phone" onClick={closeMobileMenu}>
+            {t('header.openAccount')}
+          </Link>
           <a href="mailto:contact@aulmtrading.com" className="mobile-email">contact@aulmtrading.com</a>
         </div>
       </div>

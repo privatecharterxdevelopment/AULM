@@ -1,15 +1,4 @@
-import { useEffect } from 'react'
-
 function Terms() {
-  useEffect(() => {
-    // Prevent indexing
-    const meta = document.createElement('meta')
-    meta.name = 'robots'
-    meta.content = 'noindex, nofollow'
-    document.head.appendChild(meta)
-    return () => document.head.removeChild(meta)
-  }, [])
-
   return (
     <div style={{ background: '#000', minHeight: '100vh' }}>
       <section className="legal-page">
@@ -56,6 +45,10 @@ function Terms() {
                 All prices are quoted based on current London Bullion Market Association (LBMA) spot rates plus applicable
                 premiums. Payment terms are established individually per client agreement. Full payment must be received
                 before physical delivery or title transfer.
+              </p>
+              <p>
+                Settlement is bank-to-bank only via telegraphic transfer (TT / SWIFT MT103) between approved institutional
+                accounts. Cash, cryptocurrency, and third-party payment intermediaries are not accepted.
               </p>
             </div>
 
