@@ -14,7 +14,6 @@ const paths = [
   { path: '/gold-import-dubai', priority: '0.9', changefreq: 'weekly' },
   { path: '/sell-gold-institutional-dubai', priority: '0.9', changefreq: 'weekly' },
   { path: '/open-account', priority: '0.95', changefreq: 'weekly' },
-  { path: '/transactional-banking', priority: '0.85', changefreq: 'monthly' },
   { path: '/tokenization', priority: '0.8', changefreq: 'monthly' },
   { path: '/sustainability', priority: '0.8', changefreq: 'monthly' },
   { path: '/contact', priority: '0.8', changefreq: 'monthly' },

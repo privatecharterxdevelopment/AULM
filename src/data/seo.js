@@ -40,13 +40,6 @@ const PAGE_SEO = {
     keywords: 'gold import dubai, import gold dubai, DMCC gold import, gold import UAE',
     index: true,
   },
-  '/transactional-banking': {
-    title: `Transactional Banking Consulting | Paymaster & Multi-Jurisdiction | ${SITE_NAME}`,
-    description:
-      'Transactional banking consulting for commodity firms: entity structure, paymaster and payment architecture across jurisdictions. Fully compliant — no public bank references.',
-    keywords: 'transactional banking consulting, paymaster gold trading, multi-jurisdiction corporate structure UAE',
-    index: true,
-  },
   '/open-account': {
     title: `Open Account — Sell Doré, Scrap & Bullion | LBMA Discount | ${SITE_NAME}`,
     description:

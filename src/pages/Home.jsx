@@ -65,15 +65,6 @@ function Home() {
       video: `${VIDEO_BASE}/5121750-uhd_3840_2160_25fps.mp4`
     },
     {
-      id: 'banking',
-      label: t('home.bankingLabel'),
-      title: t('home.bankingTitle'),
-      description: t('home.bankingDesc'),
-      video: `${VIDEO_BASE}/5727833-uhd_3840_2160_30fps.mp4`,
-      darkOverlay: true,
-      cta: { to: '/transactional-banking', label: t('footer.bankingConsulting') },
-    },
-    {
       id: 'clients',
       label: t('home.clientsLabel'),
       title: t('home.clientsTitle'),

@@ -17,7 +17,6 @@ import RefineryDubai from './pages/RefineryDubai'
 import GoldImportDubai from './pages/GoldImportDubai'
 import InstitutionalGoldDubai from './pages/InstitutionalGoldDubai'
 import OpenAccount from './pages/OpenAccount'
-import TransactionalBanking from './pages/TransactionalBanking'
 import Seo from './components/Seo'
 import './styles/globals.css'
 
@@ -38,7 +37,6 @@ function AppContent() {
           <Route path="/gold-import-dubai" element={<GoldImportDubai />} />
           <Route path="/sell-gold-institutional-dubai" element={<InstitutionalGoldDubai />} />
           <Route path="/open-account" element={<OpenAccount />} />
-          <Route path="/transactional-banking" element={<TransactionalBanking />} />
           <Route path="/tokenization" element={<Tokenization />} />
           <Route path="/sustainability" element={<Sustainability />} />
           <Route path="/contact" element={<Contact />} />

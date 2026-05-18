@@ -29,9 +29,6 @@ const translations = {
       dubaiLabel: 'Strategic Location',
       dubaiTitle: 'From Import to Refinery to Global Markets.',
       dubaiDesc: 'Dubai serves as a strategic hub connecting worldwide gold supply chains. Certified imports through state-of-the-art refining facilities to global distribution.',
-      bankingLabel: 'Transactional Banking',
-      bankingTitle: 'Banking & Paymaster Consulting.',
-      bankingDesc: 'We help firms build the right structure — entity locations, payment architecture, and paymaster solutions across jurisdictions. Fully compliant; financial institution details provided confidentially.',
       clientsLabel: 'Institutional Partners',
       clientsTitle: 'For Serious Investors.',
       clientsDesc: 'We serve Family Offices, commodity traders, investment funds, central banks, and institutional investors seeking direct access to physical gold flows. Minimum 500g, maximum 250kg per month per client. Discretion and confidentiality guaranteed.'
@@ -84,7 +81,6 @@ const translations = {
       languages: 'Languages',
       license: 'IFZA License No.',
       openAccount: 'Open account',
-      bankingConsulting: 'Transactional banking',
       settlementNote:
         'Institutional B2B only. Payment and settlement by bank transfer (SWIFT MT103) between approved accounts — no cash, cryptocurrency, or third-party payment agents.',
     }
@@ -115,9 +111,6 @@ const translations = {
       dubaiLabel: 'Strategischer Standort',
       dubaiTitle: 'Von Import zur Raffinerie zu globalen Märkten.',
       dubaiDesc: 'Dubai dient als strategisches Drehkreuz für weltweite Gold-Lieferketten. Zertifizierte Importe durch modernste Raffinerieanlagen bis zur globalen Distribution.',
-      bankingLabel: 'Transactional Banking',
-      bankingTitle: 'Banking- & Paymaster-Beratung.',
-      bankingDesc: 'Wir helfen Firmen, die optimale Struktur aufzubauen — Standorte, Bankbeziehungen und Paymaster-Lösungen in mehreren Jurisdiktionen. Vollständig compliant.',
       clientsLabel: 'Institutionelle Partner',
       clientsTitle: 'Für Ernsthafte Investoren.',
       clientsDesc: 'Wir bedienen Family Offices, Rohstoffhändler, Investmentfonds, Zentralbanken und institutionelle Anleger. Minimum 500g, Maximum 250kg pro Monat pro Kunde. Diskretion und Vertraulichkeit garantiert.'
@@ -168,7 +161,6 @@ const translations = {
       languages: 'Sprachen',
       license: 'IFZA-Lizenz Nr.',
       openAccount: 'Konto eröffnen',
-      bankingConsulting: 'Banking-Beratung',
       settlementNote:
         'Nur institutionelle B2B-Kunden. Zahlung und Abwicklung per Banküberweisung (SWIFT MT103) zwischen freigegebenen Konten — kein Bargeld, keine Kryptowährungen, keine Drittzahler.',
     }
@@ -199,9 +191,6 @@ const translations = {
       dubaiLabel: 'Emplacement stratégique',
       dubaiTitle: 'De l\'import à la raffinerie aux marchés mondiaux.',
       dubaiDesc: 'Dubaï sert de plaque tournante stratégique reliant les chaînes d\'approvisionnement mondiales en or. Importations certifiées via des installations de raffinage ultramodernes vers une distribution mondiale.',
-      bankingLabel: 'Banque transactionnelle',
-      bankingTitle: 'Conseil bancaire & paymaster.',
-      bankingDesc: 'Nous aidons les entreprises à structurer leurs entités, leur architecture de paiement et les solutions paymaster — conformes, multi-juridictions. Détails financiers fournis de manière confidentielle.',
       clientsLabel: 'Partenaires institutionnels',
       clientsTitle: 'Pour les investisseurs sérieux.',
       clientsDesc: 'Nous servons les Family Offices, négociants en matières premières, fonds d\'investissement et investisseurs institutionnels. Minimum 500g, maximum 250kg par mois par client.'
@@ -252,7 +241,6 @@ const translations = {
       languages: 'Langues',
       license: 'Licence IFZA n°',
       openAccount: 'Ouvrir un compte',
-      bankingConsulting: 'Conseil bancaire transactionnel',
       settlementNote:
         'B2B institutionnel uniquement. Paiement et règlement par virement bancaire (SWIFT MT103) entre comptes approuvés — pas d’espèces, de crypto-monnaies ni d’intermédiaires de paiement.',
     }
@@ -283,9 +271,6 @@ const translations = {
       dubaiLabel: 'موقع استراتيجي',
       dubaiTitle: 'من الاستيراد إلى المصفاة إلى الأسواق العالمية.',
       dubaiDesc: 'تعمل دبي كمركز استراتيجي يربط سلاسل توريد الذهب العالمية. واردات معتمدة عبر منشآت تكرير حديثة إلى التوزيع العالمي.',
-      bankingLabel: 'الخدمات المصرفية',
-      bankingTitle: 'استشارات مصرفية و paymaster.',
-      bankingDesc: 'نساعد الشركات على بناء الهيكل المناسب — مواقع الشركات وهندسة الدفع وحلول paymaster — متوافقة بالكامل. التفاصيل المالية تُقدَّم بسرية.',
       clientsLabel: 'شركاء مؤسسيون',
       clientsTitle: 'للمستثمرين الجادين.',
       clientsDesc: 'نخدم المكاتب العائلية وتجار السلع وصناديق الاستثمار والمستثمرين المؤسسيين. الحد الأدنى 500 جرام، الحد الأقصى 250 كجم شهرياً.'
@@ -336,7 +321,6 @@ const translations = {
       languages: 'اللغات',
       license: 'رخصة IFZA رقم',
       openAccount: 'فتح حساب',
-      bankingConsulting: 'الاستشارات المصرفية',
       settlementNote:
         'B2B مؤسسي فقط. الدفع والتسوية عبر تحويل بنكي (SWIFT MT103) بين حسابات معتمدة — لا نقد ولا عملات رقمية ولا وسطاء دفع.',
     }
@@ -367,9 +351,6 @@ const translations = {
       dubaiLabel: '战略位置',
       dubaiTitle: '从进口到精炼厂再到全球市场。',
       dubaiDesc: '迪拜是连接全球黄金供应链的战略枢纽。通过先进的精炼设施实现认证进口到全球分销。',
-      bankingLabel: '交易银行',
-      bankingTitle: '银行与 Paymaster 咨询。',
-      bankingDesc: '帮助企业构建合规结构 — 公司设立地点、支付架构及多司法管辖区 paymaster 解决方案。金融机构信息保密提供。',
       clientsLabel: '机构合作伙伴',
       clientsTitle: '服务于严肃的投资者。',
       clientsDesc: '我们服务于家族办公室、大宗商品交易商、投资基金、中央银行和机构投资者。每月每客户最低500克，最高250公斤。保证谨慎和保密。'
@@ -420,7 +401,6 @@ const translations = {
       languages: '语言',
       license: 'IFZA许可证号',
       openAccount: '开户',
-      bankingConsulting: '交易银行咨询',
       settlementNote:
         '仅限机构 B2B。经批准账户之间银行电汇（SWIFT MT103）付款与结算——不接受现金、加密货币或第三方支付。',
     }
@@ -451,9 +431,6 @@ const translations = {
       dubaiLabel: '戦略的立地',
       dubaiTitle: '輸入から精製所へ、そしてグローバル市場へ。',
       dubaiDesc: 'ドバイは世界の金サプライチェーンを結ぶ戦略的ハブです。最先端の精製施設を通じた認定輸入からグローバル流通まで。',
-      bankingLabel: 'トランザクショナルバンキング',
-      bankingTitle: 'バンキング・ペイマスターアドバイザリー。',
-      bankingDesc: '企業の最適な構造構築を支援 — 法人設立地、決済アーキテクチャ、複数法域のペイマスターソリューション。完全コンプライアント。金融機関情報は機密に提供。',
       clientsLabel: '機関投資家パートナー',
       clientsTitle: '真剣な投資家のために。',
       clientsDesc: 'ファミリーオフィス、商品トレーダー、投資ファンド、中央銀行、機関投資家にサービスを提供。月間最低500g、最大250kg。機密保持を保証。'
@@ -504,7 +481,6 @@ const translations = {
       languages: '言語',
       license: 'IFZAライセンス番号',
       openAccount: '口座開設',
-      bankingConsulting: 'トランザクショナルバンキング',
       settlementNote:
         '機関向けB2Bのみ。承認済み口座間の銀行送金（SWIFT MT103）による決済。現金・暗号資産・第三者決済は不可。',
     }

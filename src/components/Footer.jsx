@@ -41,7 +41,6 @@ function Footer() {
               <li><Link to="/gold-import-dubai">{t('footer.importExport')}</Link></li>
               <li><Link to="/refinery-dubai">{t('footer.refinery')}</Link></li>
               <li><Link to="/tokenization">{t('footer.tokenization')}</Link></li>
-              <li><Link to="/transactional-banking">{t('footer.bankingConsulting')}</Link></li>
             </ul>
           </div>
 

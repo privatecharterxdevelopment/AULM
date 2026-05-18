@@ -9,7 +9,6 @@ const SERVICE_OPTIONS = [
   { value: 'buy-bullion', label: 'Buy LBMA bullion from AULM' },
   { value: 'refinery-dubai', label: 'Refinery services Dubai' },
   { value: 'gold-import-dubai', label: 'Gold import coordination' },
-  { value: 'banking-consulting', label: 'Transactional banking consulting' },
 ]
 
 const INCOTERM_OPTIONS = [

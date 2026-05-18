@@ -156,7 +156,6 @@ function Contact() {
                       <option value="buying">Gold Acquisition</option>
                       <option value="partnership">Strategic Partnership</option>
                       <option value="institutional">Institutional Inquiry</option>
-                      <option value="banking">Transactional Banking Consulting</option>
                       <option value="sell-gold">Sell raw gold (doré / scrap)</option>
                       <option value="buy-bullion">Buy LBMA bullion</option>
                     </select>
