@@ -184,7 +184,7 @@ function RefineryDubai() {
       </section>
 
       <section className="section-navy">
-        <div className="container text-section">
+        <div className="container text-section text-section--center">
           <h2>Ready to onboard?</h2>
           <p>
             Open your B2B account on our dedicated page — form, document checklist, and seller onboarding

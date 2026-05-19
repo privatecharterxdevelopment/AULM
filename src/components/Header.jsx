@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
+import HeaderContactIcons from './HeaderContactIcons'
 
 function HeaderBadge() {
   const { language, setLanguage, t } = useLanguage()
@@ -50,6 +51,8 @@ function HeaderBadge() {
         </svg>
         <span>{language.toUpperCase()}</span>
       </button>
+
+      <HeaderContactIcons />
 
       <span className="badge-divider" />
 

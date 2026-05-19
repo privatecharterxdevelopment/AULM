@@ -103,7 +103,7 @@ function Services() {
       {/* CTA */}
       <section className="section-navy">
         <div className="container">
-          <div className="text-section">
+          <div className="text-section text-section--center">
             <h2>Ready to trade?</h2>
             <p>
               Contact our team to discuss your gold trading requirements.

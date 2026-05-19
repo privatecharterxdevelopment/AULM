@@ -361,6 +361,31 @@ a {
   opacity: 0.8;
 }
 
+.header-contact-icons {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.header-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: rgba(255, 255, 255, 0.85);
+  transition: color 0.2s, background 0.2s;
+}
+
+.header-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-white);
+}
+
+.header-icon-btn--whatsapp:hover {
+  color: #25d366;
+}
+
 .badge-divider {
   width: 1px;
   height: 20px;
@@ -578,97 +603,6 @@ a {
   max-width: 600px;
 }
 
-.fullscreen-content--services {
-  max-width: 1100px;
-  width: 100%;
-}
-
-.fullscreen-content--services h2 {
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
-}
-
-.fullscreen-content--services > p {
-  max-width: 640px;
-}
-
-.home-services-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin-top: 1.75rem;
-  width: 100%;
-}
-
-.home-service-card {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 16px;
-  text-decoration: none;
-  color: inherit;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(8px);
-  border-radius: 6px;
-  transition: border-color 0.2s, background 0.2s, transform 0.2s;
-  text-align: left;
-}
-
-.home-service-card:hover {
-  border-color: rgba(255, 255, 255, 0.35);
-  background: rgba(0, 0, 0, 0.6);
-  transform: translateY(-2px);
-}
-
-.home-service-card__keyword {
-  font-size: 0.65rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(212, 175, 55, 0.9);
-}
-
-.home-service-card h3 {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #fff;
-  margin: 0;
-  line-height: 1.3;
-}
-
-.home-service-card p {
-  font-size: 0.72rem !important;
-  line-height: 1.45 !important;
-  color: rgba(255, 255, 255, 0.55) !important;
-  max-width: none !important;
-  margin: 0;
-  flex: 1;
-}
-
-.home-service-card__link {
-  font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.75);
-  margin-top: 4px;
-}
-
-.home-services-all {
-  margin-top: 1.25rem;
-  display: inline-block;
-}
-
-@media (max-width: 1100px) {
-  .home-services-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .home-services-grid {
-    grid-template-columns: 1fr;
-    max-height: 42vh;
-    overflow-y: auto;
-  }
-}
-
 /* Scroll Indicator */
 .scroll-indicator {
   position: absolute;
@@ -803,15 +737,22 @@ section {
   background-position: center;
 }
 
-/* Text Section */
+/* Text Section — default left-aligned on inner pages */
 .text-section {
-  max-width: 650px;
-  margin: 0 auto;
-  text-align: center;
+  max-width: 800px;
+  margin: 0;
+  text-align: left;
 }
 
 .text-section h2 {
   margin-bottom: 20px;
+}
+
+.text-section--center {
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 /* Features */
@@ -849,24 +790,123 @@ section {
 }
 
 /* ===================================
-   Page Header
+   Page Hero (unified subpage header)
    =================================== */
-.page-header {
-  padding: 160px 0 80px;
+.page-hero {
+  position: relative;
+  padding: clamp(120px, 16vh, 160px) 0 clamp(56px, 8vh, 88px);
+  text-align: left;
+  color: var(--color-white);
   background: var(--color-black);
+  overflow: hidden;
+}
+
+.page-hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+}
+
+.page-hero__label {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.page-hero h1 {
+  font-family: var(--font-sans);
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 300;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  max-width: 18ch;
+}
+
+.page-hero__lead {
+  color: rgba(255, 255, 255, 0.75);
+  max-width: 560px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.page-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+  justify-content: flex-start;
+}
+
+/* Legacy aliases → same as page-hero */
+.page-header {
+  position: relative;
+  padding: clamp(120px, 16vh, 160px) 0 clamp(56px, 8vh, 88px);
+  text-align: left;
+  background: var(--color-black);
+  overflow: hidden;
+}
+
+.page-header::before,
+.page-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(
+    --page-hero-image,
+    url('https://www.aulmtrading.com/pexels-m-safiei-omar-397714541-14815440.jpg')
+  );
+  background-size: cover;
+  background-position: center;
+  opacity: 0.54;
+}
+
+.page-header::after,
+.page-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.62) 50%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+}
+
+.page-header .container {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  text-align: left;
 }
 
 .page-header h1 {
   font-family: var(--font-sans);
-  font-style: normal;
-  font-size: 2.5rem;
+  font-size: clamp(2rem, 5vw, 2.75rem);
   font-weight: 300;
   margin-bottom: 16px;
+  max-width: 18ch;
 }
 
 .page-header p {
-  color: rgba(255,255,255,0.7);
-  max-width: 500px;
+  color: rgba(255, 255, 255, 0.75);
+  max-width: 560px;
+  line-height: 1.7;
+}
+
+.page-body {
+  padding: 64px 0;
+}
+
+.page-body .container {
+  text-align: left;
+}
+
+.page-body--gray {
+  background: #0a0a0a;
 }
 
 /* ===================================
@@ -1339,9 +1379,16 @@ section {
   background: var(--color-black);
 }
 
-.page-header ~ section {
+.page-header ~ section,
+.page-hero ~ section {
   background: var(--color-black);
   color: var(--color-white);
+  padding: 64px 0;
+}
+
+.page-header ~ section .container,
+.page-hero ~ section .container {
+  text-align: left;
 }
 
 .page-header ~ section h2,
@@ -2429,7 +2476,9 @@ section {
 }
 
 /* Refinery / institutional gold landing pages */
-.refinery-hero .label {
+.refinery-hero .label,
+.page-header .label,
+.page-hero__label {
   display: inline-block;
   margin-bottom: 12px;
   font-size: 0.75rem;
@@ -2438,12 +2487,13 @@ section {
   color: rgba(255, 255, 255, 0.55);
 }
 
-.refinery-hero-actions {
+.refinery-hero-actions,
+.page-hero__actions {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 28px;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .refinery-steps {
@@ -2556,7 +2606,7 @@ section {
 }
 
 .refinery-faq h2 {
-  text-align: center;
+  text-align: left;
   margin-bottom: 40px;
 }
 

@@ -100,7 +100,7 @@ function About() {
       {/* CTA */}
       <section>
         <div className="container">
-          <div className="text-section">
+          <div className="text-section text-section--center">
             <h2>Ready to partner with us?</h2>
             <p>
               We buy raw gold — scrap and doré — from Africa and global sources. We sell{' '}
