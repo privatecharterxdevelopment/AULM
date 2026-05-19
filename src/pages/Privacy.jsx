@@ -1,3 +1,5 @@
+import SiteContactDetails from '../components/SiteContactDetails'
+
 function Privacy() {
   return (
     <div style={{ background: '#000', minHeight: '100vh' }}>
@@ -131,9 +133,9 @@ function Privacy() {
             </div>
 
             <div className="legal-contact">
-              <p>
-                <strong>Privacy & Data Protection Inquiries:</strong><br />
-                <a href="mailto:contact@aulmtrading.com">contact@aulmtrading.com</a>
+              <SiteContactDetails showLicense />
+              <p style={{ marginTop: '1rem' }}>
+                <strong>Privacy & Data Protection Inquiries</strong>
               </p>
               <p className="legal-note">
                 This policy reflects our commitment to Swiss-standard confidentiality. For specific questions about

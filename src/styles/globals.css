@@ -284,9 +284,29 @@ a {
   left: var(--container-padding);
 }
 
-.mobile-email {
+.mobile-menu-address {
+  font-style: normal;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.55);
+  margin-bottom: 16px;
+}
+
+.mobile-email,
+.mobile-phone {
+  display: block;
   font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 8px;
+}
+
+.mobile-email:hover,
+.mobile-phone:hover {
+  color: var(--color-white);
+}
+
+.mobile-email {
+  margin-bottom: 8px;
 }
 
 .header-phone {
@@ -1224,6 +1244,57 @@ section {
   font-size: 0.9375rem;
   color: rgba(255,255,255,0.5);
   max-width: 280px;
+}
+
+.site-contact-details {
+  margin-top: 20px;
+}
+
+.site-contact-details address {
+  font-style: normal;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+
+.site-contact-details p {
+  margin: 0 0 6px;
+  font-size: 0.85rem;
+}
+
+.site-contact-details a {
+  color: rgba(255, 255, 255, 0.85);
+  transition: color 0.2s;
+}
+
+.site-contact-details a:hover {
+  color: var(--color-white);
+}
+
+.site-contact-details__license {
+  color: rgba(255, 255, 255, 0.45) !important;
+  font-size: 0.8rem !important;
+}
+
+.footer-contact {
+  margin-top: 16px;
+}
+
+.contact-page-details address,
+.contact-page-details p {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.home-contact-details {
+  margin-top: 8px;
+}
+
+.home-contact-hours {
+  display: block;
+  margin-top: 12px;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .footer-column h4 {

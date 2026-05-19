@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useGoldPrice } from '../context/GoldPriceContext'
 import { useLanguage } from '../context/LanguageContext'
 import Footer from '../components/Footer'
+import SiteContactDetails from '../components/SiteContactDetails'
 import { submitInquiry } from '../utils/submitInquiry'
 
 const VIDEO_BASE = 'https://raw.githubusercontent.com/privatecharterxdevelopment/AULM/main/public'
@@ -247,10 +248,8 @@ function Home() {
             <span className="label">{t('contact.label')}</span>
             <h2>{t('contact.title')}</h2>
             <p>{t('contact.desc')}</p>
-            <div className="home-contact-details">
-              <a href="mailto:contact@aulmtrading.com">contact@aulmtrading.com</a>
-              <span>{t('contact.hours')}</span>
-            </div>
+            <SiteContactDetails className="home-contact-details" showLicense={false} />
+            <span className="home-contact-hours">{t('contact.hours')}</span>
             <div className="contact-languages">
               <span>{t('contact.languages')}</span>
               <LanguageSelector />

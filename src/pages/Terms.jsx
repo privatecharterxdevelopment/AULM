@@ -1,3 +1,5 @@
+import SiteContactDetails from '../components/SiteContactDetails'
+
 function Terms() {
   return (
     <div style={{ background: '#000', minHeight: '100vh' }}>
@@ -110,9 +112,9 @@ function Terms() {
             </div>
 
             <div className="legal-contact">
-              <p>
-                <strong>Contact for Terms & Agreements:</strong><br />
-                <a href="mailto:contact@aulmtrading.com">contact@aulmtrading.com</a>
+              <SiteContactDetails showLicense />
+              <p style={{ marginTop: '1rem' }}>
+                <strong>Contact for Terms & Agreements:</strong>
               </p>
               <p className="legal-note">
                 Last updated: February 2026

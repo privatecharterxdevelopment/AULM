@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 import HeaderContactIcons from './HeaderContactIcons'
+import { CONTACT_EMAIL, OFFICE_ADDRESS_LINES, WHATSAPP_DISPLAY, WHATSAPP_URL } from '../config/site'
 
 function HeaderBadge() {
   const { language, setLanguage, t } = useLanguage()
@@ -196,8 +197,19 @@ function Header() {
         </nav>
 
         <div className="mobile-menu-footer">
-          <a href="mailto:contact@aulmtrading.com" className="mobile-email">
-            contact@aulmtrading.com
+          <address className="mobile-menu-address">
+            {OFFICE_ADDRESS_LINES.map((line) => (
+              <span key={line}>
+                {line}
+                <br />
+              </span>
+            ))}
+          </address>
+          <a href={`mailto:${CONTACT_EMAIL}`} className="mobile-email">
+            {CONTACT_EMAIL}
+          </a>
+          <a href={WHATSAPP_URL} className="mobile-phone" target="_blank" rel="noopener noreferrer">
+            WhatsApp {WHATSAPP_DISPLAY}
           </a>
         </div>
       </div>

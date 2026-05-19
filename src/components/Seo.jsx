@@ -65,9 +65,12 @@ export function OrganizationJsonLd() {
       'DMCC & IFZA licensed B2B gold trading company in Dubai specializing in precious metals import, export, and refining.',
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Dubai',
+      streetAddress: 'Building A1, Dubai Digital Park, IFZA Business Park, DDP',
+      addressLocality: 'Dubai Silicon Oasis',
+      addressRegion: 'Dubai',
       addressCountry: 'AE',
     },
+    telephone: '+41779409443',
     identifier: {
       '@type': 'PropertyValue',
       name: 'IFZA License Number',

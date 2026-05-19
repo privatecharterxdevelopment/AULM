@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { LICENSE_NUMBER } from '../config/site'
 import { useLanguage } from '../context/LanguageContext'
+import SiteContactDetails from './SiteContactDetails'
 
 function Footer() {
   const { t } = useLanguage()
@@ -12,6 +13,7 @@ function Footer() {
           <div className="footer-brand">
             <Link to="/" className="logo">AULM</Link>
             <p>{t('footer.tagline')}</p>
+            <SiteContactDetails className="footer-contact" showLicense={false} />
           </div>
 
           <div className="footer-column">

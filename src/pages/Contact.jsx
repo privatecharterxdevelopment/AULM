@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { LICENSE_NUMBER } from '../config/site'
+import SiteContactDetails from '../components/SiteContactDetails'
 import { submitInquiry } from '../utils/submitInquiry'
 
 function Contact() {
@@ -54,7 +54,6 @@ function Contact() {
     <div style={{ background: '#000', minHeight: '100vh', paddingTop: '120px', paddingBottom: '80px' }}>
       <div className="container">
         <div className="contact-grid">
-          {/* Left: Contact Info */}
           <div className="contact-info">
             <span className="label" style={{ display: 'block', marginBottom: '16px' }}>Get in Touch</span>
             <h1 style={{ color: '#fff', marginBottom: '24px' }}>Contact</h1>
@@ -62,34 +61,20 @@ function Contact() {
               For a confidential discussion about your requirements and our current capacities.
             </p>
 
-            <div style={{ marginBottom: '32px' }}>
-              <h4 style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px' }}>Email</h4>
-              <a href="mailto:contact@aulmtrading.com" style={{ color: '#fff', fontSize: '1.125rem' }}>contact@aulmtrading.com</a>
+            <h4 style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px' }}>Headquarters</h4>
+            <SiteContactDetails className="contact-page-details" />
+
+            <div style={{ marginTop: '32px' }}>
+              <h4 style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px' }}>Hours</h4>
+              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.875rem' }}>Mon – Fri, 8am – 5pm (GST)</p>
             </div>
 
-            <div style={{ marginBottom: '32px' }}>
-              <h4 style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px' }}>Mail Inquiry</h4>
-              <a href="mailto:contact@aulmtrading.com" style={{ color: '#fff', fontSize: '1.125rem' }}>contact@aulmtrading.com</a>
-              <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem', marginTop: '4px' }}>Mo – Fr. 8am – 5pm</p>
-            </div>
-
-            <div style={{ marginBottom: '32px' }}>
+            <div style={{ marginTop: '32px' }}>
               <h4 style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px' }}>Languages</h4>
               <p style={{ color: '#fff', fontSize: '1rem' }}>Deutsch · English · Français · Italiano · العربية</p>
             </div>
-
-            <div>
-              <h4 style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px' }}>Headquarters</h4>
-              <p style={{ color: 'rgba(255,255,255,0.7)', lineHeight: '1.6' }}>
-                AULM Global Trade Corporation<br />
-                DMCC & IFZA Licensed<br />
-                IFZA License No. {LICENSE_NUMBER}<br />
-                Address: on request
-              </p>
-            </div>
           </div>
 
-          {/* Right: Form */}
           <div className="contact-form-wrapper">
             {isSubmitted ? (
               <div className="contact-success" style={{ textAlign: 'left' }}>
