@@ -155,10 +155,11 @@ a {
   justify-content: space-between;
 }
 
-.header-right {
+.header-right,
+.header-actions {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 16px;
 }
 
 .logo {
@@ -182,6 +183,10 @@ a {
   gap: 40px;
 }
 
+.nav-desktop {
+  display: none !important;
+}
+
 .nav-link {
   font-size: 0.875rem;
   color: rgba(255,255,255,0.85);
@@ -194,7 +199,9 @@ a {
 }
 
 .mobile-toggle {
-  display: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background: none;
   border: none;
   cursor: pointer;
@@ -224,9 +231,62 @@ a {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Mobile Menu Overlay */
+/* Menu overlay (burger) */
 .mobile-menu {
-  display: none;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.98);
+  z-index: 99;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none;
+}
+
+.mobile-menu.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.mobile-nav {
+  position: absolute;
+  top: 50%;
+  left: var(--container-padding);
+  right: var(--container-padding);
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobile-nav-link {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: color 0.2s;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+  color: var(--color-white);
+}
+
+.mobile-menu-footer {
+  position: absolute;
+  bottom: 40px;
+  left: var(--container-padding);
+}
+
+.mobile-email {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .header-phone {
@@ -1386,92 +1446,17 @@ section {
     font-size: 0.625rem;
   }
 
-  .header-phone,
-  .header-badge {
-    display: none;
+  .header-actions {
+    gap: 10px;
   }
 
-  .header-right {
-    display: none;
-  }
-
-  .nav-desktop {
-    display: none !important;
+  .header-badge-combined .badge-phone {
+    font-size: 0.7rem;
+    white-space: nowrap;
   }
 
   .mobile-toggle {
-    display: block;
     z-index: 101;
-  }
-
-  /* Mobile Menu Fullscreen */
-  .mobile-menu {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.98);
-    z-index: 99;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-  }
-
-  .mobile-menu.open {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .mobile-nav {
-    position: absolute;
-    top: 50%;
-    left: var(--container-padding);
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .mobile-nav-link {
-    font-size: 2rem;
-    font-weight: 300;
-    color: rgba(255,255,255,0.6);
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    transition: color 0.2s;
-  }
-
-  .mobile-nav-link:hover,
-  .mobile-nav-link.active {
-    color: var(--color-white);
-  }
-
-  .mobile-menu-footer {
-    position: absolute;
-    bottom: 40px;
-    left: var(--container-padding);
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .mobile-phone {
-    font-size: 1rem;
-    color: var(--color-white);
-    font-weight: 500;
-  }
-
-  .mobile-hours {
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.5);
-  }
-
-  .mobile-email {
-    font-size: 0.875rem;
-    color: rgba(255,255,255,0.5);
-    margin-top: 12px;
   }
 
   .hero {

@@ -13,7 +13,7 @@ function HeaderBadge() {
     { code: 'fr', label: 'Français' },
     { code: 'ar', label: 'العربية' },
     { code: 'zh', label: '中文' },
-    { code: 'ja', label: '日本語' }
+    { code: 'ja', label: '日本語' },
   ]
 
   useEffect(() => {
@@ -32,6 +32,7 @@ function HeaderBadge() {
         className="badge-lang"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Select language"
+        type="button"
       >
         <svg
           width="16"
@@ -43,9 +44,9 @@ function HeaderBadge() {
           strokeLinecap="round"
           strokeLinejoin="round"
         >
-          <circle cx="12" cy="12" r="10"/>
-          <path d="M2 12h20"/>
-          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          <circle cx="12" cy="12" r="10" />
+          <path d="M2 12h20" />
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
         </svg>
         <span>{language.toUpperCase()}</span>
       </button>
@@ -61,6 +62,7 @@ function HeaderBadge() {
           {languages.map((lang) => (
             <button
               key={lang.code}
+              type="button"
               className={`language-option ${language === lang.code ? 'active' : ''}`}
               onClick={() => {
                 setLanguage(lang.code)
@@ -80,13 +82,12 @@ function HeaderBadge() {
 function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isHidden, setIsHidden] = useState(false)
-  const { t, language, setLanguage } = useLanguage()
+  const { t } = useLanguage()
 
   const closeMobileMenu = () => {
     setMobileMenuOpen(false)
   }
 
-  // Hide header when footer is visible
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -105,7 +106,12 @@ function Header() {
     return () => observer.disconnect()
   }, [])
 
-  const languages = ['EN', 'DE', 'FR', 'AR', 'ZH', 'JA']
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [mobileMenuOpen])
 
   return (
     <header className={`header ${isHidden ? 'header--hidden' : ''}`}>
@@ -115,87 +121,81 @@ function Header() {
             AULM
           </Link>
 
-          <div className="header-right">
-            <ul className="nav-list nav-desktop">
-              <li>
-                <NavLink to="/about" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-                  {t('nav.about')}
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/services" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-                  {t('nav.services')}
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/refinery-dubai" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-                  {t('nav.refinery')}
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/tokenization" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-                  {t('nav.tokenization')}
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/contact" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-                  {t('nav.contact')}
-                </NavLink>
-              </li>
-            </ul>
-
+          <div className="header-actions">
             <HeaderBadge />
-          </div>
 
-          <button
-            className={`mobile-toggle ${mobileMenuOpen ? 'open' : ''}`}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
+            <button
+              type="button"
+              className={`mobile-toggle ${mobileMenuOpen ? 'open' : ''}`}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileMenuOpen}
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
       <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
         <nav className="mobile-nav">
-          <NavLink to="/about" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
+          <NavLink
+            to="/about"
+            className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}
+            onClick={closeMobileMenu}
+          >
             {t('nav.about')}
           </NavLink>
-          <NavLink to="/services" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
+          <NavLink
+            to="/services"
+            className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}
+            onClick={closeMobileMenu}
+          >
             {t('nav.services')}
           </NavLink>
-          <NavLink to="/refinery-dubai" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
+          <NavLink
+            to="/refinery-dubai"
+            className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}
+            onClick={closeMobileMenu}
+          >
             {t('nav.refinery')}
           </NavLink>
-          <NavLink to="/tokenization" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
+          <NavLink
+            to="/tokenization"
+            className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}
+            onClick={closeMobileMenu}
+          >
             {t('nav.tokenization')}
           </NavLink>
-          <NavLink to="/contact" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>
+          <NavLink
+            to="/sustainability"
+            className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}
+            onClick={closeMobileMenu}
+          >
+            {t('nav.sustainability')}
+          </NavLink>
+          <NavLink
+            to="/news"
+            className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}
+            onClick={closeMobileMenu}
+          >
+            {t('nav.news')}
+          </NavLink>
+          <NavLink
+            to="/contact"
+            className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}
+            onClick={closeMobileMenu}
+          >
             {t('nav.contact')}
           </NavLink>
         </nav>
 
-        <div className="mobile-language-selector">
-          {languages.map((lang) => (
-            <button
-              key={lang}
-              className={language === lang.toLowerCase() ? 'active' : ''}
-              onClick={() => setLanguage(lang.toLowerCase())}
-            >
-              {lang}
-            </button>
-          ))}
-        </div>
-
         <div className="mobile-menu-footer">
-          <Link to="/open-account" className="mobile-phone" onClick={closeMobileMenu}>
-            {t('header.openAccount')}
-          </Link>
-          <a href="mailto:contact@aulmtrading.com" className="mobile-email">contact@aulmtrading.com</a>
+          <a href="mailto:contact@aulmtrading.com" className="mobile-email">
+            contact@aulmtrading.com
+          </a>
         </div>
       </div>
     </header>
