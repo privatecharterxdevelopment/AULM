@@ -19,7 +19,7 @@ const translations = {
     home: {
       heroLabel: 'Swiss-Arab Association',
       heroTitle: 'Global Trade Corporation.',
-      heroDesc: 'We import, export, and refine fully compliant — we buy raw gold (doré and scrap) and sell LBMA-standard bullion only. OECD, LBMA, and UAE due diligence from Dubai to global markets.',
+      heroDesc: 'Sell gold Dubai — we buy doré and scrap at LBMA-linked terms. Buy gold Dubai — LBMA bullion for institutions only. Import, export, refine with full OECD, LBMA, and UAE compliance.',
       complianceLabel: 'Compliance First',
       complianceTitle: 'Full Transparency. International Standards.',
       complianceDesc: 'Complete adherence to OECD due diligence guidelines and LBMA responsible sourcing standards. Every transaction fully documented, auditable, and traceable from mine to vault. Conflict-free gold with verified chain of custody.',

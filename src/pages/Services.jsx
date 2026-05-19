@@ -33,8 +33,11 @@ function Services() {
               <p>Fully insured, secure logistics solutions for precious metals globally.</p>
             </div>
             <div className="feature-card">
-              <h3>B2B Exchanges</h3>
-              <p>Professional business-to-business gold trading and exchange services.</p>
+              <h3>Sell &amp; Buy Gold Dubai</h3>
+              <p>Institutional desk — we buy doré/scrap; we sell LBMA bullion only.</p>
+              <Link to="/sell-gold-dubai" className="refinery-inline-link">Sell gold Dubai →</Link>
+              <br />
+              <Link to="/buy-gold-dubai" className="refinery-inline-link">Buy gold Dubai →</Link>
             </div>
           </div>
         </div>

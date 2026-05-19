@@ -20,10 +20,27 @@ export const NEWS_ARTICLE_IDS = [
 
 const PAGE_SEO = {
   '/': {
-    title: `Refinery Dubai & Gold Import Dubai | ${SITE_NAME}`,
-    description: DEFAULT_DESCRIPTION,
+    title: `Sell Gold Dubai | Buy LBMA Gold Dubai | Refinery & Import | ${SITE_NAME}`,
+    description:
+      'Sell gold Dubai (doré, scrap) to AULM at LBMA-linked terms. Buy LBMA bullion only. Gold import, refinery, IFZA-licensed B2B desk.',
     keywords:
-      'refinery dubai, gold import dubai, sell gold institutional dubai, LBMA gold refinery, DMCC gold trading',
+      'sell gold dubai, buy gold dubai, sell gold dubai institutional, buy gold bars dubai, refinery dubai, gold import dubai, sell dore gold dubai',
+    index: true,
+  },
+  '/sell-gold-dubai': {
+    title: `Sell Gold Dubai | Sell Doré & Scrap | Institutional Buyer | ${SITE_NAME}`,
+    description:
+      'Sell gold in Dubai to AULM — institutional buyer for doré and scrap. LBMA spot minus negotiated discount after assay. B2B only, TT (MT103), IFZA licensed.',
+    keywords:
+      'sell gold dubai, sell gold in dubai, sell dore gold dubai, sell scrap gold dubai, cash for gold dubai institutional, gold buyer dubai',
+    index: true,
+  },
+  '/buy-gold-dubai': {
+    title: `Buy Gold Dubai | LBMA Bullion Bars | Institutional | ${SITE_NAME}`,
+    description:
+      'Buy gold in Dubai — LBMA Good Delivery bullion for qualified institutions. AULM sells bullion only, not doré or scrap. B2B mandates, full documentation.',
+    keywords:
+      'buy gold dubai, buy gold bars dubai, buy physical gold dubai, LBMA gold dubai, institutional gold dubai',
     index: true,
   },
   '/refinery-dubai': {
@@ -49,10 +66,10 @@ const PAGE_SEO = {
     index: true,
   },
   '/sell-gold-institutional-dubai': {
-    title: `Sell Gold Institutional Dubai | B2B Liquidity | ${SITE_NAME}`,
+    title: `Sell Gold Institutional Dubai | B2B Buyer | ${SITE_NAME}`,
     description:
-      'Sell gold institutional Dubai — discreet B2B bids on allocated bars and doré. Escrow settlement, IFZA licensed desk.',
-    keywords: 'sell gold institutional dubai, sell gold dubai institutional, institutional gold buyer dubai',
+      'Sell gold institutional Dubai — AULM buys doré and scrap at LBMA-linked terms. Bank-to-bank settlement, OECD/LBMA compliance, IFZA licensed.',
+    keywords: 'sell gold institutional dubai, institutional gold buyer dubai, sell gold dubai b2b',
     index: true,
   },
   '/about': {
