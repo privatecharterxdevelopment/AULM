@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom'
-import { useGoldPrice } from '../context/GoldPriceContext'
+import { HOME_SERVICES } from '../data/homeServices'
 
 function Services() {
-  const { discountPercentage } = useGoldPrice()
 
   return (
     <>
@@ -17,28 +16,19 @@ function Services() {
       {/* Services Overview */}
       <section>
         <div className="container">
-          <div className="features-grid" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
-            <div className="feature-card">
-              <h3>Gold Import & Export</h3>
-              <p>International gold trading with established networks across major markets worldwide.</p>
-              <Link to="/gold-import-dubai" className="refinery-inline-link">Gold import Dubai →</Link>
-            </div>
-            <div className="feature-card">
-              <h3>Refinery Services</h3>
-              <p>State-of-the-art refining in Dubai producing 99.99% pure gold.</p>
-              <Link to="/refinery-dubai" className="refinery-inline-link">Refinery services Dubai →</Link>
-            </div>
-            <div className="feature-card">
-              <h3>Secure Transport</h3>
-              <p>Fully insured, secure logistics solutions for precious metals globally.</p>
-            </div>
-            <div className="feature-card">
-              <h3>Sell &amp; Buy Gold Dubai</h3>
-              <p>Institutional desk — we buy doré/scrap; we sell LBMA bullion only.</p>
-              <Link to="/sell-gold-dubai" className="refinery-inline-link">Sell gold Dubai →</Link>
-              <br />
-              <Link to="/buy-gold-dubai" className="refinery-inline-link">Buy gold Dubai →</Link>
-            </div>
+          <div className="open-account-products">
+            {HOME_SERVICES.map((service) => (
+              <article key={service.id} className="refinery-card">
+                <span className="home-service-card__keyword" style={{ display: 'block', marginBottom: 8 }}>
+                  {service.keyword}
+                </span>
+                <h3>{service.title}</h3>
+                <p>{service.teaser}</p>
+                <Link to={service.path} className="refinery-inline-link">
+                  Learn more →
+                </Link>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -100,9 +90,10 @@ function Services() {
                 Our B2B trading services cater to jewelry manufacturers, investment funds, central banks, and other institutional clients.
               </p>
               <p>
-                With a minimum order of 500 grams, we offer refined gold at {discountPercentage}% below spot price.
+                We buy doré and scrap at LBMA spot minus a negotiated discount (after assay). We sell LBMA bullion only
+                to qualified buyers.
               </p>
-              <Link to="/sell-gold-institutional-dubai" className="btn btn-primary">
+              <Link to="/sell-gold-dubai" className="btn btn-primary">
                 Sell gold — institutional
               </Link>
           </div>

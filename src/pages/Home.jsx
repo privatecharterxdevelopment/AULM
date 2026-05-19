@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useGoldPrice } from '../context/GoldPriceContext'
 import { useLanguage } from '../context/LanguageContext'
 import Footer from '../components/Footer'
+import { HOME_SERVICES } from '../data/homeServices'
 import { submitInquiry } from '../utils/submitInquiry'
 
 const VIDEO_BASE = 'https://raw.githubusercontent.com/privatecharterxdevelopment/AULM/main/public'
@@ -43,33 +44,46 @@ function Home() {
       showLocations: true
     },
     {
+      id: 'services',
+      type: 'services',
+      label: t('home.servicesLabel'),
+      title: t('home.servicesTitle'),
+      description: t('home.servicesDesc'),
+      video: `${VIDEO_BASE}/5727833-uhd_3840_2160_30fps.mp4`,
+      darkOverlay: true
+    },
+    {
       id: 'compliance',
       label: t('home.complianceLabel'),
       title: t('home.complianceTitle'),
       description: t('home.complianceDesc'),
       video: `${VIDEO_BASE}/14773199_1920_1080_60fps.mp4`,
-      darkOverlay: true
+      darkOverlay: true,
+      cta: { to: '/compliance-gold-trading', label: t('home.complianceCta') }
     },
     {
       id: 'endtoend',
       label: t('home.endToEndLabel'),
       title: t('home.endToEndTitle'),
       description: t('home.endToEndDesc'),
-      video: `${VIDEO_BASE}/11292201-hd_1920_1080_30fps.mp4`
+      video: `${VIDEO_BASE}/11292201-hd_1920_1080_30fps.mp4`,
+      cta: { to: '/gold-supply-chain-dubai', label: t('home.endToEndCta') }
     },
     {
       id: 'dubai',
       label: t('home.dubaiLabel'),
       title: t('home.dubaiTitle'),
       description: t('home.dubaiDesc'),
-      video: `${VIDEO_BASE}/5121750-uhd_3840_2160_25fps.mp4`
+      video: `${VIDEO_BASE}/5121750-uhd_3840_2160_25fps.mp4`,
+      cta: { to: '/gold-import-dubai', label: t('home.dubaiCta') }
     },
     {
       id: 'clients',
       label: t('home.clientsLabel'),
       title: t('home.clientsTitle'),
       description: t('home.clientsDesc'),
-      video: `${VIDEO_BASE}/5021964-hd_1920_1080_30fps.mp4`
+      video: `${VIDEO_BASE}/5021964-hd_1920_1080_30fps.mp4`,
+      cta: { to: '/institutional-gold-trading', label: t('home.clientsCta') }
     }
   ]
 
@@ -206,13 +220,35 @@ function Home() {
 
           <div className={`fullscreen-overlay ${section.darkOverlay ? 'fullscreen-overlay--dark' : ''}`} />
 
-          <div className="fullscreen-content" key={activeIndex === index ? 'active' : 'inactive'}>
+          <div
+            className={`fullscreen-content${section.type === 'services' ? ' fullscreen-content--services' : ''}`}
+            key={activeIndex === index ? 'active' : 'inactive'}
+          >
             <span className="label">{section.label}</span>
             <h2>{section.title}</h2>
             <p>{section.description}</p>
-            {section.cta && (
+
+            {section.type === 'services' && (
+              <div className="home-services-grid">
+                {HOME_SERVICES.map((service) => (
+                  <Link key={service.id} to={service.path} className="home-service-card">
+                    <span className="home-service-card__keyword">{service.keyword}</span>
+                    <h3>{service.title}</h3>
+                    <p>{service.teaser}</p>
+                    <span className="home-service-card__link">Learn more →</span>
+                  </Link>
+                ))}
+              </div>
+            )}
+
+            {section.cta && section.type !== 'services' && (
               <Link to={section.cta.to} className="btn btn-primary" style={{ marginTop: '1.5rem' }}>
                 {section.cta.label}
+              </Link>
+            )}
+            {section.type === 'services' && (
+              <Link to="/services" className="btn btn-outline home-services-all">
+                {t('home.servicesCta')}
               </Link>
             )}
             {section.showLocations && (

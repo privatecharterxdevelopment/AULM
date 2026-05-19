@@ -17,6 +17,9 @@ import RefineryDubai from './pages/RefineryDubai'
 import GoldImportDubai from './pages/GoldImportDubai'
 import SellGoldDubai from './pages/SellGoldDubai'
 import BuyGoldDubai from './pages/BuyGoldDubai'
+import ComplianceGoldTrading from './pages/ComplianceGoldTrading'
+import GoldSupplyChainDubai from './pages/GoldSupplyChainDubai'
+import InstitutionalGoldTrading from './pages/InstitutionalGoldTrading'
 import OpenAccount from './pages/OpenAccount'
 import Seo from './components/Seo'
 import './styles/globals.css'
@@ -39,6 +42,9 @@ function AppContent() {
           <Route path="/sell-gold-dubai" element={<SellGoldDubai />} />
           <Route path="/sell-gold-institutional-dubai" element={<SellGoldDubai />} />
           <Route path="/buy-gold-dubai" element={<BuyGoldDubai />} />
+          <Route path="/compliance-gold-trading" element={<ComplianceGoldTrading />} />
+          <Route path="/gold-supply-chain-dubai" element={<GoldSupplyChainDubai />} />
+          <Route path="/institutional-gold-trading" element={<InstitutionalGoldTrading />} />
           <Route path="/open-account" element={<OpenAccount />} />
           <Route path="/tokenization" element={<Tokenization />} />
           <Route path="/sustainability" element={<Sustainability />} />

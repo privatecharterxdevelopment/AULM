@@ -50,6 +50,27 @@ const PAGE_SEO = {
     keywords: 'refinery dubai, refinery services dubai, gold refinery dubai, LBMA refining UAE',
     index: true,
   },
+  '/compliance-gold-trading': {
+    title: `Gold Trading Compliance Dubai | LBMA & OECD | ${SITE_NAME}`,
+    description:
+      'LBMA responsible sourcing, OECD due diligence, and UAE AML/KYC for institutional gold trading in Dubai.',
+    keywords: 'gold compliance dubai, LBMA compliance, OECD gold due diligence, AML gold trading UAE',
+    index: true,
+  },
+  '/gold-supply-chain-dubai': {
+    title: `Gold Supply Chain Dubai | End-to-End Trading | ${SITE_NAME}`,
+    description:
+      'End-to-end gold supply chain in Dubai — sourcing, import, refinery, logistics, and institutional settlement.',
+    keywords: 'gold supply chain dubai, end to end gold trading, gold logistics dubai',
+    index: true,
+  },
+  '/institutional-gold-trading': {
+    title: `Institutional Gold Trading Dubai | B2B Desk | ${SITE_NAME}`,
+    description:
+      'Institutional gold trading Dubai for family offices, funds, and commodity traders. IFZA licensed, discreet mandates.',
+    keywords: 'institutional gold trading dubai, institutional gold buyer, family office gold dubai',
+    index: true,
+  },
   '/gold-import-dubai': {
     title: `Gold Import Dubai | DMCC Compliant Import | ${SITE_NAME}`,
     description:

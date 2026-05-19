@@ -20,18 +20,27 @@ const translations = {
       heroLabel: 'Swiss-Arab Association',
       heroTitle: 'Global Trade Corporation.',
       heroDesc: 'Sell gold Dubai — we buy doré and scrap at LBMA-linked terms. Buy gold Dubai — LBMA bullion for institutions only. Import, export, refine with full OECD, LBMA, and UAE compliance.',
+      servicesLabel: 'Our Services',
+      servicesTitle: 'Sell Your Gold to a Reliable Partner.',
+      servicesDesc:
+        'Institutional desk in Dubai — we buy raw gold (doré & scrap) and sell LBMA bullion only. Choose a service below or open an account.',
+      servicesCta: 'View all services',
       complianceLabel: 'Compliance First',
       complianceTitle: 'Full Transparency. International Standards.',
       complianceDesc: 'Complete adherence to OECD due diligence guidelines and LBMA responsible sourcing standards. Every transaction fully documented, auditable, and traceable from mine to vault. Conflict-free gold with verified chain of custody.',
+      complianceCta: 'Learn about compliance',
       endToEndLabel: 'End-to-End Solution',
       endToEndTitle: 'Sourcing to Delivery. One Partner.',
       endToEndDesc: 'From procurement to refined bars delivered to your vault. Complete supply chain management under one roof including sourcing, assay, certification of origin, refining, and secure logistics. No intermediaries, no complications, full transparency.',
+      endToEndCta: 'End-to-end supply chain',
       dubaiLabel: 'Strategic Location',
       dubaiTitle: 'From Import to Refinery to Global Markets.',
       dubaiDesc: 'Dubai serves as a strategic hub connecting worldwide gold supply chains. Certified imports through state-of-the-art refining facilities to global distribution.',
+      dubaiCta: 'Gold import Dubai',
       clientsLabel: 'Institutional Partners',
       clientsTitle: 'For Serious Investors.',
-      clientsDesc: 'We serve Family Offices, commodity traders, investment funds, central banks, and institutional investors seeking direct access to physical gold flows. Minimum 500g, maximum 250kg per month per client. Discretion and confidentiality guaranteed.'
+      clientsDesc: 'We serve Family Offices, commodity traders, investment funds, central banks, and institutional investors seeking direct access to physical gold flows. Minimum 500g, maximum 250kg per month per client. Discretion and confidentiality guaranteed.',
+      clientsCta: 'Institutional trading',
     },
     // Contact
     contact: {
