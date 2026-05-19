@@ -93,11 +93,13 @@ function Contact() {
           <div className="contact-form-wrapper">
             {isSubmitted ? (
               <div className="contact-success" style={{ textAlign: 'left' }}>
-                <h3 style={{ color: '#fff', marginBottom: '12px' }}>Message Sent</h3>
+                <h3 style={{ color: '#fff', marginBottom: '12px' }}>
+                  {deliveryMethod === 'server' ? 'Message sent' : 'Complete your email'}
+                </h3>
                 <p style={{ color: 'rgba(255,255,255,0.6)', marginBottom: '24px' }}>
                   {deliveryMethod === 'server'
                     ? 'Thank you — your message was sent to contact@aulmtrading.com. We respond within 24 hours.'
-                    : 'Please press Send in your mail app so we receive your message at contact@aulmtrading.com.'}
+                    : 'Your mail app should open — please press Send so we receive your message at contact@aulmtrading.com.'}
                 </p>
                 <button
                   className="btn btn-outline"

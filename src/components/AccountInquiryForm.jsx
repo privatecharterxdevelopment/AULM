@@ -68,6 +68,7 @@ export default function AccountInquiryForm({
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [deliveryMethod, setDeliveryMethod] = useState(null)
+  const [submitWarning, setSubmitWarning] = useState(null)
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -98,6 +99,7 @@ export default function AccountInquiryForm({
     })
 
     setDeliveryMethod(result.delivered)
+    setSubmitWarning(result.warning || null)
     setIsSubmitting(false)
     setIsSubmitted(true)
   }
@@ -119,12 +121,18 @@ export default function AccountInquiryForm({
             </>
           )}
         </p>
+        {submitWarning && deliveryMethod === 'mailto' && (
+          <p className="account-form-note" style={{ marginTop: 12, color: 'rgba(255, 200, 100, 0.85)' }}>
+            Note: {submitWarning}
+          </p>
+        )}
         <button
           type="button"
           className="btn btn-outline"
           onClick={() => {
             setIsSubmitted(false)
             setDeliveryMethod(null)
+            setSubmitWarning(null)
             setFormData({ ...EMPTY_FORM, service: defaultService, product: defaultProduct })
           }}
         >

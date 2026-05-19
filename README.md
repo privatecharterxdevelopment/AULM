@@ -15,14 +15,33 @@ The React Compiler is not enabled on this template because of its impact on dev 
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 
-## Form email (Postmark)
+## Form email (Postmark on Vercel)
 
-Open-account and KYC/KYB submissions use `/api/send-inquiry` (same as contact forms).
+All forms POST to `/api/send-inquiry`. **If emails never arrive**, check Vercel env vars first.
 
-Environment variables (e.g. Vercel):
-- `POSTMARK_API_TOKEN`
-- `FROM_EMAIL` (e.g. `no-reply@aulmtrading.com`)
+### Vercel setup (required for automatic delivery)
 
-Test: `npm run dev` → `/kyconboarding` or `/open-account` → submit. Without Postmark, the mail app opens as fallback.
+1. [Postmark](https://postmarkapp.com) → **Servers** → your server → **API Tokens**
+2. Copy the **Server API token** (not the Account API token)
+3. Vercel → Project **AULM** → **Settings** → **Environment Variables**:
+   - `POSTMARK_API_TOKEN` = Server API token
+   - `FROM_EMAIL` = a **verified sender** in Postmark (e.g. `contact@aulmtrading.com`)
+4. **Redeploy** after changing variables
+
+Verify domain/sender in Postmark under **Sender Signatures**.
+
+### Test production API
+
+```bash
+curl -X POST https://www.aulmtrading.com/api/send-inquiry \
+  -H "Content-Type: application/json" \
+  -d '{"formType":"test","subject":"Test","data":{"Name":"Test","Email":"you@example.com"}}'
+```
+
+- `{"ok":true}` → Postmark works
+- `valid Server token` → wrong token in Vercel; use Server API token
+- `501` → `POSTMARK_API_TOKEN` not set
+
+Without Postmark, forms open the visitor’s mail app (user must press **Send**).
 
 Treat KYC data as PII.
