@@ -20,7 +20,8 @@ function InstitutionalGoldTrading() {
       </section>
 
       <section>
-        <div className="container text-section">
+        <div className="container">
+          <div className="text-section">
           <h2>Institutional partners we serve</h2>
           <p>
             AULM is built for <strong>serious institutional gold trading</strong> — not retail
@@ -38,6 +39,7 @@ function InstitutionalGoldTrading() {
             Learn more about our company on <Link to="/about">about AULM</Link> or browse{' '}
             <Link to="/services">all services</Link>.
           </p>
+          </div>
         </div>
       </section>
 

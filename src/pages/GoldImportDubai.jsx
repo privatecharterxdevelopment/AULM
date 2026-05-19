@@ -20,7 +20,8 @@ function GoldImportDubai() {
       </section>
 
       <section>
-        <div className="container text-section">
+        <div className="container">
+          <div className="text-section">
           <h2>Structured gold import into Dubai</h2>
           <p>
             AULM Global Trade Corporation facilitates <strong>gold import Dubai</strong> for qualified
@@ -42,6 +43,7 @@ function GoldImportDubai() {
             Related: <Link to="/refinery-dubai">refinery services Dubai</Link> ·{' '}
             <Link to="/sell-gold-institutional-dubai">sell gold institutional Dubai</Link>
           </p>
+          </div>
         </div>
       </section>
 

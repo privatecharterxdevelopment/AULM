@@ -15,6 +15,7 @@
 
   --container-max: 1400px;
   --container-padding: 60px;
+  --content-max: 720px;
 }
 
 *, *::before, *::after {
@@ -757,11 +758,20 @@ section {
   background-position: center;
 }
 
-/* Text Section — default left-aligned on inner pages */
+/* Prose block — left-aligned, consistent width on inner pages */
 .text-section {
-  max-width: 800px;
+  max-width: var(--content-max);
+  width: 100%;
   margin: 0;
   text-align: left;
+}
+
+/* Legacy: text-section was applied on .container — keep full bleed, prose width inside */
+.container.text-section {
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
 }
 
 .text-section h2 {
@@ -824,7 +834,7 @@ section {
 .page-hero__inner {
   position: relative;
   z-index: 1;
-  max-width: 720px;
+  max-width: var(--content-max);
 }
 
 .page-hero__label {
@@ -842,7 +852,7 @@ section {
   font-weight: 300;
   line-height: 1.15;
   margin-bottom: 16px;
-  max-width: 18ch;
+  max-width: none;
 }
 
 .page-hero__lead {
@@ -899,16 +909,24 @@ section {
 .page-header .container {
   position: relative;
   z-index: 1;
-  max-width: 720px;
+  max-width: var(--container-max);
   text-align: left;
+}
+
+.page-header .container > .label,
+.page-header .container > h1,
+.page-header .container > p,
+.page-header .container > .btn {
+  max-width: var(--content-max);
 }
 
 .page-header h1 {
   font-family: var(--font-sans);
   font-size: clamp(2rem, 5vw, 2.75rem);
   font-weight: 300;
+  line-height: 1.15;
   margin-bottom: 16px;
-  max-width: 18ch;
+  max-width: var(--content-max);
 }
 
 .page-header p {
@@ -1460,6 +1478,12 @@ section {
 .page-header ~ section .container,
 .page-hero ~ section .container {
   text-align: left;
+  max-width: var(--container-max);
+}
+
+.page-header ~ section .text-section,
+.page-hero ~ section .text-section {
+  max-width: var(--content-max);
 }
 
 .page-header ~ section h2,
@@ -2582,6 +2606,20 @@ section {
   padding: 0;
 }
 
+.text-section .refinery-steps-list {
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding-left: 1.25rem;
+  list-style: decimal;
+}
+
+.text-section .refinery-steps-list li {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+}
+
 .refinery-steps-list li {
   padding: 24px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -2683,8 +2721,10 @@ section {
 
 .refinery-faq-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 24px;
+  width: 100%;
+  margin-top: 8px;
 }
 
 .refinery-faq-grid article {
@@ -2704,18 +2744,19 @@ section {
 }
 
 .account-form-block {
-  max-width: 720px;
-  margin: 0 auto;
+  max-width: var(--content-max);
+  width: 100%;
+  margin: 0;
 }
 
 .account-form-block h2 {
   color: var(--color-white);
   margin-bottom: 12px;
-  text-align: center;
+  text-align: left;
 }
 
 .account-form-lead {
-  text-align: center;
+  text-align: left;
   color: rgba(255, 255, 255, 0.6);
   margin-bottom: 32px;
   line-height: 1.6;
@@ -2725,7 +2766,7 @@ section {
   margin-top: 16px;
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.45);
-  text-align: center;
+  text-align: left;
   line-height: 1.5;
 }
 

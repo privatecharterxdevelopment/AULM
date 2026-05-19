@@ -20,7 +20,8 @@ function ComplianceGoldTrading() {
       </section>
 
       <section>
-        <div className="container text-section">
+        <div className="container">
+          <div className="text-section">
           <h2>Compliance-first gold trading in Dubai</h2>
           <p>
             AULM operates as a <strong>compliant gold trading desk</strong> — not anonymous cash deals.
@@ -34,6 +35,7 @@ function ComplianceGoldTrading() {
             <li>UBO disclosure and corporate KYB via our <Link to="/kyconboarding">KYC onboarding</Link></li>
             <li>Bank-to-bank settlement (SWIFT MT103) — no cash, no crypto</li>
           </ul>
+          </div>
         </div>
       </section>
 

@@ -184,15 +184,17 @@ function RefineryDubai() {
       </section>
 
       <section className="section-navy">
-        <div className="container text-section text-section--center">
-          <h2>Ready to onboard?</h2>
-          <p>
-            Open your B2B account on our dedicated page — form, document checklist, and seller onboarding
-            in one place.
-          </p>
-          <Link to="/open-account" className="btn btn-primary">
-            Open account
-          </Link>
+        <div className="container">
+          <div className="text-section text-section--center">
+            <h2>Ready to onboard?</h2>
+            <p>
+              Open your B2B account on our dedicated page — form, document checklist, and seller onboarding
+              in one place.
+            </p>
+            <Link to="/open-account" className="btn btn-primary">
+              Open account
+            </Link>
+          </div>
         </div>
       </section>
     </>

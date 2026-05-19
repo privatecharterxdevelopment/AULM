@@ -21,38 +21,44 @@ function BuyGoldDubai() {
       </section>
 
       <section>
-        <div className="container text-section">
-          <h2>Buy physical gold Dubai — what we offer</h2>
-          <p>
-            AULM supplies <strong>LBMA Good Delivery</strong> and Dubai Good Delivery (DGD) aligned bullion to institutional
-            buyers. If you want to <strong>buy gold bars in Dubai</strong> for allocation, vault delivery, or export under
-            compliant documentation, our desk quotes at <strong>LBMA market standards</strong> for approved mandates.
-          </p>
-          <ul className="refinery-bullets">
-            <li>Buy gold bars — LBMA / major refinery stamps</li>
-            <li>Full assay, weight, and settlement documentation</li>
-            <li>Pair with <Link to="/refinery-dubai">refinery Dubai</Link> for recast or upgrade</li>
-            <li>We buy raw gold from sellers — we only sell refined bullion</li>
-            <li>IFZA License No. {LICENSE_NUMBER}</li>
-          </ul>
+        <div className="container">
+          <div className="text-section">
+            <h2>Buy physical gold Dubai — what we offer</h2>
+            <p>
+              AULM supplies <strong>LBMA Good Delivery</strong> and Dubai Good Delivery (DGD) aligned bullion to institutional
+              buyers. If you want to <strong>buy gold bars in Dubai</strong> for allocation, vault delivery, or export under
+              compliant documentation, our desk quotes at <strong>LBMA market standards</strong> for approved mandates.
+            </p>
+            <ul className="refinery-bullets">
+              <li>Buy gold bars — LBMA / major refinery stamps</li>
+              <li>Full assay, weight, and settlement documentation</li>
+              <li>Pair with <Link to="/refinery-dubai">refinery Dubai</Link> for recast or upgrade</li>
+              <li>We buy raw gold from sellers — we only sell refined bullion</li>
+              <li>IFZA License No. {LICENSE_NUMBER}</li>
+            </ul>
+          </div>
         </div>
       </section>
 
       <section className="section-gray">
-        <div className="container text-section">
-          <h2>Buy gold vs sell gold — AULM model</h2>
-          <p>
-            <strong>Sell gold to us:</strong> doré and scrap from producers and traders (
-            <Link to="/sell-gold-dubai">sell gold Dubai</Link>).{' '}
-            <strong>Buy gold from us:</strong> LBMA bullion only — this page. We are not a retail bullion shop with live
-            spot ticks on the homepage; we work mandate-by-mandate with full KYC.
-          </p>
+        <div className="container">
+          <div className="text-section">
+            <h2>Buy gold vs sell gold — AULM model</h2>
+            <p>
+              <strong>Sell gold to us:</strong> doré and scrap from producers and traders (
+              <Link to="/sell-gold-dubai">sell gold Dubai</Link>).{' '}
+              <strong>Buy gold from us:</strong> LBMA bullion only — this page. We are not a retail bullion shop with live
+              spot ticks on the homepage; we work mandate-by-mandate with full KYC.
+            </p>
+          </div>
         </div>
       </section>
 
       <section>
-        <div className="container text-section">
-          <h2>Buy gold Dubai — FAQ</h2>
+        <div className="container">
+          <div className="text-section refinery-faq">
+            <h2>Buy gold Dubai — FAQ</h2>
+          </div>
           <div className="refinery-faq-grid">
             <article>
               <h3>Can I buy doré or scrap gold from AULM?</h3>

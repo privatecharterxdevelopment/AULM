@@ -20,7 +20,8 @@ function InstitutionalGoldDubai() {
       </section>
 
       <section>
-        <div className="container text-section">
+        <div className="container">
+          <div className="text-section">
           <h2>Institutional gold sales in Dubai</h2>
           <p>
             AULM <strong>buys raw gold</strong> (doré and scrap) at <strong>LBMA spot minus a negotiated discount</strong>{' '}
@@ -38,6 +39,7 @@ function InstitutionalGoldDubai() {
             <li>IFZA License No. {LICENSE_NUMBER} · full KYC/AML</li>
             <li>Pair with our <Link to="/refinery-dubai">refinery Dubai</Link> desk for bar recast</li>
           </ul>
+          </div>
         </div>
       </section>
 

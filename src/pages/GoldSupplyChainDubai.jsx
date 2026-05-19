@@ -20,7 +20,8 @@ function GoldSupplyChainDubai() {
       </section>
 
       <section>
-        <div className="container text-section">
+        <div className="container">
+          <div className="text-section">
           <h2>End-to-end gold trading solution</h2>
           <p>
             AULM manages the full <strong>gold supply chain Dubai</strong> corridor: African and global
@@ -38,6 +39,7 @@ function GoldSupplyChainDubai() {
             </li>
             <li>Insured logistics and institutional settlement (TT / MT103)</li>
           </ul>
+          </div>
         </div>
       </section>
 
