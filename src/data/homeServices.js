@@ -38,8 +38,8 @@ export const HOME_SERVICES = [
   {
     id: 'compliance',
     path: '/compliance-gold-trading',
-    title: 'Compliance & OECD',
-    teaser: 'LBMA responsible sourcing, KYC/AML, auditable chain of custody.',
+    title: 'Trading standards',
+    teaser: 'How every mandate runs — OECD, LBMA, UAE AML. KYC via onboarding.',
     keyword: 'LBMA compliance gold',
   },
   {

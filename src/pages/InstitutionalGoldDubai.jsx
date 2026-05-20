@@ -1,35 +1,50 @@
 import { Link } from 'react-router-dom'
 import { LandingApp, LandingHero, LandingSection, FeatureGrid } from '../components/landing'
+import { landingImages } from '../assets/landing/images'
 import { LICENSE_NUMBER } from '../config/site'
 
-const TERMS = [
+const STEPS = [
   {
-    id: 'buy',
-    title: 'We buy',
-    body: 'Doré and scrap at LBMA spot minus negotiated discount after assay.',
+    id: 'onboard',
+    title: 'Open file',
+    text: 'Institutional seller onboarding — doré, scrap, or allocated bars.',
+    image: landingImages.openAccount,
+    to: '/seller-onboarding',
   },
   {
-    id: 'sell',
-    title: 'We sell',
-    body: 'LBMA bullion only to qualified buyers — never raw gold.',
+    id: 'assay',
+    title: 'Assay & pricing',
+    text: 'LBMA spot minus negotiated discount after fineness and weight confirmation.',
+    image: landingImages.assay,
   },
-  { id: 'min', title: 'Minimum', body: '500g refined gold equivalent per mandate.' },
-  { id: 'settle', title: 'Settlement', body: 'TT / SWIFT MT103 between approved institutional accounts only.' },
+  {
+    id: 'lbma',
+    title: 'LBMA / DGD bars',
+    text: 'Bids on major refinery stamps — confidential B2B desk only.',
+    image: landingImages.lbma,
+  },
+  {
+    id: 'settle',
+    title: 'Settlement',
+    text: 'TT / SWIFT MT103 — minimum 500g refined equivalent per mandate.',
+    image: landingImages.payment,
+  },
 ]
 
 function InstitutionalGoldDubai() {
   return (
-    <LandingApp sticky={{ label: 'Open account', to: '/seller-onboarding' }}>
+    <LandingApp sticky={{ label: 'Start onboarding', to: '/seller-onboarding' }}>
       <LandingHero label="Institutional desk · Dubai" title="Sell Gold Institutional" />
 
       <LandingSection
-        title="B2B liquidity"
-        lead="Discreet bids on allocated bars and qualified doré. Full assay, weight, and settlement documentation."
+        lead={
+          <>
+            Discreet B2B liquidity. IFZA License No. {LICENSE_NUMBER}. We buy raw gold; we sell bullion only.
+          </>
+        }
       >
-        <FeatureGrid columns={2} items={TERMS} />
+        <FeatureGrid items={STEPS} />
         <p className="landing-section__footer-links">
-          <Link to="/open-account">Open account</Link>
-          {' · '}
           <Link to="/refinery-dubai">Refinery Dubai</Link>
         </p>
       </LandingSection>

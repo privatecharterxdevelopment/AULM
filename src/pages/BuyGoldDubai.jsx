@@ -1,12 +1,40 @@
 import { Link } from 'react-router-dom'
 import { LandingApp, LandingHero, LandingSection, FeatureGrid, FaqAccordion } from '../components/landing'
+import { landingImages } from '../assets/landing/images'
 import { LICENSE_NUMBER } from '../config/site'
 
-const OFFER = [
-  { id: 'lbma', title: 'LBMA / DGD bullion', body: 'Investment-grade bars with full assay and settlement documentation.' },
-  { id: 'mandate', title: 'Mandate-by-mandate', body: 'Quotes at LBMA market standards for approved institutional buyers.' },
-  { id: 'refinery', title: 'Refinery pairing', body: 'Optional recast or upgrade via our Dubai refinery desk.', to: '/refinery-dubai' },
-  { id: 'license', title: `IFZA ${LICENSE_NUMBER}`, body: 'We buy raw gold from sellers — we only sell refined bullion to qualified buyers.' },
+const STEPS = [
+  {
+    id: 'account',
+    title: 'Open account',
+    text: 'Institutional onboarding — KYC/KYB before any bullion quote.',
+    image: landingImages.openAccount,
+    to: '/open-account',
+  },
+  {
+    id: 'mandate',
+    title: 'Mandate & quote',
+    text: 'LBMA / DGD bullion quoted mandate-by-mandate for approved buyers.',
+    image: landingImages.lbma,
+  },
+  {
+    id: 'assay',
+    title: 'Assay & allocation',
+    text: 'Full weight, fineness, and settlement documentation on every lot.',
+    image: landingImages.assay,
+  },
+  {
+    id: 'delivery',
+    title: 'Vault or export',
+    text: 'Allocated delivery or export under agreed Incoterms and compliance file.',
+    image: landingImages.import,
+  },
+  {
+    id: 'payment',
+    title: 'Bank-to-bank TT',
+    text: 'Settlement via SWIFT MT103 between approved institutional accounts only.',
+    image: landingImages.payment,
+  },
 ]
 
 const FAQ = [
@@ -15,8 +43,8 @@ const FAQ = [
     question: 'Can I buy doré or scrap from AULM?',
     answer: (
       <>
-        No. We <strong>sell LBMA bullion only</strong>. Doré and scrap are purchase products — we buy those from
-        sellers, not sell them.
+        No. We <strong>sell LBMA bullion only</strong>. Doré and scrap are purchase products — see{' '}
+        <Link to="/sell-gold-dubai">sell gold Dubai</Link>.
       </>
     ),
   },
@@ -26,7 +54,6 @@ const FAQ = [
     answer: (
       <>
         Complete <Link to="/open-account">open account</Link>, pass KYC, and receive a mandate-specific quote.
-        Payment by TT (MT103) between approved accounts.
       </>
     ),
   },
@@ -34,16 +61,6 @@ const FAQ = [
     id: 'margin',
     question: 'Is this margin or paper gold?',
     answer: 'Physical, documented B2B flows — not retail leverage or anonymous cash deals.',
-  },
-  {
-    id: 'import',
-    question: 'Import and refinery',
-    answer: (
-      <>
-        See <Link to="/gold-import-dubai">gold import Dubai</Link>. Sellers of raw gold should use our{' '}
-        <Link to="/sell-gold-dubai">sell gold</Link> desk.
-      </>
-    ),
   },
 ]
 
@@ -53,30 +70,14 @@ function BuyGoldDubai() {
       <LandingHero label="Buy gold Dubai · B2B only" title="Buy Gold in Dubai" />
 
       <LandingSection
-        title="LBMA bullion for institutions"
-        lead="We sell investment-grade bullion only — not doré, scrap, or retail spot. Settlement via bank transfer (SWIFT MT103)."
+        lead={
+          <>
+            We sell <strong>LBMA bullion only</strong> — not doré, scrap, or retail spot. IFZA License No.{' '}
+            {LICENSE_NUMBER}.
+          </>
+        }
       >
-        <FeatureGrid columns={2} items={OFFER} />
-      </LandingSection>
-
-      <LandingSection variant="gray" title="Buy vs sell">
-        <FeatureGrid
-          columns={2}
-          items={[
-            {
-              id: 'sell',
-              title: 'Sell to us',
-              body: 'Doré and scrap from producers and traders.',
-              to: '/sell-gold-dubai',
-              linkLabel: 'Sell gold Dubai →',
-            },
-            {
-              id: 'buy',
-              title: 'Buy from us',
-              body: 'LBMA bullion only — this page. Mandate-by-mandate with full KYC.',
-            },
-          ]}
-        />
+        <FeatureGrid items={STEPS} />
       </LandingSection>
 
       <LandingSection variant="compact">

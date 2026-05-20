@@ -40,7 +40,7 @@ function OpenAccount() {
           <AccountInquiryForm
             defaultService="sell-gold-institutional"
             heading="Open your file"
-            subheading="Name, company, email, product — our desk replies by email."
+            subheading="5-step onboarding — company, trade, license, declarations, then submit."
           />
         </div>
       </LandingSection>

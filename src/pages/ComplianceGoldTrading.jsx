@@ -1,31 +1,48 @@
 import { Link } from 'react-router-dom'
 import { LandingApp, LandingHero, LandingSection, FeatureGrid } from '../components/landing'
+import { landingImages } from '../assets/landing/images'
 import { LICENSE_NUMBER } from '../config/site'
 
-const PILLARS = [
-  { id: 'oecd', title: 'OECD due diligence', body: 'Responsible supply chain guidance on every doré and scrap purchase.' },
-  { id: 'lbma', title: 'LBMA alignment', body: 'Good Delivery and responsible sourcing standards for bullion flows.' },
-  { id: 'uae', title: 'UAE AML/CFT', body: 'Federal Decree-Law No. 20 of 2018 — full KYC/KYB and UBO disclosure.' },
-  { id: 'settle', title: 'Bank-to-bank only', body: 'SWIFT MT103 between approved accounts — no cash, no crypto.' },
+const STEPS = [
+  {
+    id: 'oecd',
+    title: 'OECD due diligence',
+    text: 'Responsible supply chain on every doré and scrap purchase — not a separate product.',
+    image: landingImages.assay,
+  },
+  {
+    id: 'lbma',
+    title: 'LBMA standards',
+    text: 'Good Delivery and responsible sourcing alignment for bullion flows.',
+    image: landingImages.lbma,
+  },
+  {
+    id: 'uae',
+    title: 'UAE AML / KYC',
+    text: 'Federal AML/CFT, full KYB, and UBO disclosure on every counterparty.',
+    image: landingImages.openAccount,
+    to: '/kyconboarding',
+    linkLabel: 'KYC/KYB onboarding →',
+  },
+  {
+    id: 'settle',
+    title: 'Bank-to-bank only',
+    text: 'SWIFT MT103 between approved accounts — no cash, crypto, or third-party payers.',
+    image: landingImages.payment,
+  },
 ]
 
 function ComplianceGoldTrading() {
   return (
-    <LandingApp sticky={{ label: 'Open account', to: '/open-account' }}>
-      <LandingHero
-        label={`Compliance · IFZA ${LICENSE_NUMBER}`}
-        title="Gold Trading Compliance"
-      />
+    <LandingApp sticky={{ label: 'KYC/KYB onboarding', to: '/kyconboarding' }}>
+      <LandingHero label={`Trading standards · IFZA ${LICENSE_NUMBER}`} title="How AULM trades" />
 
-      <LandingSection
-        title="Compliance-first desk"
-        lead="Transparent institutional trading — OECD supply chain, LBMA sourcing, UAE AML, and auditable documentation on every mandate."
-      >
-        <FeatureGrid columns={2} items={PILLARS} />
+      <LandingSection lead="How every mandate runs — not a sales desk. To trade gold, open a seller or buyer file separately.">
+        <FeatureGrid items={STEPS} />
         <p className="landing-section__footer-links">
-          <Link to="/kyconboarding">KYC/KYB onboarding</Link>
+          <Link to="/open-account">Open trading account</Link>
           {' · '}
-          <Link to="/open-account">Open account</Link>
+          <Link to="/sell-gold-dubai">Sell gold</Link>
         </p>
       </LandingSection>
     </LandingApp>

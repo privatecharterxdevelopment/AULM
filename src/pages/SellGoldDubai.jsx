@@ -1,50 +1,40 @@
 import { Link } from 'react-router-dom'
-import {
-  LandingApp,
-  LandingHero,
-  LandingSection,
-  FaqAccordion,
-  ProcessStepsGrid,
-} from '../components/landing'
+import { LandingApp, LandingHero, LandingSection, FaqAccordion, ProcessStepsGrid } from '../components/landing'
+import { landingImages } from '../assets/landing/images'
 import { LICENSE_NUMBER } from '../config/site'
-import imgOpenAccount from '../assets/landing/step-open-account.jpg'
-import imgImport from '../assets/landing/step-import.jpg'
-import imgLbma from '../assets/landing/step-lbma-london.png'
-import imgAssay from '../assets/landing/step-assay.jpg'
-import imgPayment from '../assets/landing/step-payment.jpg'
 
 const STEPS = [
   {
     id: 'account',
     title: 'Open account',
     text: 'Share company details and product (doré or scrap). No upload at signup.',
-    image: imgOpenAccount,
+    image: landingImages.openAccount,
     to: '/seller-onboarding',
   },
   {
     id: 'import',
     title: 'Import',
     text: 'DMCC-compliant intake into Dubai — customs, routing, and refinery hand-off.',
-    image: imgImport,
+    image: landingImages.import,
     to: '/gold-import-dubai',
   },
   {
     id: 'lbma',
     title: 'LBMA-linked pricing',
     text: 'Purchase at LBMA spot minus a negotiated discount after fineness and weight are confirmed.',
-    image: imgLbma,
+    image: landingImages.lbma,
   },
   {
     id: 'assay',
     title: 'Independent assay report',
     text: 'Third-party laboratory assay before pricing — full fineness and weight documentation.',
-    image: imgAssay,
+    image: landingImages.assay,
   },
   {
     id: 'payment',
     title: 'Bank-to-bank TT',
     text: 'Settlement by telegraphic transfer (SWIFT MT103) between approved institutional accounts only.',
-    image: imgPayment,
+    image: landingImages.payment,
   },
 ]
 

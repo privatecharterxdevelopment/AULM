@@ -11,8 +11,8 @@ function SellerOnboarding() {
           <AccountInquiryForm
             defaultService="sell-gold-institutional"
             defaultProduct="dore"
-            heading="Start onboarding"
-            subheading="No documents to upload — we reply by email within one business day."
+            heading="Open your file"
+            subheading="5-step onboarding — company, trade mandate, license, declarations, then submit. No document upload in this step."
           />
         </div>
       </LandingSection>

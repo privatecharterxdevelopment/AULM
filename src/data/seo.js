@@ -51,7 +51,7 @@ const PAGE_SEO = {
     index: true,
   },
   '/compliance-gold-trading': {
-    title: `Gold Trading Compliance Dubai | LBMA & OECD | ${SITE_NAME}`,
+    title: `Trading Standards — LBMA & OECD | ${SITE_NAME}`,
     description:
       'LBMA responsible sourcing, OECD due diligence, and UAE AML/KYC for institutional gold trading in Dubai.',
     keywords: 'gold compliance dubai, LBMA compliance, OECD gold due diligence, AML gold trading UAE',

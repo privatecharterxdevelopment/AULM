@@ -1,8 +1,17 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import SiteContactDetails from '../components/SiteContactDetails'
 import { submitInquiry } from '../utils/submitInquiry'
 
+const TOPIC_PRESETS = {
+  tokenization: {
+    inquiry: 'tokenization',
+    message: 'I would like more information on gold tokenization.',
+  },
+}
+
 function Contact() {
+  const [searchParams] = useSearchParams()
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -10,6 +19,17 @@ function Contact() {
     inquiry: '',
     message: ''
   })
+
+  useEffect(() => {
+    const topic = searchParams.get('topic')
+    const preset = topic ? TOPIC_PRESETS[topic] : null
+    if (!preset) return
+    setFormData((prev) => ({
+      ...prev,
+      inquiry: preset.inquiry,
+      message: prev.message.trim() ? prev.message : preset.message,
+    }))
+  }, [searchParams])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [deliveryMethod, setDeliveryMethod] = useState(null)
@@ -145,6 +165,7 @@ function Contact() {
                       <option value="institutional">Institutional Inquiry</option>
                       <option value="sell-gold">Sell raw gold (doré / scrap)</option>
                       <option value="buy-bullion">Buy LBMA bullion</option>
+                      <option value="tokenization">Gold tokenization</option>
                     </select>
                   </div>
                 </div>
