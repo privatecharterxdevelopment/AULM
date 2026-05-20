@@ -1,58 +1,39 @@
 import { Link } from 'react-router-dom'
-import AccountInquiryForm from '../components/AccountInquiryForm'
+import { LandingApp, LandingHero, LandingSection, FeatureGrid } from '../components/landing'
 import { LICENSE_NUMBER } from '../config/site'
+
+const TERMS = [
+  {
+    id: 'buy',
+    title: 'We buy',
+    body: 'Doré and scrap at LBMA spot minus negotiated discount after assay.',
+  },
+  {
+    id: 'sell',
+    title: 'We sell',
+    body: 'LBMA bullion only to qualified buyers — never raw gold.',
+  },
+  { id: 'min', title: 'Minimum', body: '500g refined gold equivalent per mandate.' },
+  { id: 'settle', title: 'Settlement', body: 'TT / SWIFT MT103 between approved institutional accounts only.' },
+]
 
 function InstitutionalGoldDubai() {
   return (
-    <>
-      <section className="page-header refinery-hero">
-        <div className="container">
-          <span className="label">Institutional desk · Dubai</span>
-          <h1>Sell Gold Institutional Dubai</h1>
-          <p>
-            Discreet B2B liquidity for allocated gold bars and qualified doré. Competitive institutional
-            bids, escrow settlement, full documentation.
-          </p>
-          <Link to="/open-account" className="btn btn-primary">
-            Open account
-          </Link>
-        </div>
-      </section>
+    <LandingApp sticky={{ label: 'Open account', to: '/seller-onboarding' }}>
+      <LandingHero label="Institutional desk · Dubai" title="Sell Gold Institutional" />
 
-      <section>
-        <div className="container">
-          <div className="text-section">
-          <h2>Institutional gold sales in Dubai</h2>
-          <p>
-            AULM <strong>buys raw gold</strong> (doré and scrap) at <strong>LBMA spot minus a negotiated discount</strong>{' '}
-            (after assay). We <strong>sell LBMA bullion only</strong> to qualified buyers — never raw gold. View
-            seller documents on our <Link to="/open-account">open account</Link> page (no upload at signup).
-          </p>
-          <p>
-            Settlement is bank-to-bank only via telegraphic transfer (TT / SWIFT MT103) between approved
-            institutional accounts. No cash, cryptocurrency, or third-party payment agents. Every transaction
-            includes assay verification, weight confirmation, and settlement documentation.
-          </p>
-          <ul className="refinery-bullets">
-            <li>Minimum 500g refined gold equivalent per mandate</li>
-            <li>LBMA, DGD, and major refinery stamps accepted</li>
-            <li>IFZA License No. {LICENSE_NUMBER} · full KYC/AML</li>
-            <li>Pair with our <Link to="/refinery-dubai">refinery Dubai</Link> desk for bar recast</li>
-          </ul>
-          </div>
-        </div>
-      </section>
-
-      <section className="refinery-form-section section-gray">
-        <div className="container">
-          <AccountInquiryForm
-            defaultService="sell-gold-institutional"
-            heading="Sell gold — institutional inquiry"
-            subheading="Open account via form → email to contact@aulmtrading.com. Response within one business day."
-          />
-        </div>
-      </section>
-    </>
+      <LandingSection
+        title="B2B liquidity"
+        lead="Discreet bids on allocated bars and qualified doré. Full assay, weight, and settlement documentation."
+      >
+        <FeatureGrid columns={2} items={TERMS} />
+        <p className="landing-section__footer-links">
+          <Link to="/open-account">Open account</Link>
+          {' · '}
+          <Link to="/refinery-dubai">Refinery Dubai</Link>
+        </p>
+      </LandingSection>
+    </LandingApp>
   )
 }
 

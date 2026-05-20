@@ -1,6 +1,36 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { LandingApp, LandingHero, LandingSection, FeatureGrid, FaqAccordion } from '../components/landing'
 import { LICENSE_NUMBER, SITE_NAME, SITE_URL } from '../config/site'
+
+const ONBOARD_STEPS = [
+  { id: '1', step: '01', title: 'Open account', body: 'Start institutional onboarding.' },
+  { id: '2', step: '02', title: 'Complete the form', body: 'Share mandate, volume, and compliance details.' },
+  { id: '3', step: '03', title: 'Email to desk', body: 'Inquiry delivered to contact@aulmtrading.com.' },
+]
+
+const FAQ = [
+  {
+    id: 'who',
+    question: 'Who can open an account?',
+    answer: 'Licensed traders, refineries, family offices, and corporate treasuries with completed KYC/AML. No retail.',
+  },
+  {
+    id: 'turnaround',
+    question: 'Refinery turnaround in Dubai?',
+    answer: 'Typically 2–3 days from assay acceptance to certified bar delivery, subject to lot size.',
+  },
+  {
+    id: 'payment',
+    question: 'How are payments settled?',
+    answer: 'Bank-to-bank only — TT / SWIFT MT103. No cash, crypto, or third-party agents.',
+  },
+  {
+    id: 'africa',
+    question: 'Gold import from Africa?',
+    answer: 'Yes — with full origin documentation, export permits, and DMCC-compliant Dubai intake.',
+  },
+]
 
 function RefineryDubai() {
   useEffect(() => {
@@ -23,181 +53,129 @@ function RefineryDubai() {
   }, [])
 
   return (
-    <>
-      <section className="page-header refinery-hero">
-        <div className="container">
-          <span className="label">Dubai · IFZA License {LICENSE_NUMBER}</span>
-          <h1>Refinery Services Dubai</h1>
-          <p>
-            LBMA-aligned refining, gold import Dubai, and institutional gold sales — one B2B desk for
-            qualified counterparties. Open your account in three steps.
-          </p>
-          <div className="refinery-hero-actions">
+    <LandingApp sticky={{ label: 'Open account', to: '/open-account' }}>
+      <LandingHero
+        label={`Dubai · IFZA ${LICENSE_NUMBER}`}
+        title="Refinery Services Dubai"
+        minimal={false}
+        lead="LBMA-aligned refining, gold import, and institutional sales — one B2B desk."
+        actions={
+          <>
             <Link to="/open-account" className="btn btn-primary">
               Open account
             </Link>
             <Link to="/gold-import-dubai" className="btn btn-outline">
-              Gold import Dubai
+              Gold import
             </Link>
-          </div>
-        </div>
-      </section>
+          </>
+        }
+      />
 
-      <section className="refinery-steps">
-        <div className="container">
-          <h2 className="sr-only">How to open an account</h2>
-          <ol className="refinery-steps-list">
-            <li>
-              <span className="step-num">1</span>
-              <strong>Open account</strong>
-              <p>Start your institutional onboarding below.</p>
-            </li>
-            <li>
-              <span className="step-num">2</span>
-              <strong>Complete the form</strong>
-              <p>Share mandate, volume, and compliance details.</p>
-            </li>
-            <li>
-              <span className="step-num">3</span>
-              <strong>Send to contact@aulmtrading.com</strong>
-              <p>Your inquiry is delivered to our Dubai trading desk.</p>
-            </li>
-          </ol>
-        </div>
-      </section>
+      <LandingSection title="How to onboard" variant="compact">
+        <FeatureGrid columns={3} items={ONBOARD_STEPS} />
+      </LandingSection>
 
-      <section id="refinery-dubai" className="refinery-service-section">
-        <div className="container refinery-split">
-          <div>
-            <h2>Refinery Dubai — 99.99% LBMA-certified output</h2>
-            <p>
-              AULM coordinates <strong>refinery services in Dubai</strong> through DMCC-approved partners.
-              We process doré and scrap to investment-grade bars with full assay certificates, weight
-              verification, and chain-of-custody documentation suitable for international resale.
+      <LandingSection id="refinery-process" title="Refinery process" variant="gray">
+        <div className="refinery-highlight">
+          <div
+            className="refinery-highlight__visual"
+            style={{ backgroundImage: 'url(/step-refinery.jpg)' }}
+            role="img"
+            aria-hidden="true"
+          />
+          <div className="refinery-highlight__copy">
+            <p className="refinery-highlight__price">
+              <strong>~1,800 USD per gold bar</strong> — depending on volume and lot structure.
             </p>
-            <ul className="refinery-bullets">
-              <li>Miller chlorination and electrolytic refining to 99.99% purity</li>
-              <li>Emirates Gold, Valcambi, and Dubai Good Delivery (DGD) standards</li>
-              <li>Turnaround from intake to certified bar with insured vaulting</li>
+            <p>
+              Output <strong>stamped as LBMA-certified gold bars</strong> after assay. Typical turnaround ~2–3 days
+              once material is accepted.
+            </p>
+            <ul className="refinery-bullets landing-bullets">
+              <li>Miller chlorination &amp; electrolytic refining to 99.99%</li>
+              <li>Emirates Gold, Valcambi, DGD standards</li>
             </ul>
           </div>
-          <div className="refinery-card">
-            <h3>Typical refinery mandate</h3>
-            <p>Doré lots, scrap recovery, or bar recast for institutional inventory.</p>
+        </div>
+      </LandingSection>
+
+      <LandingSection id="refinery-dubai" title="Refinery — 99.99% output">
+        <div className="landing-split">
+          <article className="landing-feature-card">
+            <p>
+              Doré and scrap to investment-grade bars — assay certificates, weight verification, and
+              chain-of-custody for international resale.
+            </p>
+            <ul className="refinery-bullets landing-bullets">
+              <li>Full assay and weight documentation on every lot</li>
+              <li>Insured vaulting and export-ready certification</li>
+            </ul>
+          </article>
+          <article className="landing-feature-card landing-feature-card--cta">
+            <h3>Refinery mandate</h3>
+            <p>Doré lots, scrap recovery, or bar recast.</p>
             <Link to="/open-account" className="btn btn-primary">
               Open account
             </Link>
-          </div>
+          </article>
         </div>
-      </section>
+      </LandingSection>
 
-      <section id="gold-import-dubai" className="refinery-service-section section-gray">
-        <div className="container refinery-split">
-          <div>
-            <h2>Gold import Dubai — Africa, Switzerland & global routes</h2>
+      <LandingSection id="gold-import-dubai" title="Gold import Dubai" variant="gray">
+        <div className="landing-split">
+          <article className="landing-feature-card">
             <p>
-              We structure <strong>gold import into Dubai</strong> for licensed traders and institutions:
-              customs clearance, DMCC documentation, origin certification, and hand-off to refinery or
-              allocated storage. Minimum institutional tickets from 500g refined gold equivalent.
+              Customs clearance, DMCC documentation, and hand-off to refinery or vault. Minimum ~500g refined
+              equivalent.
             </p>
-            <ul className="refinery-bullets">
-              <li>Import permits, assay at origin, and UAE customs coordination</li>
-              <li>Corridors from Uganda, West Africa, Switzerland, and other hubs</li>
-              <li>Full OECD due diligence and KYC/AML on every counterparty</li>
+            <ul className="refinery-bullets landing-bullets">
+              <li>Origin assay and UAE customs coordination</li>
+              <li>Corridors from Africa, Switzerland, and global hubs</li>
+              <li>Full OECD due diligence on every counterparty</li>
             </ul>
-            <Link to="/gold-import-dubai" className="refinery-inline-link">
-              Dedicated gold import Dubai page →
+            <Link to="/gold-import-dubai" className="landing-feature-card__link">
+              Gold import page →
             </Link>
-          </div>
-          <div className="refinery-card">
+          </article>
+          <article className="landing-feature-card landing-feature-card--cta">
             <h3>Import desk</h3>
-            <p>Air and secure courier intake to Dubai Digital Park / DMCC vault network.</p>
+            <p>Secure courier intake to Dubai Digital Park / DMCC network.</p>
             <Link to="/open-account" className="btn btn-primary">
               Open account
             </Link>
-          </div>
+          </article>
         </div>
-      </section>
+      </LandingSection>
 
-      <section id="sell-gold-institutional" className="refinery-service-section">
-        <div className="container refinery-split">
-          <div>
-            <h2>Sell gold institutional Dubai — discreet B2B liquidity</h2>
+      <LandingSection id="sell-gold-institutional" title="Institutional sell desk">
+        <div className="landing-split">
+          <article className="landing-feature-card">
             <p>
-              Family offices, funds, and licensed dealers use AULM to <strong>sell gold in Dubai</strong>{' '}
-              at institutional spreads. We buy allocated bars and qualified doré with same-day indicative
-              pricing, escrow via approved client-deposit structures, and full settlement documentation.
+              Family offices, funds, and dealers sell allocated bars and qualified doré at institutional spreads.
             </p>
-            <ul className="refinery-bullets">
-              <li>Competitive bids on LBMA-listed and Dubai Good Delivery bars</li>
-              <li>Confidential mandates — no retail counter service</li>
-              <li>Settlement in USD, EUR, CHF, or AED per mandate</li>
+            <ul className="refinery-bullets landing-bullets">
+              <li>Bids on LBMA-listed and DGD bars</li>
+              <li>Confidential mandates — no retail counter</li>
+              <li>USD, EUR, CHF, or AED per mandate</li>
             </ul>
-            <Link to="/sell-gold-institutional-dubai" className="refinery-inline-link">
-              Institutional sell page →
+            <Link to="/sell-gold-dubai" className="landing-feature-card__link">
+              Sell gold Dubai →
             </Link>
-          </div>
-          <div className="refinery-card">
+          </article>
+          <article className="landing-feature-card landing-feature-card--cta">
             <h3>Institutional sales</h3>
-            <p>Minimum 500g refined equivalent · invitation-only desk.</p>
-            <Link to="/open-account" className="btn btn-primary">
-              Open account
+            <p>Minimum 500g refined equivalent.</p>
+            <Link to="/seller-onboarding" className="btn btn-primary">
+              Start onboarding
             </Link>
-          </div>
+          </article>
         </div>
-      </section>
+      </LandingSection>
 
-      <section className="section-navy refinery-faq">
-        <div className="container">
-          <h2>Refinery & import FAQ</h2>
-          <div className="refinery-faq-grid">
-            <article>
-              <h3>Who can open an account?</h3>
-              <p>
-                Licensed commodity traders, refineries, family offices, funds, and corporate treasuries
-                with completed KYC/AML. Retail investors are not accepted.
-              </p>
-            </article>
-            <article>
-              <h3>How fast is refinery turnaround in Dubai?</h3>
-              <p>
-                Standard lots: 2–3 days from assay acceptance to certified bar delivery, subject to
-                purity and lot size.
-              </p>
-            </article>
-            <article>
-              <h3>How are payments settled?</h3>
-              <p>
-                Bank-to-bank only via telegraphic transfer (TT / SWIFT MT103). No cash, crypto, or
-                third-party payment agents.
-              </p>
-            </article>
-            <article>
-              <h3>Do you handle gold import from Africa?</h3>
-              <p>
-                Yes — with full origin documentation, export permits, and DMCC-compliant intake into
-                Dubai refineries.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-navy">
-        <div className="container">
-          <div className="text-section text-section--center">
-            <h2>Ready to onboard?</h2>
-            <p>
-              Open your B2B account on our dedicated page — form, document checklist, and seller onboarding
-              in one place.
-            </p>
-            <Link to="/open-account" className="btn btn-primary">
-              Open account
-            </Link>
-          </div>
-        </div>
-      </section>
-    </>
+      <LandingSection variant="compact">
+        <FaqAccordion title="FAQ" items={FAQ} />
+      </LandingSection>
+    </LandingApp>
   )
 }
 

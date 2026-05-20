@@ -25,6 +25,32 @@ import SellerOnboarding from './pages/SellerOnboarding'
 import Seo from './components/Seo'
 import './styles/globals.css'
 
+const appRoutes = (
+  <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/about" element={<About />} />
+    <Route path="/services" element={<Services />} />
+    <Route path="/refinery-dubai" element={<RefineryDubai />} />
+    <Route path="/gold-import-dubai" element={<GoldImportDubai />} />
+    <Route path="/sell-gold-dubai" element={<SellGoldDubai />} />
+    <Route path="/sell-gold-institutional-dubai" element={<SellGoldDubai />} />
+    <Route path="/buy-gold-dubai" element={<BuyGoldDubai />} />
+    <Route path="/compliance-gold-trading" element={<ComplianceGoldTrading />} />
+    <Route path="/gold-supply-chain-dubai" element={<GoldSupplyChainDubai />} />
+    <Route path="/institutional-gold-trading" element={<InstitutionalGoldTrading />} />
+    <Route path="/open-account" element={<OpenAccount />} />
+    <Route path="/seller-onboarding" element={<SellerOnboarding />} />
+    <Route path="/tokenization" element={<Tokenization />} />
+    <Route path="/sustainability" element={<Sustainability />} />
+    <Route path="/contact" element={<Contact />} />
+    <Route path="/kyconboarding" element={<KYCOnboarding />} />
+    <Route path="/news" element={<News />} />
+    <Route path="/news/:id" element={<News />} />
+    <Route path="/terms" element={<Terms />} />
+    <Route path="/privacy" element={<Privacy />} />
+  </Routes>
+)
+
 function AppContent() {
   const location = useLocation()
   const isHomePage = location.pathname === '/'
@@ -33,32 +59,14 @@ function AppContent() {
     <>
       <Seo />
       <Header />
-      <main className={isHomePage ? 'home-main' : ''}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/refinery-dubai" element={<RefineryDubai />} />
-          <Route path="/gold-import-dubai" element={<GoldImportDubai />} />
-          <Route path="/sell-gold-dubai" element={<SellGoldDubai />} />
-          <Route path="/sell-gold-institutional-dubai" element={<SellGoldDubai />} />
-          <Route path="/buy-gold-dubai" element={<BuyGoldDubai />} />
-          <Route path="/compliance-gold-trading" element={<ComplianceGoldTrading />} />
-          <Route path="/gold-supply-chain-dubai" element={<GoldSupplyChainDubai />} />
-          <Route path="/institutional-gold-trading" element={<InstitutionalGoldTrading />} />
-          <Route path="/open-account" element={<OpenAccount />} />
-          <Route path="/seller-onboarding" element={<SellerOnboarding />} />
-          <Route path="/tokenization" element={<Tokenization />} />
-          <Route path="/sustainability" element={<Sustainability />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/kyconboarding" element={<KYCOnboarding />} />
-          <Route path="/news" element={<News />} />
-          <Route path="/news/:id" element={<News />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/privacy" element={<Privacy />} />
-        </Routes>
-      </main>
-      {!isHomePage && <Footer />}
+      {isHomePage ? (
+        <main className="home-main">{appRoutes}</main>
+      ) : (
+        <div className="site-shell">
+          <main className="site-main">{appRoutes}</main>
+          <Footer />
+        </div>
+      )}
     </>
   )
 }

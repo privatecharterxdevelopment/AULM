@@ -1,17 +1,13 @@
 import AccountInquiryForm from '../components/AccountInquiryForm'
+import { LandingApp, LandingHero, LandingSection } from '../components/landing'
 
 function SellerOnboarding() {
   return (
-    <div className="seller-onboarding-page">
-      <section className="page-header refinery-hero page-header--minimal">
-        <div className="container">
-          <span className="label">B2B seller onboarding</span>
-          <h1>Open your seller file</h1>
-        </div>
-      </section>
+    <LandingApp>
+      <LandingHero label="B2B seller onboarding" title="Open your seller file" />
 
-      <section className="refinery-form-section seller-onboarding-form">
-        <div className="container">
+      <LandingSection className="seller-onboarding-form">
+        <div className="landing-form-panel">
           <AccountInquiryForm
             defaultService="sell-gold-institutional"
             defaultProduct="dore"
@@ -19,8 +15,8 @@ function SellerOnboarding() {
             subheading="No documents to upload — we reply by email within one business day."
           />
         </div>
-      </section>
-    </div>
+      </LandingSection>
+    </LandingApp>
   )
 }
 

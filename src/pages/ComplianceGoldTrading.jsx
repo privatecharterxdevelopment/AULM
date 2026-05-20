@@ -1,54 +1,34 @@
 import { Link } from 'react-router-dom'
-import AccountInquiryForm from '../components/AccountInquiryForm'
+import { LandingApp, LandingHero, LandingSection, FeatureGrid } from '../components/landing'
 import { LICENSE_NUMBER } from '../config/site'
+
+const PILLARS = [
+  { id: 'oecd', title: 'OECD due diligence', body: 'Responsible supply chain guidance on every doré and scrap purchase.' },
+  { id: 'lbma', title: 'LBMA alignment', body: 'Good Delivery and responsible sourcing standards for bullion flows.' },
+  { id: 'uae', title: 'UAE AML/CFT', body: 'Federal Decree-Law No. 20 of 2018 — full KYC/KYB and UBO disclosure.' },
+  { id: 'settle', title: 'Bank-to-bank only', body: 'SWIFT MT103 between approved accounts — no cash, no crypto.' },
+]
 
 function ComplianceGoldTrading() {
   return (
-    <>
-      <section className="page-header refinery-hero">
-        <div className="container">
-          <span className="label">Compliance · IFZA {LICENSE_NUMBER}</span>
-          <h1>Gold Trading Compliance — LBMA &amp; OECD Due Diligence</h1>
-          <p>
-            Full transparency for institutional gold trading: OECD supply chain guidelines, LBMA
-            responsible sourcing, UAE AML/KYC, and auditable documentation on every mandate.
-          </p>
-          <Link to="/open-account" className="btn btn-primary">
-            Open account
-          </Link>
-        </div>
-      </section>
+    <LandingApp sticky={{ label: 'Open account', to: '/open-account' }}>
+      <LandingHero
+        label={`Compliance · IFZA ${LICENSE_NUMBER}`}
+        title="Gold Trading Compliance"
+      />
 
-      <section>
-        <div className="container">
-          <div className="text-section">
-          <h2>Compliance-first gold trading in Dubai</h2>
-          <p>
-            AULM operates as a <strong>compliant gold trading desk</strong> — not anonymous cash deals.
-            Every counterparty completes KYC/KYB. Doré and scrap purchases require mine-source and export
-            documentation. Bullion sales are allocated with assay and settlement records.
-          </p>
-          <ul className="refinery-bullets">
-            <li>OECD Due Diligence Guidance for responsible supply chains</li>
-            <li>LBMA Good Delivery and responsible sourcing alignment</li>
-            <li>UAE Federal Decree-Law No. 20 of 2018 (AML/CFT)</li>
-            <li>UBO disclosure and corporate KYB via our <Link to="/kyconboarding">KYC onboarding</Link></li>
-            <li>Bank-to-bank settlement (SWIFT MT103) — no cash, no crypto</li>
-          </ul>
-          </div>
-        </div>
-      </section>
-
-      <section className="refinery-form-section section-gray">
-        <div className="container">
-          <AccountInquiryForm
-            defaultService="sell-gold-institutional"
-            heading="Compliance inquiry"
-            subheading="Institutional mandates only. We respond within one business day."
-          />
-        </div>
-      </section>
-    </>
+      <LandingSection
+        title="Compliance-first desk"
+        lead="Transparent institutional trading — OECD supply chain, LBMA sourcing, UAE AML, and auditable documentation on every mandate."
+      >
+        <FeatureGrid columns={2} items={PILLARS} />
+        <p className="landing-section__footer-links">
+          <Link to="/kyconboarding">KYC/KYB onboarding</Link>
+          {' · '}
+          <Link to="/open-account">Open account</Link>
+        </p>
+      </LandingSection>
+    </LandingApp>
   )
 }
 

@@ -2,8 +2,14 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import AccountInquiryForm from '../components/AccountInquiryForm'
 import SellerDocumentChecklist from '../components/SellerDocumentChecklist'
-import StickyCtaBar from '../components/StickyCtaBar'
+import { LandingApp, LandingHero, LandingSection, FeatureGrid } from '../components/landing'
 import { LICENSE_NUMBER } from '../config/site'
+
+const PRODUCTS = [
+  { id: 'buy', title: 'We buy', body: 'Doré & scrap — documentation per shipment after approval.' },
+  { id: 'sell', title: 'We sell', body: 'LBMA / DGD bullion — qualified buyers only.' },
+  { id: 'terms', title: 'Terms', body: 'LBMA spot minus negotiated discount. Incoterms per mandate.', wide: true },
+]
 
 function OpenAccount() {
   useEffect(() => {
@@ -16,67 +22,50 @@ function OpenAccount() {
   }, [])
 
   return (
-    <div className="open-account-page">
-      <section className="page-header refinery-hero">
-        <div className="container">
-          <span className="label">Seller onboarding · IFZA {LICENSE_NUMBER}</span>
-          <h1>Open account</h1>
-          <p className="open-account-hero-lead">
-            We buy <strong>doré &amp; scrap</strong> at LBMA-linked terms after assay. We sell{' '}
-            <strong>LBMA bullion only</strong>. <strong>No document upload here</strong> — start with the form below.
-            Settlement: <strong>TT (MT103)</strong> only.
-          </p>
-        </div>
-      </section>
+    <LandingApp sticky={{ label: 'Open account now', to: '#open-account', className: 'open-account-sticky-cta' }}>
+      <LandingHero
+        label={`Seller onboarding · IFZA ${LICENSE_NUMBER}`}
+        title="Open account"
+        minimal={false}
+        lead={
+          <>
+            We buy <strong>doré &amp; scrap</strong> at LBMA-linked terms after assay. We sell <strong>LBMA bullion
+            only</strong>. No document upload here — start with the form below. Settlement: <strong>TT (MT103)</strong>.
+          </>
+        }
+      />
 
-      <section className="refinery-form-section open-account-form-first">
-        <div className="container">
+      <LandingSection className="open-account-form-first">
+        <div className="landing-form-panel">
           <AccountInquiryForm
             defaultService="sell-gold-institutional"
             heading="Open your file"
             subheading="Name, company, email, product — our desk replies by email."
           />
         </div>
-      </section>
+      </LandingSection>
 
-      <section className="refinery-service-section open-account-brief">
-        <div className="container">
-          <div className="open-account-products open-account-products--tight">
-            <article className="refinery-card">
-              <h3>We buy</h3>
-              <p>Doré &amp; scrap — export and assay documentation per shipment after approval.</p>
-            </article>
-            <article className="refinery-card">
-              <h3>We sell</h3>
-              <p>LBMA / DGD bullion — qualified buyers only. No raw gold sales.</p>
-            </article>
-            <article className="refinery-card">
-              <h3>Terms</h3>
-              <p>LBMA spot minus negotiated discount (purchases). Incoterms agreed per mandate.</p>
-            </article>
-          </div>
-          <ul className="open-account-mini-rules">
-            <li>Bank-to-bank only — SWIFT MT103 between approved accounts</li>
-            <li>Refinery coordination — typically ~2–3 days after assay acceptance</li>
-          </ul>
-        </div>
-      </section>
+      <LandingSection title="At a glance" variant="gray">
+        <FeatureGrid columns={2} items={PRODUCTS} />
+        <ul className="open-account-mini-rules landing-mini-rules">
+          <li>Bank-to-bank only — SWIFT MT103 between approved accounts</li>
+          <li>Refinery coordination — typically ~2–3 days after assay acceptance</li>
+        </ul>
+      </LandingSection>
 
-      <section className="section-gray">
-        <div className="container">
-          <details className="seller-docs-accordion">
-            <summary>Seller document checklist (reference — optional detail)</summary>
+      <LandingSection variant="compact">
+        <details className="landing-faq__item landing-faq__item--solo">
+          <summary>Seller document checklist (reference)</summary>
+          <div className="landing-faq__answer">
             <SellerDocumentChecklist />
-          </details>
-          <p className="seller-docs-footer">
-            Nothing to upload until we ask per shipment. Corporate KYC may follow via{' '}
-            <Link to="/kyconboarding">KYC/KYB onboarding</Link>.
-          </p>
-        </div>
-      </section>
-
-      <StickyCtaBar label="Open account now" to="#open-account" className="open-account-sticky-cta" />
-    </div>
+          </div>
+        </details>
+        <p className="landing-section__footer-links">
+          Nothing to upload until we ask per shipment. Corporate KYC via{' '}
+          <Link to="/kyconboarding">KYC/KYB onboarding</Link>.
+        </p>
+      </LandingSection>
+    </LandingApp>
   )
 }
 

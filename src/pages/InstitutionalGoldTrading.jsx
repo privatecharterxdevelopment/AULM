@@ -1,58 +1,33 @@
 import { Link } from 'react-router-dom'
-import AccountInquiryForm from '../components/AccountInquiryForm'
+import { LandingApp, LandingHero, LandingSection, FeatureGrid } from '../components/landing'
 import { LICENSE_NUMBER } from '../config/site'
+
+const PARTNERS = [
+  { id: 'fo', title: 'Family offices', body: 'Private wealth and holding structures with full KYB.' },
+  { id: 'ct', title: 'Commodity traders', body: 'Refineries and trading firms — doré, scrap, and bullion mandates.' },
+  { id: 'funds', title: 'Funds & accredited', body: 'Qualified purchasers subject to compliance approval.' },
+  { id: 'volume', title: 'Typical volume', body: '~500g to 250kg equivalent per month per client, post-assay.' },
+]
 
 function InstitutionalGoldTrading() {
   return (
-    <>
-      <section className="page-header refinery-hero">
-        <div className="container">
-          <span className="label">Institutional · IFZA {LICENSE_NUMBER}</span>
-          <h1>Institutional Gold Trading Dubai</h1>
-          <p>
-            For family offices, commodity traders, investment funds, and qualified institutions —
-            direct access to physical gold flows with discretion and full documentation.
-          </p>
-          <Link to="/open-account" className="btn btn-primary">
-            Open account
-          </Link>
-        </div>
-      </section>
+    <LandingApp sticky={{ label: 'Institutional inquiry', to: '/open-account' }}>
+      <LandingHero label={`Institutional · IFZA ${LICENSE_NUMBER}`} title="Institutional Gold Trading" />
 
-      <section>
-        <div className="container">
-          <div className="text-section">
-          <h2>Institutional partners we serve</h2>
-          <p>
-            AULM is built for <strong>serious institutional gold trading</strong> — not retail
-            walk-ins. Typical mandates range from ~500g to 250kg equivalent per month per client,
-            subject to compliance approval and assay.
-          </p>
-          <ul className="refinery-bullets">
-            <li>Family offices &amp; private wealth structures</li>
-            <li>Commodity trading firms &amp; refineries</li>
-            <li>Funds and accredited investors (qualified purchasers)</li>
-            <li>Producers selling doré — see <Link to="/sell-gold-dubai">sell gold Dubai</Link></li>
-            <li>Buyers of LBMA bullion — see <Link to="/buy-gold-dubai">buy gold Dubai</Link></li>
-          </ul>
-          <p>
-            Learn more about our company on <Link to="/about">about AULM</Link> or browse{' '}
-            <Link to="/services">all services</Link>.
-          </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="refinery-form-section section-gray">
-        <div className="container">
-          <AccountInquiryForm
-            defaultService="sell-gold-institutional"
-            heading="Institutional inquiry"
-            subheading="Confidential B2B only. Response within one business day."
-          />
-        </div>
-      </section>
-    </>
+      <LandingSection
+        title="Who we serve"
+        lead="Serious institutional gold trading — not retail walk-ins. Discretion with full documentation."
+      >
+        <FeatureGrid columns={2} items={PARTNERS} />
+        <p className="landing-section__footer-links">
+          <Link to="/sell-gold-dubai">Sell gold</Link>
+          {' · '}
+          <Link to="/buy-gold-dubai">Buy bullion</Link>
+          {' · '}
+          <Link to="/about">About AULM</Link>
+        </p>
+      </LandingSection>
+    </LandingApp>
   )
 }
 
