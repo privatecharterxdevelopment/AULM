@@ -3,7 +3,6 @@ export const SITE_NAME = 'AULM Precious Metal Trader'
 export const LICENSE_NUMBER = '85927'
 export const CONTACT_EMAIL = 'contact@aulmtrading.com'
 export const WHATSAPP_NUMBER = '41779409443'
-export const WHATSAPP_DISPLAY = '+41 77 940 94 43'
 export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`
 
 export const OFFICE_ADDRESS_LINES = [

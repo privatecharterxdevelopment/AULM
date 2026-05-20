@@ -310,6 +310,59 @@ a {
   margin-bottom: 8px;
 }
 
+.mobile-whatsapp-wrap {
+  margin-top: 14px;
+  max-width: min(100%, 300px);
+}
+
+.btn-whatsapp-business {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border-radius: 6px;
+  background: #25d366;
+  color: #fff !important;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.015em;
+  line-height: 1.2;
+  transition: background 0.2s, filter 0.2s;
+  border: none;
+  box-shadow: 0 2px 10px rgba(37, 211, 102, 0.22);
+}
+
+.btn-whatsapp-business:hover {
+  background: #20bd5a;
+  color: #fff !important;
+  filter: brightness(1.03);
+}
+
+.btn-whatsapp-business__text {
+  white-space: nowrap;
+}
+
+.btn-whatsapp-business--block {
+  width: 100%;
+}
+
+@media (max-width: 380px) {
+  .btn-whatsapp-business__text {
+    white-space: normal;
+    text-align: left;
+  }
+}
+
+.site-contact-details__whatsapp {
+  margin: 14px 0 10px;
+}
+
+.site-contact-details .btn-whatsapp-business {
+  margin-top: 2px;
+}
+
 .header-phone {
   font-size: 0.875rem;
   color: rgba(255,255,255,0.85);
