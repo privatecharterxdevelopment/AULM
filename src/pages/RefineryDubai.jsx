@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { LICENSE_NUMBER, SITE_URL } from '../config/site'
+import { LICENSE_NUMBER, SITE_NAME, SITE_URL } from '../config/site'
 
 function RefineryDubai() {
   useEffect(() => {
@@ -8,7 +8,7 @@ function RefineryDubai() {
       '@context': 'https://schema.org',
       '@type': 'Service',
       name: 'Refinery Services Dubai',
-      provider: { '@type': 'Organization', name: 'AULM Global Trade Corporation', url: SITE_URL },
+      provider: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
       areaServed: { '@type': 'City', name: 'Dubai' },
       description:
         'LBMA-aligned gold refining, gold import Dubai, and institutional gold sales for qualified B2B clients.',

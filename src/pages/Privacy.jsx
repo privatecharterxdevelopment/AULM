@@ -1,4 +1,5 @@
 import SiteContactDetails from '../components/SiteContactDetails'
+import { SITE_NAME } from '../config/site'
 
 function Privacy() {
   return (
@@ -10,7 +11,7 @@ function Privacy() {
 
           <div className="legal-content">
             <p className="legal-intro">
-              At AULM Global Trade Corporation, confidentiality is not merely a policy—it is the foundation of our
+              At {SITE_NAME}, confidentiality is not merely a policy—it is the foundation of our
               business relationships. We are committed to protecting your personal and business information with the
               highest standards of discretion.
             </p>

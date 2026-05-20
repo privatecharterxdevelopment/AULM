@@ -96,7 +96,7 @@ const PAGE_SEO = {
   '/about': {
     title: `About Us | ${SITE_NAME}`,
     description:
-      'Learn about AULM Global Trade Corporation — IFZA-licensed precious metals trading in Dubai with decades of institutional experience.',
+      `Learn about ${SITE_NAME} — IFZA-licensed precious metals trading in Dubai with decades of institutional experience.`,
     index: true,
   },
   '/services': {
@@ -115,7 +115,7 @@ const PAGE_SEO = {
   '/sustainability': {
     title: `Responsible Gold Sourcing | ${SITE_NAME}`,
     description:
-      'Ethical and compliant gold sourcing, community support, and sustainability standards at AULM Global Trade Corporation.',
+      `Ethical and compliant gold sourcing, community support, and sustainability standards at ${SITE_NAME}.`,
     index: true,
   },
   '/contact': {
@@ -132,12 +132,12 @@ const PAGE_SEO = {
   },
   '/terms': {
     title: `Terms of Service | ${SITE_NAME}`,
-    description: 'Terms of service for AULM Global Trade Corporation wholesale precious metals trading.',
+    description: `Terms of service for ${SITE_NAME} wholesale precious metals trading.`,
     index: false,
   },
   '/privacy': {
     title: `Privacy Policy | ${SITE_NAME}`,
-    description: 'Privacy policy for AULM Global Trade Corporation.',
+    description: `Privacy policy for ${SITE_NAME}.`,
     index: false,
   },
   '/kyconboarding': {
@@ -177,7 +177,7 @@ export function getSeoForPath(pathname) {
     if (headline) {
       return {
         title: `${headline} | ${SITE_NAME}`,
-        description: `Read ${headline} — market insights from AULM Global Trade Corporation.`,
+        description: `Read ${headline} — market insights from ${SITE_NAME}.`,
         index: true,
         path: pathname,
       }

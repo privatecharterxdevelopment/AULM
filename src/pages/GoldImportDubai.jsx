@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import AccountInquiryForm from '../components/AccountInquiryForm'
-import { LICENSE_NUMBER } from '../config/site'
+import { LICENSE_NUMBER, SITE_NAME } from '../config/site'
 
 function GoldImportDubai() {
   return (
@@ -24,7 +24,7 @@ function GoldImportDubai() {
           <div className="text-section">
           <h2>Structured gold import into Dubai</h2>
           <p>
-            AULM Global Trade Corporation facilitates <strong>gold import Dubai</strong> for qualified
+            {SITE_NAME} facilitates <strong>gold import Dubai</strong> for qualified
             B2B clients. We manage documentation from origin country export through UAE customs,
             DMCC registration, and delivery to LBMA-aligned refineries or insured vault storage.
           </p>

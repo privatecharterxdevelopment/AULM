@@ -1,5 +1,5 @@
 export const SITE_URL = 'https://www.aulmtrading.com'
-export const SITE_NAME = 'AULM Global Trade Corporation'
+export const SITE_NAME = 'AULM Precious Metal Trader'
 export const LICENSE_NUMBER = '85927'
 export const CONTACT_EMAIL = 'contact@aulmtrading.com'
 export const WHATSAPP_NUMBER = '41779409443'

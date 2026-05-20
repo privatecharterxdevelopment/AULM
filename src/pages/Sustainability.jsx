@@ -18,7 +18,7 @@ function Sustainability() {
             <div className="two-col-content">
               <h2>Ethical Gold Trading</h2>
               <p>
-                At AULM Global Precious Metal Trades, sustainability is integrated into every aspect of our operations. We are committed to responsible gold sourcing and supporting the communities from which we source.
+                At AULM Precious Metal Trader, sustainability is integrated into every aspect of our operations. We are committed to responsible gold sourcing and supporting the communities from which we source.
               </p>
               <p>
                 We believe the precious metals industry has a responsibility to operate transparently and ethically.
@@ -88,7 +88,7 @@ function Sustainability() {
             <div className="two-col-content">
               <h2>Compliance & Standards</h2>
               <p>
-                AULM Global Precious Metal Trades operates in full compliance with UAE regulations and international standards for precious metals trading.
+                AULM Precious Metal Trader operates in full compliance with UAE regulations and international standards for precious metals trading.
               </p>
               <p>
                 We adhere to LBMA Responsible Gold Guidance, OECD Due Diligence Guidance, and UAE AML/CFT requirements.

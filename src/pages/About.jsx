@@ -18,7 +18,7 @@ function About() {
           <div className="text-section">
               <h2>Overview</h2>
               <p>
-                AULM Global Precious Metal Trades is a premier gold trading company operating from Dubai's International Free Zone Authority (IFZA). We specialize in the import, export, refining, and distribution of high-quality gold products to businesses worldwide.
+                AULM Precious Metal Trader is a premier gold trading company operating from Dubai's International Free Zone Authority (IFZA). We specialize in the import, export, refining, and distribution of high-quality gold products to businesses worldwide.
               </p>
               <p>
                 Our strategic location in Dubai positions us at the heart of global gold trade, connecting markets across Africa, Asia, Europe, and beyond.
@@ -61,7 +61,7 @@ function About() {
           <div className="text-section">
               <h2>IFZA License</h2>
               <p>
-                AULM Global Precious Metal Trades operates under IFZA License No. {LICENSE_NUMBER} from the International Free Zone Authority (IFZA), Dubai&apos;s leading free zone for international businesses.
+                AULM Precious Metal Trader operates under IFZA License No. {LICENSE_NUMBER} from the International Free Zone Authority (IFZA), Dubai&apos;s leading free zone for international businesses.
               </p>
               <p>
                 This license enables us to conduct gold trading activities with full regulatory compliance, benefiting from Dubai's business-friendly environment and world-class infrastructure.

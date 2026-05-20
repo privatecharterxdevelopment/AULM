@@ -1,4 +1,5 @@
 import SiteContactDetails from '../components/SiteContactDetails'
+import { SITE_NAME } from '../config/site'
 
 function Terms() {
   return (
@@ -10,14 +11,14 @@ function Terms() {
 
           <div className="legal-content">
             <p className="legal-intro">
-              These General Terms and Conditions govern all business relationships between AULM Global Trade Corporation
+              These General Terms and Conditions govern all business relationships between {SITE_NAME}
               and its clients. By engaging our services, you agree to these terms.
             </p>
 
             <div className="legal-section">
               <h2>1. Scope of Services</h2>
               <p>
-                AULM Global Trade Corporation provides wholesale precious metals trading services exclusively to qualified
+                {SITE_NAME} provides wholesale precious metals trading services exclusively to qualified
                 institutional clients, licensed commodity traders, family offices, and accredited investors. Our services
                 include gold sourcing, import/export facilitation, refinery coordination, and secure logistics management.
               </p>
@@ -84,7 +85,7 @@ function Terms() {
             <div className="legal-section">
               <h2>8. Limitation of Liability</h2>
               <p>
-                AULM Global Trade Corporation's liability is limited to the direct value of the transaction in question.
+                {SITE_NAME}&apos;s liability is limited to the direct value of the transaction in question.
                 We are not liable for indirect, consequential, or speculative damages, market fluctuations, or delays
                 caused by third-party service providers or regulatory authorities.
               </p>
