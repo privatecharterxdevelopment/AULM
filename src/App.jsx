@@ -21,6 +21,7 @@ import ComplianceGoldTrading from './pages/ComplianceGoldTrading'
 import GoldSupplyChainDubai from './pages/GoldSupplyChainDubai'
 import InstitutionalGoldTrading from './pages/InstitutionalGoldTrading'
 import OpenAccount from './pages/OpenAccount'
+import SellerOnboarding from './pages/SellerOnboarding'
 import Seo from './components/Seo'
 import './styles/globals.css'
 
@@ -46,6 +47,7 @@ function AppContent() {
           <Route path="/gold-supply-chain-dubai" element={<GoldSupplyChainDubai />} />
           <Route path="/institutional-gold-trading" element={<InstitutionalGoldTrading />} />
           <Route path="/open-account" element={<OpenAccount />} />
+          <Route path="/seller-onboarding" element={<SellerOnboarding />} />
           <Route path="/tokenization" element={<Tokenization />} />
           <Route path="/sustainability" element={<Sustainability />} />
           <Route path="/contact" element={<Contact />} />

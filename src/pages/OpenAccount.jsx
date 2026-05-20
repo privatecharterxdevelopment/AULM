@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import AccountInquiryForm from '../components/AccountInquiryForm'
 import SellerDocumentChecklist from '../components/SellerDocumentChecklist'
+import StickyCtaBar from '../components/StickyCtaBar'
 import { LICENSE_NUMBER } from '../config/site'
 
 function OpenAccount() {
@@ -74,11 +75,7 @@ function OpenAccount() {
         </div>
       </section>
 
-      <div className="open-account-sticky-cta">
-        <a href="#open-account" className="btn btn-primary open-account-sticky-cta__btn">
-          Open account now
-        </a>
-      </div>
+      <StickyCtaBar label="Open account now" to="#open-account" className="open-account-sticky-cta" />
     </div>
   )
 }

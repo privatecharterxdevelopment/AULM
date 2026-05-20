@@ -78,6 +78,13 @@ const PAGE_SEO = {
     keywords: 'gold import dubai, import gold dubai, DMCC gold import, gold import UAE',
     index: true,
   },
+  '/seller-onboarding': {
+    title: `Seller Onboarding — Sell Gold Dubai | ${SITE_NAME}`,
+    description:
+      'Open your B2B seller file with AULM — doré and scrap onboarding form only. No document upload at signup.',
+    keywords: 'sell gold dubai onboarding, open gold seller account dubai',
+    index: true,
+  },
   '/open-account': {
     title: `Open Account — Sell Doré, Scrap & Bullion | LBMA Discount | ${SITE_NAME}`,
     description:

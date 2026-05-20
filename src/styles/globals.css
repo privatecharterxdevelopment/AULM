@@ -234,7 +234,8 @@ a {
 
 /* Menu overlay (burger) */
 .mobile-menu {
-  display: block;
+  display: flex;
+  flex-direction: column;
   position: fixed;
   top: 0;
   left: 0;
@@ -246,6 +247,9 @@ a {
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
   pointer-events: none;
+  padding: 88px var(--container-padding) calc(28px + env(safe-area-inset-bottom, 0));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .mobile-menu.open {
@@ -255,14 +259,10 @@ a {
 }
 
 .mobile-nav {
-  position: absolute;
-  top: 50%;
-  left: var(--container-padding);
-  right: var(--container-padding);
-  transform: translateY(-50%);
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 0;
 }
 
 .mobile-nav-link {
@@ -280,9 +280,10 @@ a {
 }
 
 .mobile-menu-footer {
-  position: absolute;
-  bottom: 40px;
-  left: var(--container-padding);
+  flex: 0 0 auto;
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .mobile-menu-address {
@@ -3011,6 +3012,193 @@ section {
 @media (max-width: 600px) {
   .open-account-sticky-cta__btn {
     width: 100%;
+  }
+}
+
+/* Minimal page hero — title only */
+.page-header--minimal .container > p,
+.page-header--minimal .container > .btn {
+  display: none;
+}
+
+.page-header--minimal h1 {
+  max-width: 20ch;
+  margin-bottom: 0;
+}
+
+.page-header--minimal {
+  padding-bottom: clamp(48px, 8vh, 72px);
+}
+
+/* Floating sticky CTA (sell gold, open account, etc.) */
+.landing-with-sticky-cta,
+.open-account-page,
+.seller-onboarding-page {
+  padding-bottom: 88px;
+}
+
+.sticky-cta-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 95;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 14px var(--container-padding) calc(14px + env(safe-area-inset-bottom, 0));
+  background: rgba(8, 8, 8, 0.96);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.45);
+}
+
+.sticky-cta-bar__btn {
+  min-width: min(360px, 100%);
+  text-align: center;
+  font-size: 0.9375rem;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 600px) {
+  .sticky-cta-bar__btn {
+    width: 100%;
+  }
+}
+
+/* Process steps grid (sell gold landing) */
+.process-steps-section {
+  padding: 56px 0 64px;
+}
+
+.process-steps-lead {
+  max-width: 640px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.65;
+  margin-bottom: 40px;
+}
+
+.process-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.process-step-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.process-step-card__visual {
+  height: 140px;
+  background-size: cover;
+  background-position: center;
+  background-color: #1a1a1a;
+}
+
+.process-step-card__num {
+  display: block;
+  padding: 14px 18px 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.process-step-card h3 {
+  padding: 8px 18px 0;
+  font-size: 1.05rem;
+  color: var(--color-white);
+  margin: 0;
+}
+
+.process-step-card p {
+  padding: 8px 18px 16px;
+  margin: 0;
+  flex: 1;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.process-step-card__link {
+  padding: 0 18px 18px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.refinery-highlight-section {
+  padding: 64px 0;
+}
+
+.refinery-highlight {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.refinery-highlight__visual {
+  min-height: 280px;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.refinery-highlight__copy h2 {
+  color: var(--color-white);
+  margin-bottom: 16px;
+}
+
+.refinery-highlight__price {
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 12px;
+}
+
+.refinery-highlight__copy p {
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.65;
+  max-width: 520px;
+}
+
+.landing-faq-accordion {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0 20px 20px;
+  margin-bottom: 48px;
+}
+
+.landing-faq-accordion summary {
+  cursor: pointer;
+  padding: 18px 0;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  list-style: none;
+}
+
+.landing-faq-accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.seller-onboarding-form {
+  padding: 48px 0 80px;
+}
+
+@media (max-width: 900px) {
+  .refinery-highlight {
+    grid-template-columns: 1fr;
+  }
+
+  .refinery-highlight__visual {
+    min-height: 200px;
   }
 }
 
