@@ -677,6 +677,44 @@ a {
   max-width: 600px;
 }
 
+.fullscreen-content .label.label--plain {
+  display: block;
+  margin-bottom: 20px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.52);
+}
+
+.fullscreen-content .label.label--plain::before {
+  display: none;
+}
+
+.hero-quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  margin-top: 1.35rem;
+  max-width: 620px;
+  font-size: 0.9375rem;
+}
+
+.hero-quick-links__link {
+  color: rgba(255, 255, 255, 0.88);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.2s;
+}
+
+.hero-quick-links__link:hover {
+  color: var(--color-white);
+}
+
+.hero-quick-links__sep {
+  color: rgba(255, 255, 255, 0.32);
+  user-select: none;
+}
+
 /* Scroll Indicator */
 .scroll-indicator {
   position: absolute;
@@ -2872,6 +2910,107 @@ section {
 
   .refinery-service-section {
     padding: 56px 0;
+  }
+}
+
+/* Open account — streamlined layout + sticky CTA */
+#open-account {
+  scroll-margin-top: 104px;
+}
+
+.open-account-page {
+  padding-bottom: 88px;
+}
+
+.open-account-hero-lead {
+  max-width: 620px;
+  line-height: 1.65;
+}
+
+.open-account-form-first {
+  padding-top: 48px;
+  padding-bottom: 56px;
+}
+
+.open-account-brief {
+  padding: 48px 0 64px;
+}
+
+.open-account-products--tight {
+  margin-bottom: 28px;
+}
+
+.open-account-products--tight .refinery-card p {
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+.open-account-mini-rules {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  max-width: 720px;
+}
+
+.open-account-mini-rules li {
+  margin-bottom: 6px;
+}
+
+.seller-docs-accordion {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 0 20px 16px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.seller-docs-accordion summary {
+  cursor: pointer;
+  padding: 18px 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  list-style: none;
+}
+
+.seller-docs-accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.seller-docs-accordion summary::after {
+  content: ' +';
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 300;
+}
+
+.seller-docs-accordion[open] summary::after {
+  content: ' \2212';
+}
+
+.open-account-sticky-cta {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 95;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 14px var(--container-padding) calc(14px + env(safe-area-inset-bottom, 0));
+  background: rgba(8, 8, 8, 0.94);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.open-account-sticky-cta__btn {
+  min-width: min(320px, 100%);
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .open-account-sticky-cta__btn {
+    width: 100%;
   }
 }
 

@@ -41,7 +41,6 @@ function Home() {
       title: t('home.heroTitle'),
       description: t('home.heroDesc'),
       video: `${VIDEO_BASE}/13778967-uhd_3840_2160_60fps.mp4`,
-      showLocations: true
     },
     {
       id: 'services',
@@ -218,22 +217,30 @@ function Home() {
           <div className={`fullscreen-overlay ${section.darkOverlay ? 'fullscreen-overlay--dark' : ''}`} />
 
           <div className="fullscreen-content" key={activeIndex === index ? 'active' : 'inactive'}>
-            <span className="label">{section.label}</span>
+            <span className={section.id === 'hero' ? 'label label--plain' : 'label'}>{section.label}</span>
             <h2>{section.title}</h2>
             <p>{section.description}</p>
+
+            {section.id === 'hero' && (
+              <nav className="hero-quick-links" aria-label={t('home.heroQuickNavLabel')}>
+                <Link to="/sell-gold-dubai" className="hero-quick-links__link">
+                  {t('home.heroQuickSell')}
+                </Link>
+                <span className="hero-quick-links__sep" aria-hidden>·</span>
+                <Link to="/refinery-dubai" className="hero-quick-links__link">
+                  {t('home.heroQuickRefinery')}
+                </Link>
+                <span className="hero-quick-links__sep" aria-hidden>·</span>
+                <Link to="/contact" className="hero-quick-links__link">
+                  {t('home.heroQuickContact')}
+                </Link>
+              </nav>
+            )}
 
             {section.cta && (
               <Link to={section.cta.to} className="btn btn-primary" style={{ marginTop: '1.5rem' }}>
                 {section.cta.label}
               </Link>
-            )}
-            {section.showLocations && (
-              <a href="mailto:contact@aulmtrading.com" className="location-badges">
-                <span>Zug</span>
-                <span>Dubai</span>
-                <span>London</span>
-                <span>Hong Kong</span>
-              </a>
             )}
           </div>
         </section>

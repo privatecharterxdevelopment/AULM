@@ -2,9 +2,7 @@ export default function SellerDocumentChecklist() {
   return (
     <div className="seller-docs">
       <p className="seller-docs-intro">
-        <strong>Reference only — no upload required now.</strong> AULM is the buyer. After onboarding approval,
-        sellers will need the documents below for doré, scrap, or bullion shipments into Dubai/UAE. Use this
-        list to prepare; exact requirements depend on DMCC/Free Zone vs mainland routing and country of origin.
+        <strong>Reference only — no upload here.</strong> After approval, we request documents per shipment; requirements depend on origin and routing.
       </p>
 
       <div className="seller-docs-grid">
