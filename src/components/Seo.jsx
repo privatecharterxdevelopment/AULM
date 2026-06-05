@@ -62,7 +62,7 @@ export function OrganizationJsonLd() {
     logo: `${SITE_URL}/gold-icon.svg`,
     email: 'contact@aulmtrading.com',
     description:
-      'DMCC & IFZA licensed B2B gold trading company in Dubai specializing in precious metals import, export, and refining.',
+      'IFZA licensed B2B gold trading company in Dubai specializing in precious metals import, export, and refining.',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Building A1, Dubai Digital Park, IFZA Business Park, DDP',

@@ -69,7 +69,7 @@ Establishing a compliant supply chain from these origins to international market
 
 Full chain-of-custody documentation from mine site to export point must be maintained meticulously. This includes mine identification, production records, transport manifests, and export certificates. Our compliance teams conduct regular site visits to verify documentation accuracy and assess risk factors at each supply chain node.
 
-Our DMCC import license enables us to legally receive, process, and re-export gold through Dubai's world-class refining infrastructure. The journey from mine site verification through assay and refining to final delivery of LBMA-certified bars follows a carefully designed process that maintains complete transparency.
+Our IFZA license enables us to legally receive, process, and re-export gold through Dubai's world-class refining infrastructure. The journey from mine site verification through assay and refining to final delivery of LBMA-certified bars follows a carefully designed process that maintains complete transparency.
 
 Final delivery to institutional vaults in Zurich, London, or Singapore completes the transformation from artisanal production to investment-grade bullion. This end-to-end capability, combined with full regulatory compliance, positions AULM as a trusted partner for institutions seeking African-origin gold with impeccable provenance.`
   },

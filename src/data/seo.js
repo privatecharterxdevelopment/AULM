@@ -72,10 +72,10 @@ const PAGE_SEO = {
     index: true,
   },
   '/gold-import-dubai': {
-    title: `Gold Import Dubai | DMCC Compliant Import | ${SITE_NAME}`,
+    title: `Gold Import Dubai | Compliant Import | ${SITE_NAME}`,
     description:
-      'Gold import Dubai for institutions: customs, DMCC permits, origin assay, and refinery intake. Open your import file with AULM.',
-    keywords: 'gold import dubai, import gold dubai, DMCC gold import, gold import UAE',
+      'Gold import Dubai for institutions: customs, UAE permits, origin assay, and refinery intake. Open your import file with AULM.',
+    keywords: 'gold import dubai, import gold dubai, gold import UAE',
     index: true,
   },
   '/seller-onboarding': {
@@ -128,13 +128,13 @@ const PAGE_SEO = {
   '/contact': {
     title: `Contact | ${SITE_NAME}`,
     description:
-      'Contact AULM for B2B gold trading inquiries. Dubai-based DMCC & IFZA licensed precious metals trading desk.',
+      'Contact AULM for B2B gold trading inquiries. Dubai-based IFZA licensed precious metals trading desk.',
     index: true,
   },
   '/news': {
     title: `News & Insights | ${SITE_NAME}`,
     description:
-      'Expert analysis on gold markets, DMCC compliance, LBMA standards, and institutional precious metals trading.',
+      'Expert analysis on gold markets, UAE compliance, LBMA standards, and institutional precious metals trading.',
     index: true,
   },
   '/terms': {

@@ -71,7 +71,7 @@ const translations = {
     },
     // Footer
     footer: {
-      tagline: 'Swiss-Arab gold trading. DMCC & IFZA licensed, Dubai.',
+      tagline: 'Swiss-Arab gold trading. IFZA licensed, Dubai.',
       company: 'Company',
       whoWeAre: 'Who we are',
       whatWeDo: 'What we do',
@@ -157,7 +157,7 @@ const translations = {
       languages: 'Sprachen'
     },
     footer: {
-      tagline: 'Schweizer-Arabischer Goldhandel. DMCC & IFZA lizenziert, Dubai.',
+      tagline: 'Schweizer-Arabischer Goldhandel. IFZA lizenziert, Dubai.',
       company: 'Unternehmen',
       whoWeAre: 'Wer wir sind',
       whatWeDo: 'Was wir tun',
@@ -243,7 +243,7 @@ const translations = {
       languages: 'Langues'
     },
     footer: {
-      tagline: 'Commerce d\'or Suisse-Arabe. DMCC & IFZA licencié, Dubaï.',
+      tagline: 'Commerce d\'or Suisse-Arabe. IFZA licencié, Dubaï.',
       company: 'Société',
       whoWeAre: 'Qui nous sommes',
       whatWeDo: 'Ce que nous faisons',
@@ -328,7 +328,7 @@ const translations = {
       languages: 'اللغات'
     },
     footer: {
-      tagline: 'تجارة الذهب السويسرية العربية. مرخصة DMCC & IFZA، دبي.',
+      tagline: 'تجارة الذهب السويسرية العربية. مرخصة IFZA، دبي.',
       company: 'الشركة',
       whoWeAre: 'من نحن',
       whatWeDo: 'ماذا نفعل',
@@ -413,7 +413,7 @@ const translations = {
       languages: '语言'
     },
     footer: {
-      tagline: '瑞士-阿拉伯黄金贸易。DMCC & IFZA许可，迪拜。',
+      tagline: '瑞士-阿拉伯黄金贸易。IFZA许可，迪拜。',
       company: '公司',
       whoWeAre: '关于我们',
       whatWeDo: '我们的服务',
@@ -498,7 +498,7 @@ const translations = {
       languages: '言語'
     },
     footer: {
-      tagline: 'スイス・アラブ金取引。DMCC & IFZAライセンス取得、ドバイ。',
+      tagline: 'スイス・アラブ金取引。IFZAライセンス取得、ドバイ。',
       company: '会社',
       whoWeAre: '会社概要',
       whatWeDo: '事業内容',
