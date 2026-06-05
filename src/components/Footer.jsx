@@ -56,11 +56,6 @@ function Footer() {
         </div>
 
         <div className="footer-banking">
-          <img
-            src="/UBS_BIG.D-5c4e1cb0.png"
-            alt=""
-            className="ubs-logo-img"
-          />
           <p>{t('footer.settlementNote')}</p>
         </div>
 

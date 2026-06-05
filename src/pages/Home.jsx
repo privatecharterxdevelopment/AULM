@@ -6,7 +6,8 @@ import Footer from '../components/Footer'
 import SiteContactDetails from '../components/SiteContactDetails'
 import { submitInquiry } from '../utils/submitInquiry'
 
-const VIDEO_BASE = 'https://raw.githubusercontent.com/privatecharterxdevelopment/AULM/main/public'
+// Use local `public/` assets so deployments don't depend on GitHub raw URLs.
+const VIDEO_BASE = ''
 
 function LanguageSelector() {
   const { language, setLanguage } = useLanguage()

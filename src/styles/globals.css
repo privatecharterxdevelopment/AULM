@@ -1445,23 +1445,6 @@ section {
   padding: 24px 0;
 }
 
-.ubs-logo {
-  flex-shrink: 0;
-  color: rgba(255,255,255,0.7);
-}
-
-.ubs-logo svg {
-  height: 28px;
-  width: auto;
-}
-
-.ubs-logo-img {
-  height: 28px;
-  width: auto;
-  opacity: 0.8;
-  flex-shrink: 0;
-}
-
 .footer-banking p {
   font-size: 0.75rem;
   color: rgba(255,255,255,0.4);
