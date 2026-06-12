@@ -5,6 +5,10 @@ import { CompanyPage } from './pages/CompanyPage'
 import { HomePage } from './pages/HomePage'
 import { LogisticsPage } from './pages/LogisticsPage'
 import { MetalPage } from './pages/MetalPage'
+import { AuthPage } from './pages/AuthPage'
+import { AdminPage } from './pages/AdminPage'
+import { DashboardPage } from './pages/DashboardPage'
+import { KycOnboardingPage } from './pages/KycOnboardingPage'
 import { VaultPage } from './pages/VaultPage'
 import './App.css'
 
@@ -19,6 +23,13 @@ export default function App() {
             <Route path="company" element={<CompanyPage />} />
             <Route path="vault" element={<VaultPage />} />
             <Route path="logistics/:mode" element={<LogisticsPage />} />
+            <Route path="onboarding" element={<KycOnboardingPage />} />
+            <Route path="onboarding/complete" element={<Navigate to="/dashboard" replace />} />
+            <Route path="kyconboarding" element={<KycOnboardingPage />} />
+            <Route path="login" element={<AuthPage mode="login" />} />
+            <Route path="register" element={<Navigate to="/onboarding" replace />} />
+            <Route path="dashboard" element={<DashboardPage />} />
+            <Route path="admin" element={<AdminPage />} />
             <Route path=":metalId" element={<MetalPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>

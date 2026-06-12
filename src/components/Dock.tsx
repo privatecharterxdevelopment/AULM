@@ -51,6 +51,7 @@ const SIMPLE_MENUS: SimpleMenu[] = [
     id: 'banking',
     label: 'Banking',
     items: [
+      { label: 'KYC onboarding', href: '/onboarding' },
       { label: 'Banking', href: '#banking' },
       { label: 'Escrow', href: '#escrow' },
     ],

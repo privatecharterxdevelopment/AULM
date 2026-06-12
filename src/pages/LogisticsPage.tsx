@@ -20,7 +20,7 @@ function isLogisticsMode(id: string | undefined): id is LogisticsMode {
 
 export function LogisticsPage() {
   const { mode } = useParams<{ mode: string }>()
-  const { isLoggedIn, login } = useAuth()
+  const { isLoggedIn } = useAuth()
   const [entered, setEntered] = useState(false)
   const [importTo, setImportTo] = useState<Country | null>(null)
   const [exportFrom, setExportFrom] = useState<Country | null>(null)
@@ -95,7 +95,6 @@ export function LogisticsPage() {
         {isImport && showImportPanel && importTo ? (
           <LogisticsCountryPanel
             isLoggedIn={isLoggedIn}
-            login={login}
             corridorDocs={corridorDocs}
             summary={importTo.summary}
             notes={importTo.importNotes}
@@ -106,7 +105,6 @@ export function LogisticsPage() {
         {!isImport && showExportPanel && exportFrom && exportTo ? (
           <LogisticsCountryPanel
             isLoggedIn={isLoggedIn}
-            login={login}
             corridorDocs={corridorDocs}
             summary={`${exportFrom.summary} Export corridor to ${exportTo.name} with OECD-aligned documentation and insured logistics.`}
             notes={exportFrom.exportNotes}
@@ -122,7 +120,6 @@ export function LogisticsPage() {
 
 type PanelProps = {
   isLoggedIn: boolean
-  login: () => void
   corridorDocs: string[]
   summary: string
   notes?: string
@@ -132,7 +129,6 @@ type PanelProps = {
 
 function LogisticsCountryPanel({
   isLoggedIn,
-  login,
   corridorDocs,
   summary,
   notes,
@@ -175,17 +171,17 @@ function LogisticsCountryPanel({
       ) : (
         <div className="logistics-docs-locked">
           <p className="logistics-docs-locked-text">
-            Your corridor is confirmed. Register an institutional account to view required
-            documents and proceed with onboarding.
+            Your corridor is confirmed. Complete KYC to open your institutional account and view
+            required documents.
           </p>
           <div className="logistics-register-actions">
-            <a href="#open-account" className="metal-page-btn metal-page-btn--primary">
-              Register
+            <Link to="/onboarding" className="metal-page-btn metal-page-btn--primary">
+              Open account
               <BtnArrow />
-            </a>
-            <button type="button" className="metal-page-btn metal-page-btn--secondary" onClick={login}>
+            </Link>
+            <Link to="/login" className="metal-page-btn metal-page-btn--secondary">
               Log in
-            </button>
+            </Link>
           </div>
         </div>
       )}

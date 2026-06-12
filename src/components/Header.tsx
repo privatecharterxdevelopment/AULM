@@ -3,7 +3,7 @@ import { useAuth } from '../auth/AuthContext'
 import { LanguageDropdown } from './LanguageDropdown'
 
 export function Header() {
-  const { isLoggedIn, login, logout } = useAuth()
+  const { isLoggedIn, isAdmin, logout } = useAuth()
 
   return (
     <header className="header-wrap">
@@ -15,17 +15,27 @@ export function Header() {
         <div className="header-actions">
           <LanguageDropdown />
           {isLoggedIn ? (
-            <button type="button" className="header-login" onClick={logout}>
-              Log out
-            </button>
+            <>
+              {isAdmin ? (
+                <Link to="/admin" className="header-login">
+                  Admin
+                </Link>
+              ) : null}
+              <Link to="/dashboard" className="header-login">
+                Dashboard
+              </Link>
+              <button type="button" className="header-login" onClick={() => void logout()}>
+                Log out
+              </button>
+            </>
           ) : (
-            <button type="button" className="header-login" onClick={login}>
+            <Link to="/login" className="header-login">
               Login
-            </button>
+            </Link>
           )}
-          <a href="#open-account" className="header-cta">
-            Open account
-          </a>
+          <Link to={isLoggedIn ? '/dashboard' : '/onboarding'} className="header-cta">
+            {isLoggedIn ? 'Dashboard' : 'Open account'}
+          </Link>
         </div>
       </div>
     </header>
