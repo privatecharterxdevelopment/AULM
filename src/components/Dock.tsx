@@ -42,6 +42,7 @@ const COMPANY_MENU: SimpleMenu = {
   id: 'company',
   label: 'Company',
   items: [
+    { label: 'Contact', href: '/contact' },
     { label: 'About', href: '/company' },
     { label: 'Procedure', href: '/company/procedure' },
   ],
@@ -61,7 +62,7 @@ const SIMPLE_MENUS: SimpleMenu[] = [
     label: 'Banking',
     items: [
       { label: 'KYC onboarding', href: '/onboarding' },
-      { label: 'Banking', href: '#banking' },
+      { label: 'Banking', href: '/banking' },
       { label: 'Escrow', href: '/escrow' },
     ],
   },

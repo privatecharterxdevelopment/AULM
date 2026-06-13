@@ -67,7 +67,7 @@ export function EscrowPage() {
               Open account
               <BtnArrow />
             </Link>
-            <Link to="/company" className="metal-page-btn metal-page-btn--secondary">
+            <Link to="/contact" className="metal-page-btn metal-page-btn--secondary">
               Contact compliance
               <BtnArrow />
             </Link>

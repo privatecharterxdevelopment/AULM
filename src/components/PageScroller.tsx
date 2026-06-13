@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactNode } from 'react'
+import { BankingSliderSection } from './BankingSliderSection'
 import { CargoSection } from './CargoSection'
 import { FaqSection } from './FaqSection'
 import { useDiscretePages } from '../hooks/useDiscretePages'
@@ -33,7 +34,7 @@ function panelStyle(enter: number, exit: number, blurAmount = 10) {
   }
 }
 
-const LAST = 5
+const LAST = 6
 
 export function PageScroller({ hero }: Props) {
   const zoneRef = useRef<HTMLDivElement>(null)
@@ -51,7 +52,8 @@ export function PageScroller({ hero }: Props) {
   const miningIn = easeOutCubic(segment(raw, 1 / LAST, 2 / LAST))
   const sourcingIn = easeOutCubic(segment(raw, 2 / LAST, 3 / LAST))
   const logisticsIn = easeOutCubic(segment(raw, 3 / LAST, 4 / LAST))
-  const faqIn = easeOutCubic(segment(raw, 4 / LAST, 1))
+  const bankingIn = easeOutCubic(segment(raw, 4 / LAST, 5 / LAST))
+  const faqIn = easeOutCubic(segment(raw, 5 / LAST, 1))
 
   const heroStyle = {
     opacity: 1 - tradeIn,
@@ -62,7 +64,8 @@ export function PageScroller({ hero }: Props) {
   const tradeStyle = panelStyle(tradeIn, miningIn)
   const miningStyle = panelStyle(miningIn, sourcingIn)
   const sourcingStyle = panelStyle(sourcingIn, logisticsIn)
-  const logisticsStyle = panelStyle(logisticsIn, faqIn)
+  const logisticsStyle = panelStyle(logisticsIn, bankingIn)
+  const bankingStyle = panelStyle(bankingIn, faqIn)
   const faqStyle = {
     opacity: faqIn,
     transform: `translate3d(${(1 - faqIn) * 8}%, ${(1 - faqIn) * 100}%, 0) scale(${0.94 + faqIn * 0.06})`,
@@ -106,9 +109,17 @@ export function PageScroller({ hero }: Props) {
         <div
           className="page-scroll-panel page-scroll-panel--cargo"
           style={logisticsStyle}
-          {...(logisticsIn > 0.35 && faqIn < 0.35 ? { 'data-active': 'true' as const } : {})}
+          {...(logisticsIn > 0.35 && bankingIn < 0.35 ? { 'data-active': 'true' as const } : {})}
         >
           <CargoSection reveal={logisticsIn} />
+        </div>
+
+        <div
+          className="page-scroll-panel page-scroll-panel--banking"
+          style={bankingStyle}
+          {...(bankingIn > 0.35 && faqIn < 0.35 ? { 'data-active': 'true' as const } : {})}
+        >
+          <BankingSliderSection reveal={bankingIn} />
         </div>
 
         <div

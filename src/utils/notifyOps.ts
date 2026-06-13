@@ -8,8 +8,12 @@ export type NotifyOpsPayload = {
     | 'logistics_submitted'
     | 'kyc_status_changed'
     | 'order_submitted'
+    | 'contact_inquiry'
   to?: string
   customerEmail?: string
+  fullName?: string
+  topic?: string
+  phone?: string
   company?: string
   applicationId?: string
   message?: string

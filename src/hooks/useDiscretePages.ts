@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type RefObject } from 'react'
 
-export const HOME_PAGE_COUNT = 6
+export const HOME_PAGE_COUNT = 7
 const LOCK_MS = 850
 
 export function useDiscretePages(

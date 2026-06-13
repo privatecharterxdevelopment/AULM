@@ -14,6 +14,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
     title: 'Company',
     links: [
       { label: 'About', href: '/company' },
+      { label: 'Contact', href: '/contact' },
       { label: 'Procedure', href: '/company/procedure' },
     ],
   },
@@ -25,6 +26,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
       { label: 'Copper', href: '/copper' },
       { label: 'Vault+', href: '/vault' },
       { label: 'Escrow', href: '/escrow' },
+      { label: 'Banking', href: '/banking' },
       { label: 'Refinery', href: '/refinery' },
     ],
   },

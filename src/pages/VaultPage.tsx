@@ -49,7 +49,7 @@ export function VaultPage() {
         </p>
 
         <div className="vault-body-actions">
-          <Link to="/company" className="metal-page-btn metal-page-btn--primary">
+          <Link to="/contact" className="metal-page-btn metal-page-btn--primary">
             Contact sales
             <BtnArrow />
           </Link>

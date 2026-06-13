@@ -12,6 +12,9 @@ type Payload = {
   type: string
   to?: string
   customerEmail?: string
+  fullName?: string
+  topic?: string
+  phone?: string
   company?: string
   applicationId?: string
   message?: string
@@ -117,6 +120,21 @@ function buildEmail(payload: Payload): { to: string; subject: string; html: stri
         `,
       }
     }
+    case 'contact_inquiry':
+      return {
+        to: opsTo,
+        subject: `Contact — ${payload.topic ?? 'General'} — ${payload.fullName ?? payload.customerEmail ?? 'inquiry'}`,
+        html: `
+          <h2>New contact form submission</h2>
+          <p><strong>Topic:</strong> ${payload.topic ?? '—'}</p>
+          <p><strong>Name:</strong> ${payload.fullName ?? '—'}</p>
+          <p><strong>Email:</strong> ${payload.customerEmail ?? '—'}</p>
+          ${payload.company ? `<p><strong>Company:</strong> ${payload.company}</p>` : ''}
+          ${payload.phone ? `<p><strong>Phone:</strong> ${payload.phone}</p>` : ''}
+          <p><strong>Message:</strong></p>
+          <p style="white-space:pre-wrap">${payload.message ?? '—'}</p>
+        `,
+      }
     case 'kyc_status_changed':
       if (!payload.customerEmail) return null
       return {

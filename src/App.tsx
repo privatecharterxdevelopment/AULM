@@ -5,6 +5,7 @@ import { CompanyPage } from './pages/CompanyPage'
 import { HomePage } from './pages/HomePage'
 import { LogisticsPage } from './pages/LogisticsPage'
 import { MetalPage } from './pages/MetalPage'
+import { BankingPage } from './pages/BankingPage'
 import { AuthPage } from './pages/AuthPage'
 import { AdminPage } from './pages/AdminPage'
 import { DashboardPage } from './pages/DashboardPage'
@@ -13,6 +14,7 @@ import { ProcedureDetailPage } from './pages/DocumentPage'
 import { ProcedurePage } from './pages/DocumentsPage'
 import { EscrowPage } from './pages/EscrowPage'
 import { RefineryPage } from './pages/RefineryPage'
+import { ContactPage } from './pages/ContactPage'
 import { VaultPage } from './pages/VaultPage'
 import './App.css'
 
@@ -30,12 +32,14 @@ export default function App() {
             <Route index element={<HomePage />} />
             <Route path="buy" element={<Navigate to="/gold" replace />} />
             <Route path="company" element={<CompanyPage />} />
+            <Route path="contact" element={<ContactPage />} />
             <Route path="company/procedure" element={<ProcedurePage />} />
             <Route path="company/procedure/:slug" element={<ProcedureDetailPage />} />
             <Route path="documents" element={<Navigate to="/company/procedure" replace />} />
             <Route path="documents/:slug" element={<LegacyDocumentRedirect />} />
             <Route path="vault" element={<VaultPage />} />
             <Route path="escrow" element={<EscrowPage />} />
+            <Route path="banking" element={<BankingPage />} />
             <Route path="refinery" element={<RefineryPage />} />
             <Route path="logistics/:mode" element={<LogisticsPage />} />
             <Route path="onboarding" element={<KycOnboardingPage />} />

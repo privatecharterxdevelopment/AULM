@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react'
-import maplibregl from 'maplibre-gl'
-import 'maplibre-gl/dist/maplibre-gl.css'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 
-/** Dubai Silicon Oasis — Dubai Digital Park / IFZA */
-const CENTER: [number, number] = [55.3848, 25.1198]
-const ZOOM = 12.4
-const STYLE = 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'
+/** Dubai Silicon Oasis — AULM / IFZA desk */
+const OFFICE: L.LatLngExpression = [25.1198, 55.3848]
+/** Zoom 11 — wider Dubai context; pinch/scroll to zoom in */
+const INITIAL_ZOOM = 11
 
 type Props = {
   className?: string
@@ -13,58 +13,44 @@ type Props = {
 
 export function CompanyStrategicMap({ className = '' }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const mapRef = useRef<maplibregl.Map | null>(null)
+  const mapRef = useRef<L.Map | null>(null)
 
   useEffect(() => {
     const container = containerRef.current
-    if (!container) return
+    if (!container || mapRef.current) return
 
-    let cancelled = false
-
-    const mountMap = () => {
-      if (cancelled || mapRef.current || !containerRef.current) return
-
-      const map = new maplibregl.Map({
-        container: containerRef.current,
-        style: STYLE,
-        center: CENTER,
-        zoom: ZOOM,
-        bearing: 0,
-        pitch: 0,
-        interactive: false,
-        attributionControl: false,
-      })
-
-      mapRef.current = map
-
-      map.on('load', () => {
-        map.resize()
-        new maplibregl.Marker({ color: '#111', scale: 0.85 }).setLngLat(CENTER).addTo(map)
-        map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-left')
-      })
-    }
-
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return
-        mountMap()
-        io.disconnect()
-      },
-      { threshold: 0.15, rootMargin: '40px' },
-    )
-
-    io.observe(container)
-
-    const ro = new ResizeObserver(() => {
-      mapRef.current?.resize()
+    const map = L.map(container, {
+      center: OFFICE,
+      zoom: INITIAL_ZOOM,
+      scrollWheelZoom: true,
+      zoomControl: true,
+      attributionControl: true,
     })
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map)
+
+    L.circleMarker(OFFICE, {
+      radius: 7,
+      color: '#111',
+      weight: 2,
+      fillColor: '#111',
+      fillOpacity: 1,
+    })
+      .bindTooltip('Dubai Silicon Oasis', { direction: 'top', offset: [0, -8] })
+      .addTo(map)
+
+    mapRef.current = map
+
+    const ro = new ResizeObserver(() => map.invalidateSize())
     ro.observe(container)
 
     return () => {
-      cancelled = true
-      io.disconnect()
       ro.disconnect()
-      mapRef.current?.remove()
+      map.remove()
       mapRef.current = null
     }
   }, [])
@@ -73,8 +59,8 @@ export function CompanyStrategicMap({ className = '' }: Props) {
     <div
       ref={containerRef}
       className={`company-strategic-map ${className}`.trim()}
-      role="img"
-      aria-label="Map centred on Dubai Silicon Oasis"
+      role="application"
+      aria-label="Interactive map of Dubai — AULM at Dubai Silicon Oasis"
     />
   )
 }

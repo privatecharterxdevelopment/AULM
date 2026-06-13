@@ -97,7 +97,7 @@ export function MetalPage() {
                 {primaryLabel}
                 <BtnArrow />
               </Link>
-              <Link to="/company" className="metal-page-btn metal-page-btn--secondary">
+              <Link to="/contact" className="metal-page-btn metal-page-btn--secondary">
                 Contact sales
                 <BtnArrow />
               </Link>
