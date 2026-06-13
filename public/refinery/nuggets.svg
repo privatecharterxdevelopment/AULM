@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" fill="none">
+  <defs>
+    <linearGradient id="nuggets" x1="0" y1="0" x2="400" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3a3018"/>
+      <stop offset="0.55" stop-color="#7a6030"/>
+      <stop offset="1" stop-color="#b89448"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="520" fill="url(#nuggets)"/>
+</svg>

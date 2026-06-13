@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" fill="none">
+  <defs>
+    <linearGradient id="dust" x1="200" y1="0" x2="200" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2e2818"/>
+      <stop offset="0.5" stop-color="#5a4e34"/>
+      <stop offset="1" stop-color="#8a7858"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="520" fill="url(#dust)"/>
+</svg>

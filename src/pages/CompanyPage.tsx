@@ -129,7 +129,12 @@ export function CompanyPage() {
               {COMPANY.hours}
             </p>
 
-            <div className="company-appointment-actions company-reveal-child" style={revealIndex(5)}>
+            <p className="vault-body-copy company-reveal-child" style={revealIndex(5)}>
+              <Link to="/company/procedure" className="company-procedure-link">
+                Shipping &amp; compliance procedures →
+              </Link>
+            </p>
+            <div className="company-appointment-actions company-reveal-child" style={revealIndex(6)}>
               <a
                 href="mailto:contact@aulmtrading.com?subject=AULM%20E-Meeting%20Request"
                 className="metal-page-btn metal-page-btn--primary"

@@ -38,13 +38,22 @@ const METALS = [
   { id: 'copper', label: 'Copper' },
 ] as const
 
+const COMPANY_MENU: SimpleMenu = {
+  id: 'company',
+  label: 'Company',
+  items: [
+    { label: 'About', href: '/company' },
+    { label: 'Procedure', href: '/company/procedure' },
+  ],
+}
+
 const SIMPLE_MENUS: SimpleMenu[] = [
   {
     id: 'logistics',
     label: 'Logistics',
     items: [
-      { label: 'Logistics', href: '#logistics' },
-      { label: 'Im-/Export', href: '#import-export' },
+      { label: 'Import', href: '/logistics/import' },
+      { label: 'Export', href: '/logistics/export' },
     ],
   },
   {
@@ -53,8 +62,13 @@ const SIMPLE_MENUS: SimpleMenu[] = [
     items: [
       { label: 'KYC onboarding', href: '/onboarding' },
       { label: 'Banking', href: '#banking' },
-      { label: 'Escrow', href: '#escrow' },
+      { label: 'Escrow', href: '/escrow' },
     ],
+  },
+  {
+    id: 'refinery',
+    label: 'Refinery',
+    items: [{ label: 'Refinery process', href: '/refinery' }],
   },
 ]
 
@@ -89,9 +103,39 @@ export function Dock() {
           <HomeIcon />
         </Link>
 
-        <Link to="/company" className="dock-item dock-item--link">
-          Company
-        </Link>
+        <div
+          className={`dock-group${openId === COMPANY_MENU.id ? ' is-open' : ''}`}
+          onMouseEnter={() => setOpenId(COMPANY_MENU.id)}
+          onMouseLeave={() => setOpenId(null)}
+        >
+          <button
+            type="button"
+            className="dock-item"
+            aria-expanded={openId === COMPANY_MENU.id}
+            aria-haspopup="menu"
+            onClick={(e) => {
+              e.stopPropagation()
+              setOpenId(openId === COMPANY_MENU.id ? null : COMPANY_MENU.id)
+            }}
+          >
+            {COMPANY_MENU.label}
+            <ChevronIcon open={openId === COMPANY_MENU.id} />
+          </button>
+
+          <div className="dock-drop" role="menu">
+            {COMPANY_MENU.items.map((item) => (
+              <Link
+                key={item.href}
+                to={item.href}
+                role="menuitem"
+                className="dock-drop-item"
+                onClick={() => setOpenId(null)}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </div>
 
         <Link to="/vault" className="dock-item dock-item--link">
           Vault+

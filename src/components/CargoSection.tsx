@@ -1,4 +1,6 @@
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { CargoPartnersCarousel } from './CargoPartnersCarousel'
 
 function ArrowUpIcon() {
   return (
@@ -32,15 +34,74 @@ type Props = {
   reveal: number
 }
 
+function easeOutCubic(t: number) {
+  return 1 - (1 - t) ** 3
+}
+
+function useSmoothCloudEnter(reveal: number) {
+  const target = reveal < 0.04 ? 0 : easeOutCubic(Math.min(1, reveal))
+  const [enter, setEnter] = useState(0)
+  const enterRef = useRef(0)
+  const targetRef = useRef(target)
+  targetRef.current = target
+
+  useEffect(() => {
+    let raf = 0
+
+    const tick = () => {
+      const t = targetRef.current
+      const cur = enterRef.current
+      const next = cur + (t - cur) * 0.11
+
+      if (Math.abs(t - next) < 0.002) {
+        enterRef.current = t
+        setEnter(t)
+        return
+      }
+
+      enterRef.current = next
+      setEnter(next)
+      raf = requestAnimationFrame(tick)
+    }
+
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [target])
+
+  return enter
+}
+
 export function CargoSection({ reveal }: Props) {
   const titleIn = Math.min(1, reveal / 0.5)
   const cardsIn = Math.min(1, Math.max(0, (reveal - 0.15) / 0.6))
+  const partnersIn = Math.min(1, Math.max(0, (reveal - 0.35) / 0.55))
+
+  const cloudEnter = useSmoothCloudEnter(reveal)
+  const cloudDriftY = (1 - cloudEnter) * 72
+  const cloudDriftX = (1 - cloudEnter) * -14
+  const cloudScale = 0.76 + cloudEnter * 0.24
+  const cloudFloating = cloudEnter > 0.88
 
   return (
     <section className="cargo-section" aria-label="Certified cargo and shipments">
       <div className="cargo-inner">
+        <div
+          className="cargo-cloud-bg"
+          aria-hidden
+          style={{
+            opacity: cloudEnter * 0.4,
+            transform: `translate3d(${cloudDriftX}px, ${cloudDriftY}px, 0)`,
+          }}
+        >
+          <div className="cargo-cloud-scale-wrap" style={{ transform: `scale(${cloudScale})` }}>
+            <div className={`cargo-cloud-float-wrap${cloudFloating ? ' is-floating' : ''}`}>
+              <img src="/cargo-cloud.png" alt="" className="cargo-cloud-img" />
+            </div>
+          </div>
+        </div>
+
         <header
-          className="cargo-head"
+          className="cargo-head cargo-stage-content"
           style={{
             opacity: titleIn,
             transform: `translateY(${(1 - titleIn) * 24}px)`,
@@ -51,7 +112,7 @@ export function CargoSection({ reveal }: Props) {
         </header>
 
         <div
-          className="cargo-cards"
+          className="cargo-cards cargo-stage-content"
           style={{
             opacity: cardsIn,
             transform: `translateY(${(1 - cardsIn) * 28}px) scale(${0.94 + cardsIn * 0.06})`,
@@ -70,6 +131,10 @@ export function CargoSection({ reveal }: Props) {
             </span>
             <span className="cargo-card-label">Export</span>
           </Link>
+        </div>
+
+        <div className="cargo-stage-content cargo-stage-content--carousel">
+          <CargoPartnersCarousel visible={partnersIn} />
         </div>
       </div>
     </section>

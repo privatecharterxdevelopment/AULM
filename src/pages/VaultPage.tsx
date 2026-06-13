@@ -7,7 +7,6 @@ import { getFrameStyle, getPinPadding } from '../lib/frameExpand'
 export function VaultPage() {
   const heroRef = useRef<HTMLDivElement>(null)
   const expand = useFrameExpand(heroRef)
-  const taglineOpacity = Math.max(0, 1 - expand * 2.5)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -23,10 +22,7 @@ export function VaultPage() {
           <div className="vault-frame" style={getFrameStyle(expand)}>
             <img src="/vault/vault-hero.png" alt="" className="vault-frame-image" />
 
-            <div
-              className="vault-frame-overlay vault-frame-overlay--hero"
-              style={{ opacity: taglineOpacity }}
-            >
+            <div className="vault-frame-overlay vault-frame-overlay--hero">
               <p className="vault-hero-tagline">
                 Accessible.
                 <br />
