@@ -31,28 +31,6 @@ export const REFINERY = {
       image: '/refinery/bullion.svg',
     },
   ],
-  procedure: [
-    {
-      id: 'assay',
-      title: 'Fire assay — 48h',
-      text: 'Standard fire assay within 48 hours of partner intake. Total weight and assay results are issued before settlement instructions are authorised.',
-    },
-    {
-      id: 'payment',
-      title: 'MT103 · T+1 · bank only',
-      text: 'Payment bank-to-bank via SWIFT MT103, T+1 after assay confirmation. No cryptocurrencies or alternative settlement rails.',
-    },
-    {
-      id: 'prerequisites',
-      title: 'Prerequisites',
-      text: 'Verified supply chain, institutional due diligence, AML screening and completed onboarding are mandatory for every mandate.',
-    },
-    {
-      id: 'output',
-      title: 'LBMA or non-LBMA',
-      text: 'Output structured as LBMA-good delivery or non-LBMA material for re-melting or tax-free transportation — subject to assay, mandate terms and jurisdiction.',
-    },
-  ],
   sell: {
     eyebrow: 'Institutional offtake',
     title: 'Sell to AULM',

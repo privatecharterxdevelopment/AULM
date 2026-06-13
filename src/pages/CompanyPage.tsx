@@ -7,7 +7,7 @@ import { COMPANY } from '../data/company'
 import { useFrameExpand } from '../hooks/useFrameExpand'
 import { getCompanyPinPadding, getFrameStyle } from '../lib/frameExpand'
 
-const LICENSE_AFTER = 2
+const LICENSE_AFTER = 1
 
 export function CompanyPage() {
   const heroRef = useRef<HTMLDivElement>(null)
@@ -47,18 +47,61 @@ export function CompanyPage() {
               {COMPANY.name}
             </h1>
             <p className="vault-body-lead company-reveal-child" style={revealIndex(1)}>
-              Sell gold Dubai — we buy doré and scrap at LBMA-linked terms. Buy gold Dubai — LBMA
-              bullion for institutions only.
+              {COMPANY.lead}
             </p>
-            <p className="vault-body-copy company-reveal-child" style={revealIndex(2)}>
-              B2B precious metals and commodities with full OECD, LBMA and UAE compliance — from
-              origination in Africa to LBMA-certified refining and global delivery.
+            {COMPANY.description.map((paragraph, i) => (
+              <p
+                key={i}
+                className="vault-body-copy company-reveal-child"
+                style={revealIndex(i + 2)}
+              >
+                {paragraph}
+              </p>
+            ))}
+            <div
+              className="vault-body-actions company-reveal-child"
+              style={revealIndex(COMPANY.description.length + 2)}
+            >
+              <Link to="/onboarding" className="metal-page-btn metal-page-btn--primary">
+                Open account
+                <BtnArrow />
+              </Link>
+              <Link to="/company/procedure" className="metal-page-btn metal-page-btn--secondary">
+                See procedure
+                <BtnArrow />
+              </Link>
+            </div>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal variant="up" className="company-story-panel company-services-panel">
+          <div className="vault-body company-services-wrap">
+            <h2 className="vault-body-title company-reveal-child" style={revealIndex(0)}>
+              Services
+            </h2>
+            <p className="vault-body-lead company-reveal-child" style={revealIndex(1)}>
+              {COMPANY.servicesLead}
             </p>
+            <ul className="company-services-grid">
+              {COMPANY.services.map((label, i) => (
+                <li key={label} className="company-service-box" style={revealIndex(i + 2)}>
+                  <span className="company-service-box-inner">{label}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </ScrollReveal>
 
         {beforeLicense.map((s, i) => (
-          <CompanyStoryBlock key={s.title} title={s.title} body={s.body} index={i + 1} />
+          <CompanyStoryBlock
+            key={s.title}
+            title={s.title}
+            body={s.body}
+            badge={s.badge}
+            locationsTitle={s.locationsTitle}
+            locationMap={s.locationMap}
+            index={i + 1}
+          />
         ))}
 
         <ScrollReveal variant="blur" className="company-story-panel company-license-panel">
@@ -83,27 +126,13 @@ export function CompanyPage() {
             key={s.title}
             title={s.title}
             body={s.body}
+            badge={s.badge}
+            locationsTitle={s.locationsTitle}
+            locationMap={s.locationMap}
             index={i + beforeLicense.length + 2}
           />
         ))}
 
-        <ScrollReveal variant="up" className="company-story-panel company-services-panel">
-          <div className="vault-body company-services-wrap">
-            <h2 className="vault-body-title company-reveal-child" style={revealIndex(0)}>
-              Services
-            </h2>
-            <p className="vault-body-lead company-reveal-child" style={revealIndex(1)}>
-              End-to-end desk capabilities for institutional precious metals and commodities.
-            </p>
-            <ul className="company-services-grid">
-              {COMPANY.services.map((label, i) => (
-                <li key={label} className="company-service-box" style={revealIndex(i + 2)}>
-                  <span className="company-service-box-inner">{label}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </ScrollReveal>
       </section>
 
       <section className="expand-scroll-body company-appointment-section">
@@ -129,23 +158,14 @@ export function CompanyPage() {
               {COMPANY.hours}
             </p>
 
-            <p className="vault-body-copy company-reveal-child" style={revealIndex(5)}>
-              <Link to="/company/procedure" className="company-procedure-link">
-                Shipping &amp; compliance procedures →
-              </Link>
-            </p>
-            <div className="company-appointment-actions company-reveal-child" style={revealIndex(6)}>
+            <div className="company-appointment-actions company-reveal-child" style={revealIndex(5)}>
               <a
                 href="mailto:contact@aulmtrading.com?subject=AULM%20E-Meeting%20Request"
-                className="metal-page-btn metal-page-btn--primary"
+                className="metal-page-btn metal-page-btn--secondary"
               >
                 Book e-meeting
                 <BtnArrow />
               </a>
-              <Link to="/gold" className="metal-page-btn metal-page-btn--secondary">
-                Start verification
-                <BtnArrow />
-              </Link>
             </div>
           </div>
         </ScrollReveal>

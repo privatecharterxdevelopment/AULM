@@ -27,7 +27,7 @@ export const LOGISTICS_FAQ = [
   },
   {
     q: 'What are minimum volumes?',
-    a: 'Gold: minimum 500g, maximum 250kg per month per client. Other metals — contact the desk for structured mandates.',
+    a: 'Gold: minimum 500g, maximum 2 tonnes per month per client from Q2 2026 — continuous mandates. Other metals — contact the desk for structured mandates.',
   },
   {
     q: 'Is every shipment LBMA / OECD compliant?',

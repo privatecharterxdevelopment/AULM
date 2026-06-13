@@ -4,7 +4,6 @@ import { BtnArrow } from '../components/BtnArrow'
 import { RefineryFaq } from '../components/RefineryFaq'
 import { RefineryMaterialCards } from '../components/RefineryMaterialCards'
 import { RefineryPartnerLogos } from '../components/RefineryPartnerLogos'
-import { RefineryProcedureCards } from '../components/RefineryProcedureCards'
 import { REFINERY } from '../data/refinery'
 import { REFINERY_HERO_VIDEO } from '../config/media'
 import { useFrameExpand } from '../hooks/useFrameExpand'
@@ -88,16 +87,6 @@ export function RefineryPage() {
         </div>
       </section>
 
-      <section className="refinery-section refinery-section--procedure">
-        <div className="refinery-section-inner">
-          <header className="vault-body refinery-section-head">
-            <p className="refinery-section-eyebrow">How it works</p>
-            <h2 className="refinery-section-title">Standard procedure</h2>
-          </header>
-          <RefineryProcedureCards steps={REFINERY.procedure} />
-        </div>
-      </section>
-
       <section className="refinery-section refinery-section--sell" aria-label="Sell to AULM">
         <div className="refinery-sell-inner">
           <p className="refinery-sell-eyebrow">{REFINERY.sell.eyebrow}</p>
@@ -115,8 +104,8 @@ export function RefineryPage() {
               Open account
               <BtnArrow />
             </Link>
-            <Link to="/company" className="metal-page-btn metal-page-btn--secondary">
-              Contact compliance
+            <Link to="/company/procedure" className="metal-page-btn metal-page-btn--secondary">
+              See procedure
               <BtnArrow />
             </Link>
           </div>

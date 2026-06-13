@@ -1,6 +1,12 @@
 export const COMPANY = {
   name: 'AULM Precious Metal Trader',
   tagline: ['Precious', 'metal', 'trader.'],
+  lead: 'Swiss–German roots. Backed by Liechtenstein. Global network and infrastructure.',
+  description: [
+    'AULM is an IFZA-licensed B2B precious metals desk in Dubai for family offices, commodity traders, investment funds, and qualified counterparties. We buy doré and scrap at LBMA-linked terms and sell LBMA bullion — with documented chain of custody and bank-to-bank settlement only.',
+    'From African origination to assay, partner refining, and secure delivery worldwide, the desk runs on a global network across Dubai, Switzerland, Liechtenstein, and Hong Kong. Vaulting is arranged worldwide to client specification — interim storage and general custody in Dubai where required — one counterparty, full transparency on every mandate.',
+  ],
+  servicesLead: 'End-to-end desk capabilities for institutional precious metals and commodities.',
   licenseLabel: 'License',
   licenseLine: 'IFZA License No.',
   licenseNumber: '85927',
@@ -17,24 +23,19 @@ export const COMPANY = {
     'All new clients must complete an e-meeting link and identity verification before any onboarding appointment at our Dubai office.',
   sections: [
     {
-      title: 'Sell & buy gold in Dubai',
-      body: 'Institutional desk in Dubai — we buy raw gold (doré & scrap) at LBMA-linked terms and sell LBMA bullion for qualified institutions only. Import, export and refine with full OECD, LBMA and UAE compliance on every mandate.',
-    },
-    {
       title: 'OECD & LBMA on every mandate',
       body: 'Not a separate product — this is how every trade works: due diligence, KYC/KYB, documented chain of custody, bank-to-bank settlement only. OECD-aligned sourcing across West, Central, North and East Africa with more than 36 years on the ground.',
+      badge: {
+        logo: '/compliance/oecd-logo.png?v=3',
+        logoAlt: 'OECD',
+        note: 'Sourcing and counterparty due diligence aligned with OECD guidance for responsible mineral supply chains — applied on every mandate, not as an optional add-on.',
+      },
     },
     {
       title: 'Sourcing to delivery. One partner.',
       body: 'From procurement to refined bars delivered to your vault. Complete supply chain under one roof: sourcing, assay, certification of origin, LBMA-certified refining in Dubai, and secure logistics. No intermediaries, full transparency.',
-    },
-    {
-      title: 'Strategic location',
-      body: 'Dubai connects worldwide gold supply chains — certified imports through state-of-the-art refining to global distribution via Hong Kong, Swiss banking and vaulting in Zurich, and corporate compliance in Liechtenstein.',
-    },
-    {
-      title: 'Institutional partners',
-      body: 'Family offices, commodity traders, investment funds, central banks and institutional investors seeking direct access to physical gold flows. Minimum 500g, maximum 250kg per month per client. Discretion and confidentiality guaranteed.',
+      locationsTitle: 'Strategic location',
+      locationMap: true,
     },
   ],
   services: [
@@ -45,7 +46,7 @@ export const COMPANY = {
     'Air freight & secure logistics',
     'Refinery services',
     'Import/export documentation',
-    'Vaulting via TransGuard, Brinks, Loomis',
+    'Vaulting worldwide via TransGuard, Brinks, Loomis & partners',
     'Advisory — Europe, Switzerland, UK, US & Asia',
   ],
 }
