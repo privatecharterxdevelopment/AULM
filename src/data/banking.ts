@@ -1,78 +1,93 @@
+export type BankingWidget = {
+  id: string
+  title: string
+  text: string
+}
+
+export const BANKING_WIDGETS: BankingWidget[] = [
+  {
+    id: 'multi-currency',
+    title: 'Multi currency',
+    text: 'USD, EUR, AED and CHF from one institutional wallet — settle across corridors without switching apps.',
+  },
+  {
+    id: 'transfers',
+    title: 'Instant transfers between companies',
+    text: 'Verified counterparty rails for B2B desks — authorise and release in seconds, not days.',
+  },
+  {
+    id: 'connect',
+    title: 'Connecting sellers + buyers the right way',
+    text: 'Match physical commodity flows with compliant settlement — one mandate, full chain-of-custody.',
+  },
+  {
+    id: 'convert',
+    title: 'Convert · invest · deposit · withdraw in seconds',
+    text: 'Move fiat, allocate metal, or route to vault — treasury actions without leaving your desk.',
+  },
+]
+
 export type BankingFeature = {
   id: string
   title: string
   text: string
 }
 
-export const BANKING_CORPORATE_FEATURES: BankingFeature[] = [
-  {
-    id: 'all-in-one',
-    title: 'All-in-one card',
-    text: 'Commodities, FX and institutional settlement on one corporate card.',
-  },
-  {
-    id: 'multi-currency',
-    title: 'Multi-currency',
-    text: 'USD, EUR, AED and CHF from a single wallet — coming soon.',
-  },
-  {
-    id: 'in-app',
-    title: 'In-app treasury',
-    text: 'Authorise wires and reconcile flows without leaving AULM.',
-  },
-  {
-    id: 'instant',
-    title: 'Instant transfers',
-    text: 'Bank-to-bank rails for verified counterparties — SWIFT MT103.',
-  },
-]
+export type BankingStep = {
+  id: string
+  label: string
+  title: string
+  body: string
+}
 
-export const BANKING_VOLUME_FEATURES: BankingFeature[] = [
+export const BANKING_STEPS: BankingStep[] = [
   {
-    id: 'metals',
-    title: 'Gold · Silver · Copper',
-    text: 'Doré intake to LBMA bullion — high-volume physical flows.',
+    id: '01',
+    label: 'Account',
+    title: 'Open your institutional account',
+    body: 'Complete KYC/KYB and access your dashboard — trading, vault, payments and logistics in one place.',
   },
   {
-    id: 'energy',
-    title: 'Oil & gas',
-    text: 'Structured commodity payments and escrow-linked settlement.',
+    id: '02',
+    label: 'Add',
+    title: 'Add funds or metal allocation',
+    body: 'Wire USD, EUR or AED — or allocate vaulted metal to your treasury wallet for instant settlement.',
   },
   {
-    id: 'volume',
-    title: 'High-volume mandates',
-    text: 'Up to 2 tonnes gold per client per month — continuous programmes.',
+    id: '03',
+    label: 'Method',
+    title: 'Choose your settlement rail',
+    body: 'SWIFT MT103, escrow-linked release, or card-authorised counterparty payment — per mandate.',
   },
   {
-    id: 'one-app',
-    title: 'One app',
-    text: 'Trading, logistics, vaulting and banking on one surface.',
+    id: '04',
+    label: 'Review',
+    title: 'Review and authorise',
+    body: 'Dual-control approval, compliance checks and full audit trail before every outbound transfer.',
+  },
+  {
+    id: '05',
+    label: 'Done',
+    title: 'Settled — reconciled in-app',
+    body: 'Funds routed, confirmations logged, and positions updated on your desk without leaving AULM.',
   },
 ]
 
 export const BANKING = {
-  tagline: ['Settle.', 'Route.', 'Scale.'],
+  heroHeadline: ['Connecting continents,', 'creating opportunities'],
+  heroSubline: 'All-in-one institutional commodity banking solution',
+  unifyTitle: 'Unify your commodity treasury',
+  unifyBody: 'All currencies. One app.',
+  videoTagline: ['Focus on transactions', 'the most efficient way'],
   title: 'AULM Banking',
-  lead: 'Institutional corporate card and banking rails for physical commodities — one app, every flow.',
-  copy: [
-    'AULM Banking connects your commodity desk to multi-currency wallets, in-app transaction management and high-volume settlement — designed for family offices, traders and funds moving gold, silver, copper, oil and gas.',
-    'Corporate card and full banking suite: coming soon. Open your institutional account today to secure early access and KYC clearance.',
-  ],
-  heroVideos: ['/company/logo-video.mp4', '/refinery/refinery-hero.mp4'],
-  pillars: [
-    {
-      title: 'Corporate card',
-      text: 'Single institutional card for commodities, FX corridors and verified counterparty payments.',
-    },
-    {
-      title: 'In-app treasury',
-      text: 'Manage mandates, authorise transfers and reconcile positions without external portals.',
-    },
-    {
-      title: 'Commodity-native',
-      text: 'Built for physical flows — metals, energy and structured offtake, not generic neobank UX.',
-    },
-  ],
   disclaimer:
     'AULM Banking products are subject to partner bank approval, jurisdiction and completed KYC/KYB. Card and wallet features are marked coming soon until live with licensed banking partners. Nothing on this page constitutes an offer of banking services.',
+  partnerLogos: [
+    { name: 'Mastercard', src: '/banking/mastercard.png', className: 'banking-partner-logo--mastercard' },
+    { name: 'Visa', src: '/banking/visa.svg', className: 'banking-partner-logo--visa' },
+    { name: "Brink's", src: '/cargo-logos/brinks.svg', className: 'banking-partner-logo--brinks' },
+    { name: 'Transguard Group', src: '/cargo-logos/transguard.png', className: 'banking-partner-logo--transguard' },
+  ],
 } as const
+
+export const BANKING_BG = '#f0f0f2'

@@ -1,2 +1,6 @@
 export const REFINERY_HERO_VIDEO = '/refinery/refinery-hero.mp4'
 export const HOME_HERO_VIDEO = '/hero/home-hero.mp4'
+export const BANKING_SECTION_VIDEO = '/banking/banking-section-bg.mp4'
+export const BANKING_TRANSACT_BG = '/company/locations/switzerland.jpg'
+export const BANKING_CARD_BACK = '/banking/aulm-card-back.png'
+export const BANKING_CARD_HAND = '/banking/aulm-card-hand-cutout.png'

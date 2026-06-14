@@ -6,6 +6,7 @@ import { HomePage } from './pages/HomePage'
 import { LogisticsPage } from './pages/LogisticsPage'
 import { MetalPage } from './pages/MetalPage'
 import { BankingPage } from './pages/BankingPage'
+import { BankingPreApplyPage } from './pages/BankingPreApplyPage'
 import { AuthPage } from './pages/AuthPage'
 import { AdminPage } from './pages/AdminPage'
 import { DashboardPage } from './pages/DashboardPage'
@@ -40,6 +41,7 @@ export default function App() {
             <Route path="vault" element={<VaultPage />} />
             <Route path="escrow" element={<EscrowPage />} />
             <Route path="banking" element={<BankingPage />} />
+            <Route path="banking/pre-apply" element={<BankingPreApplyPage />} />
             <Route path="refinery" element={<RefineryPage />} />
             <Route path="logistics/:mode" element={<LogisticsPage />} />
             <Route path="onboarding" element={<KycOnboardingPage />} />
