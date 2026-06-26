@@ -3,6 +3,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { BtnArrow } from '../components/BtnArrow'
 import { PasswordInput } from '../components/PasswordInput'
 import { useAuth } from '../auth/AuthContext'
+import { DEMO_EMAIL, DEMO_PASSWORD, isDemoLoginEnabled } from '../auth/demoAuth'
 
 type Mode = 'login' | 'register'
 
@@ -22,7 +23,7 @@ export function AuthPage({ mode }: { mode: Mode }) {
   }, [])
 
   if (!loading && isLoggedIn) {
-    return <Navigate to="/dashboard" replace />
+    return <Navigate to="/bank" replace />
   }
 
   if (mode === 'register') {
@@ -41,8 +42,24 @@ export function AuthPage({ mode }: { mode: Mode }) {
       setError(result.error)
       return
     }
-    navigate('/dashboard', { replace: true })
+    navigate('/bank', { replace: true })
   }
+
+  const handleDemoLogin = async () => {
+    setError(null)
+    setSubmitting(true)
+    setEmail(DEMO_EMAIL)
+    setPassword(DEMO_PASSWORD)
+    const result = await signIn(DEMO_EMAIL, DEMO_PASSWORD)
+    setSubmitting(false)
+    if (result.error) {
+      setError(result.error)
+      return
+    }
+    navigate('/bank', { replace: true })
+  }
+
+  const showDemoLogin = isDemoLoginEnabled()
 
   return (
     <div className={`kyc-page${entered ? ' is-entered' : ''}`}>
@@ -92,6 +109,22 @@ export function AuthPage({ mode }: { mode: Mode }) {
               <BtnArrow />
             </button>
           </form>
+
+          {showDemoLogin ? (
+            <div className="kyc-auth-demo">
+              <button
+                type="button"
+                className="metal-page-btn metal-page-btn--secondary kyc-auth-demo-btn"
+                disabled={submitting}
+                onClick={() => void handleDemoLogin()}
+              >
+                Enter demo dashboard
+              </button>
+              <p className="kyc-auth-demo-hint">
+                Test login: <strong>{DEMO_EMAIL}</strong> · <strong>{DEMO_PASSWORD}</strong>
+              </p>
+            </div>
+          ) : null}
 
           <p className="kyc-auth-switch">
             New to AULM? <Link to="/onboarding">Open account</Link>

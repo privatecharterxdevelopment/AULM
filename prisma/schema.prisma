@@ -1,0 +1,114 @@
+// CommodityBank OS — Prisma mirror of supabase/cbos/001_schema.sql
+// Use with: npx prisma db pull (after Supabase migration) or prisma migrate
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum CbosOrgType {
+  individual
+  corporate
+  commodity_trader
+  broker
+  refinery
+  mining_company
+  consultant
+  bank
+}
+
+enum CbosOrgRole {
+  owner
+  admin
+  finance_manager
+  treasury_manager
+  escrow_admin
+  escrow_manager
+  commodity_manager
+  consultant
+  employee
+  viewer
+}
+
+enum CbosEscrowStatus {
+  draft
+  awaiting_participants
+  awaiting_documents
+  awaiting_funding
+  funded
+  under_review
+  approved
+  released
+  completed
+  refunded
+  disputed
+}
+
+enum CbosCurrency {
+  EUR
+  USD
+  AED
+  CHF
+  GBP
+  SGD
+  HKD
+}
+
+model CbosOrganization {
+  id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name            String
+  legalName       String?  @map("legal_name")
+  orgType         CbosOrgType @default(commodity_trader) @map("org_type")
+  slug            String   @unique
+  kycStatus       String   @default("none") @map("kyc_status")
+  bankLicenseRef  String?  @map("bank_license_ref")
+  settings        Json     @default("{}")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @default(now()) @map("updated_at")
+  members         CbosOrganizationMember[]
+  wallets         CbosWallet[]
+  escrows         CbosEscrow[]
+  @@map("cbos_organizations")
+}
+
+model CbosOrganizationMember {
+  id             String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId String      @map("organization_id") @db.Uuid
+  userId         String      @map("user_id") @db.Uuid
+  orgRole        CbosOrgRole @default(employee) @map("org_role")
+  joinedAt       DateTime    @default(now()) @map("joined_at")
+  organization   CbosOrganization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  @@unique([organizationId, userId])
+  @@map("cbos_organization_members")
+}
+
+model CbosWallet {
+  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId String   @map("organization_id") @db.Uuid
+  accountType    String   @map("account_type")
+  currency       CbosCurrency
+  label          String
+  iban           String?
+  isFrozen       Boolean  @default(false) @map("is_frozen")
+  organization   CbosOrganization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  @@map("cbos_wallets")
+}
+
+model CbosEscrow {
+  id              String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId  String           @map("organization_id") @db.Uuid
+  reference       String
+  title           String
+  status          CbosEscrowStatus @default(draft)
+  currency        CbosCurrency
+  transactionValue Decimal         @map("transaction_value") @db.Decimal(20, 8)
+  commodityCode   String?          @map("commodity_code")
+  fundedAmount    Decimal          @default(0) @map("funded_amount") @db.Decimal(20, 8)
+  fundsReleased   Boolean          @default(false) @map("funds_released")
+  organization    CbosOrganization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  @@map("cbos_escrows")
+}

@@ -1,24 +1,39 @@
 import { Link } from 'react-router-dom'
+import { DEMO_SUMMARY } from '../../cbos/mocks/demoData'
+import { formatMoney } from '../../cbos/lib/format'
 import { BANKING_PRE_APPLY_PATH } from '../../data/bankingFlow'
 
 export function DashboardBanking() {
   return (
     <div className="dash-section">
-      <section className="dash-card">
-        <p className="dash-coming-soon-eyebrow">Banking</p>
-        <h2 className="dash-card-title">Pre-apply for institutional banking</h2>
+      <section className="dash-card cbos-glass">
+        <p className="dash-coming-soon-eyebrow">CommodityBank OS</p>
+        <h2 className="dash-card-title">Banking &amp; trading — one desk</h2>
         <p className="dash-card-text">
-          SWIFT settlements, internal transfers, and multi-currency accounts between approved
-          counterparties are rolling out with partner banks. Submit your pre-application now — we
-          will prioritise approved KYC/KYB desks.
+          Treasury, payroll and escrows are unified under <Link to="/bank">/bank</Link>.
         </p>
-        <Link to={BANKING_PRE_APPLY_PATH} className="metal-page-btn metal-page-btn--primary dash-banking-cta">
-          Open pre-application form
+
+        <div className="dash-stat-row" style={{ marginTop: '1rem' }}>
+          <article className="dash-stat">
+            <p className="dash-stat-label">Total holding</p>
+            <p className="dash-stat-value">{formatMoney(DEMO_SUMMARY.totalBalance, 'USD')}</p>
+          </article>
+          <article className="dash-stat">
+            <p className="dash-stat-label">Cash</p>
+            <p className="dash-stat-value">{formatMoney(DEMO_SUMMARY.cashBalance, 'USD')}</p>
+          </article>
+          <article className="dash-stat">
+            <p className="dash-stat-label">Escrow</p>
+            <p className="dash-stat-value">{formatMoney(DEMO_SUMMARY.escrowBalance, 'USD')}</p>
+          </article>
+        </div>
+
+        <Link to="/bank" className="metal-page-btn metal-page-btn--primary dash-banking-cta">
+          Open unified banking dashboard
         </Link>
-        <p className="dash-card-text dash-card-text--muted">
-          For urgent settlement instructions, use <strong>Orders</strong> or contact{' '}
-          <a href="mailto:contact@aulmtrading.com">contact@aulmtrading.com</a>.
-        </p>
+        <Link to={BANKING_PRE_APPLY_PATH} className="dash-action-link" style={{ display: 'inline-block', marginTop: '0.75rem' }}>
+          Pre-apply for additional accounts
+        </Link>
       </section>
     </div>
   )

@@ -50,7 +50,7 @@ export function BankingPreApplyQr() {
                     Open pre-application
                     <BtnArrow />
                   </Link>
-                  <Link to="/dashboard" className="banking-preapply-dashboard-link">
+                  <Link to="/bank" className="banking-preapply-dashboard-link">
                     Or continue from dashboard
                   </Link>
                 </div>

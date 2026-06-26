@@ -5,7 +5,16 @@ import { Dock } from './Dock'
 
 export function Layout() {
   const { pathname } = useLocation()
-  const showFooter = pathname !== '/'
+  const showFooter = pathname !== '/' && !pathname.startsWith('/bank')
+  const isBankApp = pathname.startsWith('/bank')
+
+  if (isBankApp) {
+    return (
+      <main className="cbos-root">
+        <Outlet />
+      </main>
+    )
+  }
 
   return (
     <>

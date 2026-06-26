@@ -77,7 +77,7 @@ export const SITE_DOCUMENTS: SiteDocument[] = [
     sections: [
       {
         paragraphs: [
-          'AULM operates from Dubai IFZA (License No. 85927). All inbound precious metals and diamonds are cleared through Dubai or Abu Dhabi customs and transferred under insured mandate to our nominated refinery or vault partner.',
+          'AULM operates from Dubai IFZA (License No. 85927). All inbound precious metals and diamonds are cleared through Dubai or Abu Dhabi customs and transferred under insured mandate to our nominated refinery or custody partner.',
         ],
       },
       {

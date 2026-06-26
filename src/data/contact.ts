@@ -2,7 +2,7 @@ export type ContactTopic =
   | 'general'
   | 'trading'
   | 'banking'
-  | 'vault'
+  | 'custody'
   | 'logistics'
   | 'refinery'
   | 'compliance'
@@ -18,7 +18,7 @@ export const CONTACT_TOPICS: ContactTopicOption[] = [
   { value: 'general', label: 'General inquiry' },
   { value: 'trading', label: 'Trading & metals' },
   { value: 'banking', label: 'Commodity banking' },
-  { value: 'vault', label: 'Vault & custody' },
+  { value: 'custody', label: 'Custody & storage' },
   { value: 'logistics', label: 'Logistics & routing' },
   { value: 'refinery', label: 'Refinery partnership' },
   { value: 'compliance', label: 'Compliance & documentation' },

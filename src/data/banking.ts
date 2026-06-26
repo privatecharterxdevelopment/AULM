@@ -23,7 +23,7 @@ export const BANKING_WIDGETS: BankingWidget[] = [
   {
     id: 'convert',
     title: 'Convert · invest · deposit · withdraw in seconds',
-    text: 'Move fiat, allocate metal, or route to vault — treasury actions without leaving your desk.',
+    text: 'Move fiat, allocate metal, or route settlements — treasury actions without leaving your desk.',
   },
 ]
 
@@ -45,13 +45,13 @@ export const BANKING_STEPS: BankingStep[] = [
     id: '01',
     label: 'Account',
     title: 'Open your institutional account',
-    body: 'Complete KYC/KYB and access your dashboard — trading, vault, payments and logistics in one place.',
+    body: 'Complete KYC/KYB and access your dashboard — trading, payments and logistics in one place.',
   },
   {
     id: '02',
     label: 'Add',
     title: 'Add funds or metal allocation',
-    body: 'Wire USD, EUR or AED — or allocate vaulted metal to your treasury wallet for instant settlement.',
+    body: 'Wire USD, EUR or AED — or allocate metal to your treasury wallet for instant settlement.',
   },
   {
     id: '03',

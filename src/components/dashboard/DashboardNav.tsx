@@ -3,7 +3,6 @@ export type DashboardTab =
   | 'application'
   | 'orders'
   | 'banking'
-  | 'vault'
   | 'logistics'
   | 'support'
 
@@ -11,8 +10,7 @@ const TABS: { id: DashboardTab; label: string; requiresApproval?: boolean; comin
   { id: 'overview', label: 'Overview' },
   { id: 'application', label: 'Application' },
   { id: 'orders', label: 'Orders', requiresApproval: true },
-  { id: 'banking', label: 'Banking', requiresApproval: true, comingSoon: true },
-  { id: 'vault', label: 'Vault', requiresApproval: true },
+  { id: 'banking', label: 'Banking', requiresApproval: true },
   { id: 'logistics', label: 'Logistics', requiresApproval: true },
   { id: 'support', label: 'Support' },
 ]

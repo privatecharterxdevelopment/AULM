@@ -4102,7 +4102,46 @@
   font-weight: 600;
 }
 
+.kyc-auth-demo {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.kyc-auth-demo-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.kyc-auth-demo-hint {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: #888;
+  text-align: center;
+  margin: 0;
+}
+
+.kyc-auth-demo-hint strong {
+  color: #555;
+  font-weight: 600;
+}
+
 /* ── Dashboard ── */
+.dash-demo-banner {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #555;
+  background: #f4f4f5;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  margin: 0 0 1.25rem;
+}
 .dash-header {
   margin-bottom: 2rem;
 }
@@ -5689,6 +5728,14 @@
   margin-inline: auto;
 }
 
+.aulm-card-scene--large {
+  width: min(100%, 19rem);
+}
+
+.aulm-card-scene--hero {
+  width: min(100%, 22rem);
+}
+
 .aulm-card-scene--float {
   animation: aulm-card-float 5.5s ease-in-out infinite;
 }
@@ -6522,6 +6569,8 @@
   width: 100%;
   text-align: center;
   margin: 0;
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  line-height: 0.98;
 }
 
 .banking-page-hero .jeton-line {
@@ -8125,3 +8174,1447 @@
     padding: 0.5rem 0.75rem;
   }
 }
+
+/* ── CommodityBank OS (CBOS) ── */
+.cbos-root {
+  min-height: 100dvh;
+  width: 100%;
+}
+
+.cbos-app {
+  --cbos-sidebar-w: 260px;
+  --cbos-sidebar-collapsed: 72px;
+  display: grid;
+  grid-template-columns: var(--cbos-sidebar-w) 1fr;
+  min-height: 100dvh;
+  position: relative;
+  background: #f5f3ef;
+}
+
+.cbos-app--collapsed {
+  --cbos-sidebar-w: var(--cbos-sidebar-collapsed);
+}
+
+.cbos-app-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.cbos-app-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.45;
+}
+
+.cbos-app-orb--1 {
+  width: 50vw;
+  height: 50vw;
+  max-width: 520px;
+  max-height: 520px;
+  background: radial-gradient(circle, rgba(201, 169, 98, 0.35), transparent 70%);
+  top: -10%;
+  right: 10%;
+}
+
+.cbos-app-orb--2 {
+  width: 40vw;
+  height: 40vw;
+  max-width: 400px;
+  background: radial-gradient(circle, rgba(139, 115, 85, 0.2), transparent 70%);
+  bottom: 5%;
+  left: 20%;
+}
+
+.cbos-sidebar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 252, 248, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 1rem 0.75rem;
+  transition: width 0.25s ease;
+}
+
+.cbos-sidebar.is-collapsed .cbos-sidebar-title,
+.cbos-sidebar.is-collapsed .cbos-sidebar-sub,
+.cbos-sidebar.is-collapsed .cbos-sidebar-org,
+.cbos-sidebar.is-collapsed .cbos-nav-item span {
+  display: none;
+}
+
+.cbos-sidebar-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0 0.35rem 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  margin-bottom: 0.75rem;
+}
+
+.cbos-sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.cbos-sidebar-logo {
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #c9a962, #8b7355);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+}
+
+.cbos-sidebar-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  margin: 0;
+  color: #111;
+}
+
+.cbos-sidebar-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6875rem;
+  color: #888;
+  margin: 0.1rem 0 0;
+}
+
+.cbos-sidebar-fold {
+  background: rgba(0, 0, 0, 0.04);
+  border: none;
+  border-radius: 8px;
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  color: #555;
+}
+
+.cbos-icon-flip {
+  transform: rotate(180deg);
+}
+
+.cbos-sidebar-org {
+  padding: 0 0.5rem 0.75rem;
+}
+
+.cbos-sidebar-org-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin: 0;
+  color: #333;
+}
+
+.cbos-sidebar-license {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6875rem;
+  color: #9a7b1a;
+  margin: 0.2rem 0 0;
+}
+
+.cbos-sidebar-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  overflow-y: auto;
+  padding: 0.25rem 0;
+}
+
+.cbos-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  color: #555;
+  text-decoration: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.cbos-nav-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+  color: #111;
+}
+
+.cbos-nav-item.is-active {
+  background: rgba(201, 169, 98, 0.15);
+  color: #5c4a1f;
+  font-weight: 600;
+}
+
+.cbos-nav-item--muted {
+  color: #888;
+}
+
+.cbos-sidebar-foot {
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.cbos-main {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 100dvh;
+}
+
+.cbos-topbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1.25rem;
+  background: rgba(255, 252, 248, 0.65);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.cbos-topbar-menu {
+  display: none;
+  background: none;
+  border: none;
+  padding: 0.35rem;
+  cursor: pointer;
+  color: #444;
+}
+
+.cbos-topbar-search {
+  flex: 1;
+  max-width: 28rem;
+  position: relative;
+}
+
+.cbos-topbar-search input {
+  width: 100%;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  padding: 0.55rem 2.5rem 0.55rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.cbos-topbar-search kbd {
+  position: absolute;
+  right: 0.65rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.6875rem;
+  color: #999;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+}
+
+.cbos-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+
+.cbos-topbar-icon {
+  position: relative;
+  background: none;
+  border: none;
+  padding: 0.35rem;
+  cursor: pointer;
+  color: #444;
+}
+
+.cbos-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 1rem;
+  height: 1rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  background: #c9a962;
+  color: #fff;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  padding: 0 0.2rem;
+}
+
+.cbos-topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cbos-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #e8dfd0, #c9a962);
+  display: grid;
+  place-items: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #5c4a1f;
+}
+
+.cbos-topbar-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.cbos-kyc-banner {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  margin: 0;
+  padding: 0.65rem 1.25rem;
+  background: #fff8e6;
+  border-bottom: 1px solid rgba(154, 123, 26, 0.15);
+  color: #5a4a12;
+}
+
+.cbos-content {
+  flex: 1;
+  padding: 1.25rem clamp(1rem, 3vw, 2rem) 2.5rem;
+}
+
+.cbos-page {
+  max-width: 1120px;
+}
+
+.cbos-page-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.cbos-page-head--simple {
+  align-items: center;
+}
+
+.cbos-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9a7b1a;
+  margin: 0 0 0.35rem;
+}
+
+.cbos-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  margin: 0;
+  color: #111;
+}
+
+.cbos-subtitle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+  color: #666;
+  margin: 0.35rem 0 0;
+  max-width: 36rem;
+}
+
+.cbos-hero-card-wrap {
+  flex-shrink: 0;
+  width: min(200px, 28vw);
+}
+
+.cbos-hero-card-img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+  transform: rotate(-6deg);
+}
+
+.cbos-glass {
+  background: rgba(255, 252, 248, 0.78) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+.cbos-balance-grid {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr);
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.cbos-balance-hero {
+  border-radius: 20px;
+  padding: 1.25rem 1.5rem;
+}
+
+.cbos-balance-value {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  margin: 0.25rem 0;
+  color: #111;
+}
+
+.cbos-stat-card {
+  border-radius: 16px;
+  padding: 1rem 1.1rem;
+}
+
+.cbos-stat-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #888;
+  margin: 0;
+}
+
+.cbos-stat-value {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0.35rem 0 0;
+  color: #111;
+}
+
+.cbos-stat-hint {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: #999;
+  margin: 0.25rem 0 0;
+}
+
+.cbos-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cbos-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.cbos-section-head .dash-card-title {
+  margin: 0;
+}
+
+.cbos-link {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #8b7355;
+  text-decoration: none;
+}
+
+.cbos-link:hover {
+  text-decoration: underline;
+}
+
+.cbos-fx-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cbos-fx-list li {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.cbos-up { color: #1a6b3c; }
+.cbos-down { color: #c0392b; }
+
+.cbos-approval-list,
+.cbos-notif-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cbos-approval-list li {
+  padding: 0.65rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.cbos-approval-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.cbos-approval-meta {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  color: #888;
+  margin: 0.2rem 0 0;
+}
+
+.cbos-notif-list li {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.cbos-notif-list li.is-unread strong {
+  color: #111;
+}
+
+.cbos-btn-sm {
+  font-size: 0.8125rem !important;
+  padding: 0.55rem 1rem !important;
+}
+
+.cbos-btn-ghost {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+
+.cbos-wallet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.cbos-wallet-card {
+  border-radius: 20px;
+  padding: 1.25rem;
+}
+
+.cbos-wallet-card-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.cbos-wallet-type {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #888;
+}
+
+.cbos-currency-pill {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  padding: 0.2rem 0.45rem;
+  border-radius: 6px;
+  background: rgba(201, 169, 98, 0.2);
+  color: #5c4a1f;
+}
+
+.cbos-wallet-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.35rem;
+}
+
+.cbos-wallet-balance {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+}
+
+.cbos-wallet-meta {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0 0 0.75rem;
+}
+
+.cbos-wallet-meta div {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+}
+
+.cbos-wallet-meta dt { color: #888; }
+.cbos-wallet-meta dd { margin: 0; font-weight: 600; }
+
+.cbos-iban {
+  font-family: ui-monospace, monospace;
+  font-size: 0.75rem;
+  color: #666;
+  margin: 0;
+}
+
+.cbos-frozen {
+  font-size: 0.75rem;
+  color: #c0392b;
+  margin: 0.5rem 0 0;
+}
+
+.cbos-table-wrap {
+  border-radius: 16px;
+  overflow: auto;
+  padding: 0.5rem;
+}
+
+.cbos-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+}
+
+.cbos-table th,
+.cbos-table td {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.cbos-table th {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #888;
+  font-weight: 600;
+}
+
+.cbos-escrow-illus {
+  border-radius: 16px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.cbos-flow-svg {
+  width: 100%;
+  height: auto;
+  max-height: 100px;
+}
+
+.cbos-transfer-actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 16px;
+  margin-bottom: 1rem;
+}
+
+.cbos-action-tile {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+
+.cbos-card-carousel {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.cbos-card-visual {
+  aspect-ratio: 1.586;
+  border-radius: 20px;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #2a2520 0%, #4a4035 50%, #c9a962 120%) !important;
+  color: #fff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.cbos-card-visual.is-frozen {
+  filter: grayscale(0.8);
+  opacity: 0.75;
+}
+
+.cbos-card-chip {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  width: 2.5rem;
+  height: 1.75rem;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #e8d5a8, #c9a962);
+}
+
+.cbos-card-number {
+  font-family: ui-monospace, monospace;
+  font-size: 1.125rem;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.5rem;
+}
+
+.cbos-card-holder,
+.cbos-card-type,
+.cbos-card-limit {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  margin: 0.15rem 0;
+  opacity: 0.9;
+}
+
+.cbos-freeze-toggle {
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+}
+
+.cbos-crypto-grid,
+.cbos-savings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.cbos-crypto-card {
+  border-radius: 16px;
+  padding: 1.25rem;
+}
+
+.cbos-crypto-symbol {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: #9a7b1a;
+  margin-bottom: 0.5rem;
+}
+
+.cbos-crypto-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.cbos-progress {
+  height: 6px;
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 0.5rem 0;
+}
+
+.cbos-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #c9a962, #8b7355);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.cbos-approval-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cbos-approval-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-radius: 16px;
+}
+
+.cbos-approval-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.cbos-condition-list,
+.cbos-fee-list,
+.cbos-participant-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+}
+
+.cbos-condition-list li {
+  padding: 0.4rem 0;
+  color: #888;
+}
+
+.cbos-condition-list li.is-done {
+  color: #1a6b3c;
+}
+
+.cbos-fee-list li,
+.cbos-participant-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.cbos-back {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  color: #8b7355;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 0.75rem;
+}
+
+.cbos-settings-dl {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+}
+
+.cbos-settings-dl div {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+}
+
+.cbos-settings-dl dt {
+  color: #888;
+}
+
+.cbos-settings-dl dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.cbos-loading {
+  font-family: 'DM Sans', sans-serif;
+  color: #888;
+  padding: 2rem;
+}
+
+.cbos-page--kyc .dash-card {
+  margin-top: 1rem;
+}
+
+.cbos-mobile-scrim {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .cbos-balance-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cbos-balance-hero {
+    grid-column: 1 / -1;
+  }
+
+  .cbos-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .cbos-app {
+    grid-template-columns: 1fr;
+  }
+
+  .cbos-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: min(280px, 85vw) !important;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    box-shadow: 8px 0 32px rgba(0, 0, 0, 0.1);
+  }
+
+  .cbos-app--mobile-open .cbos-sidebar {
+    transform: translateX(0);
+  }
+
+  .cbos-mobile-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 15;
+    background: rgba(0, 0, 0, 0.35);
+    border: none;
+    cursor: pointer;
+  }
+
+  .cbos-topbar-menu {
+    display: grid;
+    place-items: center;
+  }
+
+  .cbos-topbar-search {
+    display: none;
+  }
+
+  .cbos-transfer-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cbos-page-head {
+    flex-direction: column;
+  }
+
+  .cbos-hero-card-wrap {
+    display: none;
+  }
+}
+
+/* ── CBOS minimal theme (reference direction) ── */
+.cbos-app--minimal {
+  background: #fff;
+}
+
+.cbos-app--minimal .cbos-sidebar {
+  background: #fff;
+  backdrop-filter: none;
+  border-right: 1px solid #eee;
+}
+
+.cbos-app--minimal .cbos-sidebar-logo {
+  background: #111;
+  border-radius: 8px;
+}
+
+.cbos-app--minimal .cbos-nav-item.is-active {
+  background: #f5f5f5;
+  color: #111;
+  font-weight: 600;
+}
+
+.cbos-app--minimal .cbos-nav-item:hover {
+  background: #fafafa;
+}
+
+.cbos-app--minimal .cbos-main {
+  background: #fff;
+}
+
+.cbos-topbar--minimal {
+  background: #111;
+  color: #fff;
+  border-bottom: none;
+  padding: 0 1.25rem;
+  gap: 1.5rem;
+  backdrop-filter: none;
+}
+
+.cbos-topbar--minimal .cbos-topbar-menu {
+  color: #fff;
+}
+
+.cbos-topbar-logo {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.cbos-topbar-logo span {
+  opacity: 0.5;
+  margin-right: 0.15rem;
+}
+
+.cbos-topbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+  justify-content: center;
+}
+
+.cbos-topbar-link {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  padding: 1rem 0.85rem;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.cbos-topbar-link:hover {
+  color: #fff;
+}
+
+.cbos-topbar-link.is-active {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+.cbos-topbar--minimal .cbos-topbar-icon {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.cbos-topbar--minimal .cbos-avatar {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.cbos-topbar--minimal .cbos-badge {
+  background: #fff;
+  color: #111;
+}
+
+.cbos-app--minimal .cbos-content {
+  padding: 1.5rem clamp(1rem, 3vw, 2.5rem) 3rem;
+}
+
+.cbos-dash {
+  display: grid;
+  grid-template-columns: 1fr min(320px, 30vw);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+  max-width: 1200px;
+}
+
+.cbos-dash-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.cbos-dash-ghost {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  color: #888;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.cbos-dash-ghost:hover {
+  color: #111;
+}
+
+.cbos-dash-total-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+  color: #888;
+  margin: 0 0 0.35rem;
+}
+
+.cbos-dash-total {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 3.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #111;
+  margin: 0 0 2rem;
+  line-height: 1.05;
+}
+
+.cbos-dash-currency {
+  font-size: 0.45em;
+  font-weight: 500;
+  color: #aaa;
+  vertical-align: middle;
+  margin-left: 0.15em;
+}
+
+.cbos-accounts-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+.cbos-accounts-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+}
+
+.cbos-accounts-table th {
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #aaa;
+  padding: 0 0 0.85rem;
+  border-bottom: 1px solid #eee;
+}
+
+.cbos-accounts-table td {
+  padding: 1rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  color: #333;
+}
+
+.cbos-accounts-table th:last-child,
+.cbos-accounts-table td:last-child {
+  text-align: right;
+}
+
+.cbos-account-name {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-weight: 500;
+  color: #111;
+}
+
+.cbos-account-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.cbos-account-balance {
+  font-weight: 600;
+  color: #111;
+}
+
+.cbos-account-type {
+  color: #888;
+}
+
+.cbos-account-actions {
+  font-size: 0.8125rem;
+}
+
+.cbos-account-actions a {
+  color: #111;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.cbos-account-actions a:hover {
+  text-decoration: underline;
+}
+
+.cbos-view-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #111;
+  text-decoration: none;
+}
+
+.cbos-view-more-icon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 0.875rem;
+}
+
+.cbos-dash-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.cbos-rail-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cbos-visa-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 1.586;
+  background: #111;
+}
+
+.cbos-visa-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.92;
+}
+
+.cbos-visa-card-overlay {
+  position: absolute;
+  inset: 0;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.55));
+  color: #fff;
+}
+
+.cbos-visa-card--css {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: #fff;
+  background: linear-gradient(145deg, #1a1a1a 0%, #2d2d2d 50%, #3d3528 100%);
+}
+
+.cbos-visa-brand {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.cbos-visa-chip {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  width: 2rem;
+  height: 1.4rem;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #e8d5a8, #c9a962);
+  margin: 0;
+}
+
+.cbos-visa-number {
+  font-family: ui-monospace, monospace;
+  font-size: 0.9375rem;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.25rem;
+}
+
+.cbos-visa-holder {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  margin: 0;
+  opacity: 0.85;
+  text-transform: uppercase;
+}
+
+.cbos-visa-card--empty {
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+}
+
+.cbos-visa-card--empty a {
+  color: #c9a962;
+}
+
+.cbos-card-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.cbos-card-dots button {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: none;
+  background: #ddd;
+  padding: 0;
+  cursor: pointer;
+}
+
+.cbos-card-dots button.is-active {
+  background: #111;
+}
+
+.cbos-rail-widget {
+  padding: 0.25rem 0;
+}
+
+.cbos-rail-widget-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.85rem;
+}
+
+.cbos-rail-widget-head h2,
+.cbos-rail-widget-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  color: #111;
+}
+
+.cbos-rail-widget-head span {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  color: #aaa;
+}
+
+.cbos-contacts-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.cbos-contact-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: #f0f0f0;
+  color: #555;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+}
+
+.cbos-contact-more {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: #aaa;
+}
+
+.cbos-contact-add {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  border: none;
+  font-size: 1.125rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  line-height: 1;
+}
+
+.cbos-withdraw-amount {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  color: #555;
+  margin: 0 0 0.65rem;
+}
+
+.cbos-withdraw-amount span {
+  color: #aaa;
+}
+
+.cbos-withdraw-track {
+  height: 8px;
+  background: #eee;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.cbos-withdraw-fill {
+  height: 100%;
+  background: #111;
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+@media (max-width: 1024px) {
+  .cbos-dash {
+    grid-template-columns: 1fr;
+  }
+
+  .cbos-dash-rail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .cbos-rail-card {
+    grid-column: 1 / -1;
+    max-width: 360px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cbos-topbar-nav {
+    display: none;
+  }
+
+  .cbos-dash-rail {
+    grid-template-columns: 1fr;
+  }
+
+  .cbos-accounts-table th:nth-child(3),
+  .cbos-accounts-table td:nth-child(3) {
+    display: none;
+  }
+}
+

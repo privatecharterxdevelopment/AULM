@@ -9,18 +9,17 @@ import { DashboardOverview } from '../components/dashboard/DashboardOverview'
 import { DashboardBanking } from '../components/dashboard/DashboardBanking'
 import { DashboardOrders } from '../components/dashboard/DashboardOrders'
 import { DashboardSupport } from '../components/dashboard/DashboardSupport'
-import { DashboardVault } from '../components/dashboard/DashboardVault'
 import { ConfettiBurst } from '../components/kyc/ConfettiBurst'
 import { useAuth } from '../auth/AuthContext'
 import { getSupabase, tables, type SupportMessage } from '../lib/supabase'
 import { notifyOps } from '../utils/notifyOps'
 import { useLiveMetalPrices } from '../hooks/useLiveMetalPrices'
 
-const LOCKED_TABS: DashboardTab[] = ['orders', 'banking', 'vault', 'logistics']
+const LOCKED_TABS: DashboardTab[] = ['orders', 'banking', 'logistics']
 
 export function DashboardPage() {
-  const { user, profile, loading, isLoggedIn, refreshProfile } = useAuth()
-  const { metals, gold } = useLiveMetalPrices()
+  const { user, profile, loading, isLoggedIn, isDemoMode, refreshProfile } = useAuth()
+  const { gold } = useLiveMetalPrices()
   const [tab, setTab] = useState<DashboardTab>('overview')
   const [message, setMessage] = useState('')
   const [messages, setMessages] = useState<SupportMessage[]>([])
@@ -106,6 +105,12 @@ export function DashboardPage() {
 
         <DashboardApprovalBanner status={kycStatus} />
 
+        {isDemoMode ? (
+          <p className="dash-demo-banner" role="status">
+            Demo mode — sample data only. Orders and messages are not saved to the live desk.
+          </p>
+        ) : null}
+
         <DashboardNav active={tab} kycApproved={kycApproved} onChange={setTab} />
 
         {tab === 'overview' ? (
@@ -119,9 +124,6 @@ export function DashboardPage() {
         {showLocked ? <DashboardLocked title={tab.charAt(0).toUpperCase() + tab.slice(1)} /> : null}
         {!showLocked && tab === 'orders' ? <DashboardOrders /> : null}
         {!showLocked && tab === 'banking' ? <DashboardBanking /> : null}
-        {!showLocked && tab === 'vault' ? (
-          <DashboardVault metals={metals} gold={gold} kycApproved={kycApproved} />
-        ) : null}
         {!showLocked && tab === 'logistics' ? <DashboardLogistics /> : null}
         {tab === 'support' ? (
           <DashboardSupport

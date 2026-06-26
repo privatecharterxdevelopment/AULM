@@ -21,7 +21,7 @@ export function Header() {
                   Admin
                 </Link>
               ) : null}
-              <Link to="/dashboard" className="header-login">
+              <Link to="/bank" className="header-login">
                 Dashboard
               </Link>
               <button type="button" className="header-login" onClick={() => void logout()}>
@@ -33,7 +33,7 @@ export function Header() {
               Login
             </Link>
           )}
-          <Link to={isLoggedIn ? '/dashboard' : '/onboarding'} className="header-cta">
+          <Link to={isLoggedIn ? '/bank' : '/onboarding'} className="header-cta">
             {isLoggedIn ? 'Dashboard' : 'Open account'}
           </Link>
         </div>

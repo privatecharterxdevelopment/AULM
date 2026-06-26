@@ -47,7 +47,7 @@ export function DashboardOverview({ gold, kycApproved, onGoToOrders }: Props) {
           <MetalPriceChart metal={gold} />
           {!kycApproved ? (
             <p className="dash-card-text dash-card-text--tight">
-              Complete onboarding to submit orders and vault instructions.
+              Complete onboarding to submit orders and settlement instructions.
             </p>
           ) : null}
         </section>

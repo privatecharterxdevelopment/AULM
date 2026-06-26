@@ -40,7 +40,7 @@ export function KycCompletePage() {
 
           <div className="kyc-complete-actions">
             {isLoggedIn ? (
-              <Link to="/dashboard" className="metal-page-btn metal-page-btn--primary">
+              <Link to="/bank" className="metal-page-btn metal-page-btn--primary">
                 Go to dashboard
                 <BtnArrow />
               </Link>

@@ -1,4 +1,4 @@
-import cardImage from '../../assets/banking/aulm-card-commodity-bank.png'
+import { AULM_BANK_CARD } from '../../cbos/brand'
 
 type Props = {
   cardProgress: number
@@ -56,7 +56,7 @@ export function BankingPageCard({ cardProgress, cardOpacity = 1 }: Props) {
         }}
       >
         <img
-          src={cardImage}
+          src={AULM_BANK_CARD}
           alt="AULM commodity banking card"
           className="banking-page-card-img"
           width={1340}

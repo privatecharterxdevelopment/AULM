@@ -78,7 +78,7 @@ export function BankingPreApplyPage() {
           <div className="banking-preapply-success">
             <h2>Application received</h2>
             <p>We will contact you at the email provided to continue onboarding.</p>
-            <Link to="/dashboard" className="metal-page-btn metal-page-btn--primary">
+            <Link to="/bank" className="metal-page-btn metal-page-btn--primary">
               Back to dashboard
             </Link>
           </div>

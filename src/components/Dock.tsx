@@ -138,10 +138,6 @@ export function Dock() {
           </div>
         </div>
 
-        <Link to="/vault" className="dock-item dock-item--link">
-          Vault+
-        </Link>
-
         <div
           className={`dock-group${metalsOpen ? ' is-open' : ''}`}
           onMouseEnter={() => setOpenId('metals')}

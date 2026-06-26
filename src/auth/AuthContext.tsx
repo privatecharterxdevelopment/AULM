@@ -9,6 +9,15 @@ import {
 } from 'react'
 import type { Session, User } from '@supabase/supabase-js'
 import { isAdminEmail } from '../config/admin'
+import {
+  clearDemoSession,
+  demoProfileFromSession,
+  isDemoCredentials,
+  isDemoLoginEnabled,
+  loadDemoSession,
+  saveDemoSession,
+  type DemoSession,
+} from './demoAuth'
 import { getSupabase, isSupabaseConfigured, tables, type Profile } from '../lib/supabase'
 import { linkKycToUser } from '../utils/submitKyc'
 
@@ -18,6 +27,7 @@ type AuthContextValue = {
   profile: Profile | null
   loading: boolean
   isLoggedIn: boolean
+  isDemoMode: boolean
   isAdmin: boolean
   signIn: (email: string, password: string) => Promise<{ error?: string }>
   signUp: (
@@ -31,6 +41,33 @@ type AuthContextValue = {
 
 const AuthContext = createContext<AuthContextValue | null>(null)
 
+function demoUserFromSession(demo: DemoSession): User {
+  return {
+    id: demo.id,
+    email: demo.email,
+    aud: 'authenticated',
+    app_metadata: {},
+    user_metadata: {
+      full_name: demo.full_name,
+      company_name: demo.company_name,
+    },
+    created_at: new Date().toISOString(),
+  } as User
+}
+
+function applyDemoSession(
+  demo: DemoSession,
+  setDemoSession: (v: DemoSession) => void,
+  setUser: (u: User) => void,
+  setProfile: (p: Profile) => void,
+  setSession: (s: Session | null) => void,
+) {
+  setDemoSession(demo)
+  setUser(demoUserFromSession(demo))
+  setProfile(demoProfileFromSession(demo))
+  setSession(null)
+}
+
 async function fetchProfile(userId: string): Promise<Profile | null> {
   const supabase = getSupabase()
   if (!supabase) return null
@@ -42,16 +79,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [user, setUser] = useState<User | null>(null)
   const [profile, setProfile] = useState<Profile | null>(null)
+  const [demoSession, setDemoSession] = useState<DemoSession | null>(() =>
+    isDemoLoginEnabled() ? loadDemoSession() : null,
+  )
   const [loading, setLoading] = useState(isSupabaseConfigured)
 
   const refreshProfile = useCallback(async () => {
+    if (demoSession) {
+      setProfile(demoProfileFromSession(demoSession))
+      return
+    }
     if (!user) {
       setProfile(null)
       return
     }
     const p = await fetchProfile(user.id)
     setProfile(p)
-  }, [user])
+  }, [user, demoSession])
+
+  useEffect(() => {
+    if (demoSession) {
+      setUser(demoUserFromSession(demoSession))
+      setProfile(demoProfileFromSession(demoSession))
+    }
+  }, [demoSession])
 
   useEffect(() => {
     const supabase = getSupabase()
@@ -61,6 +112,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     supabase.auth.getSession().then(({ data }) => {
+      if (data.session) {
+        setDemoSession(null)
+        clearDemoSession()
+      }
       setSession(data.session)
       setUser(data.session?.user ?? null)
       setLoading(false)
@@ -69,6 +124,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+      if (nextSession) {
+        setDemoSession(null)
+        clearDemoSession()
+      }
       setSession(nextSession)
       setUser(nextSession?.user ?? null)
     })
@@ -77,14 +136,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   useEffect(() => {
-    if (user) {
-      void fetchProfile(user.id).then(setProfile)
-    } else {
-      setProfile(null)
-    }
-  }, [user])
+    if (demoSession || !user) return
+    void fetchProfile(user.id).then(setProfile)
+  }, [user, demoSession])
 
   const signIn = useCallback(async (email: string, password: string) => {
+    if (isDemoCredentials(email, password)) {
+      const demo = saveDemoSession()
+      applyDemoSession(demo, setDemoSession, setUser, setProfile, setSession)
+      return {}
+    }
+
     const supabase = getSupabase()
     if (!supabase) return { error: 'Supabase not configured' }
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -131,8 +193,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   )
 
   const logout = useCallback(async () => {
+    clearDemoSession()
+    setDemoSession(null)
     const supabase = getSupabase()
     if (supabase) await supabase.auth.signOut()
+    setSession(null)
+    setUser(null)
     setProfile(null)
   }, [])
 
@@ -147,14 +213,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       session,
       profile,
       loading,
-      isLoggedIn: !!session,
+      isLoggedIn: !!session || !!demoSession,
+      isDemoMode: !!demoSession,
       isAdmin,
       signIn,
       signUp,
       logout,
       refreshProfile,
     }),
-    [user, session, profile, loading, isAdmin, signIn, signUp, logout, refreshProfile],
+    [user, session, profile, loading, demoSession, isAdmin, signIn, signUp, logout, refreshProfile],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

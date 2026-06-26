@@ -101,8 +101,8 @@ export function MetalPage() {
                 Contact sales
                 <BtnArrow />
               </Link>
-              <Link to="/vault" className="metal-page-btn metal-page-btn--secondary">
-                Vault service
+              <Link to="/escrow" className="metal-page-btn metal-page-btn--secondary">
+                Escrow
                 <BtnArrow />
               </Link>
             </div>

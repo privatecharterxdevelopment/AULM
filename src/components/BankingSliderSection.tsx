@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import cardImage from '../assets/banking/AULM_Commodity_trade-Photoroom.png'
+import { AULM_BANK_CARD } from '../cbos/brand'
 import { BtnArrow } from './BtnArrow'
 
 type Props = {
@@ -13,7 +13,7 @@ export function BankingSliderSection({ reveal }: Props) {
   return (
     <section className="banking-section" aria-label="AULM Banking">
       <img
-        src={cardImage}
+        src={AULM_BANK_CARD}
         alt="AULM institutional card"
         className="banking-card-image"
         width={2400}

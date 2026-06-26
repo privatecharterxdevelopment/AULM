@@ -36,7 +36,7 @@ export function DashboardSupport({
             {kycStatus === 'under_review'
               ? 'Your application is with our compliance desk. We will notify you by email.'
               : kycStatus === 'approved'
-                ? 'Your institution is verified. Trading, vaulting, and logistics mandates are available.'
+                ? 'Your institution is verified. Trading and logistics mandates are available.'
                 : kycStatus === 'rejected'
                   ? 'Please contact support for next steps.'
                   : 'Complete KYC/KYB onboarding to open mandates.'}

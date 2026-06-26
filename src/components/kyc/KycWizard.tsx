@@ -169,7 +169,7 @@ export function KycWizard() {
       setError(result.error)
       return
     }
-    navigate('/dashboard', { replace: true })
+    navigate('/bank', { replace: true })
   }
 
   const currentStep = STEPS[step]
@@ -943,7 +943,7 @@ export function KycWizard() {
       </div>
 
       <p className="kyc-footnote">
-        Confidential · {CONTACT_EMAIL} · Required for trading, vaulting, payments &amp; logistics mandates.
+        Confidential · {CONTACT_EMAIL} · Required for trading, payments &amp; logistics mandates.
       </p>
     </div>
   )

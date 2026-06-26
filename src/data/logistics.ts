@@ -7,7 +7,7 @@ export const LOGISTICS_FAQ = [
   },
   {
     q: 'Which corridors do you cover for import?',
-    a: 'Primary intake into Dubai IFZA with onward routing to Hong Kong, Switzerland, Liechtenstein and client-specified vault jurisdictions.',
+    a: 'Primary intake into Dubai IFZA with onward routing to Hong Kong, Switzerland, Liechtenstein and client-specified custody jurisdictions.',
   },
   {
     q: 'How does export from Africa work?',

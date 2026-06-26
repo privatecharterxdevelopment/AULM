@@ -24,7 +24,7 @@ export const METALS: Record<MetalId, MetalData> = {
     image: '/metals/gold.png',
     tags: ['Doré', 'Bullion', 'Nuggets', 'Dust'],
     description:
-      'Institutional gold desk for doré bars, bullion, nuggets and dust. Live pricing with same-day settlement across European hubs, Swiss vaulting and full chain-of-custody from African origin.',
+      'Institutional gold desk for doré bars, bullion, nuggets and dust. Live pricing with same-day settlement across European hubs, Swiss custody and full chain-of-custody from African origin.',
     accent: 'gold',
   },
   silver: {
@@ -36,7 +36,7 @@ export const METALS: Record<MetalId, MetalData> = {
     change: -0.18,
     image: '/metals/silver.png',
     description:
-      'Spot and physical silver for funds, refiners and industrial buyers. Transparent spreads with vault delivery or loco London, backed by audited inventory and OECD-aligned sourcing standards.',
+      'Spot and physical silver for funds, refiners and industrial buyers. Transparent spreads with physical delivery or loco London, backed by audited inventory and OECD-aligned sourcing standards.',
     accent: 'silver',
   },
   copper: {

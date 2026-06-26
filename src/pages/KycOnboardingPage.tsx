@@ -14,7 +14,7 @@ export function KycOnboardingPage() {
   }, [])
 
   if (!loading && isLoggedIn) {
-    return <Navigate to="/dashboard" replace />
+    return <Navigate to="/bank" replace />
   }
 
   return (

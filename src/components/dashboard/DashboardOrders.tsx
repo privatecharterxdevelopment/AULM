@@ -262,7 +262,7 @@ export function DashboardOrders() {
               rows={2}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Settlement, assay, vault destination, contact on arrival…"
+              placeholder="Settlement, assay, delivery destination, contact on arrival…"
             />
           </div>
 

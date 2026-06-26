@@ -15,7 +15,7 @@ export type UboEntry = {
 export type SignatureMode = 'draw' | 'upload'
 
 export type AccountUseCase =
-  | 'vault'
+  | 'custody'
   | 'sell_direct'
   | 'buy_commodities'
   | 'trading'
@@ -26,7 +26,7 @@ export type AccountUseCase =
 export type CounterpartyRole = 'seller' | 'buyer' | 'both'
 
 export const ACCOUNT_USE_OPTIONS: { id: AccountUseCase; label: string }[] = [
-  { id: 'vault', label: 'Vaulting & custody' },
+  { id: 'custody', label: 'Custody & storage' },
   { id: 'sell_direct', label: 'Sell direct to AULM at best market rates' },
   { id: 'buy_commodities', label: 'Buy commodities from AULM' },
   { id: 'trading', label: 'Trading & hedging' },

@@ -24,8 +24,8 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
       { label: 'Gold', href: '/gold' },
       { label: 'Silver', href: '/silver' },
       { label: 'Copper', href: '/copper' },
-      { label: 'Vault+', href: '/vault' },
       { label: 'Escrow', href: '/escrow' },
+      { label: 'E-Vault', href: '/bank/vault' },
       { label: 'Banking', href: '/banking' },
       { label: 'Refinery', href: '/refinery' },
     ],
@@ -42,7 +42,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
     links: [
       { label: 'Open account', href: '/onboarding' },
       { label: 'Login', href: '/login' },
-      { label: 'Dashboard', href: '/dashboard' },
+      { label: 'Dashboard', href: '/bank' },
     ],
   },
 ]

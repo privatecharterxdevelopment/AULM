@@ -145,7 +145,7 @@ function buildEmail(payload: Payload): { to: string; subject: string; html: stri
           <p>Your KYC/KYB application for <strong>${payload.company ?? 'your company'}</strong> is now: <strong>${payload.status}</strong>.</p>
           ${
             payload.status === 'approved'
-              ? '<p>Log in to your dashboard — trading, vault, payments, and logistics are now available.</p>'
+              ? '<p>Log in to your dashboard — trading, payments, and logistics are now available.</p>'
               : '<p>Please contact contact@aulmtrading.com if you have questions.</p>'
           }
         `,

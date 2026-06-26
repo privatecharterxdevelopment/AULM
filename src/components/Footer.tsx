@@ -27,7 +27,7 @@ export function Footer() {
           {FOOTER_COLUMNS.map((column) => {
             let links = column.links.filter((link) => {
               if (link.href === '/login' && isLoggedIn) return false
-              if (link.href === '/dashboard' && !isLoggedIn) return false
+              if (link.href === '/bank' && !isLoggedIn) return false
               if (link.href === '/onboarding' && isLoggedIn) return false
               return true
             })

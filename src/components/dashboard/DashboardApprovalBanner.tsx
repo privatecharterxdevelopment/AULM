@@ -17,7 +17,7 @@ export function DashboardApprovalBanner({ status }: Props) {
   return (
     <div className="dash-approval-banner" role="status">
       <strong>KYC under approval.</strong> This typically takes up to 48 hours. You can use Support
-      and view your Application while we review. Orders, vault, and logistics unlock once approved.
+      and view your Application while we review. Orders and logistics unlock once approved.
     </div>
   )
 }

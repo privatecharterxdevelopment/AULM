@@ -4,7 +4,7 @@ export const COMPANY = {
   lead: 'Swiss–German roots. Backed by Liechtenstein. Global network and infrastructure.',
   description: [
     'AULM is an IFZA-licensed B2B precious metals desk in Dubai for family offices, commodity traders, investment funds, and qualified counterparties. We buy doré and scrap at LBMA-linked terms and sell LBMA bullion — with documented chain of custody and bank-to-bank settlement only.',
-    'From African origination to assay, partner refining, and secure delivery worldwide, the desk runs on a global network across Dubai, Switzerland, Liechtenstein, and Hong Kong. Vaulting is arranged worldwide to client specification — interim storage and general custody in Dubai where required — one counterparty, full transparency on every mandate.',
+    'From African origination to assay, partner refining, and secure delivery worldwide, the desk runs on a global network across Dubai, Switzerland, Liechtenstein, and Hong Kong. Custody is arranged worldwide to client specification — interim storage in Dubai where required — one counterparty, full transparency on every mandate.',
   ],
   servicesLead: 'End-to-end desk capabilities for institutional precious metals and commodities.',
   licenseLabel: 'License',
@@ -33,7 +33,7 @@ export const COMPANY = {
     },
     {
       title: 'Sourcing to delivery. One partner.',
-      body: 'From procurement to refined bars delivered to your vault. Complete supply chain under one roof: sourcing, assay, certification of origin, LBMA-certified refining in Dubai, and secure logistics. No intermediaries, full transparency.',
+      body: 'From procurement to refined bars delivered to your custody location. Complete supply chain under one roof: sourcing, assay, certification of origin, LBMA-certified refining in Dubai, and secure logistics. No intermediaries, full transparency.',
       locationsTitle: 'Strategic location',
       locationMap: true,
     },
@@ -46,7 +46,7 @@ export const COMPANY = {
     'Air freight & secure logistics',
     'Refinery services',
     'Import/export documentation',
-    'Vaulting worldwide via TransGuard, Brinks, Loomis & partners',
+    'Custody worldwide via TransGuard, Brinks, Loomis & partners',
     'Advisory — Europe, Switzerland, UK, US & Asia',
   ],
 }
