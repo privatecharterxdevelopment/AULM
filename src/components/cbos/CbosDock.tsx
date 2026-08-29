@@ -37,7 +37,6 @@ const PRIMARY = [
 
 const MORE_ITEMS = [
   { to: '/bank/trading', label: 'Trading desk' },
-  { to: '/bank/escrows', label: 'Escrows' },
   { to: '/bank/vault', label: 'E-Vault' },
   { to: '/bank/crypto', label: 'Digital assets' },
   { to: '/bank/logistics', label: 'Logistics' },

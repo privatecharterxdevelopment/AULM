@@ -1,12 +1,12 @@
 export type ContactTopic =
   | 'general'
   | 'trading'
-  | 'banking'
-  | 'custody'
-  | 'logistics'
   | 'refinery'
   | 'compliance'
   | 'account'
+  | 'consulting'
+  | 'investment'
+  | 'reservation'
   | 'other'
 
 export type ContactTopicOption = {
@@ -17,11 +17,11 @@ export type ContactTopicOption = {
 export const CONTACT_TOPICS: ContactTopicOption[] = [
   { value: 'general', label: 'General inquiry' },
   { value: 'trading', label: 'Trading & metals' },
-  { value: 'banking', label: 'Commodity banking' },
-  { value: 'custody', label: 'Custody & storage' },
-  { value: 'logistics', label: 'Logistics & routing' },
   { value: 'refinery', label: 'Refinery partnership' },
   { value: 'compliance', label: 'Compliance & documentation' },
+  { value: 'consulting', label: 'Consulting' },
+  { value: 'investment', label: 'Investment in AULM' },
+  { value: 'reservation', label: 'Gold reservation 2026' },
   { value: 'account', label: 'Account opening' },
   { value: 'other', label: 'Other' },
 ]
@@ -33,6 +33,10 @@ export type ContactFormValues = {
   company: string
   phone: string
   message: string
+}
+
+export function isContactTopic(value: string | null): value is ContactTopic {
+  return !!value && CONTACT_TOPICS.some((t) => t.value === value)
 }
 
 export function topicLabel(topic: ContactTopic): string {

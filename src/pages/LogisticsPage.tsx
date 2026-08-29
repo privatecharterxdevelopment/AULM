@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext'
 import { BtnArrow } from '../components/BtnArrow'
 import { CountryFlag } from '../components/CountryFlag'
 import { CountrySearch } from '../components/CountrySearch'
 import { ExportRouteSearch } from '../components/ExportRouteSearch'
+import { PartnerLinks } from '../components/PartnerLinks'
+import { LOGISTICS_HERO_VIDEO } from '../config/media'
 import {
   AFRICAN_COUNTRIES,
   EXPORT_DESTINATIONS,
@@ -14,6 +16,13 @@ import {
 } from '../data/countries'
 import type { LogisticsMode } from '../data/logistics'
 
+function playLogisticsVideo(video: HTMLVideoElement) {
+  video.muted = true
+  video.defaultMuted = true
+  video.playsInline = true
+  void video.play().catch(() => {})
+}
+
 function isLogisticsMode(id: string | undefined): id is LogisticsMode {
   return id === 'import' || id === 'export'
 }
@@ -21,6 +30,7 @@ function isLogisticsMode(id: string | undefined): id is LogisticsMode {
 export function LogisticsPage() {
   const { mode } = useParams<{ mode: string }>()
   const { isLoggedIn } = useAuth()
+  const videoRef = useRef<HTMLVideoElement>(null)
   const [entered, setEntered] = useState(false)
   const [importTo, setImportTo] = useState<Country | null>(null)
   const [exportFrom, setExportFrom] = useState<Country | null>(null)
@@ -31,6 +41,19 @@ export function LogisticsPage() {
     const raf = requestAnimationFrame(() => setEntered(true))
     return () => cancelAnimationFrame(raf)
   }, [mode])
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+    playLogisticsVideo(video)
+    const resume = () => playLogisticsVideo(video)
+    document.addEventListener('visibilitychange', resume)
+    window.addEventListener('focus', resume)
+    return () => {
+      document.removeEventListener('visibilitychange', resume)
+      window.removeEventListener('focus', resume)
+    }
+  }, [])
 
   if (!isLogisticsMode(mode)) {
     return <Navigate to="/" replace />
@@ -57,39 +80,71 @@ export function LogisticsPage() {
       <div className="logistics-page-overlay" aria-hidden />
 
       <div className={`logistics-tool-shell${showPanel ? ' has-panel' : ''}`}>
-        <div className="logistics-tool-intro">
-          <header className="logistics-tool-header">
-            <h1 className="logistics-tool-title">
-              {isImport ? 'Import routing' : 'Export routing'}
-            </h1>
-          </header>
+        <div className="logistics-hero-split">
+          <div className="logistics-hero-copy">
+            <header className="logistics-tool-header">
+              <p className="logistics-hero-eyebrow">
+                {isImport ? 'Import' : 'Export'}
+              </p>
+              <h1 className="logistics-tool-title">
+                {isImport ? 'Import into Dubai' : 'Export from origin'}
+              </h1>
+              <p className="logistics-hero-lead">
+                {isImport
+                  ? 'Doré, bullion and samples — customs, insured transfer and corridor documents, A to Z.'
+                  : 'Routing, export permits and complex corridors from origin to destination.'}
+              </p>
+              <PartnerLinks className="logistics-partners" />
+              <div className="metal-page-actions">
+                <Link to="/contact" className="metal-page-btn metal-page-btn--primary">
+                  Contact logistics desk
+                  <BtnArrow />
+                </Link>
+              </div>
+            </header>
 
-          <div className="logistics-tool-form">
-            {isImport ? (
-              <CountrySearch
-                countries={IMPORT_DESTINATIONS}
-                value={importTo}
-                onChange={setImportTo}
-              />
-            ) : (
-              <ExportRouteSearch
-                fromCountries={AFRICAN_COUNTRIES}
-                toCountries={EXPORT_DESTINATIONS}
-                from={exportFrom}
-                to={exportTo}
-                onFromChange={setExportFrom}
-                onToChange={setExportTo}
-              />
-            )}
+            <div className="logistics-tool-form">
+              {isImport ? (
+                <CountrySearch
+                  label="Destination"
+                  countries={IMPORT_DESTINATIONS}
+                  value={importTo}
+                  onChange={setImportTo}
+                />
+              ) : (
+                <ExportRouteSearch
+                  fromCountries={AFRICAN_COUNTRIES}
+                  toCountries={EXPORT_DESTINATIONS}
+                  from={exportFrom}
+                  to={exportTo}
+                  onFromChange={setExportFrom}
+                  onToChange={setExportTo}
+                />
+              )}
+            </div>
+
+            {!showPanel ? (
+              <p className="logistics-tool-placeholder">
+                {isImport
+                  ? 'Select a destination to see the corridor.'
+                  : 'Select origin and destination to see the corridor.'}
+              </p>
+            ) : null}
           </div>
 
-          {!showPanel ? (
-            <p className="logistics-tool-placeholder">
-              {isImport
-                ? 'Search and select a destination country.'
-                : 'Select origin and destination in the route bar above.'}
-            </p>
-          ) : null}
+          <div className="logistics-hero-media">
+            <video
+              ref={videoRef}
+              className="logistics-hero-video"
+              src={`${LOGISTICS_HERO_VIDEO}?v=5`}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              onLoadedData={(e) => playLogisticsVideo(e.currentTarget)}
+            />
+          </div>
         </div>
 
         {isImport && showImportPanel && importTo ? (
@@ -171,16 +226,16 @@ function LogisticsCountryPanel({
       ) : (
         <div className="logistics-docs-locked">
           <p className="logistics-docs-locked-text">
-            Your corridor is confirmed. Complete KYC to open your institutional account and view
-            required documents.
+            Your corridor is confirmed. Complete KYC so you can sell gold to AULM — then we share
+            the required documents with you.
           </p>
           <div className="logistics-register-actions">
             <Link to="/onboarding" className="metal-page-btn metal-page-btn--primary">
-              Open account
+              Complete KYC
               <BtnArrow />
             </Link>
-            <Link to="/login" className="metal-page-btn metal-page-btn--secondary">
-              Log in
+            <Link to="/contact" className="metal-page-btn metal-page-btn--secondary">
+              Contact
             </Link>
           </div>
         </div>

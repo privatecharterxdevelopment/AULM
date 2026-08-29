@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { HOME_HERO_VIDEO } from '../config/media'
+import { getFrameStyle, getPinPadding } from '../lib/frameExpand'
 import { JetonLines } from './JetonText'
 
 function playHeroVideo(video: HTMLVideoElement) {
@@ -9,8 +10,13 @@ function playHeroVideo(video: HTMLVideoElement) {
   void video.play().catch(() => {})
 }
 
-export function Hero() {
+type Props = {
+  expand?: number
+}
+
+export function Hero({ expand = 0 }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const full = expand >= 0.985
 
   useEffect(() => {
     const video = videoRef.current
@@ -30,29 +36,30 @@ export function Hero() {
 
   return (
     <section id="home" className="metal-hero">
-      <div className="hero-video-wrap" aria-hidden>
-        <video
-          ref={videoRef}
-          className="hero-video"
-          src={`${HOME_HERO_VIDEO}?v=3`}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          onLoadedData={(e) => playHeroVideo(e.currentTarget)}
-        />
-        <div className="hero-video-overlay" />
-      </div>
-
-      <div className="hero-foot">
-        <div className="hero-foot-inner">
-          <h1 className="jeton-headline" aria-label="One platform for all commodities">
-            <JetonLines lines={['One platform', 'for all commodities']} />
-          </h1>
-          <p className="jeton-subline">
-            Institutional desk for gold, silver &amp; copper.
-          </p>
+      <div
+        className={`metal-hero-pin${full ? ' is-full' : ''}`}
+        style={getPinPadding(expand)}
+      >
+        <div className="vault-frame hero-frame" style={getFrameStyle(expand)}>
+          <video
+            ref={videoRef}
+            className="vault-frame-image hero-video"
+            src={`${HOME_HERO_VIDEO}?v=4`}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            onLoadedData={(e) => playHeroVideo(e.currentTarget)}
+          />
+          <div className="vault-frame-overlay vault-frame-overlay--hero hero-frame-copy">
+            <h1 className="jeton-headline" aria-label="Precious metals. Institutional desk.">
+              <JetonLines lines={['Precious metals.', 'Institutional desk.']} />
+            </h1>
+            <p className="jeton-subline">
+              Institutional desk for gold, silver &amp; copper.
+            </p>
+          </div>
         </div>
       </div>
     </section>

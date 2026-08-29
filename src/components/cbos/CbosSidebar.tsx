@@ -175,16 +175,6 @@ export function CbosSidebar({
           </NavLink>
 
           <NavLink
-            to="/bank/escrows"
-            title="Escrow"
-            onClick={closeMobile}
-            className={({ isActive }) => linkClass(isActive)}
-          >
-            <span className="cbos-rail__abbr" aria-hidden>E</span>
-            <span className="cbos-rail__label">Escrow</span>
-          </NavLink>
-
-          <NavLink
             to="/bank/documents"
             title="Statements"
             onClick={closeMobile}

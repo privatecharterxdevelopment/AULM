@@ -86,11 +86,8 @@ export function DashboardOverview({ gold, kycApproved, onGoToOrders }: Props) {
               New order
             </button>
           ) : null}
-          <Link to="/logistics/export" className="dash-action-link">
-            Create export route
-          </Link>
-          <Link to="/logistics/import" className="dash-action-link">
-            Create import route
+          <Link to="/contact" className="dash-action-link">
+            Contact the desk
           </Link>
           <Link to="/gold" className="dash-action-link">
             Market overview

@@ -21,7 +21,7 @@ export function BankingPreApplyPage() {
 
     return () => {
       document.head.removeChild(robots)
-      document.title = 'AULM | One platform for all commodities'
+      document.title = 'AULM | Precious metals desk'
     }
   }, [])
 

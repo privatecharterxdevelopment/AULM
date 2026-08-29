@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 type Props = {
   reveal: number
 }
@@ -37,14 +39,16 @@ export function MiningSection({ reveal }: Props) {
           style={{ opacity: boxReveal, transform: `translateY(${boxY}px)` }}
         >
           <p>
-            AULM operates to the highest responsible mining standards — OECD Due Diligence
-            Guidance, hard-compliant sourcing and full traceability from pit to export.
+            We are on the ground in Africa — developing local projects and widening our presence.
+            Artisanal and local mines sell into a documented desk, not arbitrary agents.
           </p>
           <p>
-            We work with licensed operators across Africa under global ESG frameworks, with
-            independent audits, chain-of-custody documentation and zero tolerance for conflict
-            minerals.
+            We are working toward our own export licence so locally mined gold can be processed in
+            a closed loop — fair terms, OECD due diligence, and the lightest practicable footprint.
           </p>
+          <Link to="/africa" className="mining-more">
+            Local projects
+          </Link>
         </div>
       </div>
     </section>

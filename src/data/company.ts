@@ -21,6 +21,16 @@ export const COMPANY = {
   hours: 'Mo – Fr · 8am – 5pm (GST)',
   meetingNote:
     'All new clients must complete an e-meeting link and identity verification before any onboarding appointment at our Dubai office.',
+  facts: [
+    { label: 'License', value: 'IFZA 85927' },
+    { label: 'On the ground', value: '36+ years' },
+    { label: 'Gold book', value: '500g – 2t / mo' },
+    { label: 'Network', value: 'DXB · CH · LI · HK' },
+  ],
+  photo: {
+    src: '/company/locations/uae.jpg',
+    alt: 'Dubai — licensed desk',
+  },
   sections: [
     {
       title: 'OECD & LBMA on every mandate',

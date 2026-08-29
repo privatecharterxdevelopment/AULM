@@ -1,13 +1,13 @@
 import { BtnArrow } from './BtnArrow'
-
-const PDF_HREF = '/procedure/aulm-gold-buying-procedures-en-2026.pdf'
-const PDF_FILENAME = 'AULM_Gold_Buying_Procedures_EN_2026.pdf'
+import { SELL_REQUIREMENTS_FILENAME, SELL_REQUIREMENTS_PDF } from '../config/site'
 
 export function ProcedurePdfDownload() {
   return (
     <a
-      href={PDF_HREF}
-      download={PDF_FILENAME}
+      href={SELL_REQUIREMENTS_PDF}
+      target="_blank"
+      rel="noopener noreferrer"
+      download={SELL_REQUIREMENTS_FILENAME}
       className="procedure-pdf-download"
     >
       <span className="procedure-pdf-download-label">

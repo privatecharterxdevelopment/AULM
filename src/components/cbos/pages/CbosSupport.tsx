@@ -9,7 +9,6 @@ import { CbosFlowPage } from '../flow/CbosFlowPage'
 const SECTIONS = [
   { id: 'chat', label: 'Live chat' },
   { id: 'call', label: 'Request a call' },
-  { id: 'escrow', label: 'Escrow help' },
   { id: 'payments', label: 'Payments & cards' },
   { id: 'compliance', label: 'Compliance & KYC' },
 ] as const
@@ -25,7 +24,6 @@ const STATUS_LABEL: Record<string, string> = {
 
 const DESK_LINES = [
   { label: 'CommodityBank desk', value: '+971 4 123 4500', hours: 'Sun–Thu · 09:00–18:00 GST' },
-  { label: 'Escrow operations', value: '+971 4 123 4501', hours: '24/7 for active mandates' },
   { label: 'Compliance', value: '+971 4 123 4502', hours: 'Sun–Thu · 10:00–17:00 GST' },
 ]
 
@@ -206,32 +204,6 @@ export function CbosSupport() {
                   </p>
                 ) : null}
               </form>
-            </section>
-          ) : null}
-
-          {active === 'escrow' ? (
-            <section className="cbos-settings-section">
-              <SectionHead
-                title="Escrow help"
-                subtitle="Mandates, clearing agents, certificates and release conditions."
-              />
-              <ul className="cbos-support-topics">
-                <li>
-                  <Link to="/bank/escrows">Open escrows</Link>
-                  <span>Track funding, documents and arrival certificates.</span>
-                </li>
-                <li>
-                  <Link to="/bank/escrows/new">Start new escrow</Link>
-                  <span>Open a mandate and invite buyer, seller and clearing agent.</span>
-                </li>
-                <li>
-                  <Link to="/bank/approvals">Pending approvals</Link>
-                  <span>Sign-offs required before release.</span>
-                </li>
-              </ul>
-              <p className="cbos-support-hint">
-                Urgent escrow desk: <a href="tel:+97141234501">+971 4 123 4501</a>
-              </p>
             </section>
           ) : null}
 

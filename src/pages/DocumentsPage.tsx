@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import {
   DOCUMENT_CATEGORIES,
   getDocumentsByCategory,
@@ -9,13 +8,12 @@ import { GoAmlBadge } from '../components/GoAmlBadge'
 import { ProcedurePdfDownload } from '../components/ProcedurePdfDownload'
 import { ProcedureLink } from '../components/ProcedureLink'
 import { ScrollReveal } from '../components/ScrollReveal'
+import { useHashScroll } from '../hooks/useHashScroll'
 
 const CATEGORIES: DocumentCategory[] = ['shipping-instructions', 'compliance']
 
 export function ProcedurePage() {
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+  useHashScroll()
 
   return (
     <div className="procedure-page">
@@ -67,12 +65,12 @@ export function ProcedurePage() {
                 <>
                   <GoAmlBadge />
                   <div className="procedure-links" role="list">
-                  {docs.map((doc) => (
-                    <ProcedureLink key={doc.slug} to={`/company/procedure/${doc.slug}`}>
-                      {doc.title}
-                    </ProcedureLink>
-                  ))}
-                </div>
+                    {docs.map((doc) => (
+                      <ProcedureLink key={doc.slug} to={`/company/procedure/${doc.slug}`}>
+                        {doc.title}
+                      </ProcedureLink>
+                    ))}
+                  </div>
                 </>
               )}
             </ScrollReveal>

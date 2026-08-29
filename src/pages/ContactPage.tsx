@@ -1,11 +1,17 @@
 import { type FormEvent, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { CONTACT_TOPICS, type ContactFormValues, type ContactTopic } from '../data/contact'
+import { useSearchParams } from 'react-router-dom'
+import {
+  CONTACT_TOPICS,
+  isContactTopic,
+  type ContactFormValues,
+  type ContactTopic,
+} from '../data/contact'
+import { COMPANY } from '../data/company'
 import { CONTACT_EMAIL } from '../config/site'
 import { submitContact } from '../utils/submitContact'
 
 const EMPTY_FORM: ContactFormValues = {
-  topic: 'general',
+  topic: 'consulting',
   fullName: '',
   email: '',
   company: '',
@@ -14,8 +20,13 @@ const EMPTY_FORM: ContactFormValues = {
 }
 
 export function ContactPage() {
+  const [searchParams] = useSearchParams()
+  const topicParam = searchParams.get('topic')
+  const initialTopic: ContactTopic = isContactTopic(topicParam) ? topicParam : 'consulting'
+  const isInvestment = initialTopic === 'investment'
+
   const [entered, setEntered] = useState(false)
-  const [form, setForm] = useState<ContactFormValues>(EMPTY_FORM)
+  const [form, setForm] = useState<ContactFormValues>({ ...EMPTY_FORM, topic: initialTopic })
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [sent, setSent] = useState(false)
@@ -58,28 +69,54 @@ export function ContactPage() {
     }
 
     setSent(true)
-    setForm(EMPTY_FORM)
+    setForm({ ...EMPTY_FORM, topic: initialTopic })
   }
 
   return (
     <div className={`contact-page${entered ? ' is-entered' : ''}`}>
       <div className="contact-page-inner">
         <aside className="contact-page-intro">
-          <p className="contact-page-eyebrow">Contact</p>
-          <h1 className="contact-page-title">How can we help?</h1>
+          <p className="contact-page-eyebrow">Contact us</p>
+          <h1 className="contact-page-title">
+            {isInvestment ? 'Invest in AULM' : 'Dubai desk'}
+          </h1>
           <p className="contact-page-lead">
-            Tell us what you need — trading, banking, logistics, or account opening. Our team
-            responds within one business day.
+            {isInvestment
+              ? 'Write to the desk if you want to invest in the company. Tell us who you are and the size you have in mind — we come back within one business day.'
+              : 'Institutional gold, silver and copper. Write with the mandate — metal, volume, origin or destination. We reply within one business day.'}
           </p>
-          <div className="contact-page-direct">
-            <span className="contact-page-direct-label">Direct</span>
-            <a href={`mailto:${CONTACT_EMAIL}`} className="contact-page-email">
-              {CONTACT_EMAIL}
-            </a>
-          </div>
-          <Link to="/onboarding" className="contact-page-alt-link">
-            Open account instead →
-          </Link>
+
+          <dl className="contact-page-desk">
+            <div>
+              <dt>Email</dt>
+              <dd>
+                <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+              </dd>
+            </div>
+            <div>
+              <dt>Office</dt>
+              <dd>
+                {COMPANY.address.map((line) => (
+                  <span key={line}>
+                    {line}
+                    <br />
+                  </span>
+                ))}
+              </dd>
+            </div>
+            <div>
+              <dt>Hours</dt>
+              <dd>{COMPANY.hours}</dd>
+            </div>
+            <div>
+              <dt>License</dt>
+              <dd>
+                {COMPANY.licenseLine} {COMPANY.licenseNumber}
+              </dd>
+            </div>
+          </dl>
+
+          <p className="contact-page-note">{COMPANY.meetingNote}</p>
         </aside>
 
         <div className="contact-page-form-wrap">

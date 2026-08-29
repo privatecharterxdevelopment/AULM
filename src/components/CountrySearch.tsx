@@ -71,11 +71,11 @@ export function CountrySearch({ label, hint, countries, value, onChange }: Props
           <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.75" />
           <path d="M20 20l-3.5-3.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
         </svg>
-        <input
+          <input
           id={listId}
           type="search"
           className="country-search-input"
-          placeholder="Search country…"
+          placeholder="Destination country"
           value={query}
           autoComplete="off"
           onChange={(e) => onInput(e.target.value)}

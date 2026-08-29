@@ -15,14 +15,6 @@ function GlobeIcon() {
   )
 }
 
-function ChevronIcon() {
-  return (
-    <svg width="9" height="9" viewBox="0 0 10 10" fill="none" aria-hidden>
-      <path d="M2 3.5 5 6.5 8 3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-    </svg>
-  )
-}
-
 export function LanguageDropdown() {
   const [open, setOpen] = useState(false)
   const [locale, setLocale] = useState<(typeof LOCALES)[number]['code']>('EN')
@@ -40,14 +32,13 @@ export function LanguageDropdown() {
     <div className={`header-lang${open ? ' is-open' : ''}`} ref={ref}>
       <button
         type="button"
-        className="header-lang-btn"
+        className="header-chip header-lang-btn"
+        aria-label="Language"
         aria-expanded={open}
         aria-haspopup="listbox"
         onClick={() => setOpen((o) => !o)}
       >
         <GlobeIcon />
-        <span>{locale}</span>
-        <ChevronIcon />
       </button>
       {open && (
         <ul className="header-lang-menu" role="listbox">

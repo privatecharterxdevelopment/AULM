@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { LOGISTICS_FAQ } from '../data/logistics'
+import { HOME_FAQ } from '../data/faq'
 
 type Props = {
   reveal: number
 }
 
 type FaqItemProps = {
-  item: (typeof LOGISTICS_FAQ)[number]
+  item: (typeof HOME_FAQ)[number]
   index: number
   open: number | null
   setOpen: (i: number | null) => void
@@ -57,12 +57,12 @@ export function FaqSection({ reveal }: Props) {
           }}
         >
           <div className="faq-row">
-            {LOGISTICS_FAQ.slice(0, 4).map((item, i) => (
+            {HOME_FAQ.slice(0, 4).map((item, i) => (
               <FaqItem key={item.q} item={item} index={i} open={open} setOpen={setOpen} />
             ))}
           </div>
           <div className="faq-row">
-            {LOGISTICS_FAQ.slice(4).map((item, i) => (
+            {HOME_FAQ.slice(4).map((item, i) => (
               <FaqItem key={item.q} item={item} index={i + 4} open={open} setOpen={setOpen} />
             ))}
           </div>

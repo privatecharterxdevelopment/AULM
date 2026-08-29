@@ -16,7 +16,7 @@ export function CbosDocuments() {
       <CbosPageHeader
         label="Document engine"
         title="Documents"
-        subtitle="Escrow-linked compliance files and versions"
+        subtitle="Compliance files and versions"
         action={
           <button type="button" className="cbos-btn">
             Upload

@@ -129,7 +129,7 @@ export const EMPTY_KYC_FORM: KycFormState = {
   bankIban: '',
   bankSwift: '',
   bankCountry: '',
-  aucbOpenAccount: null,
+  aucbOpenAccount: false,
 
   ubos: [{ ...EMPTY_UBO }],
 

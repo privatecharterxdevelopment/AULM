@@ -7,12 +7,14 @@ import { RefineryPartnerLogos } from '../components/RefineryPartnerLogos'
 import { REFINERY } from '../data/refinery'
 import { REFINERY_HERO_VIDEO } from '../config/media'
 import { useFrameExpand } from '../hooks/useFrameExpand'
+import { useSyncHeaderOnDark } from '../lib/headerOnDark'
 import { getFrameStyle, getPinPadding } from '../lib/frameExpand'
 
 export function RefineryPage() {
   const heroRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const expand = useFrameExpand(heroRef)
+  useSyncHeaderOnDark(heroRef, expand)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -101,7 +103,7 @@ export function RefineryPage() {
           </ul>
           <div className="refinery-sell-actions">
             <Link to="/onboarding" className="metal-page-btn metal-page-btn--primary">
-              Open account
+              Complete KYC
               <BtnArrow />
             </Link>
             <Link to="/company/procedure" className="metal-page-btn metal-page-btn--secondary">

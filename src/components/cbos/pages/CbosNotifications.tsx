@@ -5,7 +5,7 @@ import { useCbosNotifications } from '../hooks/useCbosNotifications'
 import { CbosFlowPage } from '../flow/CbosFlowPage'
 
 function notificationHref(n: CbosNotification): string {
-  if (n.kind.includes('escrow') || n.kind.includes('document')) return '/bank/escrows'
+  if (n.kind.includes('document')) return '/bank/documents'
   if (n.kind.includes('money') || n.kind.includes('transfer')) return '/bank/transfers'
   if (n.kind.includes('card')) return '/bank/cards'
   return '/bank'

@@ -1,5 +1,13 @@
 export const SITE_NAME = 'AULM Precious Metal Trader'
 export const CONTACT_EMAIL = 'contact@aulmtrading.com'
+export const DESK_FILES_PATH = '/pdf'
+export const SELL_REQUIREMENTS_PDF = '/procedure/aulm-gold-buying-procedures-en-2026.pdf'
+export const SELL_REQUIREMENTS_FILENAME = 'AULM_Gold_Buying_Procedures_EN_2026.pdf'
+export const SILVER_REQUIREMENTS_PDF = '/procedure/aulm-silver-buying-procedures-en-2026.pdf'
+export const SILVER_REQUIREMENTS_FILENAME = 'AULM_Silver_Buying_Procedures_EN_2026.pdf'
+export const INSTITUTIONAL_BROCHURE_PDF = '/procedure/aulm-institutional-brochure-2026.pdf'
+export const INSTITUTIONAL_BROCHURE_FILENAME = 'AULM_Institutional_Brochure_2026.pdf'
+export const GOLD_SLOTS_2026 = 28
 export const COMPLIANCE_EMAIL = 'contact@aulmtrading.com'
 export const LICENSE_NUMBER = '85927'
 export const GOAML_REGISTRATION_CODE = 'GMLMOEC41724064013'

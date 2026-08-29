@@ -24,78 +24,42 @@ function HomeIcon() {
   )
 }
 
-type SimpleMenu = {
-  id: string
-  label: string
-  items: { label: string; href: string }[]
-}
-
-const METAL_ACTIONS = ['Buy', 'Sell', 'Liquidate'] as const
-
-const METALS = [
-  { id: 'gold', label: 'Gold' },
-  { id: 'silver', label: 'Silver' },
-  { id: 'copper', label: 'Copper' },
+const COMPANY_ITEMS = [
+  { label: 'About', href: '/company' },
+  { label: 'Procedure', href: '/company/procedure' },
+  { label: 'Sourcing', href: '/responsible-sourcing' },
+  { label: 'News', href: '/news' },
+  { label: 'Documents', href: '/pdf' },
+  { label: 'Investors', href: '/investors' },
 ] as const
 
-const COMPANY_MENU: SimpleMenu = {
-  id: 'company',
-  label: 'Company',
-  items: [
-    { label: 'Contact', href: '/contact' },
-    { label: 'About', href: '/company' },
-    { label: 'Procedure', href: '/company/procedure' },
-  ],
-}
+const GEOGRAPHY_ITEMS = [
+  { label: 'Africa', href: '/africa#africa' },
+  { label: 'Europe', href: '/africa#europe' },
+  { label: 'South America', href: '/africa#south-america' },
+] as const
 
-const SIMPLE_MENUS: SimpleMenu[] = [
-  {
-    id: 'logistics',
-    label: 'Logistics',
-    items: [
-      { label: 'Import', href: '/logistics/import' },
-      { label: 'Export', href: '/logistics/export' },
-    ],
-  },
-  {
-    id: 'banking',
-    label: 'Banking',
-    items: [
-      { label: 'KYC onboarding', href: '/onboarding' },
-      { label: 'Banking', href: '/banking' },
-      { label: 'Escrow', href: '/escrow' },
-    ],
-  },
-  {
-    id: 'refinery',
-    label: 'Refinery',
-    items: [{ label: 'Refinery process', href: '/refinery' }],
-  },
-]
+const DOCK_LINKS = [
+  { label: 'Metals', href: '/gold' },
+  { label: 'Refinery', href: '/refinery' },
+  { label: 'Contact us', href: '/contact' },
+] as const
 
-function metalHref(metal: string, action: string) {
-  const a = action.toLowerCase()
-  if (a === 'buy') return metal === 'gold' ? '/buy' : `/${metal}`
-  return `/${metal}?action=${a}`
-}
+type Menu = 'company' | 'geography' | null
 
 export function Dock() {
-  const [openId, setOpenId] = useState<string | null>(null)
-  const [openMetal, setOpenMetal] = useState<string | null>(null)
+  const [open, setOpen] = useState<Menu>(null)
   const dockRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const close = (e: MouseEvent) => {
       if (dockRef.current && !dockRef.current.contains(e.target as Node)) {
-        setOpenId(null)
-        setOpenMetal(null)
+        setOpen(null)
       }
     }
     document.addEventListener('mousedown', close)
     return () => document.removeEventListener('mousedown', close)
   }, [])
-
-  const metalsOpen = openId === 'metals'
 
   return (
     <nav className="dock" aria-label="Main" ref={dockRef}>
@@ -104,137 +68,85 @@ export function Dock() {
           <HomeIcon />
         </Link>
 
-        <div
-          className={`dock-group${openId === COMPANY_MENU.id ? ' is-open' : ''}`}
-          onMouseEnter={() => setOpenId(COMPANY_MENU.id)}
-          onMouseLeave={() => setOpenId(null)}
-        >
-          <button
-            type="button"
-            className="dock-item"
-            aria-expanded={openId === COMPANY_MENU.id}
-            aria-haspopup="menu"
-            onClick={(e) => {
-              e.stopPropagation()
-              setOpenId(openId === COMPANY_MENU.id ? null : COMPANY_MENU.id)
-            }}
-          >
-            {COMPANY_MENU.label}
-            <ChevronIcon open={openId === COMPANY_MENU.id} />
-          </button>
+        <DockDrop
+          label="Company"
+          items={COMPANY_ITEMS}
+          isOpen={open === 'company'}
+          onToggle={() => setOpen((m) => (m === 'company' ? null : 'company'))}
+          onEnter={() => setOpen('company')}
+          onLeave={() => setOpen(null)}
+          onPick={() => setOpen(null)}
+        />
 
-          <div className="dock-drop" role="menu">
-            {COMPANY_MENU.items.map((item) => (
-              <Link
-                key={item.href}
-                to={item.href}
-                role="menuitem"
-                className="dock-drop-item"
-                onClick={() => setOpenId(null)}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-        </div>
+        <DockDrop
+          label="Geography"
+          items={GEOGRAPHY_ITEMS}
+          isOpen={open === 'geography'}
+          onToggle={() => setOpen((m) => (m === 'geography' ? null : 'geography'))}
+          onEnter={() => setOpen('geography')}
+          onLeave={() => setOpen(null)}
+          onPick={() => setOpen(null)}
+        />
 
-        <div
-          className={`dock-group${metalsOpen ? ' is-open' : ''}`}
-          onMouseEnter={() => setOpenId('metals')}
-          onMouseLeave={() => {
-            setOpenId(null)
-            setOpenMetal(null)
-          }}
-        >
-          <button
-            type="button"
-            className="dock-item"
-            aria-expanded={metalsOpen}
-            aria-haspopup="menu"
-            onClick={(e) => {
-              e.stopPropagation()
-              setOpenId(metalsOpen ? null : 'metals')
-            }}
-          >
-            Metals
-            <ChevronIcon open={metalsOpen} />
-          </button>
-
-          <div className="dock-drop dock-drop--metals" role="menu">
-            {METALS.map((metal) => {
-              const subOpen = openMetal === metal.id
-              return (
-                <div
-                  key={metal.id}
-                  className={`dock-metal-row${subOpen ? ' is-open' : ''}`}
-                  onMouseEnter={() => setOpenMetal(metal.id)}
-                >
-                  <span className="dock-drop-item dock-drop-item--metal">
-                    {metal.label}
-                    <ChevronIcon open={subOpen} />
-                  </span>
-                  <div className="dock-subdrop" role="menu">
-                    {METAL_ACTIONS.map((action) => (
-                      <Link
-                        key={action}
-                        to={metalHref(metal.id, action)}
-                        role="menuitem"
-                        className="dock-drop-item"
-                        onClick={() => {
-                          setOpenId(null)
-                          setOpenMetal(null)
-                        }}
-                      >
-                        {action}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-
-        {SIMPLE_MENUS.map((menu) => {
-          const open = openId === menu.id
-          return (
-            <div
-              key={menu.id}
-              className={`dock-group${open ? ' is-open' : ''}`}
-              onMouseEnter={() => setOpenId(menu.id)}
-              onMouseLeave={() => setOpenId(null)}
-            >
-              <button
-                type="button"
-                className="dock-item"
-                aria-expanded={open}
-                aria-haspopup="menu"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setOpenId(open ? null : menu.id)
-                }}
-              >
-                {menu.label}
-                <ChevronIcon open={open} />
-              </button>
-
-              <div className="dock-drop" role="menu">
-                {menu.items.map((item) => (
-                  <Link
-                    key={item.href}
-                    to={item.href}
-                    role="menuitem"
-                    className="dock-drop-item"
-                    onClick={() => setOpenId(null)}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )
-        })}
+        {DOCK_LINKS.map((item) => (
+          <Link key={item.href} to={item.href} className="dock-item dock-item--link">
+            {item.label}
+          </Link>
+        ))}
       </div>
     </nav>
+  )
+}
+
+function DockDrop({
+  label,
+  items,
+  isOpen,
+  onToggle,
+  onEnter,
+  onLeave,
+  onPick,
+}: {
+  label: string
+  items: readonly { label: string; href: string }[]
+  isOpen: boolean
+  onToggle: () => void
+  onEnter: () => void
+  onLeave: () => void
+  onPick: () => void
+}) {
+  return (
+    <div
+      className={`dock-group${isOpen ? ' is-open' : ''}`}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+    >
+      <button
+        type="button"
+        className="dock-item"
+        aria-expanded={isOpen}
+        aria-haspopup="menu"
+        onClick={(e) => {
+          e.stopPropagation()
+          onToggle()
+        }}
+      >
+        {label}
+        <ChevronIcon open={isOpen} />
+      </button>
+      <div className="dock-drop" role="menu">
+        {items.map((item) => (
+          <Link
+            key={item.href}
+            to={item.href}
+            role="menuitem"
+            className="dock-drop-item"
+            onClick={onPick}
+          >
+            {item.label}
+          </Link>
+        ))}
+      </div>
+    </div>
   )
 }

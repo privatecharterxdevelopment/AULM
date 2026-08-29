@@ -1,0 +1,294 @@
+/* Admin desk — same visual language as CommodityBank client UI */
+
+.admin-desk.is-entered {
+  animation: admin-desk-in .35s ease both;
+}
+
+@keyframes admin-desk-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+
+.admin-desk__badge {
+  margin-left: auto;
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: #e8e8eb;
+  color: #5f626a;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.admin-desk__top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 64px;
+  padding: 10px clamp(20px, 3vw, 40px);
+  border-bottom: 1px solid var(--bank-border);
+  background: rgba(239, 239, 242, .88);
+  backdrop-filter: blur(16px);
+}
+
+.admin-desk__top p {
+  margin: 0;
+  color: var(--bank-text-faint);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.admin-desk__top h1 {
+  margin: 2px 0 0;
+  font-size: 16px;
+  font-weight: 650;
+  letter-spacing: -.02em;
+}
+
+.admin-desk__menu {
+  display: none;
+  width: 36px;
+  height: 36px;
+  padding: 9px;
+  border: 1px solid var(--bank-border);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.admin-desk__menu span {
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin: 3px 0;
+  background: #333;
+}
+
+.admin-desk__ghost {
+  margin-left: auto;
+  padding: 8px 12px;
+  border: 1px solid var(--bank-border);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--bank-text);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.admin-desk__main {
+  max-width: 1280px;
+}
+
+.admin-desk-hero {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.admin-desk-hero__lead,
+.admin-desk-hero article {
+  border: 1px solid var(--bank-border);
+  border-radius: 16px;
+  background: var(--bank-surface);
+}
+
+.admin-desk-hero__lead {
+  padding: 22px 24px;
+}
+
+.admin-desk-hero__lead span,
+.admin-desk-hero article span,
+.admin-desk-hero__lead small,
+.admin-desk-hero article small {
+  display: block;
+}
+
+.admin-desk-hero__lead span,
+.admin-desk-hero article span {
+  color: var(--bank-text-soft);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.admin-desk-hero__lead strong {
+  display: block;
+  margin: 10px 0 8px;
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: 650;
+  letter-spacing: -.04em;
+  line-height: 1;
+}
+
+.admin-desk-hero__lead small,
+.admin-desk-hero article small {
+  color: var(--bank-text-faint);
+  font-size: 11px;
+}
+
+.admin-desk-hero article {
+  padding: 16px;
+}
+
+.admin-desk-hero article strong {
+  display: block;
+  margin: 12px 0 6px;
+  font-size: 22px;
+  font-weight: 650;
+  letter-spacing: -.03em;
+}
+
+.admin-desk-grid {
+  display: grid;
+  grid-template-columns: 1.4fr .9fr;
+  gap: 14px;
+}
+
+.admin-desk-card {
+  border: 1px solid var(--bank-border);
+  border-radius: 16px;
+  background: var(--bank-surface);
+  padding: 18px;
+}
+
+.admin-desk-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.admin-desk-card__head h2 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.admin-desk-card__head a,
+.admin-desk-card__head button.linkish {
+  border: none;
+  background: none;
+  color: var(--bank-text-soft);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.admin-desk-queue {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.admin-desk-queue li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--bank-border);
+}
+
+.admin-desk-queue li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.admin-desk-queue strong,
+.admin-desk-queue span {
+  display: block;
+}
+
+.admin-desk-queue strong {
+  font-size: 13px;
+  font-weight: 620;
+}
+
+.admin-desk-queue span {
+  margin-top: 3px;
+  color: var(--bank-text-soft);
+  font-size: 11px;
+}
+
+.admin-desk-queue em {
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.admin-desk-banner {
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #fdeaea;
+  color: #a22a2a;
+  font-size: 13px;
+}
+
+.admin-desk-banner--info {
+  background: #fff6e5;
+  color: #9a6b00;
+}
+
+.admin-desk .dash-section,
+.admin-desk .dash-card,
+.admin-desk .admin-list,
+.admin-desk .admin-support-grid,
+.admin-desk .admin-thread-panel {
+  font-family: inherit;
+}
+
+.admin-desk .dash-card {
+  border: 1px solid var(--bank-border);
+  border-radius: 16px;
+  background: var(--bank-surface);
+  box-shadow: none;
+  padding: 18px;
+}
+
+.admin-desk .dash-card-title {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 650;
+  letter-spacing: -.02em;
+}
+
+.admin-desk .dash-card-text {
+  color: var(--bank-text-soft);
+  font-size: 13px;
+}
+
+.admin-desk .admin-list-item {
+  border: 1px solid var(--bank-border);
+  border-radius: 14px;
+  background: #fff;
+}
+
+@media (max-width: 1100px) {
+  .admin-desk-hero {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .admin-desk-hero__lead {
+    grid-column: 1 / -1;
+  }
+
+  .admin-desk-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .admin-desk__menu {
+    display: block;
+  }
+
+  .admin-desk-hero {
+    grid-template-columns: 1fr;
+  }
+}

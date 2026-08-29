@@ -14,8 +14,21 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
     title: 'Company',
     links: [
       { label: 'About', href: '/company' },
-      { label: 'Contact', href: '/contact' },
+      { label: 'Contact us', href: '/contact' },
       { label: 'Procedure', href: '/company/procedure' },
+      { label: 'News', href: '/news' },
+      { label: 'Documents', href: '/pdf' },
+      { label: 'Investors', href: '/investors' },
+      { label: 'Responsible sourcing', href: '/responsible-sourcing' },
+      { label: 'Supply chain', href: '/gold-supply-chain-dubai' },
+    ],
+  },
+  {
+    title: 'Geography',
+    links: [
+      { label: 'Africa', href: '/africa#africa' },
+      { label: 'Europe', href: '/africa#europe' },
+      { label: 'South America', href: '/africa#south-america' },
     ],
   },
   {
@@ -24,25 +37,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
       { label: 'Gold', href: '/gold' },
       { label: 'Silver', href: '/silver' },
       { label: 'Copper', href: '/copper' },
-      { label: 'Escrow', href: '/escrow' },
-      { label: 'E-Vault', href: '/bank/vault' },
-      { label: 'Banking', href: '/banking' },
       { label: 'Refinery', href: '/refinery' },
-    ],
-  },
-  {
-    title: 'Logistics',
-    links: [
-      { label: 'Import routing', href: '/logistics/import' },
-      { label: 'Export routing', href: '/logistics/export' },
-    ],
-  },
-  {
-    title: 'Account',
-    links: [
-      { label: 'Open account', href: '/onboarding' },
-      { label: 'Login', href: '/login' },
-      { label: 'Dashboard', href: '/bank' },
     ],
   },
 ]

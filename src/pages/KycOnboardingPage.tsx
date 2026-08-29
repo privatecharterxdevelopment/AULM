@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Navigate } from 'react-router-dom'
 import { KycWizard } from '../components/kyc/KycWizard'
-import { useAuth } from '../auth/AuthContext'
 
 export function KycOnboardingPage() {
-  const { isLoggedIn, loading } = useAuth()
   const [entered, setEntered] = useState(false)
 
   useEffect(() => {
@@ -13,19 +10,16 @@ export function KycOnboardingPage() {
     return () => cancelAnimationFrame(raf)
   }, [])
 
-  if (!loading && isLoggedIn) {
-    return <Navigate to="/bank" replace />
-  }
-
   return (
     <div className={`kyc-page${entered ? ' is-entered' : ''}`}>
       <div className="kyc-page-overlay" aria-hidden />
       <div className="kyc-page-shell">
         <header className="kyc-page-header">
-          <p className="kyc-page-eyebrow">Open account</p>
-          <h1 className="kyc-page-title">Get started</h1>
+          <p className="kyc-page-eyebrow">Sell gold</p>
+          <h1 className="kyc-page-title">Complete KYC</h1>
           <p className="kyc-page-lead">
-            Create your login, complete onboarding, and access your dashboard immediately.
+            Verify your company once. After approval, you can sell gold to AULM. No dashboard —
+            our desk contacts you.
           </p>
         </header>
         <KycWizard />

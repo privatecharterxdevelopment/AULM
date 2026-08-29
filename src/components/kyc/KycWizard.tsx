@@ -1,7 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { BtnArrow } from '../BtnArrow'
-import { PasswordInput } from '../PasswordInput'
 import { ScrollPolicyReader } from './ScrollPolicyReader'
 import { SignatureCapture } from './SignatureCapture'
 import { CONTACT_EMAIL, LICENSE_NUMBER } from '../../config/site'
@@ -12,13 +11,11 @@ import {
   type AccountUseCase,
   type KycFormState,
 } from '../../types/kyc'
-import { useAuth } from '../../auth/AuthContext'
-import { submitOnboarding } from '../../utils/submitOnboarding'
+import { submitKyc } from '../../utils/submitKyc'
 
 const STEPS = [
-  { id: 'credentials', label: 'Login' },
   { id: 'company', label: 'Your business' },
-  { id: 'account', label: 'Account' },
+  { id: 'account', label: 'Settlement' },
   { id: 'ubo', label: 'UBOs' },
   { id: 'business', label: 'Business' },
   { id: 'compliance', label: 'Compliance' },
@@ -57,7 +54,6 @@ function bankSectionTitle(role: KycFormState['counterpartyRole']) {
 
 export function KycWizard() {
   const navigate = useNavigate()
-  const { signUp } = useAuth()
   const [step, setStep] = useState(0)
   const [form, setForm] = useState<KycFormState>({ ...EMPTY_KYC_FORM, ubos: [{ ...EMPTY_UBO }] })
   const [error, setError] = useState<string | null>(null)
@@ -76,13 +72,6 @@ export function KycWizard() {
 
   const validateStep = (): string | null => {
     switch (STEPS[step].id) {
-      case 'credentials':
-        if (!form.contactEmail.trim()) return 'Business email is required.'
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.contactEmail.trim()))
-          return 'Enter a valid business email.'
-        if (form.password.length < 8) return 'Password must be at least 8 characters.'
-        if (form.password !== form.passwordConfirm) return 'Passwords do not match.'
-        return null
       case 'policy':
         if (!form.policyScrolled) return 'Please scroll through the full policy document.'
         if (!form.policyAccepted) return 'Please accept the policies to continue.'
@@ -92,6 +81,9 @@ export function KycWizard() {
       case 'company':
         if (!form.companyLegalName || !form.contactName)
           return 'Business name and representative are required.'
+        if (!form.contactEmail.trim()) return 'Business email is required.'
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.contactEmail.trim()))
+          return 'Enter a valid business email.'
         if (!form.contactPhone || !form.registeredAddress || !form.registrationNumber)
           return 'Phone, address, and license / registration number are required.'
         if (!form.incorporationCountry) return 'Country of incorporation is required.'
@@ -105,8 +97,6 @@ export function KycWizard() {
         if (!form.counterpartyRole) return 'Please indicate whether you act as seller, buyer, or both.'
         if (!form.bankAccountHolder || !form.bankName || !form.bankIban || !form.bankCountry)
           return 'Complete all required bank account fields.'
-        if (form.aucbOpenAccount === null)
-          return 'Please indicate whether you are interested in an AUCB account.'
         return null
       case 'ubo':
         for (const u of form.ubos) {
@@ -163,13 +153,13 @@ export function KycWizard() {
     }
     setSubmitting(true)
     setError(null)
-    const result = await submitOnboarding(form, signUp)
+    const result = await submitKyc(form)
     setSubmitting(false)
     if (!result.ok) {
       setError(result.error)
       return
     }
-    navigate('/bank', { replace: true })
+    navigate('/onboarding/complete', { replace: true })
   }
 
   const currentStep = STEPS[step]
@@ -189,48 +179,6 @@ export function KycWizard() {
       </div>
 
       <div className="kyc-wizard-panel">
-        {STEPS[step].id === 'credentials' ? (
-          <>
-            <h2 className="kyc-wizard-title">Create your login</h2>
-            <p className="kyc-wizard-lead">
-              This email and password are your institutional dashboard access — one account for
-              KYC, trading, and logistics.
-            </p>
-            <Field label="Business email" id="contactEmail" required>
-              <input
-                id="contactEmail"
-                type="email"
-                value={form.contactEmail}
-                onChange={(e) => patch({ contactEmail: e.target.value })}
-                autoComplete="email"
-                required
-              />
-            </Field>
-            <div className="kyc-grid">
-              <Field label="Password" id="password" required>
-                <PasswordInput
-                  id="password"
-                  value={form.password}
-                  onChange={(v) => patch({ password: v })}
-                  autoComplete="new-password"
-                  minLength={8}
-                  required
-                />
-              </Field>
-              <Field label="Confirm password" id="passwordConfirm" required>
-                <PasswordInput
-                  id="passwordConfirm"
-                  value={form.passwordConfirm}
-                  onChange={(v) => patch({ passwordConfirm: v })}
-                  autoComplete="new-password"
-                  minLength={8}
-                  required
-                />
-              </Field>
-            </div>
-          </>
-        ) : null}
-
         {STEPS[step].id === 'policy' ? (
           <>
             <h2 className="kyc-wizard-title">Responsible sourcing &amp; compliance</h2>
@@ -293,7 +241,7 @@ export function KycWizard() {
           <>
             <h2 className="kyc-wizard-title">Your business</h2>
             <p className="kyc-wizard-lead">
-              Start with standard KYB details — policies and signature come later.
+              Standard KYB details so we can approve you to sell gold to AULM.
             </p>
 
             <div className="kyc-wizard-block kyc-wizard-block--inline">
@@ -322,12 +270,17 @@ export function KycWizard() {
                     required
                   />
                 </Field>
+                <Field label="Business email" id="contactEmail" required>
+                  <input
+                    id="contactEmail"
+                    type="email"
+                    value={form.contactEmail}
+                    onChange={(e) => patch({ contactEmail: e.target.value })}
+                    autoComplete="email"
+                    required
+                  />
+                </Field>
               </div>
-              {form.contactEmail ? (
-                <p className="kyc-wizard-block-lead">
-                  Login email: <strong>{form.contactEmail}</strong>
-                </p>
-              ) : null}
             </div>
 
             <div className="kyc-wizard-block kyc-wizard-block--inline">
@@ -374,9 +327,9 @@ export function KycWizard() {
 
         {STEPS[step].id === 'account' ? (
           <>
-            <h2 className="kyc-wizard-title">Account &amp; banking</h2>
+            <h2 className="kyc-wizard-title">How you work with AULM</h2>
             <p className="kyc-wizard-lead">
-              How you plan to use AULM and where settlements should be routed.
+              Tell us if you sell gold to our desk and where payouts should be sent.
             </p>
 
             <div className="kyc-wizard-block kyc-wizard-block--inline">
@@ -494,49 +447,6 @@ export function KycWizard() {
                 </div>
               </div>
             ) : null}
-
-            <div className="kyc-wizard-block kyc-wizard-block--inline">
-              <h3 className="kyc-wizard-subtitle">AUCB — AULM Commodity Bank Corp</h3>
-              <p className="kyc-wizard-block-lead">
-                Would you like to open a bank account with AUCB when available?
-              </p>
-              <div className="kyc-radio-grid">
-                <label className={`kyc-radio-card${form.aucbOpenAccount === true ? ' is-selected' : ''}`}>
-                  <input
-                    type="radio"
-                    name="aucbOpenAccount"
-                    checked={form.aucbOpenAccount === true}
-                    onChange={() => patch({ aucbOpenAccount: true })}
-                  />
-                  Yes, register my interest
-                </label>
-                <label className={`kyc-radio-card${form.aucbOpenAccount === false ? ' is-selected' : ''}`}>
-                  <input
-                    type="radio"
-                    name="aucbOpenAccount"
-                    checked={form.aucbOpenAccount === false}
-                    onChange={() => patch({ aucbOpenAccount: false })}
-                  />
-                  Not at this time
-                </label>
-              </div>
-              {form.aucbOpenAccount === true ? (
-                <div className="kyc-aucb-panel">
-                  <span className="kyc-aucb-badge">Coming soon</span>
-                  <p className="kyc-aucb-lead">
-                    AUCB will offer institutional banking built for commodity flows:
-                  </p>
-                  <ul className="kyc-aucb-list">
-                    <li>Instant transfers</li>
-                    <li>Worldwide debit cards</li>
-                    <li>Currency switches</li>
-                    <li>Deposit accounts</li>
-                    <li>Multiple currencies</li>
-                    <li>And many more features</li>
-                  </ul>
-                </div>
-              ) : null}
-            </div>
           </>
         ) : null}
 
@@ -882,14 +792,6 @@ export function KycWizard() {
               <dd>
                 {form.counterpartyRole || '—'} · {form.bankName || '—'} ({form.bankCountry || '—'})
               </dd>
-              <dt>AUCB interest</dt>
-              <dd>
-                {form.aucbOpenAccount === true
-                  ? 'Yes — coming soon'
-                  : form.aucbOpenAccount === false
-                    ? 'No'
-                    : '—'}
-              </dd>
               <dt>Source of funds</dt>
               <dd>
                 {form.companySourceOfFunds.length > 120
@@ -936,14 +838,14 @@ export function KycWizard() {
             onClick={handleSubmit}
             disabled={submitting}
           >
-            {submitting ? 'Opening account…' : 'Submit & open account'}
+            {submitting ? 'Submitting…' : 'Submit KYC'}
             <BtnArrow />
           </button>
         )}
       </div>
 
       <p className="kyc-footnote">
-        Confidential · {CONTACT_EMAIL} · Required for trading, payments &amp; logistics mandates.
+        Confidential · {CONTACT_EMAIL} · Required before you can sell gold to AULM.
       </p>
     </div>
   )

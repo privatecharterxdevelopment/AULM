@@ -5,6 +5,7 @@ import { BtnArrow } from '../components/BtnArrow'
 import { CompanyStoryBlock, ScrollReveal, revealIndex } from '../components/ScrollReveal'
 import { COMPANY } from '../data/company'
 import { useFrameExpand } from '../hooks/useFrameExpand'
+import { useSyncHeaderOnDark } from '../lib/headerOnDark'
 import { getCompanyPinPadding, getFrameStyle } from '../lib/frameExpand'
 
 const LICENSE_AFTER = 1
@@ -12,6 +13,7 @@ const LICENSE_AFTER = 1
 export function CompanyPage() {
   const heroRef = useRef<HTMLDivElement>(null)
   const expand = useFrameExpand(heroRef)
+  useSyncHeaderOnDark(heroRef, expand)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -21,7 +23,7 @@ export function CompanyPage() {
   const afterLicense = COMPANY.sections.slice(LICENSE_AFTER)
 
   return (
-    <div className="expand-scroll-page">
+    <div className="expand-scroll-page editorial-page">
       <div ref={heroRef} className="expand-scroll-hero expand-scroll-hero--company">
         <div
           className={`expand-scroll-pin${expand >= 0.985 ? ' is-full' : ''}`}
@@ -42,7 +44,7 @@ export function CompanyPage() {
 
       <section className="expand-scroll-body company-story">
         <ScrollReveal variant="scale" className="company-story-panel">
-          <div className="vault-body company-story-block">
+          <div className="vault-body company-story-block editorial-inner">
             <h1 className="vault-body-title company-reveal-child" style={revealIndex(0)}>
               {COMPANY.name}
             </h1>
@@ -58,12 +60,29 @@ export function CompanyPage() {
                 {paragraph}
               </p>
             ))}
-            <div
-              className="vault-body-actions company-reveal-child"
+            <ul
+              className="home-story-facts company-facts company-reveal-child"
               style={revealIndex(COMPANY.description.length + 2)}
             >
+              {COMPANY.facts.map((fact) => (
+                <li key={fact.label}>
+                  <span>{fact.label}</span>
+                  <strong>{fact.value}</strong>
+                </li>
+              ))}
+            </ul>
+            <figure
+              className="company-story-photo company-reveal-child"
+              style={revealIndex(COMPANY.description.length + 3)}
+            >
+              <img src={COMPANY.photo.src} alt={COMPANY.photo.alt} />
+            </figure>
+            <div
+              className="vault-body-actions company-reveal-child"
+              style={revealIndex(COMPANY.description.length + 4)}
+            >
               <Link to="/onboarding" className="metal-page-btn metal-page-btn--primary">
-                Open account
+                Complete KYC
                 <BtnArrow />
               </Link>
               <Link to="/company/procedure" className="metal-page-btn metal-page-btn--secondary">
@@ -75,7 +94,7 @@ export function CompanyPage() {
         </ScrollReveal>
 
         <ScrollReveal variant="up" className="company-story-panel company-services-panel">
-          <div className="vault-body company-services-wrap">
+          <div className="vault-body company-services-wrap editorial-inner">
             <h2 className="vault-body-title company-reveal-child" style={revealIndex(0)}>
               Services
             </h2>
@@ -105,7 +124,7 @@ export function CompanyPage() {
         ))}
 
         <ScrollReveal variant="blur" className="company-story-panel company-license-panel">
-          <div className="vault-body company-license-inner company-story-block">
+          <div className="vault-body company-license-inner company-story-block editorial-inner">
             <p className="company-license-label company-reveal-child" style={revealIndex(0)}>
               {COMPANY.licenseLabel}
             </p>

@@ -15,21 +15,21 @@ export function MetalCard({ metal, reveal, index }: Props) {
 
   return (
     <Link
-      to={`/${metal.id}`}
       id={metal.id}
+      to={`/${metal.id}`}
       className={`metal-card metal-card--${metal.accent}`}
       style={{
         opacity: cardReveal,
         transform: `translateY(${y}px) scale(${scale})`,
       }}
     >
-      <div className="metal-card-visual">
+      <span className="metal-card-visual">
         <img src={metal.image} alt="" className="metal-card-image" />
-        <div className="metal-card-shine" aria-hidden />
-      </div>
-      <div className="metal-card-body">
+        <span className="metal-card-shine" aria-hidden />
+      </span>
+      <span className="metal-card-body">
         <h3 className="metal-card-title">{metal.name}</h3>
-      </div>
+      </span>
     </Link>
   )
 }

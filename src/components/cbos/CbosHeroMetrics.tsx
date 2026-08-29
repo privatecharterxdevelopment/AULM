@@ -114,19 +114,6 @@ export function CbosHeroMetrics({ summary, gold, silver, hideBalance = false }: 
       />
 
       <MetricTile
-        to="/bank/escrows"
-        title="Escrow"
-        tag={cur}
-        value={masked(formatMoney(summary.escrowBalance, cur))}
-        icon={
-          <svg width="18" height="18" viewBox="0 0 24 24" {...stroke}>
-            <path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7l7-4z" />
-            <path d="M9 12l2 2 4-4" />
-          </svg>
-        }
-      />
-
-      <MetricTile
         to="/bank/cards"
         title="Card MTD"
         tag="USD"

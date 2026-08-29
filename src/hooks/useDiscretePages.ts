@@ -1,7 +1,14 @@
 import { useEffect, useRef, useState, type RefObject } from 'react'
 
-export const HOME_PAGE_COUNT = 7
+export const HOME_PAGE_COUNT = 12
 const LOCK_MS = 850
+const EXPAND_DONE_MS = 280
+const HANDOFF_DONE_MS = 220
+
+/** Same distance as the banking video spacer (~90dvh) before the next page. */
+function expandRange() {
+  return Math.max(640, window.innerHeight * 0.9)
+}
 
 export function useDiscretePages(
   containerRef: RefObject<HTMLElement | null>,
@@ -9,9 +16,15 @@ export function useDiscretePages(
 ) {
   const [page, setPage] = useState(0)
   const [progress, setProgress] = useState(0)
+  const [expand, setExpand] = useState(0)
+  const [handoff, setHandoff] = useState(0)
   const pageRef = useRef(0)
   const locked = useRef(false)
+  const expandGate = useRef(false)
+  const handoffGate = useRef(false)
   const progressRef = useRef(0)
+  const expandRef = useRef(0)
+  const handoffRef = useRef(0)
 
   useEffect(() => {
     pageRef.current = page
@@ -20,7 +33,7 @@ export function useDiscretePages(
 
     const tick = () => {
       const cur = progressRef.current
-      const next = cur + (target - cur) * 0.16
+      const next = cur + (target - cur) * 0.09
       if (Math.abs(target - next) < 0.001) {
         progressRef.current = target
         setProgress(target)
@@ -39,45 +52,145 @@ export function useDiscretePages(
     const el = containerRef.current
     if (!el) return
 
+    const commitExpand = (value: number) => {
+      const next = Math.min(1, Math.max(0, value))
+      const reachedFull = expandRef.current < 1 && next >= 1
+      expandRef.current = next
+      setExpand(next)
+      if (reachedFull) {
+        expandGate.current = true
+        window.setTimeout(() => {
+          expandGate.current = false
+        }, EXPAND_DONE_MS)
+      }
+      return next
+    }
+
+    const commitHandoff = (value: number) => {
+      const next = Math.min(1, Math.max(0, value))
+      const reachedFull = handoffRef.current < 1 && next >= 1
+      handoffRef.current = next
+      setHandoff(next)
+      if (reachedFull) {
+        handoffGate.current = true
+        window.setTimeout(() => {
+          handoffGate.current = false
+        }, HANDOFF_DONE_MS)
+      }
+      return reachedFull
+    }
+
     const go = (dir: 1 | -1) => {
       if (locked.current) return
-      const next = pageRef.current + dir
+      const from = pageRef.current
+      const next = from + dir
       if (next < 0 || next >= pageCount) return
       locked.current = true
       pageRef.current = next
       setPage(next)
+      if (from === 0 && next === 1) {
+        const target = 1 / (pageCount - 1)
+        progressRef.current = target
+        setProgress(target)
+        handoffRef.current = 1
+        setHandoff(1)
+      }
       window.setTimeout(() => {
         locked.current = false
       }, LOCK_MS)
     }
 
+    const onHeroScroll = (delta: number) => {
+      const range = expandRange()
+      const down = delta > 0
+      if (down && expandRef.current < 1) {
+        commitExpand(expandRef.current + delta / range)
+        return true
+      }
+      if (down && expandRef.current >= 1 && handoffRef.current < 1) {
+        const reachedFull = commitHandoff(handoffRef.current + delta / range)
+        if (reachedFull) go(1)
+        return true
+      }
+      if (!down && handoffRef.current > 0) {
+        commitHandoff(handoffRef.current + delta / range)
+        return true
+      }
+      if (!down && expandRef.current > 0) {
+        commitExpand(expandRef.current + delta / range)
+        return true
+      }
+      return false
+    }
+
     const onWheel = (e: WheelEvent) => {
       e.preventDefault()
+      if (pageRef.current === 0) {
+        if (onHeroScroll(e.deltaY)) return
+      }
+      if (pageRef.current === 1 && e.deltaY < 0) {
+        pageRef.current = 0
+        setPage(0)
+        progressRef.current = 0
+        setProgress(0)
+        onHeroScroll(e.deltaY)
+        return
+      }
+
+      if (expandGate.current || handoffGate.current || locked.current) return
       if (Math.abs(e.deltaY) < 8) return
       go(e.deltaY > 0 ? 1 : -1)
     }
 
+    let touchStartY = 0
     let touchY = 0
+    let consumedHero = false
     const onTouchStart = (e: TouchEvent) => {
-      touchY = e.touches[0]?.clientY ?? 0
+      touchStartY = e.touches[0]?.clientY ?? 0
+      touchY = touchStartY
+      consumedHero = false
+    }
+    const onTouchMove = (e: TouchEvent) => {
+      const y = e.touches[0]?.clientY ?? touchY
+      const dy = touchY - y
+      touchY = y
+      if (pageRef.current === 1 && dy < 0) {
+        e.preventDefault()
+        consumedHero = true
+        pageRef.current = 0
+        setPage(0)
+        progressRef.current = 0
+        setProgress(0)
+        onHeroScroll(dy)
+        return
+      }
+      if (pageRef.current !== 0) return
+      if (onHeroScroll(dy)) {
+        e.preventDefault()
+        consumedHero = true
+      }
     }
     const onTouchEnd = (e: TouchEvent) => {
+      if (consumedHero || expandGate.current || handoffGate.current) return
       const endY = e.changedTouches[0]?.clientY ?? touchY
-      const diff = touchY - endY
+      const diff = touchStartY - endY
+      if (pageRef.current === 0 && onHeroScroll(diff)) return
       if (Math.abs(diff) < 48) return
       go(diff > 0 ? 1 : -1)
     }
 
-    el.addEventListener('wheel', onWheel, { passive: false })
+    window.addEventListener('wheel', onWheel, { passive: false })
     el.addEventListener('touchstart', onTouchStart, { passive: true })
+    el.addEventListener('touchmove', onTouchMove, { passive: false })
     el.addEventListener('touchend', onTouchEnd, { passive: true })
 
     return () => {
-      el.removeEventListener('wheel', onWheel)
+      window.removeEventListener('wheel', onWheel)
       el.removeEventListener('touchstart', onTouchStart)
+      el.removeEventListener('touchmove', onTouchMove)
       el.removeEventListener('touchend', onTouchEnd)
     }
   }, [containerRef, pageCount])
 
-  return { page, progress }
+  return { page, progress, expand, handoff }
 }

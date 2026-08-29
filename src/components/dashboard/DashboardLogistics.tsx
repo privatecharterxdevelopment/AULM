@@ -116,9 +116,8 @@ export function DashboardLogistics() {
       <section className="dash-card">
         <h2 className="dash-card-title">Create route</h2>
         <p className="dash-card-text">
-          Submit a corridor mandate. For full OECD document checks use the{' '}
-          <Link to="/logistics/export">export tool</Link> or{' '}
-          <Link to="/logistics/import">import tool</Link>.
+          Submit a corridor mandate. For documents, see the{' '}
+          <Link to="/company/procedure">procedure library</Link>.
         </p>
 
         <form className="dash-route-form" onSubmit={(e) => void submitRoute(e)}>

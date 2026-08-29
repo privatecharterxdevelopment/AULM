@@ -1032,6 +1032,42 @@
   margin: 0 2px;
 }
 
+.cbos-bank-strip__admin-crm {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: #0f0f12;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 650;
+  text-decoration: none;
+  letter-spacing: -.01em;
+  white-space: nowrap;
+}
+
+.cbos-bank-strip__admin-crm:hover {
+  background: #2a2a30;
+}
+
+.cbos-rail__item--admin {
+  margin-bottom: 8px;
+  border: 1px solid var(--bank-border);
+  background: #fff;
+}
+
+.cbos-rail__item--admin.is-active {
+  background: #0f0f12;
+  color: #fff;
+  border-color: #0f0f12;
+}
+
+.cbos-rail__item--admin.is-active .cbos-rail__abbr {
+  background: rgba(255,255,255,.16);
+  color: #fff;
+}
+
 /* Expandable glass search */
 .cbos-expand-search {
   position: relative;

@@ -64,7 +64,7 @@ export function EscrowPage() {
 
           <div className="vault-body-actions">
             <Link to="/onboarding" className="metal-page-btn metal-page-btn--primary">
-              Open account
+              Complete KYC
               <BtnArrow />
             </Link>
             <Link to="/contact" className="metal-page-btn metal-page-btn--secondary">

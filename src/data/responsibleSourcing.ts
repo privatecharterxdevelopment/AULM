@@ -8,6 +8,34 @@ export type PolicySection = {
 export const RESPONSIBLE_SOURCING_INTRO =
   'AULM Precious Metal Trader (IFZA License No. 85927) is fully committed to providing high-quality products and services while meeting the highest ethical and moral standards with respect to responsible sourcing. We recognize that the extraction, trading, handling, and exporting of minerals from conflict-affected and high-risk areas (CAHRAs) may pose risks of significant adverse impacts. We acknowledge our responsibility to respect human rights and to avoid contributing to conflict.'
 
+export const SOURCING_PAGE = {
+  eyebrow: 'Company',
+  title: 'Responsible sourcing',
+  lead: 'OECD due diligence on every mandate — not a brochure. Assay, origin and chain of custody before a lot is priced.',
+  measures: [
+    {
+      title: 'OECD due diligence',
+      body: 'Supplier contracts carry our responsible-sourcing policy. CAHRA screening on origin corridors — West, Central, North and East Africa included.',
+    },
+    {
+      title: 'Assay before purchase',
+      body: 'Independent assay and lot documentation before a firm price. Doré, scrap and bullion are not the same filing.',
+    },
+    {
+      title: 'Chain of custody',
+      body: 'Certificate of origin, customs and insurance on every accepted mandate. The paper trail is the trade.',
+    },
+    {
+      title: 'Bank-to-bank only',
+      body: 'SWIFT MT103 between approved accounts. No cash, crypto or third-party payment agents.',
+    },
+    {
+      title: 'Grievance desk',
+      body: 'Concerns to contact@aulmtrading.com. Logged, investigated and retained for five years, aligned with OECD guidance.',
+    },
+  ],
+} as const
+
 export const POLICY_SECTIONS: PolicySection[] = [
   {
     id: 'supply-chain',
