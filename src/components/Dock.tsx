@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useT } from '../i18n'
 
 function ChevronIcon({ open }: { open: boolean }) {
   return (
@@ -24,32 +25,32 @@ function HomeIcon() {
   )
 }
 
-const COMPANY_ITEMS = [
-  { label: 'About', href: '/company' },
-  { label: 'Procedure', href: '/company/procedure' },
-  { label: 'Sourcing', href: '/responsible-sourcing' },
-  { label: 'News', href: '/news' },
-  { label: 'Documents', href: '/pdf' },
-  { label: 'Investors', href: '/investors' },
-] as const
-
-const GEOGRAPHY_ITEMS = [
-  { label: 'Africa', href: '/africa#africa' },
-  { label: 'Europe', href: '/africa#europe' },
-  { label: 'South America', href: '/africa#south-america' },
-] as const
-
-const DOCK_LINKS = [
-  { label: 'Metals', href: '/gold' },
-  { label: 'Refinery', href: '/refinery' },
-  { label: 'Contact us', href: '/contact' },
-] as const
-
 type Menu = 'company' | 'geography' | null
 
 export function Dock() {
+  const { t } = useT()
   const [open, setOpen] = useState<Menu>(null)
   const dockRef = useRef<HTMLElement>(null)
+
+  const companyItems = [
+    { label: t.nav.about, href: '/company' },
+    { label: t.nav.procedure, href: '/company/procedure' },
+    { label: t.nav.sourcing, href: '/responsible-sourcing' },
+    { label: t.nav.news, href: '/news' },
+    { label: t.nav.documents, href: '/pdf' },
+    { label: t.nav.investors, href: '/investors' },
+    { label: t.nav.tokenization, href: '/tokenization' },
+  ]
+  const geographyItems = [
+    { label: t.nav.africa, href: '/africa#africa' },
+    { label: t.nav.europe, href: '/africa#europe' },
+    { label: t.nav.southAmerica, href: '/africa#south-america' },
+  ]
+  const dockLinks = [
+    { label: t.nav.metals, href: '/gold' },
+    { label: t.nav.refinery, href: '/refinery' },
+    { label: t.nav.contact, href: '/contact' },
+  ]
 
   useEffect(() => {
     const close = (e: MouseEvent) => {
@@ -62,15 +63,15 @@ export function Dock() {
   }, [])
 
   return (
-    <nav className="dock" aria-label="Main" ref={dockRef}>
+    <nav className="dock" aria-label={t.meta.mainNav} ref={dockRef}>
       <div className="dock-bar">
-        <Link to="/" className="dock-home" aria-label="Home">
+        <Link to="/" className="dock-home" aria-label={t.common.home}>
           <HomeIcon />
         </Link>
 
         <DockDrop
-          label="Company"
-          items={COMPANY_ITEMS}
+          label={t.nav.company}
+          items={companyItems}
           isOpen={open === 'company'}
           onToggle={() => setOpen((m) => (m === 'company' ? null : 'company'))}
           onEnter={() => setOpen('company')}
@@ -79,8 +80,8 @@ export function Dock() {
         />
 
         <DockDrop
-          label="Geography"
-          items={GEOGRAPHY_ITEMS}
+          label={t.nav.geography}
+          items={geographyItems}
           isOpen={open === 'geography'}
           onToggle={() => setOpen((m) => (m === 'geography' ? null : 'geography'))}
           onEnter={() => setOpen('geography')}
@@ -88,7 +89,7 @@ export function Dock() {
           onPick={() => setOpen(null)}
         />
 
-        {DOCK_LINKS.map((item) => (
+        {dockLinks.map((item) => (
           <Link key={item.href} to={item.href} className="dock-item dock-item--link">
             {item.label}
           </Link>

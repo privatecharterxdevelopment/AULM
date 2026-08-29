@@ -1,33 +1,38 @@
 import { Link } from 'react-router-dom'
 import { SUPPLY_STRIP } from '../data/supplyChain'
+import { useT } from '../i18n'
 
 type Props = {
   reveal: number
 }
 
 export function SupplyChainSection({ reveal }: Props) {
+  const { t } = useT()
   const titleIn = Math.min(1, reveal / 0.5)
 
   return (
-    <section className="people-strip supply-strip" aria-label={SUPPLY_STRIP.title}>
+    <section className="people-strip supply-strip" aria-label={t.home.supply.title}>
       <div className="people-strip-track">
-        {SUPPLY_STRIP.panels.map((panel) => (
-          <article key={panel.src} className={`people-strip-panel supply-strip-panel--${panel.fit}`}>
-            <img src={panel.src} alt={panel.alt} />
-            <div className="people-strip-shade" aria-hidden />
-            <div className="people-strip-caption">
-              <p>{panel.line}</p>
-              <Link to={panel.href}>{panel.cta} →</Link>
-            </div>
-          </article>
-        ))}
+        {SUPPLY_STRIP.panels.map((panel, i) => {
+          const copy = t.home.supply.panels[i]
+          return (
+            <article key={panel.src} className={`people-strip-panel supply-strip-panel--${panel.fit}`}>
+              <img src={panel.src} alt={copy?.alt ?? panel.alt} />
+              <div className="people-strip-shade" aria-hidden />
+              <div className="people-strip-caption">
+                <p>{copy?.line ?? panel.line}</p>
+                <Link to={panel.href}>{copy?.cta ?? panel.cta} →</Link>
+              </div>
+            </article>
+          )
+        })}
       </div>
 
       <h2
         className="people-strip-title"
         style={{ opacity: titleIn, transform: `translateY(${(1 - titleIn) * 18}px)` }}
       >
-        {SUPPLY_STRIP.title}
+        {t.home.supply.title}
       </h2>
     </section>
   )

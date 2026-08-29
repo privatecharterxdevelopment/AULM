@@ -10,7 +10,7 @@ create table if not exists public.aulm_modern_kyc_applications (
   contact_email text not null,
   company_legal_name text not null,
   status text not null default 'under_review'
-    check (status in ('under_review', 'approved', 'rejected')),
+    check (status in ('under_review', 'approved', 'rejected', 'more_docs')),
   user_id uuid references auth.users (id) on delete set null,
   payload jsonb not null default '{}'::jsonb
 );
@@ -21,7 +21,7 @@ create table if not exists public.aulm_modern_profiles (
   full_name text,
   company_name text,
   kyc_status text not null default 'none'
-    check (kyc_status in ('none', 'under_review', 'approved', 'rejected')),
+    check (kyc_status in ('none', 'under_review', 'approved', 'rejected', 'more_docs')),
   kyc_application_id uuid references public.aulm_modern_kyc_applications (id) on delete set null,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()

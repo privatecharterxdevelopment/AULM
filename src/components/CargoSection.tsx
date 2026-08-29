@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CargoPartnersCarousel } from './CargoPartnersCarousel'
+import { useT } from '../i18n'
 
 function ArrowUpIcon() {
   return (
@@ -72,6 +73,7 @@ function useSmoothCloudEnter(reveal: number) {
 }
 
 export function CargoSection({ reveal }: Props) {
+  const { t } = useT()
   const titleIn = Math.min(1, reveal / 0.5)
   const cardsIn = Math.min(1, Math.max(0, (reveal - 0.15) / 0.6))
   const partnersIn = Math.min(1, Math.max(0, (reveal - 0.35) / 0.55))
@@ -83,7 +85,7 @@ export function CargoSection({ reveal }: Props) {
   const cloudFloating = cloudEnter > 0.88
 
   return (
-    <section className="cargo-section" aria-label="Certified cargo and shipments">
+    <section className="cargo-section" aria-label={t.home.cargo.aria}>
       <div className="cargo-inner">
         <div
           className="cargo-cloud-bg"
@@ -107,8 +109,8 @@ export function CargoSection({ reveal }: Props) {
             transform: `translateY(${(1 - titleIn) * 24}px)`,
           }}
         >
-          <p className="cargo-eyebrow">Global logistics</p>
-          <h2 className="cargo-title">Certified cargo & shipments</h2>
+          <p className="cargo-eyebrow">{t.home.cargo.eyebrow}</p>
+          <h2 className="cargo-title">{t.home.cargo.title}</h2>
         </header>
 
         <div
@@ -122,14 +124,14 @@ export function CargoSection({ reveal }: Props) {
             <span className="cargo-card-arrow cargo-card-arrow--up">
               <ArrowUpIcon />
             </span>
-            <span className="cargo-card-label">Import</span>
+            <span className="cargo-card-label">{t.home.cargo.import}</span>
           </Link>
 
           <Link to="/logistics/export" className="cargo-card cargo-card--export">
             <span className="cargo-card-arrow cargo-card-arrow--down">
               <ArrowDownIcon />
             </span>
-            <span className="cargo-card-label">Export</span>
+            <span className="cargo-card-label">{t.home.cargo.export}</span>
           </Link>
         </div>
 

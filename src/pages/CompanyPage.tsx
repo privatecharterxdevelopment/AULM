@@ -7,10 +7,14 @@ import { COMPANY } from '../data/company'
 import { useFrameExpand } from '../hooks/useFrameExpand'
 import { useSyncHeaderOnDark } from '../lib/headerOnDark'
 import { getCompanyPinPadding, getFrameStyle } from '../lib/frameExpand'
+import { usePageTitle, useT } from '../i18n'
 
 const LICENSE_AFTER = 1
 
 export function CompanyPage() {
+  const { t } = useT()
+  const c = t.company
+  usePageTitle(t.nav.about, Array.isArray(c.description) ? c.description[0] : undefined)
   const heroRef = useRef<HTMLDivElement>(null)
   const expand = useFrameExpand(heroRef)
   useSyncHeaderOnDark(heroRef, expand)
@@ -18,9 +22,6 @@ export function CompanyPage() {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
-
-  const beforeLicense = COMPANY.sections.slice(0, LICENSE_AFTER)
-  const afterLicense = COMPANY.sections.slice(LICENSE_AFTER)
 
   return (
     <div className="expand-scroll-page editorial-page">
@@ -46,12 +47,12 @@ export function CompanyPage() {
         <ScrollReveal variant="scale" className="company-story-panel">
           <div className="vault-body company-story-block editorial-inner">
             <h1 className="vault-body-title company-reveal-child" style={revealIndex(0)}>
-              {COMPANY.name}
+              {c.title}
             </h1>
             <p className="vault-body-lead company-reveal-child" style={revealIndex(1)}>
-              {COMPANY.lead}
+              {c.lead}
             </p>
-            {COMPANY.description.map((paragraph, i) => (
+            {c.description.map((paragraph, i) => (
               <p
                 key={i}
                 className="vault-body-copy company-reveal-child"
@@ -62,9 +63,9 @@ export function CompanyPage() {
             ))}
             <ul
               className="home-story-facts company-facts company-reveal-child"
-              style={revealIndex(COMPANY.description.length + 2)}
+              style={revealIndex(c.description.length + 2)}
             >
-              {COMPANY.facts.map((fact) => (
+              {c.facts.map((fact) => (
                 <li key={fact.label}>
                   <span>{fact.label}</span>
                   <strong>{fact.value}</strong>
@@ -73,20 +74,20 @@ export function CompanyPage() {
             </ul>
             <figure
               className="company-story-photo company-reveal-child"
-              style={revealIndex(COMPANY.description.length + 3)}
+              style={revealIndex(c.description.length + 3)}
             >
-              <img src={COMPANY.photo.src} alt={COMPANY.photo.alt} />
+              <img src={COMPANY.photo.src} alt={c.photoAlt} />
             </figure>
             <div
               className="vault-body-actions company-reveal-child"
-              style={revealIndex(COMPANY.description.length + 4)}
+              style={revealIndex(c.description.length + 4)}
             >
               <Link to="/onboarding" className="metal-page-btn metal-page-btn--primary">
-                Complete KYC
+                {t.common.completeKyc}
                 <BtnArrow />
               </Link>
               <Link to="/company/procedure" className="metal-page-btn metal-page-btn--secondary">
-                See procedure
+                {t.common.seeProcedure}
                 <BtnArrow />
               </Link>
             </div>
@@ -96,13 +97,13 @@ export function CompanyPage() {
         <ScrollReveal variant="up" className="company-story-panel company-services-panel">
           <div className="vault-body company-services-wrap editorial-inner">
             <h2 className="vault-body-title company-reveal-child" style={revealIndex(0)}>
-              Services
+              {t.common.services}
             </h2>
             <p className="vault-body-lead company-reveal-child" style={revealIndex(1)}>
-              {COMPANY.servicesLead}
+              {c.servicesLead}
             </p>
             <ul className="company-services-grid">
-              {COMPANY.services.map((label, i) => (
+              {c.services.map((label, i) => (
                 <li key={label} className="company-service-box" style={revealIndex(i + 2)}>
                   <span className="company-service-box-inner">{label}</span>
                 </li>
@@ -111,14 +112,18 @@ export function CompanyPage() {
           </div>
         </ScrollReveal>
 
-        {beforeLicense.map((s, i) => (
+        {c.sections.slice(0, LICENSE_AFTER).map((s, i) => (
           <CompanyStoryBlock
             key={s.title}
             title={s.title}
             body={s.body}
-            badge={s.badge}
+            badge={
+              COMPANY.sections[i]?.badge
+                ? { ...COMPANY.sections[i].badge!, note: s.badgeNote ?? COMPANY.sections[i].badge?.note }
+                : undefined
+            }
             locationsTitle={s.locationsTitle}
-            locationMap={s.locationMap}
+            locationMap={COMPANY.sections[i]?.locationMap}
             index={i + 1}
           />
         ))}
@@ -126,31 +131,38 @@ export function CompanyPage() {
         <ScrollReveal variant="blur" className="company-story-panel company-license-panel">
           <div className="vault-body company-license-inner company-story-block editorial-inner">
             <p className="company-license-label company-reveal-child" style={revealIndex(0)}>
-              {COMPANY.licenseLabel}
+              {c.licenseLabel}
             </p>
             <p className="company-license-line company-reveal-child" style={revealIndex(1)}>
-              {COMPANY.licenseLine}
+              {c.licenseLine}
             </p>
             <div className="company-reveal-child" style={revealIndex(2)}>
               <AnimatedLicenseNumber value={COMPANY.licenseNumber} />
             </div>
             <p className="company-license-sub company-reveal-child" style={revealIndex(3)}>
-              {COMPANY.licenseSub}
+              {c.licenseSub}
             </p>
           </div>
         </ScrollReveal>
 
-        {afterLicense.map((s, i) => (
-          <CompanyStoryBlock
-            key={s.title}
-            title={s.title}
-            body={s.body}
-            badge={s.badge}
-            locationsTitle={s.locationsTitle}
-            locationMap={s.locationMap}
-            index={i + beforeLicense.length + 2}
-          />
-        ))}
+        {c.sections.slice(LICENSE_AFTER).map((s, i) => {
+          const src = COMPANY.sections[i + LICENSE_AFTER]
+          return (
+            <CompanyStoryBlock
+              key={s.title}
+              title={s.title}
+              body={s.body}
+              badge={
+                src?.badge
+                  ? { ...src.badge, note: s.badgeNote ?? src.badge.note }
+                  : undefined
+              }
+              locationsTitle={s.locationsTitle}
+              locationMap={src?.locationMap}
+              index={i + LICENSE_AFTER + 2}
+            />
+          )
+        })}
 
       </section>
 
@@ -158,10 +170,10 @@ export function CompanyPage() {
         <ScrollReveal variant="scale" className="company-appointment-wrap">
           <div className="company-appointment-inner company-story-block">
             <h2 className="company-appointment-title company-reveal-child" style={revealIndex(0)}>
-              Get your appointment
+              {c.appointmentTitle}
             </h2>
             <p className="company-appointment-note company-reveal-child" style={revealIndex(1)}>
-              {COMPANY.meetingNote}
+              {c.meetingNote}
             </p>
 
             <address className="company-address company-reveal-child" style={revealIndex(2)}>
@@ -174,7 +186,7 @@ export function CompanyPage() {
               <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>
             </p>
             <p className="company-hours company-reveal-child" style={revealIndex(4)}>
-              {COMPANY.hours}
+              {c.hours}
             </p>
 
             <div className="company-appointment-actions company-reveal-child" style={revealIndex(5)}>
@@ -182,7 +194,7 @@ export function CompanyPage() {
                 href="mailto:contact@aulmtrading.com?subject=AULM%20E-Meeting%20Request"
                 className="metal-page-btn metal-page-btn--secondary"
               >
-                Book e-meeting
+                {t.common.bookEMeeting}
                 <BtnArrow />
               </a>
             </div>

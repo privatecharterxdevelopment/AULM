@@ -1,11 +1,47 @@
 import { Link } from 'react-router-dom'
 import { COMPANY } from '../data/company'
-import { FOOTER_COLUMNS } from '../config/footer'
 import { CONTACT_EMAIL } from '../config/site'
+import { useT } from '../i18n'
 
 export function Footer() {
+  const { t, interpolate } = useT()
+  const year = new Date().getFullYear()
+  const footerColumns = [
+    {
+      title: t.nav.company,
+      links: [
+        { label: t.nav.about, href: '/company' },
+        { label: t.nav.contact, href: '/contact' },
+        { label: t.nav.procedure, href: '/company/procedure' },
+        { label: t.nav.news, href: '/news' },
+        { label: t.nav.documents, href: '/pdf' },
+        { label: t.nav.investors, href: '/investors' },
+        { label: t.nav.responsibleSourcing, href: '/responsible-sourcing' },
+        { label: t.nav.supplyChain, href: '/gold-supply-chain-dubai' },
+        { label: t.nav.tokenization, href: '/tokenization' },
+      ],
+    },
+    {
+      title: t.nav.geography,
+      links: [
+        { label: t.nav.africa, href: '/africa#africa' },
+        { label: t.nav.europe, href: '/africa#europe' },
+        { label: t.nav.southAmerica, href: '/africa#south-america' },
+      ],
+    },
+    {
+      title: t.nav.trade,
+      links: [
+        { label: t.nav.gold, href: '/gold' },
+        { label: t.nav.silver, href: '/silver' },
+        { label: t.nav.copper, href: '/copper' },
+        { label: t.nav.refinery, href: '/refinery' },
+      ],
+    },
+  ]
+
   return (
-    <footer className="site-footer" aria-label="Site footer">
+    <footer className="site-footer" aria-label={t.meta.siteFooter}>
       <div className="site-footer-shell">
         <div className="site-footer-top">
           <div className="site-footer-brand">
@@ -14,7 +50,7 @@ export function Footer() {
             </Link>
             <p className="site-footer-name">{COMPANY.name}</p>
             <p className="site-footer-license">
-              {COMPANY.licenseLine} {COMPANY.licenseNumber}
+              {t.company.licenseLine} {COMPANY.licenseNumber}
             </p>
             <p className="site-footer-address">
               {COMPANY.address[0]}
@@ -26,19 +62,13 @@ export function Footer() {
             </a>
           </div>
 
-          {FOOTER_COLUMNS.map((column) => (
+          {footerColumns.map((column) => (
             <nav key={column.title} className="site-footer-col" aria-label={column.title}>
               <h2 className="site-footer-col-title">{column.title}</h2>
               <ul className="site-footer-links">
                 {column.links.map((link) => (
                   <li key={link.href + link.label}>
-                    {link.external ? (
-                      <a href={link.href} target="_blank" rel="noopener noreferrer">
-                        {link.label}
-                      </a>
-                    ) : (
-                      <Link to={link.href}>{link.label}</Link>
-                    )}
+                    <Link to={link.href}>{link.label}</Link>
                   </li>
                 ))}
               </ul>
@@ -48,14 +78,14 @@ export function Footer() {
 
         <div className="site-footer-bottom">
           <p className="site-footer-copy">
-            © {new Date().getFullYear()} {COMPANY.name}. B2B institutional desk only.
+            {interpolate(t.footer.copy, { year, name: COMPANY.name })}
           </p>
           <div className="site-footer-bottom-links">
-            <Link to="/legal">Legal</Link>
-            <Link to="/privacy">Privacy</Link>
-            <Link to="/company/procedure#shipping-instructions">Shipping</Link>
-            <Link to="/company/procedure#compliance">Compliance</Link>
-            <Link to="/">Home</Link>
+            <Link to="/legal">{t.footer.legal}</Link>
+            <Link to="/privacy">{t.footer.privacy}</Link>
+            <Link to="/company/procedure#shipping-instructions">{t.footer.shipping}</Link>
+            <Link to="/company/procedure#compliance">{t.footer.compliance}</Link>
+            <Link to="/">{t.common.home}</Link>
           </div>
         </div>
       </div>

@@ -1,7 +1,9 @@
 import { type FormEvent, useEffect, useId, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { GOLD_SLOTS_2026 } from '../config/site'
 import { DESK_FORM_COPY, type DeskFormKind } from '../data/deskFiles'
 import { submitContact } from '../utils/submitContact'
+import { useT } from '../i18n'
 
 type Props = {
   kind: DeskFormKind
@@ -9,7 +11,9 @@ type Props = {
 }
 
 export function DeskFormDrawer({ kind, onClose }: Props) {
-  const copy = DESK_FORM_COPY[kind]
+  const { t, interpolate } = useT()
+  const meta = DESK_FORM_COPY[kind]
+  const copy = t.desk.forms[kind]
   const titleId = useId()
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
@@ -37,11 +41,11 @@ export function DeskFormDrawer({ kind, onClose }: Props) {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     if (!fullName.trim() || !email.trim() || !message.trim()) {
-      setError('Please fill in your name, email, and message.')
+      setError(t.contact.errorRequired)
       return
     }
-    if (copy.askAccount && !openAccount) {
-      setError('Please say whether you want to open an account now.')
+    if (meta.askAccount && !openAccount) {
+      setError(t.desk.errorAccount)
       return
     }
 
@@ -50,14 +54,16 @@ export function DeskFormDrawer({ kind, onClose }: Props) {
 
     const extras = [
       copy.headline,
-      copy.askAccount
-        ? `Open account now in order to start trading: ${openAccount === 'yes' ? 'Yes' : 'Not yet'}`
+      meta.askAccount
+        ? interpolate(t.desk.openAccountLine, {
+            answer: openAccount === 'yes' ? t.common.yes : t.common.notYet,
+          })
         : '',
       message.trim(),
     ].filter(Boolean)
 
     const result = await submitContact({
-      topic: copy.topic,
+      topic: meta.topic,
       fullName: fullName.trim(),
       email: email.trim(),
       company: company.trim(),
@@ -67,31 +73,34 @@ export function DeskFormDrawer({ kind, onClose }: Props) {
 
     setSubmitting(false)
     if (!result.ok) {
-      setError(result.error ?? 'Something went wrong. Please try again.')
+      setError(result.error ?? t.contact.errorGeneric)
       return
     }
     setSent(true)
   }
 
+  const lead = interpolate(copy.lead, { slots: GOLD_SLOTS_2026 })
+  const notice = 'notice' in copy ? copy.notice : undefined
+
   return (
     <div className="desk-drawer" role="dialog" aria-modal="true" aria-labelledby={titleId}>
-      <button type="button" className="desk-drawer-backdrop" aria-label="Close" onClick={onClose} />
+      <button type="button" className="desk-drawer-backdrop" aria-label={t.common.close} onClick={onClose} />
       <div className="desk-drawer-panel">
-        <button type="button" className="desk-drawer-close" onClick={onClose} aria-label="Close">
+        <button type="button" className="desk-drawer-close" onClick={onClose} aria-label={t.common.close}>
           ×
         </button>
 
         {sent ? (
           <div className="request-success" role="status">
-            <p className="request-success-title">Sent</p>
-            <p className="request-success-text">We will come back to you at the email you provided.</p>
-            {copy.askAccount && openAccount === 'yes' ? (
+            <p className="request-success-title">{t.common.sent}</p>
+            <p className="request-success-text">{t.desk.sentText}</p>
+            {meta.askAccount && openAccount === 'yes' ? (
               <Link to="/onboarding" className="request-submit desk-drawer-cta">
-                Open account
+                {t.desk.rows['onboarding-pack'].link}
               </Link>
             ) : (
               <button type="button" className="request-submit" onClick={onClose}>
-                Close
+                {t.common.close}
               </button>
             )}
           </div>
@@ -100,20 +109,20 @@ export function DeskFormDrawer({ kind, onClose }: Props) {
             <h2 id={titleId} className="request-title">
               {copy.title}
             </h2>
-            <p className="desk-drawer-lead">{copy.lead}</p>
+            <p className="desk-drawer-lead">{lead}</p>
 
-            {copy.notice ? (
+            {notice ? (
               <ul className="desk-drawer-notice">
-                {copy.notice.map((line) => (
+                {notice.map((line) => (
                   <li key={line}>{line}</li>
                 ))}
               </ul>
             ) : null}
 
-            {copy.askAccount ? (
+            {meta.askAccount ? (
               <>
-                <p className="desk-drawer-hint">Open an account now in order to start trading?</p>
-                <div className="request-toggle" role="radiogroup" aria-label="Open account now in order to start trading">
+                <p className="desk-drawer-hint">{t.desk.askAccount}</p>
+                <div className="request-toggle" role="radiogroup" aria-label={t.desk.askAccountAria}>
                   <button
                     type="button"
                     role="radio"
@@ -121,7 +130,7 @@ export function DeskFormDrawer({ kind, onClose }: Props) {
                     className={`request-toggle-btn${openAccount === 'yes' ? ' is-active' : ''}`}
                     onClick={() => setOpenAccount('yes')}
                   >
-                    Yes
+                    {t.common.yes}
                   </button>
                   <button
                     type="button"
@@ -130,7 +139,7 @@ export function DeskFormDrawer({ kind, onClose }: Props) {
                     className={`request-toggle-btn${openAccount === 'not-yet' ? ' is-active' : ''}`}
                     onClick={() => setOpenAccount('not-yet')}
                   >
-                    Not yet
+                    {t.common.notYet}
                   </button>
                 </div>
               </>
@@ -138,49 +147,49 @@ export function DeskFormDrawer({ kind, onClose }: Props) {
 
             <div className="request-fields">
               <label className="request-field">
-                <span>Full name</span>
+                <span>{t.contact.fullName}</span>
                 <input
                   type="text"
                   autoComplete="name"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  placeholder="Jane Smith"
+                  placeholder={t.contact.namePlaceholder}
                   required
                 />
               </label>
               <label className="request-field">
-                <span>Work email</span>
+                <span>{t.contact.workEmail}</span>
                 <input
                   type="email"
                   autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="jane@familyoffice.com"
+                  placeholder={t.contact.emailPlaceholder}
                   required
                 />
               </label>
               <label className="request-field">
-                <span>Company</span>
+                <span>{t.contact.company}</span>
                 <input
                   type="text"
                   autoComplete="organization"
                   value={company}
                   onChange={(e) => setCompany(e.target.value)}
-                  placeholder="Family office / fund"
+                  placeholder={t.desk.familyOfficePlaceholder}
                 />
               </label>
               <label className="request-field">
-                <span>Phone</span>
+                <span>{t.contact.phone}</span>
                 <input
                   type="tel"
                   autoComplete="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder="+971 …"
+                  placeholder={t.contact.phonePlaceholder}
                 />
               </label>
               <label className="request-field">
-                <span>Message</span>
+                <span>{t.contact.message}</span>
                 <textarea
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
@@ -198,7 +207,7 @@ export function DeskFormDrawer({ kind, onClose }: Props) {
             ) : null}
 
             <button type="submit" className="request-submit" disabled={submitting}>
-              {submitting ? 'Sending…' : 'Send to the desk'}
+              {submitting ? t.common.sending : t.desk.sendToDesk}
             </button>
           </form>
         )}

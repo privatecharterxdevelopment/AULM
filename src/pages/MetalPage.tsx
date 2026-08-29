@@ -11,6 +11,7 @@ import {
   type MetalId,
 } from '../data/metals'
 import { useLiveMetalPrices } from '../hooks/useLiveMetalPrices'
+import { interpolate, usePageTitle, useT } from '../i18n'
 
 const IDS: MetalId[] = ['gold', 'silver', 'copper']
 
@@ -23,8 +24,12 @@ export function MetalPage() {
   const location = useLocation()
   const navigate = useNavigate()
   const { metals } = useLiveMetalPrices()
+  const { t } = useT()
   const slide = (location.state as { slide?: number } | null)?.slide ?? 0
   const actionParam = new URLSearchParams(location.search).get('action')
+
+  const name = isMetalId(metalId) ? t.metal[metalId].name : ''
+  usePageTitle(name, isMetalId(metalId) ? t.metal[metalId].description : undefined)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -51,17 +56,17 @@ export function MetalPage() {
   }
 
   const metal = METALS[metalId]
+  const copy = t.metal[metalId]
   const quote = metals.find((m) => m.id === metalId)
   const price = quote?.price ?? metal.price
   const change = quote?.change ?? metal.change
   const { prev, next } = getAdjacentMetals(metalId)
   const isUp = change >= 0
-  const desk = metal.desk
-  const photoContain = metal.id !== 'gold'
+  const desk = copy
 
   return (
     <div className="metal-desk-page">
-      <section className="metal-page" aria-label={`Trade ${metal.name}`}>
+      <section className="metal-page" aria-label={interpolate(t.metal.tradeAria, { name: copy.name })}>
         <MetalNavArrow metal={prev} direction="prev" />
         <MetalNavArrow metal={next} direction="next" />
 
@@ -73,7 +78,7 @@ export function MetalPage() {
           <div className="metal-page-layout">
             <div className="metal-page-content">
               <h1 className="metal-page-title">
-                Trade {metal.name} <TradeTitleWord />
+                {t.metal.tradePrefix} {copy.name} <TradeTitleWord />
               </h1>
 
               <p className={`metal-page-price${isUp ? ' is-up' : ' is-down'}`}>
@@ -84,15 +89,15 @@ export function MetalPage() {
                 <span className="metal-page-price-change">{formatChange(change)}</span>
               </p>
 
-              <p className="metal-page-copy">{metal.description}</p>
+              <p className="metal-page-copy">{copy.description}</p>
 
               <div className="metal-page-actions">
                 <Link to={`/${metal.id}/buy`} className="metal-page-btn metal-page-btn--primary">
-                  Buy {metal.name}
+                  {interpolate(t.metal.buy, { name: copy.name })}
                   <BtnArrow />
                 </Link>
                 <Link to={`/${metal.id}/sell`} className="metal-page-btn metal-page-btn--secondary">
-                  Sell {metal.name}
+                  {interpolate(t.metal.sell, { name: copy.name })}
                   <BtnArrow />
                 </Link>
               </div>
@@ -105,13 +110,9 @@ export function MetalPage() {
         </div>
       </section>
 
-      <section className="metal-desk" aria-label={`${metal.name} desk`}>
+      <section className="metal-desk" aria-label={interpolate(t.metal.deskAria, { name: copy.name })}>
         <div className="metal-desk-inner">
-          <figure className={`metal-desk-photo${photoContain ? ' is-contain' : ''}`}>
-            <img src={desk.photo} alt={desk.photoAlt} />
-          </figure>
-
-          <p className="refinery-section-eyebrow">{metal.name}</p>
+          <p className="refinery-section-eyebrow">{copy.name}</p>
           <h2 className="vault-body-title">{desk.lead}</h2>
 
           {desk.copy.map((paragraph) => (
@@ -141,11 +142,11 @@ export function MetalPage() {
 
           <div className="vault-body-actions">
             <Link to={`/${metal.id}/buy`} className="metal-page-btn metal-page-btn--primary">
-              Buy {metal.name}
+              {interpolate(t.metal.buy, { name: copy.name })}
               <BtnArrow />
             </Link>
             <Link to={`/${metal.id}/sell`} className="metal-page-btn metal-page-btn--secondary">
-              Sell {metal.name}
+              {interpolate(t.metal.sell, { name: copy.name })}
               <BtnArrow />
             </Link>
           </div>

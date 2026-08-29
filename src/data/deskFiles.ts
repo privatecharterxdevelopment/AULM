@@ -2,6 +2,8 @@ import {
   GOLD_SLOTS_2026,
   INSTITUTIONAL_BROCHURE_FILENAME,
   INSTITUTIONAL_BROCHURE_PDF,
+  KYC_ONBOARDING_FILENAME,
+  KYC_ONBOARDING_PDF,
   SELL_REQUIREMENTS_FILENAME,
   SELL_REQUIREMENTS_PDF,
   SILVER_REQUIREMENTS_FILENAME,
@@ -18,9 +20,18 @@ export type DeskFileRow = {
   note?: string
   pdf?: { href: string; filename: string }
   action?: { kind: DeskFormKind; label: string }
+  link?: { href: string; label: string }
 }
 
 export const DESK_FILE_ROWS: DeskFileRow[] = [
+  {
+    id: 'onboarding-pack',
+    kicker: 'KYC',
+    title: 'Onboarding pack',
+    note: 'Download, complete, stamp, and upload during account opening.',
+    pdf: { href: KYC_ONBOARDING_PDF, filename: KYC_ONBOARDING_FILENAME },
+    link: { href: '/onboarding', label: 'Open account' },
+  },
   {
     id: 'sell-gold',
     kicker: 'Sell',
@@ -39,7 +50,7 @@ export const DESK_FILE_ROWS: DeskFileRow[] = [
     id: 'brochure',
     kicker: 'Company',
     title: 'Download our brochure',
-    note: '2026 institutional overview — eight pages.',
+    note: '2026 institutional overview — who we are, the book, sourcing and how the desk works.',
     pdf: { href: INSTITUTIONAL_BROCHURE_PDF, filename: INSTITUTIONAL_BROCHURE_FILENAME },
   },
   {
@@ -47,7 +58,7 @@ export const DESK_FILE_ROWS: DeskFileRow[] = [
     kicker: 'Investors',
     title: 'Investor relations',
     note: 'Get in touch with us.',
-    action: { kind: 'investors', label: 'Get in touch' },
+    link: { href: '/contact?topic=investment', label: 'Get in touch' },
   },
   {
     id: 'buy-gold',

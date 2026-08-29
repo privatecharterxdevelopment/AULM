@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /crm
+Disallow: /crm/
+Disallow: /bank
+Disallow: /bank/
+Disallow: /admin
+Disallow: /admin/
+Disallow: /login
+
+Sitemap: https://www.aulmtrading.com/sitemap.xml

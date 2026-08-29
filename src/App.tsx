@@ -58,6 +58,8 @@ import {
   CrmTeam,
   CrmTransactions,
 } from './components/crm/pages/CrmOperations'
+import { DocumentSeo } from './components/DocumentSeo'
+import { I18nProvider } from './i18n'
 import './App.css'
 
 function LegacyDocumentRedirect() {
@@ -67,8 +69,10 @@ function LegacyDocumentRedirect() {
 
 export default function App() {
   return (
+    <I18nProvider>
     <AuthProvider>
       <BrowserRouter>
+        <DocumentSeo />
         <Routes>
           <Route element={<Layout />}>
             <Route index element={<HomePage />} />
@@ -88,6 +92,8 @@ export default function App() {
             <Route path="investors" element={<InvestorsPage />} />
             <Route path="investor" element={<Navigate to="/investors" replace />} />
             <Route path="tokenization" element={<TokenizationPage />} />
+            <Route path="gold-tokenization" element={<Navigate to="/tokenization" replace />} />
+            <Route path="tokenization-of-gold" element={<Navigate to="/tokenization" replace />} />
             <Route path="responsible-sourcing" element={<ResponsibleSourcingPage />} />
             <Route path="africa" element={<AfricaPage />} />
             <Route path="local-projects" element={<Navigate to="/africa" replace />} />
@@ -170,5 +176,6 @@ export default function App() {
         </Routes>
       </BrowserRouter>
     </AuthProvider>
+    </I18nProvider>
   )
 }

@@ -1,7 +1,7 @@
 import type { KycFormState } from '../types/kyc'
 import { getSupabase, isSupabaseConfigured, tables } from '../lib/supabase'
 import { saveKycApplicationId } from '../lib/kycSession'
-import { serializeKycPayload } from './submitKyc'
+import { serializeKycPayload, buildKycEmailDetails } from './submitKyc'
 import { notifyOps } from './notifyOps'
 
 export type OnboardingResult = { ok: true } | { ok: false; error: string }
@@ -66,12 +66,25 @@ export async function submitOnboarding(
     kyc_application_id: data.id,
   })
 
-  notifyOps({
+  const mail = await notifyOps({
     type: 'kyc_submitted',
     applicationId: data.id,
     company: form.companyLegalName.trim(),
     customerEmail: email,
+    fullName: form.contactName.trim(),
+    phone: form.contactPhone,
+    kycDetails: buildKycEmailDetails({
+      ...form,
+      contactEmail: email,
+    }),
   })
+
+  if (!mail.ok) {
+    return {
+      ok: false,
+      error: `Application saved (${data.id}) but emails could not be sent. Write to contact@aulmtrading.com with this ID. ${mail.error ?? ''}`.trim(),
+    }
+  }
 
   sessionStorage.setItem('aulm_dashboard_welcome', '1')
 

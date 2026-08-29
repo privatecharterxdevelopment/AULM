@@ -38,7 +38,7 @@ export type Profile = {
   email: string
   full_name: string | null
   company_name: string | null
-  kyc_status: 'none' | 'under_review' | 'approved' | 'rejected'
+  kyc_status: 'none' | 'under_review' | 'approved' | 'rejected' | 'more_docs'
   kyc_application_id: string | null
   is_admin?: boolean
 }
@@ -71,7 +71,7 @@ export type KycApplication = {
   created_at: string
   contact_email: string
   company_legal_name: string
-  status: 'under_review' | 'approved' | 'rejected'
+  status: 'under_review' | 'approved' | 'rejected' | 'more_docs'
   user_id: string | null
   payload: Record<string, unknown>
 }

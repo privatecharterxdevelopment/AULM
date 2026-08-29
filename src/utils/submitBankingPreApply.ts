@@ -1,29 +1,26 @@
 import { CONTACT_EMAIL } from '../config/site'
 import type { BankingPreApplyValues } from '../data/bankingPreApply'
-import { getSupabase, isSupabaseConfigured } from '../lib/supabase'
+import { notifyOps } from './notifyOps'
+import { isSupabaseConfigured } from '../lib/supabase'
 
 export async function submitBankingPreApply(
   values: BankingPreApplyValues,
 ): Promise<{ ok: boolean; error?: string }> {
   if (isSupabaseConfigured) {
-    const supabase = getSupabase()
-    if (supabase) {
-      const { error } = await supabase.functions.invoke('notify-ops', {
-        body: {
-          type: 'banking_preapply',
-          to: CONTACT_EMAIL,
-          customerEmail: values.email,
-          fullName: values.fullName,
-          company: values.company || undefined,
-          phone: values.phone || undefined,
-          jurisdiction: values.jurisdiction || undefined,
-          expectedVolume: values.expectedVolume || undefined,
-          message: values.message || undefined,
-        },
-      })
-      if (error) return { ok: false, error: error.message }
-      return { ok: true }
-    }
+    const result = await notifyOps({
+      type: 'banking_preapply',
+      to: CONTACT_EMAIL,
+      customerEmail: values.email,
+      fullName: values.fullName,
+      company: values.company || undefined,
+      phone: values.phone || undefined,
+      topic: 'Banking pre-application',
+      jurisdiction: values.jurisdiction || undefined,
+      expectedVolume: values.expectedVolume || undefined,
+      message: values.message || undefined,
+    })
+    if (!result.ok) return { ok: false, error: result.error ?? 'Could not send email.' }
+    return { ok: true }
   }
 
   const subject = `[Banking pre-application] ${values.company || values.fullName}`

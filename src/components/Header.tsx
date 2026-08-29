@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { LanguageDropdown } from './LanguageDropdown'
+import { useT } from '../i18n'
 import { isManagedDarkHeroRoute, setHeaderOnDark, useHeaderOnDark } from '../lib/headerOnDark'
 
 function PdfIcon() {
@@ -20,6 +21,7 @@ function PdfIcon() {
 
 export function Header() {
   const { pathname } = useLocation()
+  const { t } = useT()
   const [scrolled, setScrolled] = useState(false)
   const slideDark = useHeaderOnDark()
 
@@ -41,7 +43,7 @@ export function Header() {
   return (
     <header className={`header-wrap${frost ? ' is-scrolled' : ''}${onDark ? ' is-dark' : ''}`}>
       <div className="header-pill">
-        <Link to="/" className="header-logo" aria-label="AULM home">
+        <Link to="/" className="header-logo" aria-label={t.header.homeAria}>
           <img
             src={onDark ? '/aulm-logo-white.png' : '/aulm-logo.png'}
             alt="AULM"
@@ -51,13 +53,13 @@ export function Header() {
         </Link>
 
         <div className="header-actions">
-          <Link to="/pdf" className="header-chip header-pdf" aria-label="Documents" title="Documents">
+          <Link to="/pdf" className="header-chip header-pdf" aria-label={t.header.docsAria} title={t.header.docsAria}>
             <PdfIcon />
-            <span>PDF</span>
+            <span>{t.header.docs}</span>
           </Link>
           <LanguageDropdown />
           <Link to="/onboarding" className="header-cta">
-            Open account
+            {t.header.openAccount}
           </Link>
         </div>
       </div>

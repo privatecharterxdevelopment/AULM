@@ -1,20 +1,22 @@
 import { Link } from 'react-router-dom'
-import { FEATURED_NEWS, formatNewsDate } from '../data/news'
+import { FEATURED_NEWS } from '../data/news'
 import { formatMarketDate } from '../lib/commodityNews'
 import { useCommodityNews } from '../hooks/useCommodityNews'
 import { NewsPressItem } from './NewsPressItem'
+import { formatLocaleDate, localizeNews, useT } from '../i18n'
 
 type Props = {
   reveal: number
 }
 
 export function NewsSection({ reveal }: Props) {
+  const { t, locale } = useT()
   const { items, live } = useCommodityNews(4)
   const headIn = Math.min(1, reveal / 0.45)
   const listIn = Math.min(1, Math.max(0, (reveal - 0.15) / 0.6))
 
   return (
-    <section className="news-home" aria-label="News" id="news">
+    <section className="news-home" aria-label={t.home.newsHome.aria} id="news">
       <div className="news-home-inner">
         <header
           className="faq-section-head"
@@ -23,8 +25,8 @@ export function NewsSection({ reveal }: Props) {
             transform: `translateY(${(1 - headIn) * 20}px)`,
           }}
         >
-          <p className="faq-section-label">News</p>
-          <h2 className="faq-section-title">News &amp; latest information</h2>
+          <p className="faq-section-label">{t.home.newsHome.label}</p>
+          <h2 className="faq-section-title">{t.home.newsHome.title}</h2>
         </header>
 
         <div
@@ -35,21 +37,24 @@ export function NewsSection({ reveal }: Props) {
           }}
         >
           <div>
-            <p className="news-press-col-label">From the desk</p>
-            {FEATURED_NEWS.map((article) => (
-              <NewsPressItem
-                key={article.slug}
-                href={`/news/${article.slug}`}
-                date={formatNewsDate(article.date)}
-                kicker={article.category}
-                title={article.title}
-              />
-            ))}
+            <p className="news-press-col-label">{t.common.fromTheDesk}</p>
+            {FEATURED_NEWS.map((article) => {
+              const loc = localizeNews(article, t)
+              return (
+                <NewsPressItem
+                  key={article.slug}
+                  href={`/news/${article.slug}`}
+                  date={formatLocaleDate(article.date, locale)}
+                  kicker={loc.category}
+                  title={loc.title}
+                />
+              )
+            })}
           </div>
 
           {live ? (
             <div>
-              <p className="news-press-col-label">Markets</p>
+              <p className="news-press-col-label">{t.common.markets}</p>
               {items.map((item) => (
                 <NewsPressItem
                   key={item.href}
@@ -66,7 +71,7 @@ export function NewsSection({ reveal }: Props) {
 
         <p className="procedure-home-all" style={{ opacity: listIn }}>
           <Link to="/news" className="procedure-home-more">
-            More news
+            {t.common.moreNews}
           </Link>
         </p>
       </div>

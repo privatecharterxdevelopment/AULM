@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { GREEN_HERO_VIDEO } from '../config/media'
 import { GREEN_HOME } from '../data/green'
 import { GreenMarks } from './GreenMarks'
+import { useT } from '../i18n'
 
 type Props = {
   reveal: number
@@ -17,6 +18,7 @@ function playVideo(video: HTMLVideoElement) {
 
 export function GreenSection({ reveal }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const { t } = useT()
   const titleIn = Math.min(1, reveal / 0.5)
   const restIn = Math.min(1, Math.max(0, (reveal - 0.18) / 0.5))
 
@@ -34,7 +36,7 @@ export function GreenSection({ reveal }: Props) {
   }, [])
 
   return (
-    <section className="green-home" aria-label="Climate">
+    <section className="green-home" aria-label={t.home.green.aria}>
       <div className="green-home-pin">
         <div className="vault-frame green-home-frame">
           <video
@@ -56,11 +58,11 @@ export function GreenSection({ reveal }: Props) {
               transform: `translateY(${(1 - titleIn) * 18}px)`,
             }}
           >
-            <p className="green-home-eyebrow">{GREEN_HOME.eyebrow}</p>
+            <p className="green-home-eyebrow">{t.home.green.eyebrow}</p>
             <h2 className="green-home-title">
-              {GREEN_HOME.title[0]}
+              {t.home.green.title1}
               <br />
-              {GREEN_HOME.title[1]}
+              {t.home.green.title2}
             </h2>
             <div
               className="green-home-body"
@@ -69,10 +71,10 @@ export function GreenSection({ reveal }: Props) {
                 transform: `translateY(${(1 - restIn) * 12}px)`,
               }}
             >
-              <p>{GREEN_HOME.lead}</p>
+              <p>{t.home.green.lead}</p>
               <GreenMarks />
               <Link to={GREEN_HOME.href} className="green-home-cta">
-                {GREEN_HOME.cta}
+                {t.home.green.cta}
               </Link>
             </div>
           </div>

@@ -29,12 +29,5 @@ export const PEOPLE_STRIP = {
       href: '/africa',
       cta: 'Read more',
     },
-    {
-      src: '/sourcing/responsible-sourcing.jpg',
-      alt: 'AULM supervisor overlooking the pit',
-      line: 'The desk on site',
-      href: '/africa',
-      cta: 'Africa',
-    },
   ],
 } as const

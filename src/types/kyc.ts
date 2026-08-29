@@ -23,7 +23,7 @@ export type AccountUseCase =
   | 'logistics'
   | 'other'
 
-export type CounterpartyRole = 'seller' | 'buyer' | 'both'
+export type CounterpartyRole = 'seller' | 'buyer' | 'both' | 'agent'
 
 export const ACCOUNT_USE_OPTIONS: { id: AccountUseCase; label: string }[] = [
   { id: 'custody', label: 'Custody & storage' },
@@ -35,6 +35,81 @@ export const ACCOUNT_USE_OPTIONS: { id: AccountUseCase; label: string }[] = [
   { id: 'other', label: 'Other (specify below)' },
 ]
 
+export const COUNTERPARTY_ROLE_OPTIONS: { value: CounterpartyRole; label: string }[] = [
+  {
+    value: 'seller',
+    label: 'Seller — we sell commodities to AULM or its clients',
+  },
+  {
+    value: 'agent',
+    label:
+      'Agent — export licence and minerals dealers licence held in representation of the owner. The agent is the seller of record.',
+  },
+  {
+    value: 'buyer',
+    label: 'Buyer — we purchase commodities from AULM',
+  },
+  {
+    value: 'both',
+    label: 'Both — we buy and sell through AULM (including as agent where licensed)',
+  },
+]
+
+export type KycDocMeta = {
+  name: string
+  size: number
+}
+
+export type KycDocKey =
+  | 'incorporation'
+  | 'exportPermit'
+  | 'mineralDealers'
+  | 'taxCertificate'
+  | 'onboardingPack'
+
+export const KYC_DOC_SLOTS: { key: KycDocKey; title: string; hint: string }[] = [
+  {
+    key: 'incorporation',
+    title: 'Incorporation certificate',
+    hint: 'Certificate of incorporation or trade licence — PDF',
+  },
+  {
+    key: 'exportPermit',
+    title: 'Export permit',
+    hint: 'Valid export permit for the metal — PDF',
+  },
+  {
+    key: 'mineralDealers',
+    title: 'Mineral dealers licence',
+    hint: 'Minerals dealers / trading licence — PDF',
+  },
+  {
+    key: 'taxCertificate',
+    title: 'Tax certificate',
+    hint: 'Tax clearance or registration certificate — PDF',
+  },
+]
+
+export type UboIdentity = {
+  passportFront: KycDocMeta | null
+  passportBack: KycDocMeta | null
+  face: KycDocMeta | null
+}
+
+export const EMPTY_UBO_IDENTITY: UboIdentity = {
+  passportFront: null,
+  passportBack: null,
+  face: null,
+}
+
+export const EMPTY_KYC_DOCUMENTS: Record<KycDocKey, KycDocMeta | null> = {
+  incorporation: null,
+  exportPermit: null,
+  mineralDealers: null,
+  taxCertificate: null,
+  onboardingPack: null,
+}
+
 export type KycFormState = {
   policyAccepted: boolean
   policyScrolled: boolean
@@ -42,6 +117,7 @@ export type KycFormState = {
   signatureDataUrl: string | null
   signatureFileName: string | null
   policyPdfName: string | null
+  packDownloaded: boolean
 
   companyLegalName: string
   tradeName: string
@@ -50,6 +126,8 @@ export type KycFormState = {
   registeredAddress: string
   contactName: string
   contactEmail: string
+  contactDial: string
+  contactPhoneNational: string
   contactPhone: string
   password: string
   passwordConfirm: string
@@ -66,6 +144,7 @@ export type KycFormState = {
   aucbOpenAccount: boolean | null
 
   ubos: UboEntry[]
+  uboIdentities: UboIdentity[]
 
   businessDescription: string
   geoMarkets: string
@@ -75,9 +154,6 @@ export type KycFormState = {
   auditorName: string
   auditorFirm: string
 
-  aulmHandlesImport: boolean
-  aulmHandlesExport: boolean
-
   amlProcedures: string
   complianceOfficerName: string
   complianceOfficerEmail: string
@@ -86,7 +162,7 @@ export type KycFormState = {
   authorisedTitle: string
   authorisedDate: string
 
-  uploadedDocuments: { name: string; size: number }[]
+  kycDocuments: Record<KycDocKey, KycDocMeta | null>
 }
 
 export const EMPTY_UBO: UboEntry = {
@@ -108,6 +184,7 @@ export const EMPTY_KYC_FORM: KycFormState = {
   signatureDataUrl: null,
   signatureFileName: null,
   policyPdfName: null,
+  packDownloaded: false,
 
   companyLegalName: '',
   tradeName: '',
@@ -116,6 +193,8 @@ export const EMPTY_KYC_FORM: KycFormState = {
   registeredAddress: '',
   contactName: '',
   contactEmail: '',
+  contactDial: '+971',
+  contactPhoneNational: '',
   contactPhone: '',
   password: '',
   passwordConfirm: '',
@@ -132,6 +211,7 @@ export const EMPTY_KYC_FORM: KycFormState = {
   aucbOpenAccount: false,
 
   ubos: [{ ...EMPTY_UBO }],
+  uboIdentities: [{ ...EMPTY_UBO_IDENTITY }],
 
   businessDescription: '',
   geoMarkets: '',
@@ -141,9 +221,6 @@ export const EMPTY_KYC_FORM: KycFormState = {
   auditorName: '',
   auditorFirm: '',
 
-  aulmHandlesImport: false,
-  aulmHandlesExport: false,
-
   amlProcedures: '',
   complianceOfficerName: '',
   complianceOfficerEmail: '',
@@ -152,5 +229,5 @@ export const EMPTY_KYC_FORM: KycFormState = {
   authorisedTitle: '',
   authorisedDate: '',
 
-  uploadedDocuments: [],
+  kycDocuments: { ...EMPTY_KYC_DOCUMENTS },
 }

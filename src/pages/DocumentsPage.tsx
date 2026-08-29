@@ -1,5 +1,4 @@
 import {
-  DOCUMENT_CATEGORIES,
   getDocumentsByCategory,
   type DocumentCategory,
 } from '../data/documents'
@@ -9,30 +8,30 @@ import { ProcedurePdfDownload } from '../components/ProcedurePdfDownload'
 import { ProcedureLink } from '../components/ProcedureLink'
 import { ScrollReveal } from '../components/ScrollReveal'
 import { useHashScroll } from '../hooks/useHashScroll'
+import { localizeDocument, usePageTitle, useT } from '../i18n'
 
 const CATEGORIES: DocumentCategory[] = ['shipping-instructions', 'compliance']
 
 export function ProcedurePage() {
+  const { t } = useT()
   useHashScroll()
+  usePageTitle(t.procedurePage.title)
 
   return (
     <div className="procedure-page">
       <section className="refinery-section refinery-section--intro procedure-intro">
         <div className="refinery-section-inner vault-body procedure-intro-inner">
-          <p className="refinery-section-eyebrow">Company</p>
-          <h1 className="vault-body-title">Procedure</h1>
-          <p className="vault-body-lead">
-            Shipping instructions, hand-carry corridors, doré intake and compliance policies for
-            institutional counterparties.
-          </p>
+          <p className="refinery-section-eyebrow">{t.procedurePage.eyebrow}</p>
+          <h1 className="vault-body-title">{t.procedurePage.title}</h1>
+          <p className="vault-body-lead">{t.procedurePage.lead}</p>
           <ProcedurePdfDownload />
           <ProcedureScrollDown />
         </div>
       </section>
 
       {CATEGORIES.map((category, index) => {
-        const meta = DOCUMENT_CATEGORIES[category]
-        const docs = getDocumentsByCategory(category)
+        const meta = t.procedureCategories[category]
+        const docs = getDocumentsByCategory(category).map((doc) => localizeDocument(doc, t))
         const alt = index % 2 === 1
         const isShipping = category === 'shipping-instructions'
 

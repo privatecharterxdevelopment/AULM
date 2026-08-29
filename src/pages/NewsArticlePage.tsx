@@ -3,21 +3,27 @@ import { Link, Navigate, useParams } from 'react-router-dom'
 import { BtnArrow } from '../components/BtnArrow'
 import { NewsPressItem } from '../components/NewsPressItem'
 import { PageHero } from '../components/PageHero'
-import { formatNewsDate, getNewsArticle, NEWS } from '../data/news'
+import { getNewsArticle, NEWS } from '../data/news'
+import { formatLocaleDate, localizeNews, usePageTitle, useT } from '../i18n'
 
 export function NewsArticlePage() {
+  const { t, locale } = useT()
   const { slug } = useParams<{ slug: string }>()
-  const article = slug ? getNewsArticle(slug) : undefined
+  const raw = slug ? getNewsArticle(slug) : undefined
+  const article = raw ? localizeNews(raw, t) : undefined
 
+  usePageTitle(article?.title, article?.excerpt)
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [slug])
 
   if (!article) return <Navigate to="/news" replace />
 
-  const related = NEWS.filter((item) => item.slug !== article.slug).slice(0, 3)
+  const related = NEWS.filter((item) => item.slug !== article.slug)
+    .slice(0, 3)
+    .map((item) => localizeNews(item, t))
 
-  const heroImage = article.image.endsWith('.jpg') ? article.image : '/company/locations/uae.jpg'
+  const heroImage = article.image.endsWith('.jpg') ? article.image : '/news/news-hero.jpg'
 
   return (
     <div className="africa-page">
@@ -26,23 +32,23 @@ export function NewsArticlePage() {
         imageAlt={article.title}
         imagePosition="center 35%"
         crumbs={[
-          { label: 'Home', to: '/' },
-          { label: 'News', to: '/news' },
+          { label: t.common.home, to: '/' },
+          { label: t.common.news, to: '/news' },
         ]}
         eyebrow={article.category}
         title={article.title}
         bar={[
-          { title: 'All news', href: '/news', cta: 'Read more →' },
-          { title: 'Contact us', href: '/contact', cta: 'Write →' },
-          { title: 'Procedure', href: '/company/procedure', cta: 'Open →' },
-          { title: 'The desk', href: '/company', cta: 'About →' },
+          { title: t.common.allNews, href: '/news', cta: t.common.readMoreArrow },
+          { title: t.nav.contact, href: '/contact', cta: t.common.writeArrow },
+          { title: t.nav.procedure, href: '/company/procedure', cta: t.common.openArrow },
+          { title: t.common.theDesk, href: '/company', cta: t.common.aboutArrow },
         ]}
       />
 
       <div className="news-doc news-doc--after-hero">
       <article className="news-doc-article">
         <p className="news-doc-kicker">
-          <time dateTime={article.date}>{formatNewsDate(article.date)}</time>
+          <time dateTime={article.date}>{formatLocaleDate(article.date, locale)}</time>
         </p>
         <p className="news-doc-lead">{article.excerpt}</p>
 
@@ -54,11 +60,11 @@ export function NewsArticlePage() {
 
         <div className="news-doc-actions">
           <Link to="/contact" className="metal-page-btn metal-page-btn--primary">
-            Contact us
+            {t.nav.contact}
             <BtnArrow />
           </Link>
           <Link to="/news" className="metal-page-btn metal-page-btn--secondary">
-            All news
+            {t.common.allNews}
             <BtnArrow />
           </Link>
         </div>
@@ -66,12 +72,12 @@ export function NewsArticlePage() {
 
       {related.length > 0 ? (
         <aside className="news-doc-more">
-          <p className="news-press-col-label">More from the desk</p>
+          <p className="news-press-col-label">{t.news.moreFromDesk}</p>
           {related.map((item) => (
             <NewsPressItem
               key={item.slug}
               href={`/news/${item.slug}`}
-              date={formatNewsDate(item.date)}
+              date={formatLocaleDate(item.date, locale)}
               kicker={item.category}
               title={item.title}
             />

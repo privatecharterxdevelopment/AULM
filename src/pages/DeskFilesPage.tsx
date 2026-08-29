@@ -1,7 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { DeskFormDrawer } from '../components/DeskFormDrawer'
+import { GOLD_SLOTS_2026 } from '../config/site'
 import { DESK_FILE_ROWS, type DeskFormKind } from '../data/deskFiles'
 import { useHashScroll } from '../hooks/useHashScroll'
+import { usePageTitle, useT } from '../i18n'
 
 function PdfIcon() {
   return (
@@ -25,17 +28,12 @@ function kindFromHash(hash: string): DeskFormKind | null {
 }
 
 export function DeskFilesPage() {
+  const { t, interpolate } = useT()
   const [form, setForm] = useState<DeskFormKind | null>(() =>
     typeof window === 'undefined' ? null : kindFromHash(window.location.hash),
   )
   useHashScroll()
-
-  useEffect(() => {
-    document.title = 'AULM | Documents'
-    return () => {
-      document.title = 'AULM | Precious metals desk'
-    }
-  }, [])
+  usePageTitle(t.desk.heading)
 
   function openForm(kind: DeskFormKind, id: string) {
     setForm(kind)
@@ -50,41 +48,55 @@ export function DeskFilesPage() {
   return (
     <div className="desk-files-page">
       <div className="news-doc news-doc--index desk-files">
-        <p className="news-doc-kicker">Desk</p>
-        <h1 className="desk-files-heading">Documents</h1>
-        {DESK_FILE_ROWS.map((row) => (
-          <article key={row.id} id={row.id} className="desk-file-row">
-            <div className="desk-file-copy">
-              <p className="news-press-kicker">{row.kicker}</p>
-              <h2 className="desk-file-title">{row.title}</h2>
-              {row.note ? <p className="desk-file-note">{row.note}</p> : null}
-            </div>
-            <div className="desk-file-actions">
-              {row.pdf ? (
-                <a
-                  href={row.pdf.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  download={row.pdf.filename}
-                  className="header-chip header-pdf"
-                  aria-label={`Download ${row.title} PDF`}
-                >
-                  <PdfIcon />
-                  <span>PDF</span>
-                </a>
-              ) : null}
-              {row.action ? (
-                <button
-                  type="button"
-                  className="desk-file-inquiry"
-                  onClick={() => openForm(row.action!.kind, row.id)}
-                >
-                  {row.action.label}
-                </button>
-              ) : null}
-            </div>
-          </article>
-        ))}
+        <p className="news-doc-kicker">{t.desk.kicker}</p>
+        <h1 className="desk-files-heading">{t.desk.heading}</h1>
+        {DESK_FILE_ROWS.map((row) => {
+          const copy = t.desk.rows[row.id as keyof typeof t.desk.rows]
+          const note = 'note' in copy && copy.note
+            ? interpolate(copy.note, { slots: GOLD_SLOTS_2026 })
+            : undefined
+          const linkLabel = 'link' in copy ? copy.link : undefined
+          const actionLabel = 'action' in copy ? copy.action : undefined
+
+          return (
+            <article key={row.id} id={row.id} className="desk-file-row">
+              <div className="desk-file-copy">
+                <p className="news-press-kicker">{copy.kicker}</p>
+                <h2 className="desk-file-title">{copy.title}</h2>
+                {note ? <p className="desk-file-note">{note}</p> : null}
+              </div>
+              <div className="desk-file-actions">
+                {row.pdf ? (
+                  <a
+                    href={row.pdf.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download={row.pdf.filename}
+                    className="header-chip header-pdf"
+                    aria-label={interpolate(t.desk.downloadAria, { title: copy.title })}
+                  >
+                    <PdfIcon />
+                    <span>{t.desk.pdf}</span>
+                  </a>
+                ) : null}
+                {row.link && linkLabel ? (
+                  <Link to={row.link.href} className="desk-file-inquiry">
+                    {linkLabel}
+                  </Link>
+                ) : null}
+                {row.action && actionLabel ? (
+                  <button
+                    type="button"
+                    className="desk-file-inquiry"
+                    onClick={() => openForm(row.action!.kind, row.id)}
+                  >
+                    {actionLabel}
+                  </button>
+                ) : null}
+              </div>
+            </article>
+          )
+        })}
       </div>
 
       {form ? <DeskFormDrawer kind={form} onClose={closeForm} /> : null}

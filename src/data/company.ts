@@ -28,8 +28,8 @@ export const COMPANY = {
     { label: 'Network', value: 'DXB · CH · LI · HK' },
   ],
   photo: {
-    src: '/company/locations/uae.jpg',
-    alt: 'Dubai — licensed desk',
+    src: '/company/office.jpg',
+    alt: 'AULM office — IFZA Business Park, Dubai',
   },
   sections: [
     {

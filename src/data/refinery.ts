@@ -10,25 +10,21 @@ export const REFINERY = {
       id: 'dore',
       title: 'Doré gold',
       text: 'Unrefined gold bars and ingots from licensed producers. Documented origin, assay pairing and chain-of-custody required before partner refinery intake and MT103 settlement.',
-      image: '/refinery/dore.svg',
     },
     {
       id: 'dust',
       title: 'Dust',
       text: 'Fine alluvial and concentrate dust — weighed, sealed and fire-assayed within 48 hours. Total weight and fineness confirmed before payment instruction.',
-      image: '/refinery/dust.svg',
     },
     {
       id: 'nuggets',
       title: 'Nuggets',
       text: 'Raw nugget lots from verified sources. Each shipment subject to supply-chain verification, enhanced due diligence and institutional onboarding before purchase.',
-      image: '/refinery/nuggets.svg',
     },
     {
       id: 'bullion',
       title: 'Bullion bars (non-LBMA)',
       text: 'Non-LBMA bullion bars for re-melting, institutional offtake or structured exit — assay, provenance and compliance clearance required before intake.',
-      image: '/refinery/bullion.svg',
     },
   ],
   sell: {

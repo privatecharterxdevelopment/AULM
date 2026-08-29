@@ -3,24 +3,36 @@ import { useNavigate } from 'react-router-dom'
 import { BtnArrow } from '../BtnArrow'
 import { ScrollPolicyReader } from './ScrollPolicyReader'
 import { SignatureCapture } from './SignatureCapture'
-import { CONTACT_EMAIL, LICENSE_NUMBER } from '../../config/site'
+import { PhoneField } from './PhoneField'
+import { KycDocSlot } from './KycDocSlot'
+import { UboIdentityVerify } from './UboIdentityVerify'
+import { CONTACT_EMAIL, KYC_ONBOARDING_FILENAME, KYC_ONBOARDING_PDF, LICENSE_NUMBER } from '../../config/site'
+import { formatE164, softPhoneStatus } from '../../data/dialCodes'
+import { uboOwnershipComplete, uboOwnershipTotal } from '../../lib/uboOwnership'
 import {
   ACCOUNT_USE_OPTIONS,
+  COUNTERPARTY_ROLE_OPTIONS,
   EMPTY_KYC_FORM,
   EMPTY_UBO,
+  EMPTY_UBO_IDENTITY,
+  KYC_DOC_SLOTS,
   type AccountUseCase,
+  type KycDocKey,
   type KycFormState,
+  type UboIdentity,
 } from '../../types/kyc'
 import { submitKyc } from '../../utils/submitKyc'
+import { useT } from '../../i18n'
 
 const STEPS = [
-  { id: 'company', label: 'Your business' },
-  { id: 'account', label: 'Settlement' },
-  { id: 'ubo', label: 'UBOs' },
-  { id: 'business', label: 'Business' },
-  { id: 'compliance', label: 'Compliance' },
-  { id: 'policy', label: 'Policies' },
-  { id: 'review', label: 'Review' },
+  { id: 'company' },
+  { id: 'account' },
+  { id: 'ubo' },
+  { id: 'business' },
+  { id: 'compliance' },
+  { id: 'policy' },
+  { id: 'review' },
+  { id: 'identity' },
 ] as const
 
 function Field({
@@ -45,17 +57,28 @@ function Field({
   )
 }
 
-function bankSectionTitle(role: KycFormState['counterpartyRole']) {
-  if (role === 'seller') return 'Seller bank account'
-  if (role === 'buyer') return 'Buyer bank account'
-  if (role === 'both') return 'Settlement bank account'
-  return 'Bank account'
+function identityReady(entry: UboIdentity | undefined) {
+  return Boolean(entry?.passportFront && entry?.passportBack && entry?.face)
 }
 
 export function KycWizard() {
+  const { t, interpolate } = useT()
   const navigate = useNavigate()
+  const k = t.kyc
+
+  const bankSectionTitle = (role: KycFormState['counterpartyRole']) => {
+    if (role === 'seller' || role === 'agent') return k.account.bankSeller
+    if (role === 'buyer') return k.account.bankBuyer
+    if (role === 'both') return k.account.bankBoth
+    return k.account.bankDefault
+  }
   const [step, setStep] = useState(0)
-  const [form, setForm] = useState<KycFormState>({ ...EMPTY_KYC_FORM, ubos: [{ ...EMPTY_UBO }] })
+  const [form, setForm] = useState<KycFormState>({
+    ...EMPTY_KYC_FORM,
+    ubos: [{ ...EMPTY_UBO }],
+    uboIdentities: [{ ...EMPTY_UBO_IDENTITY }],
+    kycDocuments: { ...EMPTY_KYC_FORM.kycDocuments },
+  })
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
 
@@ -73,46 +96,56 @@ export function KycWizard() {
   const validateStep = (): string | null => {
     switch (STEPS[step].id) {
       case 'policy':
-        if (!form.policyScrolled) return 'Please scroll through the full policy document.'
-        if (!form.policyAccepted) return 'Please accept the policies to continue.'
-        if (!form.signatureDataUrl && !form.policyPdfName)
-          return 'Please draw, upload your signature, or attach a signed policy PDF.'
+        if (!form.policyScrolled) return k.errors.scrollPolicy
+        if (!form.policyAccepted) return k.errors.acceptPolicy
+        if (!form.signatureDataUrl && !form.policyPdfName) return k.errors.signature
         return null
       case 'company':
-        if (!form.companyLegalName || !form.contactName)
-          return 'Business name and representative are required.'
-        if (!form.contactEmail.trim()) return 'Business email is required.'
+        if (!form.packDownloaded) return k.errors.packDownload
+        if (!form.companyLegalName || !form.contactName) return k.errors.businessName
+        if (!form.contactEmail.trim()) return k.errors.emailRequired
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.contactEmail.trim()))
-          return 'Enter a valid business email.'
-        if (!form.contactPhone || !form.registeredAddress || !form.registrationNumber)
-          return 'Phone, address, and license / registration number are required.'
-        if (!form.incorporationCountry) return 'Country of incorporation is required.'
+          return k.errors.emailInvalid
+        if (softPhoneStatus(form.contactPhoneNational) === 'empty') return k.errors.phoneRequired
+        if (!form.registeredAddress || !form.registrationNumber) return k.errors.addressLicense
+        if (!form.incorporationCountry) return k.errors.country
         return null
       case 'account':
-        if (form.accountUseCases.length === 0)
-          return 'Select at least one primary use for your AULM account.'
+        if (form.accountUseCases.length === 0) return k.errors.useCase
         if (form.accountUseCases.includes('other') && !form.accountUseOther.trim())
-          return 'Please specify your other account use.'
-        if (!form.expectedTurnover.trim()) return 'Expected turnover is required.'
-        if (!form.counterpartyRole) return 'Please indicate whether you act as seller, buyer, or both.'
+          return k.errors.otherUse
+        if (!form.expectedTurnover.trim()) return k.errors.turnover
+        if (!form.counterpartyRole) return k.errors.role
         if (!form.bankAccountHolder || !form.bankName || !form.bankIban || !form.bankCountry)
-          return 'Complete all required bank account fields.'
+          return k.errors.bank
         return null
       case 'ubo':
         for (const u of form.ubos) {
           if (!u.name || !u.ownership || !u.dob || !u.nationality || !u.address || !u.sourceOfWealth)
-            return 'Complete all required UBO fields.'
+            return k.errors.uboFields
         }
+        if (!uboOwnershipComplete(form.ubos)) return k.errors.uboTotal
         return null
       case 'business':
         if (!form.businessDescription || !form.geoMarkets || !form.companySourceOfFunds)
-          return 'Describe your business and source of funds.'
+          return k.errors.businessFunds
         return null
       case 'compliance':
         if (!form.amlProcedures || !form.complianceOfficerName || !form.complianceOfficerEmail)
-          return 'AML / compliance details are required.'
+          return k.errors.aml
         if (!form.authorisedName || !form.authorisedTitle || !form.authorisedDate)
-          return 'Declaration signatory details are required.'
+          return k.errors.declaration
+        for (const slot of KYC_DOC_SLOTS) {
+          if (!form.kycDocuments[slot.key]) {
+            const title = k.docs[slot.key as Exclude<KycDocKey, 'onboardingPack'>].title
+            return interpolate(k.errors.uploadSlot, { title })
+          }
+        }
+        return null
+      case 'identity':
+        if (!form.kycDocuments.onboardingPack) return k.errors.onboardingPack
+        if (form.ubos.some((_, i) => !identityReady(form.uboIdentities[i])))
+          return k.errors.identity
         return null
       default:
         return null
@@ -134,15 +167,8 @@ export function KycWizard() {
     setStep((s) => Math.max(s - 1, 0))
   }
 
-  const onDocs = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files ?? [])
-    patch({
-      uploadedDocuments: [
-        ...form.uploadedDocuments,
-        ...files.map((f) => ({ name: f.name, size: f.size })),
-      ],
-    })
-    e.target.value = ''
+  const setDoc = (key: KycDocKey, file: KycFormState['kycDocuments'][KycDocKey]) => {
+    patch({ kycDocuments: { ...form.kycDocuments, [key]: file } })
   }
 
   const handleSubmit = async () => {
@@ -153,7 +179,10 @@ export function KycWizard() {
     }
     setSubmitting(true)
     setError(null)
-    const result = await submitKyc(form)
+    const result = await submitKyc({
+      ...form,
+      contactPhone: formatE164(form.contactDial, form.contactPhoneNational),
+    })
     setSubmitting(false)
     if (!result.ok) {
       setError(result.error)
@@ -174,16 +203,16 @@ export function KycWizard() {
           <span className="kyc-wizard-meta-count">
             {step + 1} / {STEPS.length}
           </span>
-          <span className="kyc-wizard-meta-label">{currentStep.label}</span>
+          <span className="kyc-wizard-meta-label">{k.steps[currentStep.id]}</span>
         </p>
       </div>
 
       <div className="kyc-wizard-panel">
         {STEPS[step].id === 'policy' ? (
           <>
-            <h2 className="kyc-wizard-title">Responsible sourcing &amp; compliance</h2>
+            <h2 className="kyc-wizard-title">{k.policy.title}</h2>
             <p className="kyc-wizard-lead">
-              Read the full policy below. IFZA License {LICENSE_NUMBER}.
+              {interpolate(k.policy.lead, { license: LICENSE_NUMBER })}
             </p>
             <ScrollPolicyReader
               accepted={form.policyAccepted}
@@ -193,10 +222,8 @@ export function KycWizard() {
             />
             {form.policyAccepted ? (
               <div className="kyc-wizard-block kyc-wizard-block--sign">
-                <h3 className="kyc-wizard-subtitle">Your signature</h3>
-                <p className="kyc-wizard-block-lead">
-                  Draw, upload an image, or attach a signed PDF.
-                </p>
+                <h3 className="kyc-wizard-subtitle">{k.policy.signature}</h3>
+                <p className="kyc-wizard-block-lead">{k.policy.signatureLead}</p>
                 <SignatureCapture
                   mode={form.signatureMode}
                   dataUrl={form.signatureDataUrl}
@@ -206,7 +233,7 @@ export function KycWizard() {
                     patch({ signatureDataUrl, signatureFileName, policyPdfName: null })
                   }
                 />
-                <p className="kyc-signature-or">or</p>
+                <p className="kyc-signature-or">{t.common.or}</p>
                 <label className="kyc-docs-upload">
                   <input
                     type="file"
@@ -224,11 +251,9 @@ export function KycWizard() {
                     }}
                   />
                   <span className="kyc-docs-upload-inner">
-                    <strong>Upload signed policy PDF</strong>
+                    <strong>{k.policy.uploadPdf}</strong>
                     <span>
-                      {form.policyPdfName
-                        ? form.policyPdfName
-                        : 'Fully executed acknowledgment document'}
+                      {form.policyPdfName ? form.policyPdfName : k.policy.uploadPdfHint}
                     </span>
                   </span>
                 </label>
@@ -239,15 +264,13 @@ export function KycWizard() {
 
         {STEPS[step].id === 'company' ? (
           <>
-            <h2 className="kyc-wizard-title">Your business</h2>
-            <p className="kyc-wizard-lead">
-              Standard KYB details so we can approve you to sell gold to AULM.
-            </p>
+            <h2 className="kyc-wizard-title">{k.company.title}</h2>
+            <p className="kyc-wizard-lead">{k.company.lead}</p>
 
             <div className="kyc-wizard-block kyc-wizard-block--inline">
-              <h3 className="kyc-wizard-subtitle">Entity &amp; representative</h3>
+              <h3 className="kyc-wizard-subtitle">{k.company.entity}</h3>
               <div className="kyc-grid">
-                <Field label="Legal business name" id="companyLegalName" required>
+                <Field label={k.company.legalName} id="companyLegalName" required>
                   <input
                     id="companyLegalName"
                     value={form.companyLegalName}
@@ -255,14 +278,14 @@ export function KycWizard() {
                     required
                   />
                 </Field>
-                <Field label="Trade name (if different)" id="tradeName">
+                <Field label={k.company.tradeName} id="tradeName">
                   <input
                     id="tradeName"
                     value={form.tradeName}
                     onChange={(e) => patch({ tradeName: e.target.value })}
                   />
                 </Field>
-                <Field label="Authorised representative" id="contactName" required>
+                <Field label={k.company.representative} id="contactName" required>
                   <input
                     id="contactName"
                     value={form.contactName}
@@ -270,7 +293,7 @@ export function KycWizard() {
                     required
                   />
                 </Field>
-                <Field label="Business email" id="contactEmail" required>
+                <Field label={k.company.email} id="contactEmail" required>
                   <input
                     id="contactEmail"
                     type="email"
@@ -284,18 +307,28 @@ export function KycWizard() {
             </div>
 
             <div className="kyc-wizard-block kyc-wizard-block--inline">
-              <h3 className="kyc-wizard-subtitle">Contact &amp; registration</h3>
+              <h3 className="kyc-wizard-subtitle">{k.company.contactReg}</h3>
               <div className="kyc-grid">
-                <Field label="Phone / WhatsApp" id="contactPhone" required>
-                  <input
+                <Field label={k.company.phone} id="contactPhone" required>
+                  <PhoneField
                     id="contactPhone"
-                    type="tel"
-                    value={form.contactPhone}
-                    onChange={(e) => patch({ contactPhone: e.target.value })}
-                    required
+                    dial={form.contactDial}
+                    national={form.contactPhoneNational}
+                    onDial={(contactDial) =>
+                      patch({
+                        contactDial,
+                        contactPhone: formatE164(contactDial, form.contactPhoneNational),
+                      })
+                    }
+                    onNational={(contactPhoneNational) =>
+                      patch({
+                        contactPhoneNational,
+                        contactPhone: formatE164(form.contactDial, contactPhoneNational),
+                      })
+                    }
                   />
                 </Field>
-                <Field label="Country of incorporation" id="incorporationCountry" required>
+                <Field label={k.company.country} id="incorporationCountry" required>
                   <input
                     id="incorporationCountry"
                     value={form.incorporationCountry}
@@ -303,17 +336,17 @@ export function KycWizard() {
                     required
                   />
                 </Field>
-                <Field label="License / registration no." id="registrationNumber" required>
+                <Field label={k.company.registration} id="registrationNumber" required>
                   <input
                     id="registrationNumber"
                     value={form.registrationNumber}
                     onChange={(e) => patch({ registrationNumber: e.target.value })}
-                    placeholder={`e.g. IFZA ${LICENSE_NUMBER}`}
+                    placeholder={interpolate(k.company.registrationPlaceholder, { license: LICENSE_NUMBER })}
                     required
                   />
                 </Field>
               </div>
-              <Field label="Registered address" id="registeredAddress" required>
+              <Field label={k.company.address} id="registeredAddress" required>
                 <input
                   id="registeredAddress"
                   value={form.registeredAddress}
@@ -322,19 +355,31 @@ export function KycWizard() {
                 />
               </Field>
             </div>
+
+            <div className="kyc-wizard-block kyc-wizard-block--inline">
+              <h3 className="kyc-wizard-subtitle">{k.company.packTitle}</h3>
+              <p className="kyc-wizard-block-lead">{k.company.packLead}</p>
+              <a
+                href={KYC_ONBOARDING_PDF}
+                download={KYC_ONBOARDING_FILENAME}
+                className={`metal-page-btn metal-page-btn--secondary kyc-pack-download${form.packDownloaded ? ' is-done' : ''}`}
+                onClick={() => patch({ packDownloaded: true })}
+              >
+                {form.packDownloaded ? k.company.packDownloaded : k.company.packDownload}
+                <BtnArrow />
+              </a>
+            </div>
           </>
         ) : null}
 
         {STEPS[step].id === 'account' ? (
           <>
-            <h2 className="kyc-wizard-title">How you work with AULM</h2>
-            <p className="kyc-wizard-lead">
-              Tell us if you sell gold to our desk and where payouts should be sent.
-            </p>
+            <h2 className="kyc-wizard-title">{k.account.title}</h2>
+            <p className="kyc-wizard-lead">{k.account.lead}</p>
 
             <div className="kyc-wizard-block kyc-wizard-block--inline">
-              <h3 className="kyc-wizard-subtitle">Primary account use</h3>
-              <p className="kyc-wizard-block-lead">Select all that apply.</p>
+              <h3 className="kyc-wizard-subtitle">{k.account.useTitle}</h3>
+              <p className="kyc-wizard-block-lead">{k.account.useLead}</p>
               <div className="kyc-check-group">
                 {ACCOUNT_USE_OPTIONS.map((opt) => (
                   <label key={opt.id} className="kyc-check">
@@ -343,12 +388,12 @@ export function KycWizard() {
                       checked={form.accountUseCases.includes(opt.id)}
                       onChange={() => toggleUseCase(opt.id)}
                     />
-                    <span>{opt.label}</span>
+                    <span>{k.account.use[opt.id]}</span>
                   </label>
                 ))}
               </div>
               {form.accountUseCases.includes('other') ? (
-                <Field label="Other use (please specify)" id="accountUseOther" required>
+                <Field label={k.account.otherUse} id="accountUseOther" required>
                   <input
                     id="accountUseOther"
                     value={form.accountUseOther}
@@ -359,29 +404,21 @@ export function KycWizard() {
               ) : null}
             </div>
 
-            <Field label="Expected turnover (USD / year)" id="expectedTurnover" required>
+            <Field label={k.account.turnover} id="expectedTurnover" required>
               <input
                 id="expectedTurnover"
                 value={form.expectedTurnover}
                 onChange={(e) => patch({ expectedTurnover: e.target.value })}
-                placeholder="e.g. 5,000,000"
+                placeholder={k.account.turnoverPlaceholder}
                 required
               />
             </Field>
 
             <div className="kyc-wizard-block kyc-wizard-block--inline">
-              <h3 className="kyc-wizard-subtitle">Your role in transactions</h3>
-              <p className="kyc-wizard-block-lead">
-                We use this to label the settlement account below.
-              </p>
+              <h3 className="kyc-wizard-subtitle">{k.account.roleTitle}</h3>
+              <p className="kyc-wizard-block-lead">{k.account.roleLead}</p>
               <div className="kyc-radio-stack">
-                {(
-                  [
-                    ['seller', 'Seller — we sell commodities to AULM or its clients'],
-                    ['buyer', 'Buyer — we purchase commodities from AULM'],
-                    ['both', 'Both — we buy and sell through AULM'],
-                  ] as const
-                ).map(([value, label]) => (
+                {COUNTERPARTY_ROLE_OPTIONS.map(({ value }) => (
                   <label
                     key={value}
                     className={`kyc-radio-card${form.counterpartyRole === value ? ' is-selected' : ''}`}
@@ -392,7 +429,7 @@ export function KycWizard() {
                       checked={form.counterpartyRole === value}
                       onChange={() => patch({ counterpartyRole: value })}
                     />
-                    {label}
+                    {k.account.role[value]}
                   </label>
                 ))}
               </div>
@@ -401,11 +438,9 @@ export function KycWizard() {
             {form.counterpartyRole ? (
               <div className="kyc-wizard-block kyc-wizard-block--inline">
                 <h3 className="kyc-wizard-subtitle">{bankSectionTitle(form.counterpartyRole)}</h3>
-                <p className="kyc-wizard-block-lead">
-                  Account for settlements related to your declared role.
-                </p>
+                <p className="kyc-wizard-block-lead">{k.account.bankLead}</p>
                 <div className="kyc-grid">
-                  <Field label="Account holder" id="bankAccountHolder" required>
+                  <Field label={k.account.holder} id="bankAccountHolder" required>
                     <input
                       id="bankAccountHolder"
                       value={form.bankAccountHolder}
@@ -413,7 +448,7 @@ export function KycWizard() {
                       required
                     />
                   </Field>
-                  <Field label="Bank name" id="bankName" required>
+                  <Field label={k.account.bankName} id="bankName" required>
                     <input
                       id="bankName"
                       value={form.bankName}
@@ -421,7 +456,7 @@ export function KycWizard() {
                       required
                     />
                   </Field>
-                  <Field label="IBAN / account number" id="bankIban" required>
+                  <Field label={k.account.iban} id="bankIban" required>
                     <input
                       id="bankIban"
                       value={form.bankIban}
@@ -429,14 +464,14 @@ export function KycWizard() {
                       required
                     />
                   </Field>
-                  <Field label="SWIFT / BIC" id="bankSwift">
+                  <Field label={k.account.swift} id="bankSwift">
                     <input
                       id="bankSwift"
                       value={form.bankSwift}
                       onChange={(e) => patch({ bankSwift: e.target.value })}
                     />
                   </Field>
-                  <Field label="Bank country" id="bankCountry" required>
+                  <Field label={k.account.bankCountry} id="bankCountry" required>
                     <input
                       id="bankCountry"
                       value={form.bankCountry}
@@ -452,23 +487,30 @@ export function KycWizard() {
 
         {STEPS[step].id === 'ubo' ? (
           <>
-            <h2 className="kyc-wizard-title">Ultimate beneficial owners</h2>
-            <p className="kyc-wizard-lead">
-              Any natural person owning or controlling ≥25% of shares or voting rights.
+            <h2 className="kyc-wizard-title">{k.ubo.title}</h2>
+            <p className="kyc-wizard-lead">{k.ubo.lead}</p>
+            <p className={`kyc-ubo-total${uboOwnershipComplete(form.ubos) ? ' is-ok' : ' is-short'}`}>
+              {interpolate(k.ubo.total, {
+                pct: uboOwnershipTotal(form.ubos).toFixed(1).replace(/\.0$/, ''),
+              })}
+              {uboOwnershipComplete(form.ubos) ? k.ubo.complete : k.ubo.mustEqual}
             </p>
             {form.ubos.map((ubo, index) => (
               <article key={index} className="kyc-ubo-card">
                 <div className="kyc-ubo-head">
-                  <h3>UBO {index + 1}</h3>
+                  <h3>{interpolate(k.ubo.heading, { n: index + 1 })}</h3>
                   {form.ubos.length > 1 ? (
                     <button
                       type="button"
                       className="kyc-ubo-remove"
                       onClick={() =>
-                        patch({ ubos: form.ubos.filter((_, i) => i !== index) })
+                        patch({
+                          ubos: form.ubos.filter((_, i) => i !== index),
+                          uboIdentities: form.uboIdentities.filter((_, i) => i !== index),
+                        })
                       }
                     >
-                      Remove
+                      {k.ubo.remove}
                     </button>
                   ) : null}
                 </div>
@@ -483,7 +525,7 @@ export function KycWizard() {
                         patch({ ubos })
                       }}
                     />
-                    Private individual
+                    {k.ubo.private}
                   </label>
                   <label className="kyc-radio">
                     <input
@@ -495,11 +537,11 @@ export function KycWizard() {
                         patch({ ubos })
                       }}
                     />
-                    Corporate entity
+                    {k.ubo.corporate}
                   </label>
                 </div>
                 <div className="kyc-grid">
-                  <Field label="Full legal name" required>
+                  <Field label={k.ubo.fullName} required>
                     <input
                       value={ubo.name}
                       onChange={(e) => {
@@ -510,7 +552,7 @@ export function KycWizard() {
                       required
                     />
                   </Field>
-                  <Field label="Ownership %" required>
+                  <Field label={k.ubo.ownership} required>
                     <input
                       value={ubo.ownership}
                       onChange={(e) => {
@@ -518,11 +560,11 @@ export function KycWizard() {
                         ubos[index] = { ...ubo, ownership: e.target.value }
                         patch({ ubos })
                       }}
-                      placeholder="e.g. 25"
+                      placeholder={k.ubo.ownershipPlaceholder}
                       required
                     />
                   </Field>
-                  <Field label="Date of birth" required>
+                  <Field label={k.ubo.dob} required>
                     <input
                       value={ubo.dob}
                       onChange={(e) => {
@@ -530,11 +572,11 @@ export function KycWizard() {
                         ubos[index] = { ...ubo, dob: e.target.value }
                         patch({ ubos })
                       }}
-                      placeholder="DD/MM/YYYY"
+                      placeholder={k.ubo.dobPlaceholder}
                       required
                     />
                   </Field>
-                  <Field label="Nationality" required>
+                  <Field label={k.ubo.nationality} required>
                     <input
                       value={ubo.nationality}
                       onChange={(e) => {
@@ -546,7 +588,7 @@ export function KycWizard() {
                     />
                   </Field>
                 </div>
-                <Field label="Residential address" required>
+                <Field label={k.ubo.address} required>
                   <input
                     value={ubo.address}
                     onChange={(e) => {
@@ -557,7 +599,7 @@ export function KycWizard() {
                     required
                   />
                 </Field>
-                <Field label="Occupation" required>
+                <Field label={k.ubo.occupation} required>
                   <input
                     value={ubo.occupation}
                     onChange={(e) => {
@@ -568,7 +610,7 @@ export function KycWizard() {
                     required
                   />
                 </Field>
-                <Field label="Employment history (last 5 years)">
+                <Field label={k.ubo.employment}>
                   <textarea
                     rows={2}
                     value={ubo.employment}
@@ -579,7 +621,7 @@ export function KycWizard() {
                     }}
                   />
                 </Field>
-                <Field label="Source of wealth" required>
+                <Field label={k.ubo.wealth} required>
                   <textarea
                     rows={3}
                     value={ubo.sourceOfWealth}
@@ -596,17 +638,22 @@ export function KycWizard() {
             <button
               type="button"
               className="metal-page-btn metal-page-btn--secondary"
-              onClick={() => patch({ ubos: [...form.ubos, { ...EMPTY_UBO }] })}
+              onClick={() =>
+                patch({
+                  ubos: [...form.ubos, { ...EMPTY_UBO }],
+                  uboIdentities: [...form.uboIdentities, { ...EMPTY_UBO_IDENTITY }],
+                })
+              }
             >
-              + Add UBO
+              {k.ubo.add}
             </button>
           </>
         ) : null}
 
         {STEPS[step].id === 'business' ? (
           <>
-            <h2 className="kyc-wizard-title">Business &amp; source of funds</h2>
-            <Field label="Description of activities" id="businessDescription" required>
+            <h2 className="kyc-wizard-title">{k.business.title}</h2>
+            <Field label={k.business.activities} id="businessDescription" required>
               <textarea
                 id="businessDescription"
                 rows={4}
@@ -615,7 +662,7 @@ export function KycWizard() {
                 required
               />
             </Field>
-            <Field label="Geographic markets" id="geoMarkets" required>
+            <Field label={k.business.markets} id="geoMarkets" required>
               <input
                 id="geoMarkets"
                 value={form.geoMarkets}
@@ -623,40 +670,40 @@ export function KycWizard() {
                 required
               />
             </Field>
-            <Field label="Company source of funds" id="companySourceOfFunds" required>
+            <Field label={k.business.funds} id="companySourceOfFunds" required>
               <textarea
                 id="companySourceOfFunds"
                 rows={4}
                 value={form.companySourceOfFunds}
                 onChange={(e) => patch({ companySourceOfFunds: e.target.value })}
-                placeholder="Describe origin of capital, trading profits, investor funding, etc."
+                placeholder={k.business.fundsPlaceholder}
                 required
               />
             </Field>
             <div className="kyc-grid">
-              <Field label="Annual revenue (USD)" id="annualRevenue">
+              <Field label={k.business.revenue} id="annualRevenue">
                 <input
                   id="annualRevenue"
                   value={form.annualRevenue}
                   onChange={(e) => patch({ annualRevenue: e.target.value })}
                 />
               </Field>
-              <Field label="Annual tax paid (USD)" id="annualTaxPaid">
+              <Field label={k.business.tax} id="annualTaxPaid">
                 <input
                   id="annualTaxPaid"
                   value={form.annualTaxPaid}
                   onChange={(e) => patch({ annualTaxPaid: e.target.value })}
                 />
               </Field>
-              <Field label="Auditor firm" id="auditorFirm">
+              <Field label={k.business.auditorFirm} id="auditorFirm">
                 <input
                   id="auditorFirm"
                   value={form.auditorFirm}
                   onChange={(e) => patch({ auditorFirm: e.target.value })}
-                  placeholder="If applicable"
+                  placeholder={k.business.ifApplicable}
                 />
               </Field>
-              <Field label="Lead auditor name" id="auditorName">
+              <Field label={k.business.auditorName} id="auditorName">
                 <input
                   id="auditorName"
                   value={form.auditorName}
@@ -664,35 +711,13 @@ export function KycWizard() {
                 />
               </Field>
             </div>
-            <div className="kyc-wizard-block kyc-wizard-block--inline">
-              <h3 className="kyc-wizard-subtitle">AULM logistics</h3>
-              <p className="kyc-wizard-block-lead">Optional — tick if you need us to arrange corridors.</p>
-              <div className="kyc-check-group">
-                <label className="kyc-check">
-                  <input
-                    type="checkbox"
-                    checked={form.aulmHandlesExport}
-                    onChange={(e) => patch({ aulmHandlesExport: e.target.checked })}
-                  />
-                  <span>AULM should handle export logistics on our behalf</span>
-                </label>
-                <label className="kyc-check">
-                  <input
-                    type="checkbox"
-                    checked={form.aulmHandlesImport}
-                    onChange={(e) => patch({ aulmHandlesImport: e.target.checked })}
-                  />
-                  <span>AULM should handle import logistics on our behalf</span>
-                </label>
-              </div>
-            </div>
           </>
         ) : null}
 
         {STEPS[step].id === 'compliance' ? (
           <>
-            <h2 className="kyc-wizard-title">AML &amp; compliance</h2>
-            <Field label="AML/CFT procedures in place" id="amlProcedures" required>
+            <h2 className="kyc-wizard-title">{k.compliance.title}</h2>
+            <Field label={k.compliance.aml} id="amlProcedures" required>
               <textarea
                 id="amlProcedures"
                 rows={4}
@@ -702,7 +727,7 @@ export function KycWizard() {
               />
             </Field>
             <div className="kyc-grid">
-              <Field label="Compliance officer" id="complianceOfficerName" required>
+              <Field label={k.compliance.officer} id="complianceOfficerName" required>
                 <input
                   id="complianceOfficerName"
                   value={form.complianceOfficerName}
@@ -710,7 +735,7 @@ export function KycWizard() {
                   required
                 />
               </Field>
-              <Field label="Officer email" id="complianceOfficerEmail" required>
+              <Field label={k.compliance.officerEmail} id="complianceOfficerEmail" required>
                 <input
                   id="complianceOfficerEmail"
                   type="email"
@@ -720,9 +745,9 @@ export function KycWizard() {
                 />
               </Field>
             </div>
-            <h3 className="kyc-wizard-subtitle">Declaration</h3>
+            <h3 className="kyc-wizard-subtitle">{k.compliance.declaration}</h3>
             <div className="kyc-grid">
-              <Field label="Authorised signatory" id="authorisedName" required>
+              <Field label={k.compliance.signatory} id="authorisedName" required>
                 <input
                   id="authorisedName"
                   value={form.authorisedName}
@@ -730,7 +755,7 @@ export function KycWizard() {
                   required
                 />
               </Field>
-              <Field label="Title" id="authorisedTitle" required>
+              <Field label={k.compliance.titleField} id="authorisedTitle" required>
                 <input
                   id="authorisedTitle"
                   value={form.authorisedTitle}
@@ -738,80 +763,109 @@ export function KycWizard() {
                   required
                 />
               </Field>
-              <Field label="Date" id="authorisedDate" required>
+              <Field label={k.compliance.date} id="authorisedDate" required>
                 <input
                   id="authorisedDate"
                   value={form.authorisedDate}
                   onChange={(e) => patch({ authorisedDate: e.target.value })}
-                  placeholder="DD/MM/YYYY"
+                  placeholder={k.compliance.datePlaceholder}
                   required
                 />
               </Field>
             </div>
-            <p className="kyc-declaration-text">
-              I declare that the information provided is true and complete. I authorise AULM to verify this
-              information for AML/CFT and OECD due diligence purposes.
-            </p>
-            <label className="kyc-docs-upload">
-              <input type="file" accept="application/pdf" multiple onChange={onDocs} />
-              <span className="kyc-docs-upload-inner">
-                <strong>Upload supporting PDFs</strong>
-                <span>Corporate registry, licences, financials — optional at this stage</span>
-              </span>
-            </label>
-            {form.uploadedDocuments.length > 0 ? (
-              <ul className="kyc-docs-list">
-                {form.uploadedDocuments.map((d) => (
-                  <li key={d.name}>{d.name}</li>
-                ))}
-              </ul>
-            ) : null}
+            <p className="kyc-declaration-text">{k.compliance.declarationText}</p>
+            <div className="kyc-doc-slots">
+              {KYC_DOC_SLOTS.map((slot) => {
+                const copy = k.docs[slot.key as Exclude<KycDocKey, 'onboardingPack'>]
+                return (
+                  <KycDocSlot
+                    key={slot.key}
+                    id={`kyc-doc-${slot.key}`}
+                    title={copy.title}
+                    hint={copy.hint}
+                    file={form.kycDocuments[slot.key]}
+                    onFile={(file) => setDoc(slot.key, file)}
+                  />
+                )
+              })}
+            </div>
           </>
         ) : null}
 
         {STEPS[step].id === 'review' ? (
           <>
-            <h2 className="kyc-wizard-title">Review &amp; submit</h2>
+            <h2 className="kyc-wizard-title">{k.review.title}</h2>
             <dl className="kyc-review">
-              <dt>Company</dt>
+              <dt>{k.review.company}</dt>
               <dd>{form.companyLegalName}</dd>
-              <dt>Contact</dt>
+              <dt>{k.review.contact}</dt>
               <dd>
                 {form.contactName} · {form.contactEmail}
               </dd>
-              <dt>Account use</dt>
+              <dt>{k.review.accountUse}</dt>
               <dd>
-                {form.accountUseCases
-                  .map((id) => ACCOUNT_USE_OPTIONS.find((o) => o.id === id)?.label ?? id)
-                  .join(' · ')}
+                {form.accountUseCases.map((id) => k.account.use[id]).join(' · ')}
                 {form.accountUseOther ? ` (${form.accountUseOther})` : ''}
               </dd>
-              <dt>Expected turnover</dt>
-              <dd>{form.expectedTurnover || '—'} USD / year</dd>
-              <dt>Role / bank</dt>
+              <dt>{k.review.turnover}</dt>
+              <dd>{interpolate(k.review.turnoverValue, { value: form.expectedTurnover || '—' })}</dd>
+              <dt>{k.review.roleBank}</dt>
               <dd>
                 {form.counterpartyRole || '—'} · {form.bankName || '—'} ({form.bankCountry || '—'})
               </dd>
-              <dt>Source of funds</dt>
+              <dt>{k.review.funds}</dt>
               <dd>
                 {form.companySourceOfFunds.length > 120
                   ? `${form.companySourceOfFunds.slice(0, 120)}…`
                   : form.companySourceOfFunds}
               </dd>
-              <dt>Revenue / tax</dt>
+              <dt>{k.review.revenueTax}</dt>
               <dd>
-                {form.annualRevenue || '—'} / {form.annualTaxPaid || '—'} USD
+                {interpolate(k.review.revenueTaxValue, {
+                  revenue: form.annualRevenue || '—',
+                  tax: form.annualTaxPaid || '—',
+                })}
               </dd>
-              <dt>UBOs</dt>
-              <dd>{form.ubos.length}</dd>
-              <dt>AULM logistics</dt>
+              <dt>{k.review.ubos}</dt>
               <dd>
-                Import: {form.aulmHandlesImport ? 'Yes' : 'No'} · Export:{' '}
-                {form.aulmHandlesExport ? 'Yes' : 'No'}
+                {form.ubos.length} · {uboOwnershipTotal(form.ubos).toFixed(0)}%
               </dd>
-              <dt>Policies</dt>
-              <dd>Accepted · Signature on file</dd>
+              <dt>{k.review.documents}</dt>
+              <dd>
+                {interpolate(k.review.documentsValue, {
+                  have: KYC_DOC_SLOTS.filter((slot) => form.kycDocuments[slot.key]).length,
+                  need: KYC_DOC_SLOTS.length,
+                })}
+              </dd>
+              <dt>{k.review.policies}</dt>
+              <dd>{k.review.policiesValue}</dd>
             </dl>
+          </>
+        ) : null}
+
+        {STEPS[step].id === 'identity' ? (
+          <>
+            <h2 className="kyc-wizard-title">{k.identity.title}</h2>
+            <p className="kyc-wizard-lead">{k.identity.lead}</p>
+            <KycDocSlot
+              id="kyc-doc-onboarding"
+              title={k.identity.packTitle}
+              hint={k.identity.packHint}
+              file={form.kycDocuments.onboardingPack}
+              onFile={(file) => setDoc('onboardingPack', file)}
+            />
+            {form.ubos.map((ubo, index) => (
+              <UboIdentityVerify
+                key={index}
+                uboName={ubo.name || interpolate(k.ubo.heading, { n: index + 1 })}
+                value={form.uboIdentities[index] ?? { ...EMPTY_UBO_IDENTITY }}
+                onChange={(next) => {
+                  const uboIdentities = [...form.uboIdentities]
+                  uboIdentities[index] = next
+                  patch({ uboIdentities })
+                }}
+              />
+            ))}
           </>
         ) : null}
       </div>
@@ -821,14 +875,19 @@ export function KycWizard() {
       <div className="kyc-wizard-actions">
         {step > 0 ? (
           <button type="button" className="metal-page-btn metal-page-btn--secondary" onClick={back}>
-            Back
+            {k.actions.back}
           </button>
         ) : (
           <span />
         )}
         {step < STEPS.length - 1 ? (
-          <button type="button" className="metal-page-btn metal-page-btn--primary" onClick={next}>
-            Continue
+          <button
+            type="button"
+            className="metal-page-btn metal-page-btn--primary"
+            onClick={next}
+            disabled={STEPS[step].id === 'company' && !form.packDownloaded}
+          >
+            {k.actions.continue}
             <BtnArrow />
           </button>
         ) : (
@@ -838,14 +897,14 @@ export function KycWizard() {
             onClick={handleSubmit}
             disabled={submitting}
           >
-            {submitting ? 'Submitting…' : 'Submit KYC'}
+            {submitting ? k.actions.submitting : k.actions.submit}
             <BtnArrow />
           </button>
         )}
       </div>
 
       <p className="kyc-footnote">
-        Confidential · {CONTACT_EMAIL} · Required before you can sell gold to AULM.
+        {interpolate(k.actions.footnote, { email: CONTACT_EMAIL })}
       </p>
     </div>
   )

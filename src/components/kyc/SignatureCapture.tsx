@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { SignatureMode } from '../../types/kyc'
+import { useT } from '../../i18n'
 
 type Props = {
   mode: SignatureMode
@@ -10,6 +11,7 @@ type Props = {
 }
 
 export function SignatureCapture({ mode, dataUrl, fileName, onModeChange, onChange }: Props) {
+  const { t } = useT()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const drawing = useRef(false)
   const [hasStroke, setHasStroke] = useState(false)
@@ -98,7 +100,7 @@ export function SignatureCapture({ mode, dataUrl, fileName, onModeChange, onChan
           className={mode === 'draw' ? 'is-active' : ''}
           onClick={() => onModeChange('draw')}
         >
-          Draw signature
+          {t.kyc.policy.draw}
         </button>
         <button
           type="button"
@@ -107,7 +109,7 @@ export function SignatureCapture({ mode, dataUrl, fileName, onModeChange, onChan
           className={mode === 'upload' ? 'is-active' : ''}
           onClick={() => onModeChange('upload')}
         >
-          Upload signature
+          {t.kyc.policy.upload}
         </button>
       </div>
 
@@ -120,22 +122,22 @@ export function SignatureCapture({ mode, dataUrl, fileName, onModeChange, onChan
             onPointerMove={draw}
             onPointerUp={endDraw}
             onPointerLeave={endDraw}
-            aria-label="Draw your signature"
+            aria-label={t.kyc.policy.drawAria}
           />
-          <p className="kyc-signature-hint">Sign with finger or mouse</p>
+          <p className="kyc-signature-hint">{t.kyc.policy.drawHint}</p>
           <button type="button" className="kyc-signature-clear" onClick={clear}>
-            Clear
+            {t.kyc.policy.clear}
           </button>
         </div>
       ) : (
         <label className="kyc-signature-upload">
           <input type="file" accept="image/png,image/jpeg,image/webp" onChange={onImageUpload} />
-          <span>{fileName ? fileName : 'Upload PNG or JPG of your signature'}</span>
+          <span>{fileName ? fileName : t.kyc.policy.uploadHint}</span>
         </label>
       )}
 
       {dataUrl && mode === 'upload' ? (
-        <img src={dataUrl} alt="Uploaded signature preview" className="kyc-signature-preview" />
+        <img src={dataUrl} alt={t.kyc.policy.previewAlt} className="kyc-signature-preview" />
       ) : null}
     </div>
   )

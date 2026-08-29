@@ -18,7 +18,7 @@ export const SUPPLY_STRIP = {
       fit: 'air',
     },
     {
-      src: '/logistics/supply-road.jpg',
+      src: '/logistics/supply-road.jpg?v=2',
       alt: 'Secure road transport',
       line: 'Secure road transport',
       href: '/gold-supply-chain-dubai',

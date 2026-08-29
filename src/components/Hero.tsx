@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { HOME_HERO_VIDEO } from '../config/media'
 import { getFrameStyle, getPinPadding } from '../lib/frameExpand'
 import { JetonLines } from './JetonText'
+import { useT } from '../i18n'
 
 function playHeroVideo(video: HTMLVideoElement) {
   video.muted = true
@@ -17,6 +18,7 @@ type Props = {
 export function Hero({ expand = 0 }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const full = expand >= 0.985
+  const { t } = useT()
 
   useEffect(() => {
     const video = videoRef.current
@@ -53,11 +55,11 @@ export function Hero({ expand = 0 }: Props) {
             onLoadedData={(e) => playHeroVideo(e.currentTarget)}
           />
           <div className="vault-frame-overlay vault-frame-overlay--hero hero-frame-copy">
-            <h1 className="jeton-headline" aria-label="Precious metals. Institutional desk.">
-              <JetonLines lines={['Precious metals.', 'Institutional desk.']} />
+            <h1 className="jeton-headline" aria-label={t.home.hero.aria}>
+              <JetonLines lines={[t.home.hero.line1, t.home.hero.line2]} />
             </h1>
             <p className="jeton-subline">
-              Institutional desk for gold, silver &amp; copper.
+              {t.home.hero.sub}
             </p>
           </div>
         </div>

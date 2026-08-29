@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-
-const WORDS = ['today', 'tomorrow', 'whenever']
+import { useT } from '../i18n'
 
 export function TradeTitleWord() {
+  const { t } = useT()
+  const words = t.home.trade.words
   const [index, setIndex] = useState(0)
   const [visible, setVisible] = useState(true)
 
@@ -10,16 +11,16 @@ export function TradeTitleWord() {
     const interval = window.setInterval(() => {
       setVisible(false)
       window.setTimeout(() => {
-        setIndex((i) => (i + 1) % WORDS.length)
+        setIndex((i) => (i + 1) % words.length)
         setVisible(true)
       }, 320)
     }, 2600)
-    return () => clearInterval(interval)
-  }, [])
+    return () => window.clearInterval(interval)
+  }, [words.length])
 
   return (
     <span className={`trade-title-word${visible ? ' is-visible' : ''}`} aria-live="polite">
-      {WORDS[index]}
+      {words[index]}
     </span>
   )
 }

@@ -2,8 +2,7 @@ import { useEffect, useRef, useState, type RefObject } from 'react'
 
 export const HOME_PAGE_COUNT = 12
 const LOCK_MS = 850
-const EXPAND_DONE_MS = 280
-const HANDOFF_DONE_MS = 220
+const EXPAND_DONE_MS = 320
 
 /** Same distance as the banking video spacer (~90dvh) before the next page. */
 function expandRange() {
@@ -17,14 +16,11 @@ export function useDiscretePages(
   const [page, setPage] = useState(0)
   const [progress, setProgress] = useState(0)
   const [expand, setExpand] = useState(0)
-  const [handoff, setHandoff] = useState(0)
   const pageRef = useRef(0)
   const locked = useRef(false)
   const expandGate = useRef(false)
-  const handoffGate = useRef(false)
   const progressRef = useRef(0)
   const expandRef = useRef(0)
-  const handoffRef = useRef(0)
 
   useEffect(() => {
     pageRef.current = page
@@ -66,35 +62,13 @@ export function useDiscretePages(
       return next
     }
 
-    const commitHandoff = (value: number) => {
-      const next = Math.min(1, Math.max(0, value))
-      const reachedFull = handoffRef.current < 1 && next >= 1
-      handoffRef.current = next
-      setHandoff(next)
-      if (reachedFull) {
-        handoffGate.current = true
-        window.setTimeout(() => {
-          handoffGate.current = false
-        }, HANDOFF_DONE_MS)
-      }
-      return reachedFull
-    }
-
     const go = (dir: 1 | -1) => {
       if (locked.current) return
-      const from = pageRef.current
-      const next = from + dir
+      const next = pageRef.current + dir
       if (next < 0 || next >= pageCount) return
       locked.current = true
       pageRef.current = next
       setPage(next)
-      if (from === 0 && next === 1) {
-        const target = 1 / (pageCount - 1)
-        progressRef.current = target
-        setProgress(target)
-        handoffRef.current = 1
-        setHandoff(1)
-      }
       window.setTimeout(() => {
         locked.current = false
       }, LOCK_MS)
@@ -107,13 +81,9 @@ export function useDiscretePages(
         commitExpand(expandRef.current + delta / range)
         return true
       }
-      if (down && expandRef.current >= 1 && handoffRef.current < 1) {
-        const reachedFull = commitHandoff(handoffRef.current + delta / range)
-        if (reachedFull) go(1)
-        return true
-      }
-      if (!down && handoffRef.current > 0) {
-        commitHandoff(handoffRef.current + delta / range)
+      if (down && expandRef.current >= 1) {
+        if (expandGate.current || locked.current) return true
+        go(1)
         return true
       }
       if (!down && expandRef.current > 0) {
@@ -128,16 +98,8 @@ export function useDiscretePages(
       if (pageRef.current === 0) {
         if (onHeroScroll(e.deltaY)) return
       }
-      if (pageRef.current === 1 && e.deltaY < 0) {
-        pageRef.current = 0
-        setPage(0)
-        progressRef.current = 0
-        setProgress(0)
-        onHeroScroll(e.deltaY)
-        return
-      }
 
-      if (expandGate.current || handoffGate.current || locked.current) return
+      if (expandGate.current || locked.current) return
       if (Math.abs(e.deltaY) < 8) return
       go(e.deltaY > 0 ? 1 : -1)
     }
@@ -154,16 +116,6 @@ export function useDiscretePages(
       const y = e.touches[0]?.clientY ?? touchY
       const dy = touchY - y
       touchY = y
-      if (pageRef.current === 1 && dy < 0) {
-        e.preventDefault()
-        consumedHero = true
-        pageRef.current = 0
-        setPage(0)
-        progressRef.current = 0
-        setProgress(0)
-        onHeroScroll(dy)
-        return
-      }
       if (pageRef.current !== 0) return
       if (onHeroScroll(dy)) {
         e.preventDefault()
@@ -171,7 +123,7 @@ export function useDiscretePages(
       }
     }
     const onTouchEnd = (e: TouchEvent) => {
-      if (consumedHero || expandGate.current || handoffGate.current) return
+      if (consumedHero || expandGate.current) return
       const endY = e.changedTouches[0]?.clientY ?? touchY
       const diff = touchStartY - endY
       if (pageRef.current === 0 && onHeroScroll(diff)) return
@@ -192,5 +144,5 @@ export function useDiscretePages(
     }
   }, [containerRef, pageCount])
 
-  return { page, progress, expand, handoff }
+  return { page, progress, expand }
 }

@@ -1,71 +1,73 @@
-import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { BtnArrow } from '../components/BtnArrow'
 import { PageHero } from '../components/PageHero'
 import { AFRICA } from '../data/africa'
 import { useHashScroll } from '../hooks/useHashScroll'
+import { usePageTitle, useT } from '../i18n'
 
 export function AfricaPage() {
+  const { t } = useT()
+  const a = t.africa
   useHashScroll()
-
-  useEffect(() => {
-    document.title = 'AULM | On the ground'
-    return () => {
-      document.title = 'AULM | Precious metals desk'
-    }
-  }, [])
+  usePageTitle(a.title)
 
   return (
     <div className="africa-page">
       <PageHero
         image="/africa/africa-hero.jpg"
-        imageAlt="AULM on site — operator in front of the excavator"
+        imageAlt={a.heroAlt}
         imagePosition="center 22%"
         crumbs={[
-          { label: 'Home', to: '/' },
-          { label: 'Company', to: '/company' },
+          { label: t.common.home, to: '/' },
+          { label: t.common.company, to: '/company' },
         ]}
-        eyebrow={AFRICA.eyebrow}
-        title={AFRICA.title}
-        bar={AFRICA.regions.map((region) => ({
-          title: region.status ? `${region.name} — ${region.status}` : region.name,
-          href: `#${region.id}`,
-          cta: region.status ? 'Note →' : 'Read more →',
-        }))}
+        eyebrow={a.eyebrow}
+        title={a.title}
+        bar={AFRICA.regions.map((region) => {
+          const copy = a.regions[region.id]
+          const status = 'status' in copy ? copy.status : undefined
+          return {
+            title: status ? `${copy.name} — ${status}` : copy.name,
+            href: `#${region.id}`,
+            cta: status ? t.common.noteArrow : t.common.readMoreArrow,
+          }
+        })}
       />
 
       <section className="expand-scroll-body africa-body" id="projects">
         <div className="africa-body-inner">
-          <p className="africa-body-lead">{AFRICA.lead}</p>
+          <p className="africa-body-lead">{a.lead}</p>
 
           <div className="africa-region-grid">
-            {AFRICA.regions.map((region) => (
-              <article
-                key={region.id}
-                id={region.id}
-                className={`africa-region${region.status ? ' is-soon' : ''}`}
-              >
-                <p className="africa-region-kicker">
-                  {region.status ?? 'Active'}
-                </p>
-                <h2>{region.name}</h2>
-                <p>{region.body}</p>
-              </article>
-            ))}
+            {AFRICA.regions.map((region) => {
+              const copy = a.regions[region.id]
+              const status = 'status' in copy ? copy.status : undefined
+              return (
+                <article
+                  key={region.id}
+                  id={region.id}
+                  className={`africa-region${status ? ' is-soon' : ''}`}
+                >
+                  <p className="africa-region-kicker">{status ?? a.active}</p>
+                  <h2>{copy.name}</h2>
+                  <p>{copy.body}</p>
+                </article>
+              )
+            })}
           </div>
 
           <figure className="africa-body-photo">
-            <img src={AFRICA.photo} alt={AFRICA.photoAlt} />
+            <img src={AFRICA.photo} alt={a.photoAlt} />
           </figure>
 
-          {AFRICA.intro.map((paragraph) => (
+          {a.intro.map((paragraph) => (
             <p key={paragraph.slice(0, 40)} className="africa-body-copy">
               {paragraph}
             </p>
           ))}
 
           <div className="africa-detail-grid">
-            {AFRICA.sections.map((section) => (
+            {a.sections.map((section) => (
               <section key={section.title} className="africa-detail">
                 <h2>{section.title}</h2>
                 {section.body.map((paragraph) => (
@@ -77,11 +79,11 @@ export function AfricaPage() {
 
           <div className="vault-body-actions africa-body-actions">
             <Link to="/responsible-sourcing" className="metal-page-btn metal-page-btn--primary">
-              How we source
+              {t.common.howWeSource}
               <BtnArrow />
             </Link>
             <Link to="/contact" className="metal-page-btn metal-page-btn--secondary">
-              Contact us
+              {t.nav.contact}
               <BtnArrow />
             </Link>
           </div>

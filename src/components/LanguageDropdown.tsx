@@ -1,10 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-
-const LOCALES = [
-  { code: 'EN', label: 'English' },
-  { code: 'DE', label: 'Deutsch' },
-  { code: 'FR', label: 'Français' },
-] as const
+import { LOCALES, LOCALE_META, useT } from '../i18n'
 
 function GlobeIcon() {
   return (
@@ -16,8 +11,8 @@ function GlobeIcon() {
 }
 
 export function LanguageDropdown() {
+  const { locale, setLocale, t } = useT()
   const [open, setOpen] = useState(false)
-  const [locale, setLocale] = useState<(typeof LOCALES)[number]['code']>('EN')
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -33,7 +28,7 @@ export function LanguageDropdown() {
       <button
         type="button"
         className="header-chip header-lang-btn"
-        aria-label="Language"
+        aria-label={t.meta.language}
         aria-expanded={open}
         aria-haspopup="listbox"
         onClick={() => setOpen((o) => !o)}
@@ -42,19 +37,20 @@ export function LanguageDropdown() {
       </button>
       {open && (
         <ul className="header-lang-menu" role="listbox">
-          {LOCALES.map((l) => (
-            <li key={l.code}>
+          {LOCALES.map((code) => (
+            <li key={code}>
               <button
                 type="button"
                 role="option"
-                aria-selected={locale === l.code}
-                className={`header-lang-option${locale === l.code ? ' is-active' : ''}`}
+                aria-selected={locale === code}
+                className={`header-lang-option${locale === code ? ' is-active' : ''}`}
+                lang={LOCALE_META[code].htmlLang}
                 onClick={() => {
-                  setLocale(l.code)
+                  setLocale(code)
                   setOpen(false)
                 }}
               >
-                {l.label}
+                {LOCALE_META[code].nativeName}
               </button>
             </li>
           ))}

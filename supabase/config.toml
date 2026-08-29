@@ -1,0 +1,5 @@
+# Isolated AULM tables live on this project; see supabase/aulm-modern-tables.sql
+project_id = "oubecmstqtzdnevyqavu"
+
+[functions.notify-ops]
+verify_jwt = false

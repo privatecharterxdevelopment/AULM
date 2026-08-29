@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
 import { KycWizard } from '../components/kyc/KycWizard'
+import { usePageTitle, useT } from '../i18n'
 
 export function KycOnboardingPage() {
+  const { t } = useT()
   const [entered, setEntered] = useState(false)
+  usePageTitle(t.kycPage.title)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -15,12 +18,9 @@ export function KycOnboardingPage() {
       <div className="kyc-page-overlay" aria-hidden />
       <div className="kyc-page-shell">
         <header className="kyc-page-header">
-          <p className="kyc-page-eyebrow">Sell gold</p>
-          <h1 className="kyc-page-title">Complete KYC</h1>
-          <p className="kyc-page-lead">
-            Verify your company once. After approval, you can sell gold to AULM. No dashboard —
-            our desk contacts you.
-          </p>
+          <p className="kyc-page-eyebrow">{t.kycPage.eyebrow}</p>
+          <h1 className="kyc-page-title">{t.kycPage.title}</h1>
+          <p className="kyc-page-lead">{t.kycPage.lead}</p>
         </header>
         <KycWizard />
       </div>

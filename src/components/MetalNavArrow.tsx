@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import type { MetalData } from '../data/metals'
+import { interpolate, useT } from '../i18n'
 
 type Props = {
   metal: MetalData
@@ -19,7 +20,9 @@ function ArrowIcon({ direction }: { direction: 'prev' | 'next' }) {
 }
 
 export function MetalNavArrow({ metal, direction }: Props) {
-  const label = direction === 'prev' ? `Previous: ${metal.name}` : `Next: ${metal.name}`
+  const { t } = useT()
+  const name = t.metals[metal.id]
+  const label = interpolate(direction === 'prev' ? t.common.previousMetal : t.common.nextMetal, { name })
 
   return (
     <Link
@@ -29,7 +32,7 @@ export function MetalNavArrow({ metal, direction }: Props) {
       aria-label={label}
     >
       <ArrowIcon direction={direction} />
-      <span className="metal-nav-arrow-label">{metal.name}</span>
+      <span className="metal-nav-arrow-label">{name}</span>
       <span className={`metal-nav-dot metal-nav-dot--${metal.id}`} aria-hidden />
     </Link>
   )

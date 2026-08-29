@@ -1,7 +1,8 @@
 import { CONTACT_EMAIL } from '../config/site'
 import type { ContactFormValues } from '../data/contact'
 import { topicLabel } from '../data/contact'
-import { getSupabase, isSupabaseConfigured } from '../lib/supabase'
+import { notifyOps } from './notifyOps'
+import { isSupabaseConfigured } from '../lib/supabase'
 
 export async function submitContact(
   values: ContactFormValues,
@@ -9,23 +10,18 @@ export async function submitContact(
   const topic = topicLabel(values.topic)
 
   if (isSupabaseConfigured) {
-    const supabase = getSupabase()
-    if (supabase) {
-      const { error } = await supabase.functions.invoke('notify-ops', {
-        body: {
-          type: 'contact_inquiry',
-          to: CONTACT_EMAIL,
-          customerEmail: values.email,
-          fullName: values.fullName,
-          company: values.company || undefined,
-          phone: values.phone || undefined,
-          topic,
-          message: values.message,
-        },
-      })
-      if (error) return { ok: false, error: error.message }
-      return { ok: true }
-    }
+    const result = await notifyOps({
+      type: 'contact_inquiry',
+      to: CONTACT_EMAIL,
+      customerEmail: values.email,
+      fullName: values.fullName,
+      company: values.company || undefined,
+      phone: values.phone || undefined,
+      topic,
+      message: values.message,
+    })
+    if (!result.ok) return { ok: false, error: result.error ?? 'Could not send email.' }
+    return { ok: true }
   }
 
   const subject = `[${topic}] ${values.fullName}`

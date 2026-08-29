@@ -1,17 +1,19 @@
 import { Link } from 'react-router-dom'
+import { useT } from '../i18n'
 
 type Props = {
   reveal: number
 }
 
 export function MiningSection({ reveal }: Props) {
+  const { t } = useT()
   const titleReveal = Math.min(1, reveal / 0.55)
   const boxReveal = Math.min(1, Math.max(0, (reveal - 0.2) / 0.5))
   const titleY = (1 - titleReveal) * 28
   const boxY = (1 - boxReveal) * 24
 
   return (
-    <section className="mining-section" aria-label="Responsible mining worldwide">
+    <section className="mining-section" aria-label={t.home.mining.aria}>
       <video
         className="mining-video"
         src="/videos/mining.mp4"
@@ -29,25 +31,19 @@ export function MiningSection({ reveal }: Props) {
           className="mining-title"
           style={{ opacity: titleReveal, transform: `translateY(${titleY}px)` }}
         >
-          Responsible mining
+          {t.home.mining.title1}
           <br />
-          worldwide
+          {t.home.mining.title2}
         </h2>
 
         <div
           className="mining-glass"
           style={{ opacity: boxReveal, transform: `translateY(${boxY}px)` }}
         >
-          <p>
-            We are on the ground in Africa — developing local projects and widening our presence.
-            Artisanal and local mines sell into a documented desk, not arbitrary agents.
-          </p>
-          <p>
-            We are working toward our own export licence so locally mined gold can be processed in
-            a closed loop — fair terms, OECD due diligence, and the lightest practicable footprint.
-          </p>
+          <p>{t.home.mining.p1}</p>
+          <p>{t.home.mining.p2}</p>
           <Link to="/africa" className="mining-more">
-            Local projects
+            {t.common.localProjects}
           </Link>
         </div>
       </div>

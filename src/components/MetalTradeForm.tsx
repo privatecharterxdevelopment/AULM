@@ -2,6 +2,7 @@ import { type FormEvent, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { submitContact } from '../utils/submitContact'
 import type { MetalId } from '../data/metals'
+import { interpolate, useT } from '../i18n'
 
 type Side = 'buy' | 'sell'
 
@@ -12,6 +13,7 @@ type Props = {
 }
 
 export function MetalTradeForm({ metalId, metalName, initialSide }: Props) {
+  const { t } = useT()
   const navigate = useNavigate()
   const [side, setSide] = useState<Side>(initialSide)
   const [company, setCompany] = useState('')
@@ -37,14 +39,14 @@ export function MetalTradeForm({ metalId, metalName, initialSide }: Props) {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     if (!company.trim() || !email.trim() || !quantity.trim()) {
-      setError('Please fill in company, email and quantity.')
+      setError(t.metal.errorRequired)
       return
     }
 
     setSubmitting(true)
     setError(null)
 
-    const verb = side === 'sell' ? 'Sell' : 'Buy'
+    const verb = side === 'sell' ? t.common.sell : t.common.buy
     const result = await submitContact({
       topic: 'trading',
       fullName: company.trim(),
@@ -63,7 +65,7 @@ export function MetalTradeForm({ metalId, metalName, initialSide }: Props) {
     setSubmitting(false)
 
     if (!result.ok) {
-      setError(result.error ?? 'Could not send. Please try again.')
+      setError(result.error ?? t.metal.errorGeneric)
       return
     }
 
@@ -75,10 +77,10 @@ export function MetalTradeForm({ metalId, metalName, initialSide }: Props) {
   if (sent) {
     return (
       <div className="request-success" role="status">
-        <p className="request-success-title">Sent</p>
-        <p className="request-success-text">We’ll reply to {email} within one business day.</p>
+        <p className="request-success-title">{t.common.sent}</p>
+        <p className="request-success-text">{interpolate(t.metal.sentReply, { email })}</p>
         <button type="button" className="request-submit" onClick={() => setSent(false)}>
-          New request
+          {t.common.newRequest}
         </button>
       </div>
     )
@@ -86,7 +88,7 @@ export function MetalTradeForm({ metalId, metalName, initialSide }: Props) {
 
   return (
     <form className="request-form" onSubmit={(e) => void handleSubmit(e)} noValidate>
-      <div className="request-toggle" role="tablist" aria-label="Buy or sell">
+      <div className="request-toggle" role="tablist" aria-label={t.metal.buyOrSell}>
           <button
             type="button"
             role="tab"
@@ -94,7 +96,7 @@ export function MetalTradeForm({ metalId, metalName, initialSide }: Props) {
             className={`request-toggle-btn${side === 'buy' ? ' is-active' : ''}`}
             onClick={() => selectSide('buy')}
           >
-            Buy
+            {t.common.buy}
           </button>
           <button
             type="button"
@@ -103,13 +105,13 @@ export function MetalTradeForm({ metalId, metalName, initialSide }: Props) {
             className={`request-toggle-btn${side === 'sell' ? ' is-active' : ''}`}
             onClick={() => selectSide('sell')}
           >
-            Sell
+            {t.common.sell}
           </button>
         </div>
 
       <div className="request-fields">
         <label className="request-field">
-          <span>Company</span>
+          <span>{t.metal.company}</span>
           <input
             type="text"
             autoComplete="organization"
@@ -119,7 +121,7 @@ export function MetalTradeForm({ metalId, metalName, initialSide }: Props) {
           />
         </label>
         <label className="request-field">
-          <span>Work email</span>
+          <span>{t.metal.workEmail}</span>
           <input
             type="email"
             autoComplete="email"
@@ -129,21 +131,21 @@ export function MetalTradeForm({ metalId, metalName, initialSide }: Props) {
           />
         </label>
         <label className="request-field">
-          <span>Quantity</span>
+          <span>{t.metal.quantity}</span>
           <input
             type="text"
             inputMode="decimal"
-            placeholder={side === 'sell' ? '50 kg' : '100 oz'}
+            placeholder={side === 'sell' ? t.metal.qtySellPlaceholder : t.metal.qtyBuyPlaceholder}
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
             required
           />
         </label>
         <label className="request-field request-field--notes">
-          <span>Notes</span>
+          <span>{t.metal.notes}</span>
           <textarea
             rows={3}
-            placeholder="Optional"
+            placeholder={t.metal.notesPlaceholder}
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
           />
@@ -157,7 +159,7 @@ export function MetalTradeForm({ metalId, metalName, initialSide }: Props) {
       ) : null}
 
       <button type="submit" className="request-submit" disabled={submitting}>
-        {submitting ? 'Sending…' : 'Send request'}
+        {submitting ? t.common.sending : t.metal.sendRequest}
       </button>
     </form>
   )

@@ -18,10 +18,6 @@ function easeOutCubic(t: number) {
   return 1 - (1 - t) ** 3
 }
 
-function easeInOutCubic(t: number) {
-  return t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2
-}
-
 function segment(raw: number, start: number, end: number) {
   if (raw <= start) return 0
   if (raw >= end) return 1
@@ -29,11 +25,11 @@ function segment(raw: number, start: number, end: number) {
 }
 
 function tradePanelStyle(enter: number, exit: number) {
-  const enterY = (1 - enter) * 16
-  const exitY = exit * -10
-  const scale = (0.985 + enter * 0.015) * (1 - exit * 0.03)
+  const enterY = (1 - enter) * 100
+  const exitY = exit * -14
+  const scale = (0.985 + enter * 0.015) * (1 - exit * 0.04)
   return {
-    opacity: enter * (1 - exit),
+    opacity: exit > 0 ? 1 - exit : 1,
     transform: `translate3d(0, ${enterY + exitY}%, 0) scale(${scale})`,
     filter: exit > 0 ? `blur(${exit * 8}px)` : undefined,
   }
@@ -56,7 +52,7 @@ const LAST = HOME_PAGE_COUNT - 1
 
 export function PageScroller() {
   const zoneRef = useRef<HTMLDivElement>(null)
-  const { progress: raw, expand, handoff, page } = useDiscretePages(zoneRef)
+  const { progress: raw, expand, page } = useDiscretePages(zoneRef)
 
   useEffect(() => {
     const prev = document.body.style.overflow
@@ -78,8 +74,7 @@ export function PageScroller() {
 
   useEffect(() => () => setHeaderOnDark(false), [])
 
-  const tradeIn =
-    page === 0 ? easeInOutCubic(handoff) : easeOutCubic(segment(raw, 0, 1 / LAST))
+  const tradeIn = easeOutCubic(segment(raw, 0, 1 / LAST))
   const aboutIn = easeOutCubic(segment(raw, 1 / LAST, 2 / LAST))
   const miningIn = easeOutCubic(segment(raw, 2 / LAST, 3 / LAST))
   const peopleIn = easeOutCubic(segment(raw, 3 / LAST, 4 / LAST))
@@ -92,9 +87,7 @@ export function PageScroller() {
   const faqIn = easeOutCubic(segment(raw, 10 / LAST, 1))
 
   const heroStyle = {
-    opacity: 1 - tradeIn,
-    transform: `scale(${1 - tradeIn * 0.035})`,
-    filter: tradeIn > 0.01 ? `blur(${tradeIn * 8}px)` : undefined,
+    transform: `scale(${1 - tradeIn * 0.02})`,
   }
 
   const tradeStyle = tradePanelStyle(tradeIn, aboutIn)

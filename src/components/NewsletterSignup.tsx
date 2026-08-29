@@ -1,7 +1,9 @@
 import { type FormEvent, useState } from 'react'
 import { submitNewsletter } from '../utils/submitNewsletter'
+import { useT } from '../i18n'
 
 export function NewsletterSignup() {
+  const { t } = useT()
   const [email, setEmail] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -10,7 +12,7 @@ export function NewsletterSignup() {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      setError('Enter a valid work email.')
+      setError(t.news.newsletterError)
       return
     }
 
@@ -20,7 +22,7 @@ export function NewsletterSignup() {
     setSubmitting(false)
 
     if (!result.ok) {
-      setError(result.error ?? 'Could not subscribe. Email us instead.')
+      setError(result.error ?? t.news.newsletterFail)
       return
     }
 
@@ -32,20 +34,17 @@ export function NewsletterSignup() {
     <div className="newsletter" id="newsletter">
       {sent ? (
         <p className="newsletter-done" role="status">
-          You are on the list. We write when there is something from the desk.
+          {t.news.newsletterDone}
         </p>
       ) : (
         <>
           <div className="newsletter-copy">
-            <p className="newsletter-label">Newsletter</p>
-            <p className="newsletter-lead">
-              Desk notes on gold, silver and copper — markets, procedure and operations. No retail
-              tips.
-            </p>
+            <p className="newsletter-label">{t.news.newsletterLabel}</p>
+            <p className="newsletter-lead">{t.news.newsletterLead}</p>
           </div>
           <form className="newsletter-form" onSubmit={handleSubmit} noValidate>
             <label className="visually-hidden" htmlFor="news-email">
-              Work email
+              {t.news.newsletterEmail}
             </label>
             <input
               id="news-email"
@@ -56,11 +55,11 @@ export function NewsletterSignup() {
                 setEmail(e.target.value)
                 setError(null)
               }}
-              placeholder="Work email"
+              placeholder={t.news.newsletterEmail}
               required
             />
             <button type="submit" className="metal-page-btn metal-page-btn--primary" disabled={submitting}>
-              {submitting ? 'Sending…' : 'Subscribe'}
+              {submitting ? t.common.sending : t.news.subscribe}
             </button>
           </form>
           {error ? (

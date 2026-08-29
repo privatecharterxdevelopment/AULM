@@ -21,16 +21,33 @@ export function AdminApplications({ applications, onUpdated }: Props) {
   const [expanded, setExpanded] = useState<string | null>(null)
   const [busy, setBusy] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [docsNote, setDocsNote] = useState('')
 
-  const setStatus = async (app: KycApplication, status: 'approved' | 'rejected') => {
+  const setStatus = async (
+    app: KycApplication,
+    status: 'approved' | 'rejected' | 'more_docs',
+  ) => {
     const supabase = getSupabase()
     if (!supabase) return
+    if (status === 'more_docs' && !docsNote.trim()) {
+      setError('Add a short note of which documents you still need.')
+      return
+    }
     setBusy(app.id)
     setError(null)
 
+    const nextPayload = {
+      ...(app.payload ?? {}),
+      docsRequestNote: status === 'more_docs' ? docsNote.trim() : app.payload?.docsRequestNote,
+    }
+
     const { error: kycErr } = await supabase
       .from(tables.kycApplications)
-      .update({ status, updated_at: new Date().toISOString() })
+      .update({
+        status,
+        payload: nextPayload,
+        updated_at: new Date().toISOString(),
+      })
       .eq('id', app.id)
 
     if (kycErr) {
@@ -52,13 +69,15 @@ export function AdminApplications({ applications, onUpdated }: Props) {
       company: app.company_legal_name,
       customerEmail: app.contact_email,
       status,
+      notes: status === 'more_docs' ? docsNote.trim() : undefined,
     })
 
     setBusy(null)
+    setDocsNote('')
     onUpdated()
   }
 
-  const pending = applications.filter((a) => a.status === 'under_review')
+  const pending = applications.filter((a) => a.status === 'under_review' || a.status === 'more_docs')
 
   return (
     <div className="dash-section">
@@ -107,10 +126,25 @@ export function AdminApplications({ applications, onUpdated }: Props) {
                         <dd>{String(payload.expectedTurnover ?? '—')} USD / year</dd>
                         <dt>Role</dt>
                         <dd>{String(payload.counterpartyRole ?? '—')}</dd>
+                        <dt>Documents</dt>
+                        <dd>
+                          {payload.kycDocuments
+                            ? Object.entries(payload.kycDocuments as Record<string, { name?: string } | null>)
+                                .filter(([, file]) => file)
+                                .map(([key, file]) => `${key}: ${file?.name}`)
+                                .join(' · ') || '—'
+                            : '—'}
+                        </dd>
+                        <dt>UBO identity</dt>
+                        <dd>
+                          {Array.isArray(payload.uboIdentities)
+                            ? `${(payload.uboIdentities as { face?: unknown }[]).filter((id) => id?.face).length} verified`
+                            : '—'}
+                        </dd>
                       </dl>
 
-                      {app.status === 'under_review' ? (
-                        <div className="admin-actions">
+                      {app.status === 'under_review' || app.status === 'more_docs' ? (
+                        <div className="admin-actions admin-actions--kyc">
                           <button
                             type="button"
                             className="metal-page-btn metal-page-btn--primary"
@@ -125,7 +159,22 @@ export function AdminApplications({ applications, onUpdated }: Props) {
                             disabled={busy === app.id}
                             onClick={() => void setStatus(app, 'rejected')}
                           >
-                            Reject
+                            Deny
+                          </button>
+                          <textarea
+                            className="admin-docs-note"
+                            rows={2}
+                            placeholder="Request more docs — say what is missing"
+                            value={expanded === app.id ? docsNote : ''}
+                            onChange={(e) => setDocsNote(e.target.value)}
+                          />
+                          <button
+                            type="button"
+                            className="metal-page-btn metal-page-btn--secondary"
+                            disabled={busy === app.id}
+                            onClick={() => void setStatus(app, 'more_docs')}
+                          >
+                            Request more docs
                           </button>
                         </div>
                       ) : null}

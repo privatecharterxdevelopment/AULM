@@ -2,11 +2,15 @@ import { useEffect, useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import { BtnArrow } from '../components/BtnArrow'
 import { ConfettiBurst } from '../components/kyc/ConfettiBurst'
-import { hasKycSubmission } from '../lib/kycSession'
+import { getKycPrefill, hasKycSubmission } from '../lib/kycSession'
+import { usePageTitle, useT } from '../i18n'
 
 export function KycCompletePage() {
+  const { t, interpolate } = useT()
   const [entered, setEntered] = useState(false)
   const kycSubmitted = hasKycSubmission()
+  const email = getKycPrefill()?.email
+  usePageTitle(t.kycPage.completeTitle)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -28,21 +32,19 @@ export function KycCompletePage() {
           <div className="kyc-complete-icon" aria-hidden>
             ✓
           </div>
-          <h1 className="kyc-complete-title">
-            We&apos;ve received your KYC/KYB application
-          </h1>
+          <h1 className="kyc-complete-title">{t.kycPage.completeTitle}</h1>
           <p className="kyc-complete-lead">
-            Our compliance desk is reviewing your file. Once approved, you can sell gold to AULM.
-            We will contact you — there is no login or dashboard.
+            {t.kycPage.completeLead}
+            {email ? ` ${interpolate(t.kycPage.completeCopy, { email })}` : ''}
           </p>
 
           <div className="kyc-complete-actions">
             <Link to="/contact" className="metal-page-btn metal-page-btn--primary">
-              Contact the desk
+              {t.common.contactTheDesk}
               <BtnArrow />
             </Link>
             <Link to="/" className="metal-page-btn metal-page-btn--secondary">
-              Back home
+              {t.common.backHome}
             </Link>
           </div>
         </div>

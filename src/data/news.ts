@@ -170,13 +170,13 @@ export const NEWS: NewsArticle[] = [
   },
   {
     slug: 'gold-tokenization-blockchain',
-    title: 'Gold Tokenization: Bridging Physical Assets with Blockchain Technology',
+    title: 'Gold tokenization: awaiting board resolution',
     category: 'Innovation',
     date: '2025-12-15',
     image: '/metals/gold.png',
     imageFit: 'contain',
     excerpt:
-      'Digital gold tokens backed 1:1 by physical reserves are transforming how investors access precious metals exposure.',
+      'AULM does not issue gold tokens. Tokenization is awaiting board resolution and is not a live product on this site.',
     paragraphs: [
       'Tokenised gold is only as good as the bars, the vault and the audit. A token without allocated metal and a named custodian is a derivative, not a physical position.',
       'AULM does not currently issue tokens. Gold tokenization is awaiting board resolution. The public desk is physical: gold, silver and copper, documented chain of custody, bank-to-bank settlement.',
@@ -213,13 +213,13 @@ export const NEWS: NewsArticle[] = [
   },
   {
     slug: 'tokenizing-gold-trade',
-    title: 'Tokenizing Gold Trade: The Future of Precious Metals Settlement',
+    title: 'Gold tokenization and settlement: not a live product',
     category: 'Innovation',
     date: '2025-12-01',
     image: '/nuggets/gold.png',
     imageFit: 'contain',
     excerpt:
-      'The intersection of blockchain technology and physical gold trading is creating unprecedented opportunities.',
+      'Settlement on the public desk remains bank-to-bank. Gold tokenization is awaiting board resolution.',
     paragraphs: [
       'Settlement in physical gold is still SWIFT, allocated accounts and vault receipts. Blockchain can record title; it does not replace assay, insurance or customs. Desks that confuse the two end up with a token and no metal.',
       'Our settlement standard remains bank-to-bank on accepted mandates. Gold tokenization is awaiting board resolution — it is not a product on this site.',
