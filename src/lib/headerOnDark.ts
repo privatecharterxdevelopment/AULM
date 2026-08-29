@@ -29,7 +29,6 @@ export function isPhotoHeroRoute(pathname: string) {
     pathname === '/tokenization' ||
     pathname === '/news' ||
     pathname.startsWith('/news/') ||
-    pathname === '/pdf' ||
     pathname === '/legal' ||
     pathname === '/privacy'
   )

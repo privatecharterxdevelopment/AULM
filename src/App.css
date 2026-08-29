@@ -3205,6 +3205,26 @@
   margin-top: 0.5rem;
 }
 
+.desk-files-page {
+  background: #fff;
+  min-height: 100dvh;
+}
+
+.desk-files.news-doc {
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+.desk-files-heading {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(1.85rem, 4vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #111;
+  margin: 0 0 1.35rem;
+}
+
 .desk-file-list {
   margin-top: 0.35rem;
 }

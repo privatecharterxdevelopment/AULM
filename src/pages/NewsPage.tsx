@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { NewsPressItem } from '../components/NewsPressItem'
 import { NewsletterSignup } from '../components/NewsletterSignup'
 import { PageHero } from '../components/PageHero'

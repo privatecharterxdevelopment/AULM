@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { DeskFormDrawer } from '../components/DeskFormDrawer'
-import { PageHero } from '../components/PageHero'
 import { DESK_FILE_ROWS, type DeskFormKind } from '../data/deskFiles'
 import { useHashScroll } from '../hooks/useHashScroll'
 
@@ -49,25 +48,10 @@ export function DeskFilesPage() {
   }
 
   return (
-    <div className="africa-page">
-      <PageHero
-        image="/company/locations/switzerland.jpg"
-        imageAlt="Switzerland — network behind the desk"
-        imagePosition="center 40%"
-        crumbs={[
-          { label: 'Home', to: '/' },
-          { label: 'Company', to: '/company' },
-        ]}
-        eyebrow="Desk"
-        title="Documents"
-        bar={DESK_FILE_ROWS.slice(0, 4).map((row) => ({
-          title: row.title,
-          href: `#${row.id}`,
-          cta: row.action?.label ? `${row.action.label} →` : 'PDF →',
-        }))}
-      />
-
-      <div className="news-doc news-doc--index news-doc--after-hero desk-files">
+    <div className="desk-files-page">
+      <div className="news-doc news-doc--index desk-files">
+        <p className="news-doc-kicker">Desk</p>
+        <h1 className="desk-files-heading">Documents</h1>
         {DESK_FILE_ROWS.map((row) => (
           <article key={row.id} id={row.id} className="desk-file-row">
             <div className="desk-file-copy">
