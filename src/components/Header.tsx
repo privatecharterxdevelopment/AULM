@@ -2,7 +2,12 @@ import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { LanguageDropdown } from './LanguageDropdown'
 import { useT } from '../i18n'
-import { isManagedDarkHeroRoute, setHeaderOnDark, useHeaderOnDark } from '../lib/headerOnDark'
+import {
+  isManagedDarkHeroRoute,
+  setHeaderOnDark,
+  useHeaderOnDark,
+  usePrefersNarrowChrome,
+} from '../lib/headerOnDark'
 
 function PdfIcon() {
   return (
@@ -24,6 +29,7 @@ export function Header() {
   const { t } = useT()
   const [scrolled, setScrolled] = useState(false)
   const slideDark = useHeaderOnDark()
+  const narrow = usePrefersNarrowChrome()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -37,7 +43,7 @@ export function Header() {
     setHeaderOnDark(false)
   }, [pathname])
 
-  const onDark = slideDark
+  const onDark = slideDark && !narrow
   const frost = scrolled && !onDark
 
   return (
