@@ -1588,7 +1588,7 @@ html[dir='rtl'] .metal-page-image {
   max-width: none;
   margin-inline: 0;
   padding-inline: clamp(1.25rem, 4vw, 3.5rem);
-  text-align: left;
+  text-align: center;
   box-sizing: border-box;
 }
 
@@ -1597,18 +1597,25 @@ html[dir='rtl'] .metal-page-image {
 .editorial-inner .vault-body-title,
 .editorial-inner .vault-body-lead,
 .editorial-inner .vault-body-copy {
-  text-align: left;
+  text-align: center;
 }
 
 .editorial-page .vault-body-title {
   font-size: clamp(1.75rem, 3.2vw, 2.35rem);
   letter-spacing: -0.03em;
   line-height: 1.12;
-  text-align: left;
+  text-align: center;
+}
+
+.editorial-page .vault-body-lead,
+.editorial-page .vault-body-copy {
+  text-align: center;
+  margin-inline: auto;
+  max-width: 40rem;
 }
 
 .editorial-page .vault-body-actions {
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .editorial-inner .investors-results-label {
@@ -4610,7 +4617,8 @@ html[dir='rtl'] .metal-page-image {
   line-height: 1.15;
   letter-spacing: -0.025em;
   color: #111;
-  margin: 0 0 0.75rem;
+  margin: 0 auto 0.75rem;
+  text-align: center;
 }
 
 .company-story-block--wide {
@@ -4619,7 +4627,7 @@ html[dir='rtl'] .metal-page-image {
 
 .company-story .vault-body {
   max-width: none;
-  text-align: left;
+  text-align: center;
   width: 100%;
 }
 
@@ -4705,6 +4713,8 @@ html[dir='rtl'] .metal-page-image {
 
 .company-license-inner {
   max-width: 36rem;
+  margin-inline: auto;
+  text-align: center;
 }
 
 .company-license-label {
@@ -4714,7 +4724,8 @@ html[dir='rtl'] .metal-page-image {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #888;
-  margin: 0 0 1rem;
+  margin: 0 auto 1rem;
+  text-align: center;
 }
 
 .company-license-line {
@@ -4722,7 +4733,8 @@ html[dir='rtl'] .metal-page-image {
   font-size: clamp(1.1rem, 2.2vw, 1.35rem);
   font-weight: 500;
   color: #444;
-  margin: 0 0 0.35rem;
+  margin: 0 auto 0.35rem;
+  text-align: center;
 }
 
 .company-license-number {
@@ -4732,7 +4744,8 @@ html[dir='rtl'] .metal-page-image {
   line-height: 0.95;
   letter-spacing: -0.045em;
   color: #111;
-  margin: 0 0 0.75rem;
+  margin: 0 auto 0.75rem;
+  text-align: center;
 }
 
 .company-license-digit {
@@ -4754,7 +4767,8 @@ html[dir='rtl'] .metal-page-image {
   font-size: clamp(0.95rem, 1.5vw, 1.05rem);
   font-weight: 500;
   color: #666;
-  margin: 0;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .company-services-panel {
@@ -4765,7 +4779,7 @@ html[dir='rtl'] .metal-page-image {
 
 .company-services-wrap {
   max-width: none;
-  text-align: left;
+  text-align: center;
 }
 
 .company-services-grid {
@@ -4861,7 +4875,7 @@ html[dir='rtl'] .metal-page-image {
 .company-appointment-inner {
   width: 100%;
   max-width: none;
-  text-align: left;
+  text-align: center;
   padding-inline: clamp(1.25rem, 4vw, 3.5rem);
 }
 
