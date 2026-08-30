@@ -510,7 +510,7 @@ export const frPages = {
   },
   tokenization: {
     pageTitle: 'Tokenisation de l’or',
-    heroAlt: 'Hong Kong — nœud du réseau',
+    heroAlt: 'Lingots et pépites d’or sur un cube de registre numérique',
     eyebrow: 'Tokenisation de l’or',
     title: 'En attente d’une résolution du conseil',
     lead: 'La tokenisation de l’or n’est pas un produit actif. Les conditions ne seront publiées que si le conseil décide d’aller de l’avant.',

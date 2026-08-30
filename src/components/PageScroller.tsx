@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { isNarrowChrome, NARROW_CHROME_MQ, setHeaderOnDark } from '../lib/headerOnDark'
+import { setHeaderOnDark } from '../lib/headerOnDark'
 import { AboutSection } from './AboutSection'
 import { FaqSection } from './FaqSection'
 import { Hero } from './Hero'
@@ -64,23 +64,14 @@ export function PageScroller() {
 
   useEffect(() => {
     // Green (8) sits on light page chrome — black logo, not white.
+    // Hero (0) has a light overlay — black chrome, even when the video is expanded.
     const darkHome = [false, false, true, true, true, true, true, true, false, false, false, false]
-    const apply = () => {
-      if (isNarrowChrome()) {
-        setHeaderOnDark(false)
-        return
-      }
-      if (page === 0) {
-        setHeaderOnDark(expand >= 0.72)
-        return
-      }
-      setHeaderOnDark(darkHome[page] ?? true)
+    if (page === 0) {
+      setHeaderOnDark(false)
+      return
     }
-    apply()
-    const mq = window.matchMedia(NARROW_CHROME_MQ)
-    mq.addEventListener('change', apply)
-    return () => mq.removeEventListener('change', apply)
-  }, [page, expand])
+    setHeaderOnDark(darkHome[page] ?? true)
+  }, [page])
 
   useEffect(() => () => setHeaderOnDark(false), [])
 

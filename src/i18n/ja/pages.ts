@@ -510,7 +510,7 @@ export const jaPages = {
   },
   tokenization: {
     pageTitle: '金のトークン化',
-    heroAlt: '香港 — ネットワークノード',
+    heroAlt: 'デジタル台帳キューブの上の金地金とナゲット',
     eyebrow: '金のトークン化',
     title: '取締役会決議待ち',
     lead: '金のトークン化は現行の商品ではありません。条件は、取締役会が進行を決議した場合にのみ公表します。',

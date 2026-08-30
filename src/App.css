@@ -67,11 +67,11 @@
 
 .header-pdf {
   min-width: 0;
-  color: #111;
+  color: #fff;
 }
 
 .header-pdf:hover {
-  color: #111;
+  color: #fff;
 }
 
 .header-chip {
@@ -83,8 +83,8 @@
   padding: 0 0.9rem;
   border: none;
   border-radius: 999px;
-  background: #ececee;
-  color: #111;
+  background: #111;
+  color: #fff;
   font-family: 'DM Sans', sans-serif;
   font-size: 0.8125rem;
   font-weight: 500;
@@ -92,12 +92,13 @@
   white-space: nowrap;
   text-decoration: none;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
 .header-chip:hover,
 .header-lang.is-open .header-chip {
-  background: #e2e2e4;
+  background: #222;
+  color: #fff;
 }
 
 .header-gold,
@@ -160,6 +161,26 @@
 
 .header-cta:hover {
   background: #222;
+}
+
+.header-wrap.is-dark .header-chip {
+  background: #ececee;
+  color: #111;
+}
+
+.header-wrap.is-dark .header-chip:hover,
+.header-wrap.is-dark .header-lang.is-open .header-chip {
+  background: #e2e2e4;
+  color: #111;
+}
+
+.header-wrap.is-dark .header-pdf,
+.header-wrap.is-dark .header-pdf:hover {
+  color: #111;
+}
+
+.header-wrap.is-dark .header-gold-unit {
+  color: #666;
 }
 
 .header-wrap.is-dark .header-cta {
@@ -673,11 +694,11 @@
   width: 100%;
 }
 
-@media (max-width: 900px) {
-  .header-logo img {
-    filter: brightness(0);
-  }
+.header-wrap:not(.is-dark) .header-logo img {
+  filter: brightness(0);
+}
 
+@media (max-width: 900px) {
   .contact-widget,
   .contact-widget-reopen {
     display: none;
@@ -3763,9 +3784,12 @@ html[dir='rtl'] .metal-page-image {
 }
 
 @media (max-width: 900px) {
-  .metal-page-inner,
+  .metal-page-inner {
+    padding-inline: 4rem;
+  }
+
   .metal-desk-inner {
-    padding-inline: 7.5rem;
+    padding-inline: 1.5rem;
   }
 
   .metal-page-layout {
@@ -3780,6 +3804,10 @@ html[dir='rtl'] .metal-page-image {
     align-items: center;
     text-align: center;
     max-width: 100%;
+  }
+
+  .metal-page-title {
+    display: none;
   }
 
   .metal-page-visual {
@@ -3798,9 +3826,12 @@ html[dir='rtl'] .metal-page-image {
 }
 
 @media (max-width: 640px) {
-  .metal-page-inner,
+  .metal-page-inner {
+    padding-inline: 3.25rem;
+  }
+
   .metal-desk-inner {
-    padding-inline: 6.25rem;
+    padding-inline: 1.25rem;
   }
 
   .metal-page-visual {
@@ -10902,6 +10933,65 @@ html[dir='rtl'] .metal-page-image {
 /* ── Mobile-only polish (desktop layout unchanged) ── */
 
 @media (max-width: 899px) {
+  .vault-body-title,
+  .editorial-page .vault-body-title,
+  .company-appointment-title,
+  .refinery-section-title,
+  .refinery-sell-title,
+  .refinery-faq-title,
+  .company-story-subtitle,
+  .investors-step h2 {
+    line-height: 1.35;
+    letter-spacing: -0.025em;
+  }
+
+  .vault-body-title,
+  .editorial-page .vault-body-title,
+  .company-appointment-title {
+    margin-bottom: 1.2rem;
+  }
+
+  .refinery-section-eyebrow {
+    margin-bottom: 0.8rem;
+  }
+
+  .vault-body-lead {
+    line-height: 1.65;
+    margin-bottom: 1.15rem;
+  }
+
+  .vault-body-copy,
+  .metal-page-copy,
+  .metal-desk-who,
+  .metal-desk-minima,
+  .investors-step p,
+  .company-appointment-note,
+  .refinery-section-sub {
+    line-height: 1.7;
+  }
+
+  .vault-body-copy {
+    margin-bottom: 1.5rem;
+  }
+
+  .metal-page-copy {
+    margin-top: 0.4rem;
+  }
+
+  .metal-desk-who,
+  .metal-desk-minima {
+    margin-bottom: 1rem;
+  }
+
+  .metal-desk-forms {
+    margin: 1.5rem 0 1.35rem;
+    gap: 0.5rem;
+  }
+
+  .investors-step h2 {
+    margin-bottom: 0.55rem;
+  }
+
   .banking-flow-body {
     padding-bottom: clamp(5.5rem, 14vh, 7rem);
   }

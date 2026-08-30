@@ -510,7 +510,7 @@ export const zhPages = {
   },
   tokenization: {
     pageTitle: '黄金代币化',
-    heroAlt: '香港 — 网络节点',
+    heroAlt: '数字账本立方体上的金条与金块',
     eyebrow: '黄金代币化',
     title: '待董事会决议',
     lead: '黄金代币化并非现行产品。仅在董事会决议推进后，才会公布条款。',

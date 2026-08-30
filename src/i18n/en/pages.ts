@@ -510,7 +510,7 @@ export const enPages = {
   },
   tokenization: {
     pageTitle: 'Gold tokenization',
-    heroAlt: 'Hong Kong — network node',
+    heroAlt: 'Gold bars and nuggets on a digital ledger cube',
     eyebrow: 'Gold tokenization',
     title: 'Awaiting board resolution',
     lead: 'Gold tokenization is not a live product. Terms will be published only if the board resolves to proceed.',

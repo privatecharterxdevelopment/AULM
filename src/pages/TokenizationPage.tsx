@@ -16,9 +16,9 @@ export function TokenizationPage() {
   return (
     <div className="africa-page">
       <PageHero
-        image="/company/locations/hong-kong.jpg"
+        image="/tokenization/gold-tokenization.jpg"
         imageAlt={tok.heroAlt}
-        imagePosition="center 30%"
+        imagePosition="center center"
         crumbs={[
           { label: t.common.home, to: '/' },
           { label: t.common.company, to: '/company' },

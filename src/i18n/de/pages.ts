@@ -510,7 +510,7 @@ export const dePages = {
   },
   tokenization: {
     pageTitle: 'Gold-Tokenisierung',
-    heroAlt: 'Hongkong — Netzwerkknoten',
+    heroAlt: 'Goldbarren und Nuggets auf einem digitalen Ledger-Würfel',
     eyebrow: 'Gold-Tokenisierung',
     title: 'Beschluss des Verwaltungsrats ausstehend',
     lead: 'Gold-Tokenisierung ist kein aktives Produkt. Konditionen werden nur veröffentlicht, wenn der Verwaltungsrat die Fortführung beschließt.',

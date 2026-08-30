@@ -9,19 +9,6 @@ export function isNarrowChrome() {
   return typeof window !== 'undefined' && window.matchMedia(NARROW_CHROME_MQ).matches
 }
 
-export function usePrefersNarrowChrome() {
-  return useSyncExternalStore(
-    (onStoreChange) => {
-      if (typeof window === 'undefined') return () => {}
-      const mq = window.matchMedia(NARROW_CHROME_MQ)
-      mq.addEventListener('change', onStoreChange)
-      return () => mq.removeEventListener('change', onStoreChange)
-    },
-    () => window.matchMedia(NARROW_CHROME_MQ).matches,
-    () => false,
-  )
-}
-
 export function setHeaderOnDark(next: boolean) {
   if (dark === next) return
   dark = next
@@ -78,18 +65,15 @@ export function useSyncHeaderOnDark(
       }
       const inView = hero.getBoundingClientRect().bottom > 64
       const ready = expand === undefined ? true : expand >= expandMin
-      setHeaderOnDark(inView && ready && !isNarrowChrome())
+      setHeaderOnDark(inView && ready)
     }
 
     update()
     window.addEventListener('scroll', update, { passive: true })
     window.addEventListener('resize', update)
-    const mq = window.matchMedia(NARROW_CHROME_MQ)
-    mq.addEventListener('change', update)
     return () => {
       window.removeEventListener('scroll', update)
       window.removeEventListener('resize', update)
-      mq.removeEventListener('change', update)
       setHeaderOnDark(false)
     }
   }, [heroRef, expand, expandMin])

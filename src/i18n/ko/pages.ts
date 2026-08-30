@@ -510,7 +510,7 @@ export const koPages = {
   },
   tokenization: {
     pageTitle: '금 토큰화',
-    heroAlt: '홍콩 — 네트워크 노드',
+    heroAlt: '디지털 원장 큐브 위의 금괴와 너겟',
     eyebrow: '금 토큰화',
     title: '이사회 결의 대기',
     lead: '금 토큰화는 현재 운영 중인 상품이 아닙니다. 조건은 이사회가 진행을 결의하는 경우에만 공표됩니다.',
