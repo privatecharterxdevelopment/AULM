@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom'
 import { REFINERY_HERO_VIDEO } from '../config/media'
+import { BackgroundLoopVideo } from './BackgroundLoopVideo'
 import { useT } from '../i18n'
 
 type Props = {
   reveal: number
+  active?: boolean
 }
 
-export function RefinerySection({ reveal }: Props) {
+export function RefinerySection({ reveal, active }: Props) {
   const { t } = useT()
   const titleReveal = Math.min(1, reveal / 0.55)
   const boxReveal = Math.min(1, Math.max(0, (reveal - 0.2) / 0.5))
@@ -15,14 +17,10 @@ export function RefinerySection({ reveal }: Props) {
 
   return (
     <section className="mining-section refinery-home" aria-label={t.home.refineryHome.aria}>
-      <video
+      <BackgroundLoopVideo
         className="mining-video"
         src={REFINERY_HERO_VIDEO}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
+        active={active ?? reveal > 0.08}
       />
       <div className="mining-overlay" aria-hidden />
       <div className="mining-content">

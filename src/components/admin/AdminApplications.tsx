@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { getSupabase, tables, type KycApplication } from '../../lib/supabase'
 import { notifyOps } from '../../utils/notifyOps'
+import { AdminUboIdPhotos } from './AdminUboIdPhotos'
+import type { StoredUboIdentity } from '../../lib/kycIdvStorage'
 
 type Props = {
   applications: KycApplication[]
@@ -137,9 +139,18 @@ export function AdminApplications({ applications, onUpdated }: Props) {
                         </dd>
                         <dt>UBO identity</dt>
                         <dd>
-                          {Array.isArray(payload.uboIdentities)
-                            ? `${(payload.uboIdentities as { face?: unknown }[]).filter((id) => id?.face).length} verified`
-                            : '—'}
+                          <AdminUboIdPhotos
+                            identities={
+                              Array.isArray(payload.uboIdentities)
+                                ? (payload.uboIdentities as StoredUboIdentity[])
+                                : []
+                            }
+                            uboNames={
+                              Array.isArray(payload.ubos)
+                                ? (payload.ubos as { name?: string }[]).map((u) => u.name ?? '')
+                                : []
+                            }
+                          />
                         </dd>
                       </dl>
 

@@ -113,7 +113,7 @@ export function PageScroller() {
           style={heroStyle}
           {...(tradeIn < 0.35 ? { 'data-active': 'true' as const } : {})}
         >
-          <Hero expand={expand} />
+          <Hero expand={expand} active={tradeIn < 0.5} />
         </div>
 
         <div
@@ -137,7 +137,7 @@ export function PageScroller() {
           style={miningStyle}
           {...(miningIn > 0.35 && peopleIn < 0.35 ? { 'data-active': 'true' as const } : {})}
         >
-          <MiningSection reveal={miningIn} />
+          <MiningSection reveal={miningIn} active={miningIn > 0.08 && peopleIn < 0.55} />
         </div>
 
         <div
@@ -169,7 +169,7 @@ export function PageScroller() {
           style={refineryStyle}
           {...(refineryIn > 0.35 && greenIn < 0.35 ? { 'data-active': 'true' as const } : {})}
         >
-          <RefinerySection reveal={refineryIn} />
+          <RefinerySection reveal={refineryIn} active={refineryIn > 0.08 && greenIn < 0.55} />
         </div>
 
         <div
@@ -177,7 +177,7 @@ export function PageScroller() {
           style={greenStyle}
           {...(greenIn > 0.35 && procedureIn < 0.35 ? { 'data-active': 'true' as const } : {})}
         >
-          <GreenSection reveal={greenIn} />
+          <GreenSection reveal={greenIn} active={greenIn > 0.08 && procedureIn < 0.55} />
         </div>
 
         <div

@@ -3,24 +3,29 @@ import { useEffect, useRef, useState, type RefObject } from 'react'
 export const HOME_PAGE_COUNT = 12
 const LOCK_MS = 850
 const EXPAND_DONE_MS = 320
+const OPEN_HERO_MQ = '(max-width: 900px)'
 
-/** Same distance as the banking video spacer (~90dvh) before the next page. */
 function expandRange() {
   return Math.max(640, window.innerHeight * 0.9)
+}
+
+function prefersOpenHero() {
+  return window.matchMedia(OPEN_HERO_MQ).matches
 }
 
 export function useDiscretePages(
   containerRef: RefObject<HTMLElement | null>,
   pageCount = HOME_PAGE_COUNT,
 ) {
+  const startOpen = typeof window !== 'undefined' && prefersOpenHero()
   const [page, setPage] = useState(0)
   const [progress, setProgress] = useState(0)
-  const [expand, setExpand] = useState(0)
+  const [expand, setExpand] = useState(startOpen ? 1 : 0)
   const pageRef = useRef(0)
   const locked = useRef(false)
   const expandGate = useRef(false)
   const progressRef = useRef(0)
-  const expandRef = useRef(0)
+  const expandRef = useRef(startOpen ? 1 : 0)
 
   useEffect(() => {
     pageRef.current = page
@@ -75,6 +80,7 @@ export function useDiscretePages(
     }
 
     const onHeroScroll = (delta: number) => {
+      if (prefersOpenHero()) return false
       const range = expandRange()
       const down = delta > 0
       if (down && expandRef.current < 1) {

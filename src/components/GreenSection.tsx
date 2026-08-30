@@ -1,54 +1,28 @@
-import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { GREEN_HERO_VIDEO } from '../config/media'
 import { GREEN_HOME } from '../data/green'
+import { BackgroundLoopVideo } from './BackgroundLoopVideo'
 import { GreenMarks } from './GreenMarks'
 import { useT } from '../i18n'
 
 type Props = {
   reveal: number
+  active?: boolean
 }
 
-function playVideo(video: HTMLVideoElement) {
-  video.muted = true
-  video.defaultMuted = true
-  video.playsInline = true
-  void video.play().catch(() => {})
-}
-
-export function GreenSection({ reveal }: Props) {
-  const videoRef = useRef<HTMLVideoElement>(null)
+export function GreenSection({ reveal, active }: Props) {
   const { t } = useT()
   const titleIn = Math.min(1, reveal / 0.5)
   const restIn = Math.min(1, Math.max(0, (reveal - 0.18) / 0.5))
-
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-    playVideo(video)
-    const resume = () => playVideo(video)
-    document.addEventListener('visibilitychange', resume)
-    window.addEventListener('focus', resume)
-    return () => {
-      document.removeEventListener('visibilitychange', resume)
-      window.removeEventListener('focus', resume)
-    }
-  }, [])
 
   return (
     <section className="green-home" aria-label={t.home.green.aria}>
       <div className="green-home-pin">
         <div className="vault-frame green-home-frame">
-          <video
-            ref={videoRef}
+          <BackgroundLoopVideo
             className="vault-frame-image green-home-video"
             src={GREEN_HERO_VIDEO}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            onLoadedData={(e) => playVideo(e.currentTarget)}
+            active={active ?? reveal > 0.08}
           />
           <div className="green-home-shade" aria-hidden />
           <div

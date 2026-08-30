@@ -1,6 +1,8 @@
 export const REFINERY_HERO_VIDEO = '/refinery/refinery-hero.mp4'
 export const GREEN_HERO_VIDEO = '/green/green-hero.mp4'
 export const HOME_HERO_VIDEO = '/hero/home-hero.mp4'
+export const MINING_HERO_VIDEO = '/videos/mining.mp4'
+export const MINING_HERO_POSTER = '/videos/mining.jpg'
 export const LOGISTICS_HERO_VIDEO = '/logistics/logistics-hero.mp4'
 export const BANKING_SECTION_VIDEO = '/banking/banking-section-bg.mp4'
 export const BANKING_TRANSACT_BG = '/company/locations/switzerland.jpg'

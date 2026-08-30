@@ -1,40 +1,17 @@
-import { useEffect, useRef } from 'react'
 import { HOME_HERO_VIDEO } from '../config/media'
 import { getFrameStyle, getPinPadding } from '../lib/frameExpand'
+import { BackgroundLoopVideo } from './BackgroundLoopVideo'
 import { JetonLines } from './JetonText'
 import { useT } from '../i18n'
 
-function playHeroVideo(video: HTMLVideoElement) {
-  video.muted = true
-  video.defaultMuted = true
-  video.playsInline = true
-  void video.play().catch(() => {})
-}
-
 type Props = {
   expand?: number
+  active?: boolean
 }
 
-export function Hero({ expand = 0 }: Props) {
-  const videoRef = useRef<HTMLVideoElement>(null)
+export function Hero({ expand = 0, active = true }: Props) {
   const full = expand >= 0.985
   const { t } = useT()
-
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-
-    playHeroVideo(video)
-
-    const resume = () => playHeroVideo(video)
-    document.addEventListener('visibilitychange', resume)
-    window.addEventListener('focus', resume)
-
-    return () => {
-      document.removeEventListener('visibilitychange', resume)
-      window.removeEventListener('focus', resume)
-    }
-  }, [])
 
   return (
     <section id="home" className="metal-hero">
@@ -43,16 +20,10 @@ export function Hero({ expand = 0 }: Props) {
         style={getPinPadding(expand)}
       >
         <div className="vault-frame hero-frame" style={getFrameStyle(expand)}>
-          <video
-            ref={videoRef}
+          <BackgroundLoopVideo
             className="vault-frame-image hero-video"
             src={`${HOME_HERO_VIDEO}?v=4`}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            onLoadedData={(e) => playHeroVideo(e.currentTarget)}
+            active={active}
           />
           <div className="vault-frame-overlay vault-frame-overlay--hero hero-frame-copy">
             <h1 className="jeton-headline" aria-label={t.home.hero.aria}>

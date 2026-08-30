@@ -1,4 +1,5 @@
 import { CONTACT_EMAIL } from '../config/site'
+import { serializeUboIdentity, uploadUboIdentities } from '../lib/kycIdvStorage'
 import { notifyOps, type KycEmailDetails } from './notifyOps'
 import { getSupabase, isSupabaseConfigured, tables } from '../lib/supabase'
 import { getKycApplicationId, saveKycApplicationId, saveKycPrefill } from '../lib/kycSession'
@@ -53,7 +54,7 @@ export function serializeKycPayload(form: KycFormState) {
     signatureDataUrl: form.signatureDataUrl,
     policyPdfName: form.policyPdfName,
     kycDocuments: form.kycDocuments,
-    uboIdentities: form.uboIdentities,
+    uboIdentities: form.uboIdentities.map(serializeUboIdentity),
     notifyEmail: CONTACT_EMAIL,
   }
 }
@@ -61,9 +62,9 @@ export function serializeKycPayload(form: KycFormState) {
 function describeIdentity(id: UboIdentity | undefined): string {
   if (!id) return 'Not uploaded'
   const parts: string[] = []
-  if (id.passportFront) parts.push(`Passport front: ${id.passportFront.name}`)
-  if (id.passportBack) parts.push(`Passport back: ${id.passportBack.name}`)
-  if (id.face) parts.push(`Face photo: ${id.face.name}`)
+  if (id.passportFront) parts.push(`Passport front: ${id.passportFront.name} (stored for desk)`)
+  if (id.passportBack) parts.push(`Passport back: ${id.passportBack.name} (stored for desk)`)
+  if (id.face) parts.push(`Selfie: ${id.face.name} (stored for desk)`)
   return parts.join('; ') || 'Not uploaded'
 }
 
@@ -147,13 +148,22 @@ export async function submitKyc(form: KycFormState): Promise<SubmitKycResult> {
     return { ok: false, error: 'Could not connect to Supabase.' }
   }
 
+  const applicationId = crypto.randomUUID()
+  const uploaded = await uploadUboIdentities(applicationId, form.uboIdentities)
+  if (uploaded.error) {
+    return { ok: false, error: uploaded.error }
+  }
+
+  const formWithPhotos = { ...form, uboIdentities: uploaded.identities }
+
   const { data, error } = await supabase
     .from(tables.kycApplications)
     .insert({
+      id: applicationId,
       contact_email: form.contactEmail.trim().toLowerCase(),
       company_legal_name: form.companyLegalName.trim(),
       status: 'under_review',
-      payload: serializeKycPayload(form),
+      payload: serializeKycPayload(formWithPhotos),
     })
     .select('id')
     .single()
@@ -163,7 +173,7 @@ export async function submitKyc(form: KycFormState): Promise<SubmitKycResult> {
   }
 
   saveKycApplicationId(data.id)
-  saveKycPrefill(form)
+  saveKycPrefill(formWithPhotos)
 
   const mail = await notifyOps({
     type: 'kyc_submitted',
@@ -172,7 +182,7 @@ export async function submitKyc(form: KycFormState): Promise<SubmitKycResult> {
     customerEmail: form.contactEmail,
     fullName: form.contactName,
     phone: form.contactPhone,
-    kycDetails: buildKycEmailDetails(form),
+    kycDetails: buildKycEmailDetails(formWithPhotos),
   })
 
   if (!mail.ok) {

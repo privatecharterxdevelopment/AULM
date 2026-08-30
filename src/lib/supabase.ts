@@ -14,6 +14,11 @@ export const tables = {
   orders: 'aulm_modern_orders',
 } as const
 
+/** Private ID photos — desk reads via signed URLs. See supabase/aulm-modern-kyc-idv.sql */
+export const storageBuckets = {
+  kycIdv: 'kyc-idv',
+} as const
+
 export type OrderType = 'buy' | 'sell' | 'delivery_inbound'
 
 export type Order = {

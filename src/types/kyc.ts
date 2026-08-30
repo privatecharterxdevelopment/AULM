@@ -60,6 +60,16 @@ export type KycDocMeta = {
   size: number
 }
 
+/** Live capture held in memory until submit; never JSON-stringify `blob`. */
+export type KycIdShot = {
+  name: string
+  size: number
+  mime: string
+  blob: Blob
+  previewUrl: string
+  storagePath?: string
+}
+
 export type KycDocKey =
   | 'incorporation'
   | 'exportPermit'
@@ -91,9 +101,24 @@ export const KYC_DOC_SLOTS: { key: KycDocKey; title: string; hint: string }[] = 
 ]
 
 export type UboIdentity = {
-  passportFront: KycDocMeta | null
-  passportBack: KycDocMeta | null
-  face: KycDocMeta | null
+  passportFront: KycIdShot | null
+  passportBack: KycIdShot | null
+  face: KycIdShot | null
+}
+
+export type KycIdShotKey = keyof UboIdentity
+
+export function kycIdShotReady(shot: KycIdShot | null | undefined) {
+  return Boolean(shot?.blob && shot.size > 0)
+}
+
+export function uboIdentityCaptured(entry: UboIdentity | undefined) {
+  return Boolean(
+    entry &&
+      kycIdShotReady(entry.passportFront) &&
+      kycIdShotReady(entry.passportBack) &&
+      kycIdShotReady(entry.face),
+  )
 }
 
 export const EMPTY_UBO_IDENTITY: UboIdentity = {

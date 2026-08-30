@@ -16,12 +16,14 @@ import {
   EMPTY_UBO,
   EMPTY_UBO_IDENTITY,
   KYC_DOC_SLOTS,
+  uboIdentityCaptured,
   type AccountUseCase,
   type KycDocKey,
   type KycFormState,
   type UboIdentity,
 } from '../../types/kyc'
 import { submitKyc } from '../../utils/submitKyc'
+import { revokeUboIdentity } from '../../lib/kycIdCapture'
 import { useT } from '../../i18n'
 
 const STEPS = [
@@ -58,7 +60,7 @@ function Field({
 }
 
 function identityReady(entry: UboIdentity | undefined) {
-  return Boolean(entry?.passportFront && entry?.passportBack && entry?.face)
+  return uboIdentityCaptured(entry)
 }
 
 export function KycWizard() {
@@ -72,7 +74,12 @@ export function KycWizard() {
     if (role === 'both') return k.account.bankBoth
     return k.account.bankDefault
   }
-  const [step, setStep] = useState(0)
+  const [step, setStep] = useState(() => {
+    if (!import.meta.env.DEV || typeof window === 'undefined') return 0
+    const wanted = new URLSearchParams(window.location.search).get('step')
+    const index = STEPS.findIndex((s) => s.id === wanted)
+    return index >= 0 ? index : 0
+  })
   const [form, setForm] = useState<KycFormState>({
     ...EMPTY_KYC_FORM,
     ubos: [{ ...EMPTY_UBO }],
@@ -503,12 +510,14 @@ export function KycWizard() {
                     <button
                       type="button"
                       className="kyc-ubo-remove"
-                      onClick={() =>
+                      onClick={() => {
+                        const identity = form.uboIdentities[index]
+                        if (identity) revokeUboIdentity(identity)
                         patch({
                           ubos: form.ubos.filter((_, i) => i !== index),
                           uboIdentities: form.uboIdentities.filter((_, i) => i !== index),
                         })
-                      }
+                      }}
                     >
                       {k.ubo.remove}
                     </button>
