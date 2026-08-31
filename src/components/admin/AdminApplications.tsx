@@ -124,6 +124,13 @@ export function AdminApplications({ applications, onUpdated }: Props) {
                         <dd>{String(payload.contactPhone ?? '—')}</dd>
                         <dt>Country</dt>
                         <dd>{String(payload.incorporationCountry ?? '—')}</dd>
+                        <dt>Registered address</dt>
+                        <dd>
+                          {String(payload.registeredAddress ?? '—')}
+                          {payload.registeredAddressPlaceId
+                            ? ` · Google ${String(payload.registeredAddressPlaceId)}`
+                            : ''}
+                        </dd>
                         <dt>Expected turnover</dt>
                         <dd>{String(payload.expectedTurnover ?? '—')} USD / year</dd>
                         <dt>Role</dt>

@@ -1,4 +1,4 @@
-import type { KycIdShot, KycIdShotKey, UboIdentity } from '../types/kyc'
+import type { KycIdShot, KycIdShotKey, PassportSecurity, UboIdentity } from '../types/kyc'
 import { getSupabase, storageBuckets } from './supabase'
 
 export type StoredKycIdShot = {
@@ -12,6 +12,8 @@ export type StoredUboIdentity = {
   passportFront: StoredKycIdShot | null
   passportBack: StoredKycIdShot | null
   face: StoredKycIdShot | null
+  faceMatchPercent: number | null
+  passportSecurity: PassportSecurity | null
 }
 
 export const KYC_ID_SHOT_KEYS: KycIdShotKey[] = ['passportFront', 'passportBack', 'face']
@@ -31,6 +33,8 @@ export function serializeUboIdentity(entry: UboIdentity): StoredUboIdentity {
     passportFront: serializeKycIdShot(entry.passportFront),
     passportBack: serializeKycIdShot(entry.passportBack),
     face: serializeKycIdShot(entry.face),
+    faceMatchPercent: typeof entry.faceMatchPercent === 'number' ? entry.faceMatchPercent : null,
+    passportSecurity: entry.passportSecurity ?? null,
   }
 }
 

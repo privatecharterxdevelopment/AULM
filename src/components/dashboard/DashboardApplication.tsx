@@ -89,7 +89,12 @@ export function DashboardApplication() {
               <dt>Phone</dt>
               <dd>{String(payload.contactPhone ?? '—')}</dd>
               <dt>Address</dt>
-              <dd>{String(payload.registeredAddress ?? '—')}</dd>
+              <dd>
+                {String(payload.registeredAddress ?? '—')}
+                {payload.registeredAddressPlaceId
+                  ? ` · Google ${String(payload.registeredAddressPlaceId)}`
+                  : ''}
+              </dd>
               <dt>License</dt>
               <dd>{String(payload.registrationNumber ?? '—')}</dd>
               <dt>Country</dt>

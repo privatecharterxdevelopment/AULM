@@ -4,6 +4,7 @@ import { BtnArrow } from '../BtnArrow'
 import { ScrollPolicyReader } from './ScrollPolicyReader'
 import { SignatureCapture } from './SignatureCapture'
 import { PhoneField } from './PhoneField'
+import { AddressAutocomplete } from './AddressAutocomplete'
 import { KycDocSlot } from './KycDocSlot'
 import { UboIdentityVerify } from './UboIdentityVerify'
 import { CONTACT_EMAIL, KYC_ONBOARDING_FILENAME, KYC_ONBOARDING_PDF, LICENSE_NUMBER } from '../../config/site'
@@ -114,7 +115,8 @@ export function KycWizard() {
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.contactEmail.trim()))
           return k.errors.emailInvalid
         if (softPhoneStatus(form.contactPhoneNational) === 'empty') return k.errors.phoneRequired
-        if (!form.registeredAddress || !form.registrationNumber) return k.errors.addressLicense
+        if (!form.registrationNumber) return k.errors.addressLicense
+        if (!form.registeredAddressPlaceId || !form.registeredAddress) return k.errors.addressPick
         if (!form.incorporationCountry) return k.errors.country
         return null
       case 'account':
@@ -128,8 +130,9 @@ export function KycWizard() {
         return null
       case 'ubo':
         for (const u of form.ubos) {
-          if (!u.name || !u.ownership || !u.dob || !u.nationality || !u.address || !u.sourceOfWealth)
+          if (!u.name || !u.ownership || !u.dob || !u.nationality || !u.sourceOfWealth)
             return k.errors.uboFields
+          if (!u.addressPlaceId || !u.address) return k.errors.uboAddressPick
         }
         if (!uboOwnershipComplete(form.ubos)) return k.errors.uboTotal
         return null
@@ -354,11 +357,13 @@ export function KycWizard() {
                 </Field>
               </div>
               <Field label={k.company.address} id="registeredAddress" required>
-                <input
+                <AddressAutocomplete
                   id="registeredAddress"
                   value={form.registeredAddress}
-                  onChange={(e) => patch({ registeredAddress: e.target.value })}
-                  required
+                  placeId={form.registeredAddressPlaceId}
+                  onChange={({ formatted, placeId }) =>
+                    patch({ registeredAddress: formatted, registeredAddressPlaceId: placeId })
+                  }
                 />
               </Field>
             </div>
@@ -597,15 +602,16 @@ export function KycWizard() {
                     />
                   </Field>
                 </div>
-                <Field label={k.ubo.address} required>
-                  <input
+                <Field label={k.ubo.address} id={`ubo-address-${index}`} required>
+                  <AddressAutocomplete
+                    id={`ubo-address-${index}`}
                     value={ubo.address}
-                    onChange={(e) => {
+                    placeId={ubo.addressPlaceId}
+                    onChange={({ formatted, placeId }) => {
                       const ubos = [...form.ubos]
-                      ubos[index] = { ...ubo, address: e.target.value }
+                      ubos[index] = { ...ubo, address: formatted, addressPlaceId: placeId }
                       patch({ ubos })
                     }}
-                    required
                   />
                 </Field>
                 <Field label={k.ubo.occupation} required>

@@ -17,6 +17,7 @@ type UboDetail = {
   dob?: string
   nationality?: string
   address?: string
+  addressPlaceId?: string
   occupation?: string
   employment?: string
   sourceOfWealth?: string
@@ -29,6 +30,7 @@ type KycDetails = {
   registrationNumber?: string
   incorporationCountry?: string
   registeredAddress?: string
+  registeredAddressPlaceId?: string
   contactName?: string
   contactEmail?: string
   contactPhone?: string
@@ -138,6 +140,7 @@ function kycHtml(details: KycDetails | undefined, extra?: { applicationId?: stri
           row('Date of birth', u.dob) +
           row('Nationality', u.nationality) +
           row('Address', u.address) +
+          row('Google Place ID', u.addressPlaceId) +
           row('Occupation', u.occupation) +
           row('Employment (5y)', u.employment) +
           row('Source of wealth', u.sourceOfWealth) +
@@ -158,7 +161,8 @@ function kycHtml(details: KycDetails | undefined, extra?: { applicationId?: stri
         row('Trade name', d.tradeName) +
         row('Registration / licence', d.registrationNumber) +
         row('Country of incorporation', d.incorporationCountry) +
-        row('Registered address', d.registeredAddress),
+        row('Registered address', d.registeredAddress) +
+        row('Google Place ID', d.registeredAddressPlaceId),
     )}
     <h2 style="margin:20px 0 8px;font-size:15px">Contact</h2>
     ${table(

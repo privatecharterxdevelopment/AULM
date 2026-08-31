@@ -21,6 +21,7 @@ export function serializeKycPayload(form: KycFormState) {
     registrationNumber: form.registrationNumber,
     incorporationCountry: form.incorporationCountry,
     registeredAddress: form.registeredAddress,
+    registeredAddressPlaceId: form.registeredAddressPlaceId,
     contactName: form.contactName,
     contactPhone: form.contactPhone,
     contactDial: form.contactDial,
@@ -62,9 +63,15 @@ export function serializeKycPayload(form: KycFormState) {
 function describeIdentity(id: UboIdentity | undefined): string {
   if (!id) return 'Not uploaded'
   const parts: string[] = []
-  if (id.passportFront) parts.push(`Passport front: ${id.passportFront.name} (stored for desk)`)
+  if (id.passportFront) parts.push(`Passport: ${id.passportFront.name} (stored for desk)`)
   if (id.passportBack) parts.push(`Passport back: ${id.passportBack.name} (stored for desk)`)
   if (id.face) parts.push(`Selfie: ${id.face.name} (stored for desk)`)
+  if (typeof id.faceMatchPercent === 'number') parts.push(`Passport vs selfie: ${id.faceMatchPercent}%`)
+  if (id.passportSecurity) {
+    parts.push(
+      `Passport security: MRZ ${id.passportSecurity.mrzValid ? 'valid' : 'invalid'}, hologram ${id.passportSecurity.hologramPercent}%, ${id.passportSecurity.risk}`,
+    )
+  }
   return parts.join('; ') || 'Not uploaded'
 }
 
@@ -88,6 +95,7 @@ export function buildKycEmailDetails(form: KycFormState): KycEmailDetails {
     registrationNumber: form.registrationNumber,
     incorporationCountry: form.incorporationCountry,
     registeredAddress: form.registeredAddress,
+    registeredAddressPlaceId: form.registeredAddressPlaceId,
     contactName: form.contactName,
     contactEmail: form.contactEmail,
     contactPhone: form.contactPhone,
@@ -109,6 +117,7 @@ export function buildKycEmailDetails(form: KycFormState): KycEmailDetails {
       dob: u.dob,
       nationality: u.nationality,
       address: u.address,
+      addressPlaceId: u.addressPlaceId,
       occupation: u.occupation,
       employment: u.employment,
       sourceOfWealth: u.sourceOfWealth,

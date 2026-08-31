@@ -6,6 +6,7 @@ export type UboEntry = {
   dob: string
   nationality: string
   address: string
+  addressPlaceId: string
   ownership: string
   occupation: string
   employment: string
@@ -100,24 +101,41 @@ export const KYC_DOC_SLOTS: { key: KycDocKey; title: string; hint: string }[] = 
   },
 ]
 
-export type UboIdentity = {
-  passportFront: KycIdShot | null
-  passportBack: KycIdShot | null
-  face: KycIdShot | null
+export type PassportSecurityRisk = 'ok' | 'paper' | 'screen' | 'noMrz' | 'noTilt' | 'failed'
+
+export type PassportSecurity = {
+  mrzValid: boolean
+  issuingCountry: string | null
+  hologramPercent: number
+  risk: PassportSecurityRisk
 }
 
-export type KycIdShotKey = keyof UboIdentity
+export type UboIdentity = {
+  passportFront: KycIdShot | null
+  /** Kept for older stored applications; the live capture no longer asks for a second page. */
+  passportBack: KycIdShot | null
+  face: KycIdShot | null
+  faceMatchPercent: number | null
+  passportSecurity: PassportSecurity | null
+}
+
+export type KycIdShotKey = 'passportFront' | 'passportBack' | 'face'
 
 export function kycIdShotReady(shot: KycIdShot | null | undefined) {
   return Boolean(shot?.blob && shot.size > 0)
+}
+
+export function passportSecurityPassed(entry: UboIdentity | undefined) {
+  return Boolean(entry?.passportSecurity?.risk === 'ok' && entry.passportSecurity.mrzValid)
 }
 
 export function uboIdentityCaptured(entry: UboIdentity | undefined) {
   return Boolean(
     entry &&
       kycIdShotReady(entry.passportFront) &&
-      kycIdShotReady(entry.passportBack) &&
-      kycIdShotReady(entry.face),
+      kycIdShotReady(entry.face) &&
+      passportSecurityPassed(entry) &&
+      typeof entry.faceMatchPercent === 'number',
   )
 }
 
@@ -125,6 +143,8 @@ export const EMPTY_UBO_IDENTITY: UboIdentity = {
   passportFront: null,
   passportBack: null,
   face: null,
+  faceMatchPercent: null,
+  passportSecurity: null,
 }
 
 export const EMPTY_KYC_DOCUMENTS: Record<KycDocKey, KycDocMeta | null> = {
@@ -149,6 +169,7 @@ export type KycFormState = {
   registrationNumber: string
   incorporationCountry: string
   registeredAddress: string
+  registeredAddressPlaceId: string
   contactName: string
   contactEmail: string
   contactDial: string
@@ -196,6 +217,7 @@ export const EMPTY_UBO: UboEntry = {
   dob: '',
   nationality: '',
   address: '',
+  addressPlaceId: '',
   ownership: '',
   occupation: '',
   employment: '',
@@ -216,6 +238,7 @@ export const EMPTY_KYC_FORM: KycFormState = {
   registrationNumber: '',
   incorporationCountry: '',
   registeredAddress: '',
+  registeredAddressPlaceId: '',
   contactName: '',
   contactEmail: '',
   contactDial: '+971',

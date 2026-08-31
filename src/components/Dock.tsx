@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import { useT } from '../i18n'
 
@@ -27,10 +28,30 @@ function HomeIcon() {
 
 type Menu = 'company' | 'geography' | null
 
+function hoverMenus() {
+  return window.matchMedia('(hover: hover) and (pointer: fine)').matches
+}
+
+function useNarrowDock() {
+  const [narrow, setNarrow] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(max-width: 900px)').matches : false,
+  )
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 900px)')
+    const sync = () => setNarrow(mq.matches)
+    sync()
+    mq.addEventListener('change', sync)
+    return () => mq.removeEventListener('change', sync)
+  }, [])
+  return narrow
+}
+
 export function Dock() {
   const { t } = useT()
   const [open, setOpen] = useState<Menu>(null)
   const dockRef = useRef<HTMLElement>(null)
+  const narrow = useNarrowDock()
+  const allowHover = !narrow && typeof window !== 'undefined' && hoverMenus()
 
   const companyItems = [
     { label: t.nav.about, href: '/company' },
@@ -53,13 +74,14 @@ export function Dock() {
   ]
 
   useEffect(() => {
-    const close = (e: MouseEvent) => {
-      if (dockRef.current && !dockRef.current.contains(e.target as Node)) {
-        setOpen(null)
-      }
+    const close = (e: PointerEvent) => {
+      const node = e.target as Node | null
+      if (dockRef.current?.contains(node)) return
+      if (node instanceof Element && node.closest('.dock-drop')) return
+      setOpen(null)
     }
-    document.addEventListener('mousedown', close)
-    return () => document.removeEventListener('mousedown', close)
+    document.addEventListener('pointerdown', close)
+    return () => document.removeEventListener('pointerdown', close)
   }, [])
 
   return (
@@ -73,9 +95,14 @@ export function Dock() {
           label={t.nav.company}
           items={companyItems}
           isOpen={open === 'company'}
+          narrow={narrow}
           onToggle={() => setOpen((m) => (m === 'company' ? null : 'company'))}
-          onEnter={() => setOpen('company')}
-          onLeave={() => setOpen(null)}
+          onEnter={() => {
+            if (allowHover) setOpen('company')
+          }}
+          onLeave={() => {
+            if (allowHover) setOpen(null)
+          }}
           onPick={() => setOpen(null)}
         />
 
@@ -83,9 +110,14 @@ export function Dock() {
           label={t.nav.geography}
           items={geographyItems}
           isOpen={open === 'geography'}
+          narrow={narrow}
           onToggle={() => setOpen((m) => (m === 'geography' ? null : 'geography'))}
-          onEnter={() => setOpen('geography')}
-          onLeave={() => setOpen(null)}
+          onEnter={() => {
+            if (allowHover) setOpen('geography')
+          }}
+          onLeave={() => {
+            if (allowHover) setOpen(null)
+          }}
           onPick={() => setOpen(null)}
         />
 
@@ -103,6 +135,7 @@ function DockDrop({
   label,
   items,
   isOpen,
+  narrow,
   onToggle,
   onEnter,
   onLeave,
@@ -111,11 +144,78 @@ function DockDrop({
   label: string
   items: readonly { label: string; href: string }[]
   isOpen: boolean
+  narrow: boolean
   onToggle: () => void
   onEnter: () => void
   onLeave: () => void
   onPick: () => void
 }) {
+  const btnRef = useRef<HTMLButtonElement>(null)
+  const [anchor, setAnchor] = useState<{ left: number; bottom: number; maxHeight: number } | null>(null)
+
+  useLayoutEffect(() => {
+    if (!isOpen || !narrow) {
+      setAnchor(null)
+      return
+    }
+    const place = () => {
+      const btn = btnRef.current
+      if (!btn) return
+      const r = btn.getBoundingClientRect()
+      const width = Math.min(220, window.innerWidth - 24)
+      const left = Math.min(Math.max(12, r.left), window.innerWidth - width - 12)
+      const space = Math.max(140, r.top - 12)
+      setAnchor({
+        left,
+        bottom: Math.max(8, window.innerHeight - r.top + 8),
+        maxHeight: space,
+      })
+    }
+    place()
+    window.addEventListener('resize', place)
+    window.addEventListener('scroll', place, true)
+    window.visualViewport?.addEventListener('resize', place)
+    window.visualViewport?.addEventListener('scroll', place)
+    return () => {
+      window.removeEventListener('resize', place)
+      window.removeEventListener('scroll', place, true)
+      window.visualViewport?.removeEventListener('resize', place)
+      window.visualViewport?.removeEventListener('scroll', place)
+    }
+  }, [isOpen, narrow])
+
+  const menu = (
+    <div
+      className={`dock-drop${isOpen ? ' is-open' : ''}${narrow ? ' dock-drop--portal' : ''}`}
+      role="menu"
+      style={
+        narrow && isOpen && anchor
+          ? {
+              position: 'fixed',
+              left: anchor.left,
+              bottom: anchor.bottom,
+              top: 'auto',
+              transform: 'none',
+              zIndex: 500,
+              maxHeight: anchor.maxHeight,
+            }
+          : undefined
+      }
+    >
+      {items.map((item) => (
+        <Link
+          key={item.href}
+          to={item.href}
+          role="menuitem"
+          className="dock-drop-item"
+          onClick={onPick}
+        >
+          {item.label}
+        </Link>
+      ))}
+    </div>
+  )
+
   return (
     <div
       className={`dock-group${isOpen ? ' is-open' : ''}`}
@@ -123,10 +223,12 @@ function DockDrop({
       onMouseLeave={onLeave}
     >
       <button
+        ref={btnRef}
         type="button"
         className="dock-item"
         aria-expanded={isOpen}
         aria-haspopup="menu"
+        onPointerDown={(e) => e.stopPropagation()}
         onClick={(e) => {
           e.stopPropagation()
           onToggle()
@@ -135,19 +237,11 @@ function DockDrop({
         {label}
         <ChevronIcon open={isOpen} />
       </button>
-      <div className="dock-drop" role="menu">
-        {items.map((item) => (
-          <Link
-            key={item.href}
-            to={item.href}
-            role="menuitem"
-            className="dock-drop-item"
-            onClick={onPick}
-          >
-            {item.label}
-          </Link>
-        ))}
-      </div>
+      {narrow
+        ? isOpen && anchor && typeof document !== 'undefined'
+          ? createPortal(menu, document.body)
+          : null
+        : menu}
     </div>
   )
 }

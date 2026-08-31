@@ -8,6 +8,7 @@ export type KycEmailUbo = {
   dob?: string
   nationality?: string
   address?: string
+  addressPlaceId?: string
   occupation?: string
   employment?: string
   sourceOfWealth?: string
@@ -20,6 +21,7 @@ export type KycEmailDetails = {
   registrationNumber?: string
   incorporationCountry?: string
   registeredAddress?: string
+  registeredAddressPlaceId?: string
   contactName?: string
   contactEmail?: string
   contactPhone?: string

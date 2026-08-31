@@ -1,11 +1,23 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { createKycIdShot, revokeKycIdShot } from '../../lib/kycIdCapture'
+import { comparePassportToSelfie, preloadKycFaceModels } from '../../lib/kycFaceMatch'
+import {
+  analyzePassportFrames,
+  grabVideoFrame,
+  PASSPORT_TILT_FRAMES,
+  PASSPORT_TILT_MS,
+  preloadPassportScanner,
+  sleep,
+} from '../../lib/kycPassportSecurity'
 import {
   kycIdShotReady,
+  passportSecurityPassed,
   uboIdentityCaptured,
   type KycIdShot,
   type KycIdShotKey,
+  type PassportSecurity,
+  type PassportSecurityRisk,
   type UboIdentity,
 } from '../../types/kyc'
 import { useT } from '../../i18n'
@@ -22,7 +34,6 @@ const SHOTS: {
   frame: 'passport' | 'face'
 }[] = [
   { key: 'passportFront', facing: 'environment', frame: 'passport' },
-  { key: 'passportBack', facing: 'environment', frame: 'passport' },
   { key: 'face', facing: 'user', frame: 'face' },
 ]
 
@@ -89,28 +100,88 @@ export function UboIdentityVerify({ uboName, value, onChange }: Props) {
   const { t, interpolate } = useT()
   const id = t.kyc.identity
   const videoRef = useRef<HTMLVideoElement>(null)
+  const streamRef = useRef<MediaStream | null>(null)
+  const camGenRef = useRef(0)
   const sequentialRef = useRef(false)
   const [studio, setStudio] = useState<KycIdShotKey | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
   const [camError, setCamError] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
+  const [matching, setMatching] = useState(false)
+  const [scanPhase, setScanPhase] = useState<'idle' | 'tilting' | 'checking'>('idle')
+  const [scanProgress, setScanProgress] = useState(0)
 
   const shotMeta = SHOTS.find((s) => s.key === studio) ?? SHOTS[0]
   const shotIndex = SHOTS.findIndex((s) => s.key === studio)
   const ready = uboIdentityCaptured(value)
+  const matchPercent = typeof value.faceMatchPercent === 'number' ? value.faceMatchPercent : null
+  const matchLow = matchPercent !== null && matchPercent < 50
+  const securityOk = passportSecurityPassed(value)
+  const scanning = scanPhase !== 'idle'
 
-  const patchShot = (key: KycIdShotKey, next: KycIdShot | null) => {
+  useEffect(() => {
+    preloadKycFaceModels()
+    preloadPassportScanner()
+  }, [])
+
+  const matchErrorCopy = (code: 'noPassportFace' | 'noSelfieFace' | 'failed') => {
+    if (code === 'noPassportFace') return id.matchNoPassportFace
+    if (code === 'noSelfieFace') return id.matchNoSelfieFace
+    return id.matchFailed
+  }
+
+  const securityErrorCopy = (code: PassportSecurityRisk) => {
+    if (code === 'paper') return id.securityPaper
+    if (code === 'screen') return id.securityScreen
+    if (code === 'noMrz') return id.securityNoMrz
+    if (code === 'noTilt') return id.securityNoTilt
+    return id.securityFailed
+  }
+
+  const commitShot = async (
+    key: KycIdShotKey,
+    shot: KycIdShot,
+    security?: PassportSecurity | null,
+  ): Promise<boolean> => {
     revokeKycIdShot(value[key])
-    if (preview) URL.revokeObjectURL(preview)
-    setPreview(null)
-    onChange({ ...value, [key]: next })
+    const next: UboIdentity = {
+      ...value,
+      [key]: shot,
+      faceMatchPercent: null,
+      passportSecurity: key === 'passportFront' ? (security ?? null) : value.passportSecurity,
+    }
+    onChange(next)
+
+    const passport = key === 'passportFront' ? shot : next.passportFront
+    const face = key === 'face' ? shot : next.face
+    if (!kycIdShotReady(passport) || !kycIdShotReady(face) || !passport || !face) return true
+
+    setMatching(true)
+    const result = await comparePassportToSelfie(passport.blob, face.blob)
+    setMatching(false)
+    if (result.kind === 'error') {
+      setCamError(matchErrorCopy(result.code))
+      onChange({ ...next, faceMatchPercent: null })
+      return false
+    }
+    onChange({ ...next, faceMatchPercent: result.percent })
+    setCamError(null)
+    return true
   }
 
   const stopCamera = () => {
+    camGenRef.current += 1
+    const stream = streamRef.current
+    streamRef.current = null
+    stream?.getTracks().forEach((track) => {
+      track.stop()
+      stream.removeTrack(track)
+    })
     const el = videoRef.current
-    const stream = el?.srcObject
-    if (stream instanceof MediaStream) stream.getTracks().forEach((track) => track.stop())
-    if (el) el.srcObject = null
+    if (el) {
+      el.pause()
+      el.srcObject = null
+    }
   }
 
   const closeStudio = () => {
@@ -118,6 +189,8 @@ export function UboIdentityVerify({ uboName, value, onChange }: Props) {
     if (preview) URL.revokeObjectURL(preview)
     setPreview(null)
     setCamError(null)
+    setScanPhase('idle')
+    setScanProgress(0)
     setStudio(null)
   }
 
@@ -126,6 +199,7 @@ export function UboIdentityVerify({ uboName, value, onChange }: Props) {
     if (!meta) return
     setCamError(null)
     stopCamera()
+    const gen = camGenRef.current
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: {
@@ -135,28 +209,42 @@ export function UboIdentityVerify({ uboName, value, onChange }: Props) {
         },
         audio: false,
       })
+      if (gen !== camGenRef.current) {
+        stream.getTracks().forEach((track) => track.stop())
+        return
+      }
+      streamRef.current = stream
       const el = videoRef.current
-      if (!el) return
+      if (!el) {
+        stopCamera()
+        return
+      }
       el.srcObject = stream
       await el.play()
     } catch {
-      setCamError(id.cameraBlocked)
+      if (gen === camGenRef.current) setCamError(id.cameraBlocked)
     }
   }
 
   useEffect(() => {
-    if (!studio) return
+    if (!studio) {
+      stopCamera()
+      return
+    }
     void startCamera(studio)
     const prev = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') closeStudio()
     }
+    const halt = () => stopCamera()
     window.addEventListener('keydown', onKey)
+    window.addEventListener('pagehide', halt)
     return () => {
       stopCamera()
       document.body.style.overflow = prev
       window.removeEventListener('keydown', onKey)
+      window.removeEventListener('pagehide', halt)
     }
     // Studio key is the open/close gate; camera is restarted per shot.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -165,7 +253,15 @@ export function UboIdentityVerify({ uboName, value, onChange }: Props) {
   const openFirstMissing = () => {
     sequentialRef.current = true
     const missing = SHOTS.find((s) => !kycIdShotReady(value[s.key]))
-    setStudio(missing?.key ?? 'passportFront')
+    if (missing) {
+      setStudio(missing.key)
+      return
+    }
+    if (!passportSecurityPassed(value)) {
+      setStudio('passportFront')
+      return
+    }
+    setStudio(typeof value.faceMatchPercent === 'number' ? 'passportFront' : 'face')
   }
 
   const openShot = (key: KycIdShotKey) => {
@@ -187,6 +283,60 @@ export function UboIdentityVerify({ uboName, value, onChange }: Props) {
     }, 'image/jpeg', 0.9)
   }
 
+  const afterCommit = (ok: boolean, key: KycIdShotKey) => {
+    if (!ok) return
+    if (preview) URL.revokeObjectURL(preview)
+    setPreview(null)
+    const nextIndex = SHOTS.findIndex((s) => s.key === key) + 1
+    const nextKey = SHOTS[nextIndex]?.key
+    if (sequentialRef.current && nextKey && !kycIdShotReady(value[nextKey])) {
+      setStudio(nextKey)
+    } else {
+      closeStudio()
+    }
+  }
+
+  const scanPassport = async () => {
+    const el = videoRef.current
+    if (!el?.videoWidth) {
+      setCamError(id.cameraBlocked)
+      return
+    }
+    setBusy(true)
+    setCamError(null)
+    setScanPhase('tilting')
+    try {
+      const frames: HTMLCanvasElement[] = []
+      for (let i = 0; i < PASSPORT_TILT_FRAMES; i += 1) {
+        frames.push(grabVideoFrame(el))
+        setScanProgress(Math.round(((i + 1) / PASSPORT_TILT_FRAMES) * 100))
+        if (i < PASSPORT_TILT_FRAMES - 1) await sleep(PASSPORT_TILT_MS)
+      }
+      setScanPhase('checking')
+      const result = await analyzePassportFrames(frames)
+      if (result.kind === 'error') {
+        revokeKycIdShot(value.passportFront)
+        onChange({
+          ...value,
+          passportFront: null,
+          passportSecurity: result.security,
+          faceMatchPercent: null,
+        })
+        setCamError(securityErrorCopy(result.code))
+        return
+      }
+      const shot = await createKycIdShot(result.blob, `passportFront-${Date.now()}`)
+      const ok = await commitShot('passportFront', shot, result.security)
+      afterCommit(ok, 'passportFront')
+    } catch {
+      setCamError(id.securityFailed)
+    } finally {
+      setScanPhase('idle')
+      setScanProgress(0)
+      setBusy(false)
+    }
+  }
+
   const usePreview = async () => {
     if (!studio || !preview) return
     setBusy(true)
@@ -194,13 +344,8 @@ export function UboIdentityVerify({ uboName, value, onChange }: Props) {
       const res = await fetch(preview)
       const blob = await res.blob()
       const shot = await createKycIdShot(blob, `${studio}-${Date.now()}`)
-      patchShot(studio, shot)
-      const nextIndex = shotIndex + 1
-      if (sequentialRef.current && nextIndex < SHOTS.length) {
-        setStudio(SHOTS[nextIndex].key)
-      } else {
-        closeStudio()
-      }
+      const ok = await commitShot(studio, shot)
+      afterCommit(ok, studio)
     } catch {
       setCamError(id.cameraBlocked)
     } finally {
@@ -208,29 +353,7 @@ export function UboIdentityVerify({ uboName, value, onChange }: Props) {
     }
   }
 
-  const onUpload = async (key: KycIdShotKey, file: File) => {
-    setBusy(true)
-    try {
-      const shot = await createKycIdShot(file, `${key}-${Date.now()}`)
-      patchShot(key, shot)
-      if (studio === key) {
-        const nextIndex = SHOTS.findIndex((s) => s.key === key) + 1
-        if (sequentialRef.current && nextIndex < SHOTS.length) setStudio(SHOTS[nextIndex].key)
-        else closeStudio()
-      }
-    } catch {
-      setCamError(id.cameraBlocked)
-    } finally {
-      setBusy(false)
-    }
-  }
-
-  const studioTitle =
-    shotMeta.key === 'passportFront'
-      ? id.passportFront
-      : shotMeta.key === 'passportBack'
-        ? id.passportBack
-        : id.face
+  const studioTitle = shotMeta.key === 'face' ? id.face : id.passportFront
 
   return (
     <article className={`kyc-id-card${ready ? ' is-ready' : ''}`}>
@@ -242,13 +365,7 @@ export function UboIdentityVerify({ uboName, value, onChange }: Props) {
         {SHOTS.map((shot) => (
           <ShotTile
             key={shot.key}
-            label={
-              shot.key === 'passportFront'
-                ? id.passportFront
-                : shot.key === 'passportBack'
-                  ? id.passportBack
-                  : id.face
-            }
+            label={shot.key === 'face' ? id.face : id.passportFront}
             hint={shot.frame === 'face' ? id.faceHint : id.slotHint}
             shot={value[shot.key]}
             captured={id.captured}
@@ -256,6 +373,26 @@ export function UboIdentityVerify({ uboName, value, onChange }: Props) {
           />
         ))}
       </div>
+      {securityOk ? (
+        <div className="kyc-id-match">
+          <strong>{interpolate(id.securityScore, { percent: value.passportSecurity?.hologramPercent ?? 0 })}</strong>
+          <span>{id.securityOk}</span>
+          <div className="kyc-id-match-bar" aria-hidden>
+            <i style={{ width: `${value.passportSecurity?.hologramPercent ?? 0}%` }} />
+          </div>
+        </div>
+      ) : null}
+      {matching ? <p className="kyc-id-match is-pending">{id.matchChecking}</p> : null}
+      {!matching && matchPercent !== null ? (
+        <div className={`kyc-id-match${matchLow ? ' is-low' : ''}`}>
+          <strong>{interpolate(id.matchScore, { percent: matchPercent })}</strong>
+          <span>{id.matchLabel}</span>
+          <div className="kyc-id-match-bar" aria-hidden>
+            <i style={{ width: `${matchPercent}%` }} />
+          </div>
+          {matchLow ? <span>{id.matchLow}</span> : null}
+        </div>
+      ) : null}
       <button type="button" className="metal-page-btn metal-page-btn--primary kyc-id-open" onClick={openFirstMissing}>
         {id.openStudio}
       </button>
@@ -281,7 +418,13 @@ export function UboIdentityVerify({ uboName, value, onChange }: Props) {
               </p>
               <p className="kyc-id-studio-lead">{id.studioLead}</p>
               <p className="kyc-id-studio-align">
-                {shotMeta.frame === 'face' ? id.alignSelfie : id.alignPassport}
+                {shotMeta.frame === 'face'
+                  ? id.alignSelfie
+                  : scanPhase === 'tilting'
+                    ? id.scanningSecurity
+                    : scanPhase === 'checking'
+                      ? id.checkingSecurity
+                      : id.alignPassport}
               </p>
 
               <div className={`kyc-id-stage${shotMeta.frame === 'face' ? ' is-face' : ' is-passport'}`}>
@@ -301,6 +444,11 @@ export function UboIdentityVerify({ uboName, value, onChange }: Props) {
                 ) : null}
                 <div className="kyc-id-stage-shade" aria-hidden />
                 <HoloFrame kind={shotMeta.frame} />
+                {scanning ? (
+                  <div className="kyc-id-scan-progress" aria-hidden>
+                    <i style={{ width: `${scanProgress}%` }} />
+                  </div>
+                ) : null}
               </div>
 
               {camError ? <p className="kyc-id-studio-warn">{camError}</p> : null}
@@ -318,30 +466,30 @@ export function UboIdentityVerify({ uboName, value, onChange }: Props) {
                       type="button"
                       className="metal-page-btn metal-page-btn--primary"
                       onClick={() => void usePreview()}
-                      disabled={busy}
+                      disabled={busy || matching}
                     >
-                      {busy ? id.capturing : shotIndex < SHOTS.length - 1 ? id.nextShot : id.usePhoto}
+                      {matching ? id.matchChecking : busy ? id.capturing : shotIndex < SHOTS.length - 1 ? id.nextShot : id.usePhoto}
                     </button>
                   </>
+                ) : shotMeta.frame === 'passport' ? (
+                  <button
+                    type="button"
+                    className="metal-page-btn metal-page-btn--primary"
+                    onClick={() => void scanPassport()}
+                    disabled={busy || scanning}
+                  >
+                    {scanPhase === 'tilting'
+                      ? id.scanningSecurity
+                      : scanPhase === 'checking'
+                        ? id.checkingSecurity
+                        : id.scanSecurity}
+                  </button>
                 ) : (
                   <button type="button" className="metal-page-btn metal-page-btn--primary" onClick={snap}>
                     {id.captureShot}
                   </button>
                 )}
-                <label className="kyc-id-upload-fallback">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    capture={shotMeta.facing === 'user' ? 'user' : 'environment'}
-                    onChange={(e) => {
-                      const file = e.target.files?.[0]
-                      if (file) void onUpload(shotMeta.key, file)
-                      e.target.value = ''
-                    }}
-                  />
-                  {id.uploadInstead}
-                </label>
-                <button type="button" className="metal-page-btn metal-page-btn--secondary" onClick={closeStudio}>
+                <button type="button" className="metal-page-btn metal-page-btn--secondary" onClick={closeStudio} disabled={scanning}>
                   {id.cancel}
                 </button>
               </div>
